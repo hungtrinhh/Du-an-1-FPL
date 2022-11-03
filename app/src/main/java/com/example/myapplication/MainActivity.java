@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Hug sieu cap vippro");
         for (int i = 0; i < i; i++) {
             System.out.println(i+1);
-
+            System.out.println("trinh duc gung");
         }
     }
 }
