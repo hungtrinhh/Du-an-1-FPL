@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
             //134
+        System.out.printf("xin chao");
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new fragment_Main()).commit();
     }
 }
