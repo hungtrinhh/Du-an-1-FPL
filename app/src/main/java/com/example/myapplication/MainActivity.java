@@ -17,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new fragment_Main()).commit();
         System.out.println("Hug sieu cap vippro");
         for (int i = 0; i < i; i++) {
-            System.out.println(i);
+            System.out.println(i+1);
+
         }
     }
 }
