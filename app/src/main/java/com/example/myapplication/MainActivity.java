@@ -15,4 +15,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new fragment_Main()).commit();
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+//        dialog hoac Toast de thoat
+    }
 }
