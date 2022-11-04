@@ -1,4 +1,4 @@
-package com.example.myapplication.fragment;
+package com.example.myapplication.Fragment;
 
 import android.os.Bundle;
 
@@ -13,7 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.example.myapplication.R;
-import com.example.myapplication.adapter.SliderAdapter;
+import com.example.myapplication.Adapter.SliderAdapter;
 import com.smarteist.autoimageslider.SliderView;
 
 /**

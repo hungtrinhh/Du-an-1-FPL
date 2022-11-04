@@ -4,16 +4,16 @@
     <item
         android:id="@+id/bottomNav_Doter"
         android:icon="@drawable/ic_uudai"
-        android:title="Ưu đãi" />
+        android:title="@string/nav_Endow" />
 
     <item
         android:id="@+id/bottomNav_Home"
-        android:icon="@drawable/ic_home"
-        android:title="Trang chủ" />
+        android:icon="@drawable/ic_home_24px"
+        android:title="@string/nav_Home" />
 
     <item
         android:id="@+id/bottomNav_User"
         android:icon="@drawable/ic_user"
-        android:title="Cá nhân" />
+        android:title="@string/nav_Account" />
 
 </menu>

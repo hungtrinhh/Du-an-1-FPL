@@ -1,4 +1,4 @@
-package com.example.myapplication.fragment;
+package com.example.myapplication.Fragment;
 
 import android.os.Bundle;
 
@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

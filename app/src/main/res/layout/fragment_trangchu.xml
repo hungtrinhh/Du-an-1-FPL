@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_container"
     android:orientation="vertical"
-    tools:context=".fragment.fragment_Trangchu">
+    tools:context=".Fragment.fragment_Trangchu">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,14 +17,15 @@
 
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="76dp"
+            android:layout_height="76dp"
             android:background="@drawable/circle"
             android:src="@drawable/userimg" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -32,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="5dp"
-                android:fontFamily="@font/robotoblack"
+                android:textStyle="bold"
                 android:text="Trịnh Đức Hùng"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
@@ -43,10 +44,10 @@
                 android:layout_marginHorizontal="10dp"
                 android:drawableEnd="@drawable/ic_baseline_remove_red_eye_24"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/robotoblack"
+                android:textStyle="bold"
                 android:text="100.000 VND"
                 android:textColor="@color/white"
-                android:textSize="15dp" />
+                android:textSize="17dp" />
 
 
         </LinearLayout>
@@ -66,9 +67,9 @@
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/image_slider"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:layout_marginHorizontal="13dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/conten_background"
             app:sliderAnimationDuration="600"
             app:sliderAutoCycleDirection="back_and_forth"
@@ -77,10 +78,9 @@
             app:sliderIndicatorGravity="center_horizontal|bottom"
             app:sliderIndicatorMargin="5dp"
             app:sliderIndicatorOrientation="horizontal"
-            app:sliderIndicatorPadding="1dp"
-            app:sliderIndicatorRadius="1dp"
-            app:sliderIndicatorSelectedColor="#5A5A5A"
-            app:sliderIndicatorUnselectedColor="#FFF"
+            app:sliderIndicatorRadius="1.3dp"
+            app:sliderIndicatorSelectedColor="@color/green_tea"
+            app:sliderIndicatorUnselectedColor="@color/blue"
             app:sliderScrollTimeInSec="2"
             app:sliderStartAutoCycle="true" />
 
