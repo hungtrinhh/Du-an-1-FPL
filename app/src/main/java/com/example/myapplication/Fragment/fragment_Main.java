@@ -43,12 +43,16 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
         return fragment;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("TAG", "onStart: ");
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        Log.d("TAG", "onCreate: ");
+
     }
 
     @Override
@@ -64,8 +68,14 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
 
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-    View viewcontainer;
+
+    }
+
+   private View viewcontainer;
 
     private void Anhxa(View v) {
         this.viewcontainer = v;
@@ -75,6 +85,8 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
         fragmentManager = getActivity().getSupportFragmentManager();
         bottomNav.getMenu().findItem(R.id.bottomNav_Home).setChecked(true);
         bottomNav.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
         ReplaceFragment(new fragment_Trangchu());
     }
 
@@ -82,6 +94,7 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
         @Override
         public void onReceive(Context context, Intent intent) {
             String status = "";
+            Log.d("TAG", "onReceive: " + status);
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
             if (activeNetwork != null) {
@@ -93,7 +106,7 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
                     status = "";
                 }
             }
-                Log.d("TAG", "onReceive: " + status);
+
                 if (status.equals("")) {
                     //        SnackBar hien thi ket noi wifi
                     Snackbar snackbar = Snackbar.make(viewcontainer, "Không có kết nối mạng", Snackbar.LENGTH_LONG);
@@ -108,15 +121,11 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
     @Override
     public void onPause() {
         super.onPause();
+        Log.d("TAG", "onPause: ");
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
-
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
