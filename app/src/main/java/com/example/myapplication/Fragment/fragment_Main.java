@@ -60,7 +60,6 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
                              Bundle savedInstanceState) {
 
 
-
         Log.d("TAG", "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_main, null);
         Anhxa(view);
@@ -75,7 +74,7 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
 
     }
 
-   private View viewcontainer;
+    private View viewcontainer;
 
     private void Anhxa(View v) {
         this.viewcontainer = v;
@@ -85,8 +84,8 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
         fragmentManager = getActivity().getSupportFragmentManager();
         bottomNav.getMenu().findItem(R.id.bottomNav_Home).setChecked(true);
         bottomNav.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, filter);
         ReplaceFragment(new fragment_Trangchu());
     }
 
@@ -107,12 +106,11 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
                 }
             }
 
-                if (status.equals("")) {
-                    //        SnackBar hien thi ket noi wifi
-                    Snackbar snackbar = Snackbar.make(viewcontainer, "Không có kết nối mạng", Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                }
-
+            if (status.equals("")) {
+                //        SnackBar hien thi ket noi wifi
+                Snackbar snackbar = Snackbar.make(viewcontainer, "Không có kết nối mạng", Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
 
 
         }
@@ -124,7 +122,6 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
         Log.d("TAG", "onPause: ");
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
     }
-
 
 
     @Override
