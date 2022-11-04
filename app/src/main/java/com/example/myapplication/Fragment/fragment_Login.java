@@ -44,7 +44,7 @@ public class fragment_Login<EditText> extends Fragment {
 
     }
 
-    public static fragment_Login newInstance(String param1, String param2) {
+    public static fragment_Login newInstance() {
         fragment_Login fragment = new fragment_Login();
 
         return fragment;
@@ -67,5 +67,13 @@ public class fragment_Login<EditText> extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Main()).commit();
+            }
+        });
+
     }
 }
