@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.fragment.fragment_Main;
 import com.example.myapplication.fragment.fragment_Trangchu;
+import com.smarteist.autoimageslider.SliderView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +16,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new fragment_Main()).commit();
+<<<<<<< Updated upstream
        
+=======
+        System.out.println("hhahahhaa");
+        System.out.println("HIHIHi");
+
+>>>>>>> Stashed changes
     }
 }
