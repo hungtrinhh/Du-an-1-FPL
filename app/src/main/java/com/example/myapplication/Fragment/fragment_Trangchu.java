@@ -24,7 +24,7 @@ import com.smarteist.autoimageslider.SliderView;
  */
 public class fragment_Trangchu extends Fragment {
     private SliderView imageSlider;
-    private LinearLayout layout_troChoi,layout_thanhToan,layout_soDu;
+    private LinearLayout layout_troChoi, layout_thanhToan, layout_soDu;
 
     public fragment_Trangchu() {
 
@@ -65,7 +65,6 @@ public class fragment_Trangchu extends Fragment {
         layout_soDu.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
         layout_thanhToan.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
         layout_troChoi.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
-
 
 
 //        LinearLayout contentContainer = (LinearLayout)view.findViewById(R.id.content_containerTrangchu);

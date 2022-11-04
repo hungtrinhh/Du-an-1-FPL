@@ -18,6 +18,8 @@ public class serviceCheckInternet extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        String trangthai = Check(getApplicationContext());
+
 
     }
 
