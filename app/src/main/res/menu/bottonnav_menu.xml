@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/bottomNav_Doter"
-        android:icon="@drawable/ic_uudai"
+        android:icon="@drawable/selector_endow"
         android:title="@string/nav_Endow" />
 
     <item
         android:id="@+id/bottomNav_Home"
-        android:icon="@drawable/home_selector"
+        android:icon="@drawable/selector_home"
         android:title="@string/nav_Home" />
 
     <item
         android:id="@+id/bottomNav_User"
-        android:icon="@drawable/ic_account_24px"
+        android:icon="@drawable/selector_account"
         android:title="@string/nav_Account" />
 
 </menu>
