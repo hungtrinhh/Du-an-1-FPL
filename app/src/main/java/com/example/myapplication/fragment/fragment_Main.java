@@ -84,13 +84,13 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
         }
         switch (item.getItemId()) {
             case R.id.bottomNav_Home:
-                ReplaceFragment(new fragment_Trangchu());
+                ReplaceFragment(new com.example.myapplication.Fragment.fragment_Trangchu());
                 break;
             case R.id.bottomNav_User:
-                ReplaceFragment(new fragment_User());
+                ReplaceFragment(new com.example.myapplication.Fragment.fragment_User());
                 break;
             case R.id.bottomNav_Doter:
-                ReplaceFragment(new fragment_Uudai());
+                ReplaceFragment(new com.example.myapplication.Fragment.fragment_Uudai());
                 break;
         }
 
