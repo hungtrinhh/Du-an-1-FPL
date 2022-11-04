@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new fragment_Main()).commit();
-        System.out.println("hhahahhaa");
-        System.out.println("HIHIHi");
+       
     }
 }
