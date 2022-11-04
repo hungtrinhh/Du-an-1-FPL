@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.example.myapplication.R;
 import com.example.myapplication.Adapter.SliderAdapter;
+import com.google.android.material.snackbar.Snackbar;
 import com.smarteist.autoimageslider.SliderView;
 
 /**
@@ -65,6 +66,8 @@ public class fragment_Trangchu extends Fragment {
         layout_thanhToan.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
         layout_troChoi.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
 
+
+
 //        LinearLayout contentContainer = (LinearLayout)view.findViewById(R.id.content_containerTrangchu);
 //        contentContainer.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.conten_appear));
 
@@ -75,7 +78,9 @@ public class fragment_Trangchu extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
-
+//        SnackBar hien thi ket noi wifi
+        Snackbar snackbar = Snackbar.make(view, "Khong co ket noi wifi", Snackbar.LENGTH_LONG);
+        snackbar.show();
 
     }
 }
