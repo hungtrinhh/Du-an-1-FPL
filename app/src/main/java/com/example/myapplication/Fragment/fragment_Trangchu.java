@@ -55,7 +55,7 @@ public class fragment_Trangchu extends Fragment {
         layout_troChoi = (LinearLayout) view.findViewById(R.id.layout_troChoi);
         layout_thanhToan = (LinearLayout) view.findViewById(R.id.layout_thanhToan);
         layout_soDu = (LinearLayout) view.findViewById(R.id.layout_soDu);
-        int img[] = new int[]{R.drawable.img1, R.drawable.img2, R.drawable.img3};
+        int[] img = new int[]{R.drawable.img1, R.drawable.img2, R.drawable.img3};
         SliderAdapter adapter = new SliderAdapter(img);
         imageSlider.setSliderAdapter(adapter);
 
