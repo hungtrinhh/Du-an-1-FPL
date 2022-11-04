@@ -36,11 +36,22 @@
 
 
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/content_containerTrangchu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:id="@+id/content_containerTrangchu"
         android:background="@drawable/conten_background"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical">
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
 </LinearLayout>
