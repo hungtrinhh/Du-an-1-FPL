@@ -2,27 +2,47 @@ package com.example.myapplication.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link fragment_Login#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class fragment_Login extends Fragment {
 
+public class fragment_Login<EditText> extends Fragment {
+
+    private LinearLayout layoutLogoWhite;
+    private EditText edEmailLogin;
+    private EditText edPasswordLogin;
+    private Switch swRememberAccount;
+    private Button btnLogin;
+    private TextView btnGotoregister;
 
 
     public fragment_Login() {
 
     }
 
+    private void Anhxa(View v) {
+
+
+        layoutLogoWhite = (LinearLayout) v.findViewById(R.id.layout_logoWhite);
+        edEmailLogin = (EditText) v.findViewById(R.id.edEmailLogin);
+        edPasswordLogin = (EditText) v.findViewById(R.id.edPasswordLogin);
+        swRememberAccount = (Switch) v.findViewById(R.id.swRememberAccount);
+        btnLogin = (Button) v.findViewById(R.id.btnLogin);
+        btnGotoregister = (TextView) v.findViewById(R.id.btnGotoregister);
+
+    }
 
     public static fragment_Login newInstance(String param1, String param2) {
         fragment_Login fragment = new fragment_Login();
@@ -33,10 +53,7 @@ public class fragment_Login extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -44,5 +61,11 @@ public class fragment_Login extends Fragment {
                              Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_login, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Anhxa(view);
     }
 }

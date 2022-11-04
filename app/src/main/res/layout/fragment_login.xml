@@ -50,6 +50,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/edEmailLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
@@ -68,6 +69,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/edPasswordLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_lock_outline_24px"
@@ -85,6 +87,7 @@
             android:orientation="horizontal">
 
             <Switch
+                android:id="@+id/swRememberAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
@@ -104,6 +107,7 @@
         </LinearLayout>
         <!--Button dang nhap-->
         <Button
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -128,6 +132,7 @@
                 android:text="Chưa có tài khoản? " />
 
             <TextView
+                android:id="@+id/btnGotoregister"
                 android:layout_width="wrap_content"
                 android:textColor="@color/blue"
                 android:textStyle="bold"
