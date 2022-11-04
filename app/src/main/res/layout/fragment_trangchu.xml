@@ -58,7 +58,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:id="@+id/content_containerTrangchu"
         android:background="@drawable/conten_background"
         android:orientation="vertical">
@@ -87,11 +87,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="10dp"
             android:background="@drawable/item_background"
             android:orientation="horizontal"
-            android:paddingHorizontal="10dp"
+            android:paddingLeft="20dp"
+
             android:paddingVertical="25dp">
 
             <ImageView
@@ -108,7 +109,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/robotoblack"
+                    android:textStyle="bold"
+
                     android:paddingLeft="10dp"
                     android:text="Trò chơi"
                     android:textColor="@color/white"
@@ -117,10 +119,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/robotoblack"
+                    android:textStyle="bold"
+
                     android:paddingLeft="10dp"
 
-                    android:text="Xem tình trạng máy chơi game"
+                    android:text="Kiểm tra trò chơi đang hoạt động"
                     android:textColor="@color/white"
 
                     android:textSize="15dp" />
@@ -133,11 +136,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="10dp"
             android:background="@drawable/item_background"
             android:orientation="horizontal"
-            android:paddingHorizontal="10dp"
+            android:paddingLeft="23dp"
+
             android:paddingVertical="25dp">
 
 
@@ -155,7 +158,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/robotoblack"
+                    android:textStyle="bold"
+
                     android:paddingLeft="10dp"
                     android:text="Số dư"
                     android:textColor="@color/white"
@@ -164,7 +168,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/robotoblack"
+                    android:textStyle="bold"
+
                     android:paddingLeft="10dp"
 
                     android:text="Kiểm tra số dư tài khoản"
@@ -180,11 +185,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginVertical="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
             android:background="@drawable/item_background"
             android:orientation="horizontal"
-            android:paddingHorizontal="10dp"
+            android:paddingLeft="20dp"
             android:paddingVertical="25dp">
 
 
@@ -202,7 +207,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/robotoblack"
+                    android:textStyle="bold"
                     android:paddingLeft="10dp"
                     android:text="Thanh toán"
                     android:textColor="@color/white"
@@ -211,7 +216,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/robotoblack"
+                    android:textStyle="bold"
+
                     android:paddingLeft="10dp"
 
                     android:text="Quét mã QR"
