@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_login"
     android:orientation="vertical">
-
+    <!--logo-->
     <LinearLayout
         android:id="@+id/layout_logoWhite"
         android:layout_width="match_parent"
@@ -31,29 +32,38 @@
             android:textSize="25dp"
             android:textStyle="bold" />
     </LinearLayout>
-
+    <!--form dang nhap-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="110dp"
+        android:paddingTop="30dp"
         android:gravity="center"
         android:orientation="vertical">
-
+        <!--editText UserName-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+
             android:orientation="horizontal">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="@color/black"
                 android:drawableLeft="@drawable/ic_mail_outline_24px"
                 android:drawablePadding="10dp"
                 android:hint="@string/app_name" />
         </LinearLayout>
+        <!--editText Password-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <EditText
@@ -61,8 +71,68 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_lock_outline_24px"
                 android:drawablePadding="10dp"
-                android:hint="********"
+                android:hint="********"  android:textSize="15dp"
+                android:textColor="@color/black"
                 android:inputType="textPassword" />
         </LinearLayout>
+        <!--    Button nho tai khoan va quan mat khau-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal">
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:switchPadding="3dp"
+                android:paddingLeft="-3dp"
+                android:text="@string/rememberAccount"
+                android:textColor="@color/black"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingRight="10dp"
+                android:text="@string/fogotPassword"
+                android:textColor="@color/black" />
+        </LinearLayout>
+        <!--Button dang nhap-->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="18dp"
+            android:padding="8dp"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="20dp"
+
+            android:text="@string/Login"
+            android:textAllCaps="false" />
+        <!--chua co tai khoan, dang ky-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center"
+            android:paddingBottom="7dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chưa có tài khoản? " />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/blue"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:text="Đăng ký" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

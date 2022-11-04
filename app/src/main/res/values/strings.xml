@@ -4,6 +4,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nav_Home">Trang chủ</string>
     <string name="nav_Account">Cá nhân</string>
+    <string name="rememberAccount">Nhớ tài khoản</string>
+    <string name="fogotPassword">Quên mật khẩu?</string>
     <string name="nav_Endow">Ưu đãi</string>
+    <string name="Login">Đăng nhập</string>
 
 </resources>
