@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 
 
-public class fragment_Login<EditText> extends Fragment {
+public class fragment_Login extends Fragment {
 
     private LinearLayout layoutLogoWhite;
     private EditText edEmailLogin;
