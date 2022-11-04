@@ -109,6 +109,7 @@
             android:layout_marginTop="20dp"
             android:textSize="18dp"
             android:padding="8dp"
+            android:background="@drawable/background_button"
             android:textColor="@color/white"
             android:layout_marginHorizontal="20dp"
             android:text="@string/Login"
