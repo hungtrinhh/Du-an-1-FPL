@@ -1,11 +1,18 @@
 package com.example.myapplication.Fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +23,7 @@ import android.view.ViewGroup;
 import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class fragment_Main extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,31 +54,65 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.d("TAG", "onCreateView: ");
-        return inflater.inflate(R.layout.fragment_main, null);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
+        Log.d("TAG", "onCreateView: ");
+        View view = inflater.inflate(R.layout.fragment_main, null);
+        Anhxa(view);
+        return view;
 
     }
 
-    private void Anhxa(View v) {
 
+    View viewcontainer;
+
+    private void Anhxa(View v) {
+        this.viewcontainer = v;
         Log.d("TAG", "Anhxa: ");
         bottomNav = (BottomNavigationView) v.findViewById(R.id.bottomNav);
 
         fragmentManager = getActivity().getSupportFragmentManager();
         bottomNav.getMenu().findItem(R.id.bottomNav_Home).setChecked(true);
+        bottomNav.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
         ReplaceFragment(new fragment_Trangchu());
     }
 
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String status = "";
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            if (activeNetwork != null) {
+                if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                    status = "Wifi enabled";
+                } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                    status = "Mobile data enabled";
+                } else {
+                    status = "";
+                }
+
+                Log.d("TAG", "onReceive: " + status);
+                if (status.equals("")) {
+                    //        SnackBar hien thi ket noi wifi
+                    Snackbar snackbar = Snackbar.make(viewcontainer, "Không có kết nối mạng", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+
+
+            }
+        }
+    };
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("TAG", "onViewCreated: ");
-
-
-        Anhxa(view);
-        bottomNav.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
 
 
     }

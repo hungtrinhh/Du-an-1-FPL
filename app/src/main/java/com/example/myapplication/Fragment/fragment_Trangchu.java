@@ -77,9 +77,7 @@ public class fragment_Trangchu extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
-//        SnackBar hien thi ket noi wifi
-        Snackbar snackbar = Snackbar.make(view, "Khong co ket noi wifi", Snackbar.LENGTH_LONG);
-        snackbar.show();
+
 
     }
 }
