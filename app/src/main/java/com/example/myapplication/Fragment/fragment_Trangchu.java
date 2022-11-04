@@ -1,9 +1,13 @@
 package com.example.myapplication.Fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -72,6 +76,8 @@ public class fragment_Trangchu extends Fragment {
 
 
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
