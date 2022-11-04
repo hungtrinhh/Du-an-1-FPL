@@ -93,11 +93,9 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
             case R.id.bottomNav_Doter:
                 ReplaceFragment(new fragment_Uudai());
                 break;
-
-
         }
-        itemselectID = item.getItemId();
 
+        itemselectID = item.getItemId();
         return true;
     }
 
