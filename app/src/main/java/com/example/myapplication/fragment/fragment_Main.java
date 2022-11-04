@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.Fragment.fragment_Trangchu;
+import com.example.myapplication.Fragment.fragment_User;
+import com.example.myapplication.Fragment.fragment_Uudai;
 import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
