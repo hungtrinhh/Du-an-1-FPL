@@ -23,7 +23,7 @@ import com.smarteist.autoimageslider.SliderView;
  */
 public class fragment_Trangchu extends Fragment {
     private SliderView imageSlider;
-
+    private LinearLayout layout_troChoi,layout_thanhToan,layout_soDu;
 
     public fragment_Trangchu() {
 
@@ -51,10 +51,19 @@ public class fragment_Trangchu extends Fragment {
 
     private void Anhxa(View view) {
         imageSlider = (SliderView) view.findViewById(R.id.image_slider);
+        layout_troChoi = (LinearLayout) view.findViewById(R.id.layout_troChoi);
+        layout_thanhToan = (LinearLayout) view.findViewById(R.id.layout_thanhToan);
+        layout_soDu = (LinearLayout) view.findViewById(R.id.layout_soDu);
         int img[] = new int[]{R.drawable.img1, R.drawable.img2, R.drawable.img3};
         SliderAdapter adapter = new SliderAdapter(img);
         imageSlider.setSliderAdapter(adapter);
 
+
+//        set animation cac phan tu trong layout
+        imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
+        layout_soDu.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
+        layout_thanhToan.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
+        layout_troChoi.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
 
 //        LinearLayout contentContainer = (LinearLayout)view.findViewById(R.id.content_containerTrangchu);
 //        contentContainer.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.conten_appear));
