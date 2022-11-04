@@ -47,6 +47,7 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         Log.d("TAG", "onCreate: ");
     }
 
@@ -54,7 +55,7 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
 
         Log.d("TAG", "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_main, null);
@@ -91,7 +92,7 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
                 } else {
                     status = "";
                 }
-
+            }
                 Log.d("TAG", "onReceive: " + status);
                 if (status.equals("")) {
                     //        SnackBar hien thi ket noi wifi
@@ -100,7 +101,7 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
                 }
 
 
-            }
+
         }
     };
 
