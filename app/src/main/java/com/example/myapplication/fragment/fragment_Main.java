@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragment;
+package com.example.myapplication.fragment;
 
 import android.os.Bundle;
 
@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myapplication.Fragment.fragment_Trangchu;
 import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -84,13 +85,13 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
         }
         switch (item.getItemId()) {
             case R.id.bottomNav_Home:
-                ReplaceFragment(new com.example.myapplication.Fragment.fragment_Trangchu());
+                ReplaceFragment(new fragment_Trangchu());
                 break;
             case R.id.bottomNav_User:
-                ReplaceFragment(new com.example.myapplication.Fragment.fragment_User());
+                ReplaceFragment(new fragment_User());
                 break;
             case R.id.bottomNav_Doter:
-                ReplaceFragment(new com.example.myapplication.Fragment.fragment_Uudai());
+                ReplaceFragment(new fragment_Uudai());
                 break;
         }
 
