@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.myapplication.fragment.fragment_Main;
 import com.example.myapplication.fragment.fragment_Trangchu;
@@ -15,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         System.out.println("dcm");
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new fragment_Main()).commit();
-
-
+        Toast.makeText(this, "abc", Toast.LENGTH_SHORT).show();
     }
 }
