@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        System.out.printf("Hun123123");
+        System.out.printf("3123123");
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new fragment_Main()).commit();
     }
 }
