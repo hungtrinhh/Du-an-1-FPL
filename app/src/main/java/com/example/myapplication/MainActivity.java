@@ -13,9 +13,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //1343333
+
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new fragment_Main()).commit();
-        System.out.println("Hug sieu cap vippro");
-     
+
+
     }
 }
