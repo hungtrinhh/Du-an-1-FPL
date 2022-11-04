@@ -13,15 +13,10 @@ import com.example.myapplication.R;
 
 public class fragment_User extends Fragment {
 
-
-
-
-
     public fragment_User() {
 
     }
-
-
+    
     public static fragment_User newInstance() {
         fragment_User fragment = new fragment_User();
 
