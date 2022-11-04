@@ -56,7 +56,7 @@ public class fragment_Trangchu extends Fragment {
         imageSlider.setSliderAdapter(adapter);
 
 
-        LinearLayout contentContainer = (LinearLayout)view.findViewById(R.id.content_container);
+        LinearLayout contentContainer = (LinearLayout)view.findViewById(R.id.content_containerTrangchu);
         contentContainer.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.conten_appear));
 
 

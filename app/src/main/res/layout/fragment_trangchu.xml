@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:id="@+id/content_container"
+        android:id="@+id/content_containerTrangchu"
         android:background="@drawable/conten_background"
         android:orientation="vertical">
 
