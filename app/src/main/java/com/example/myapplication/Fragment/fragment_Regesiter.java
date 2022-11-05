@@ -100,23 +100,22 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (s.toString().length() < 8) {
 
-                            editText.setHelperText("Không được bé hơn 8 kí tự*");
-                            editText.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#B73E3E")));
+                            textInputLayout.setHelperText("Không được bé hơn 8 kí tự*");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#B73E3E")));
                         } else if (s.toString().length() >= 8 && !s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")) {
-                            editText.setHelperText("Mật khẩu yếu*");
+                            textInputLayout.setHelperText("Mật khẩu yếu*");
                             ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#DD5353"));
-                            editText.setHelperTextColor(colorStateList);
+                            textInputLayout.setHelperTextColor(colorStateList);
                         } else if (s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
-                            editText.setHelperText("Mật khẩu mạnh✔");
+                            textInputLayout.setHelperText("Mật khẩu mạnh✔");
                             ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#38E54D"));
-                            editText.setHelperTextColor(colorStateList);
+                            textInputLayout.setHelperTextColor(colorStateList);
                         } else if (s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")) {
-                            editText.setHelperText("Mật khẩu mạnh vừa😢");
+                            textInputLayout.setHelperText("Mật khẩu mạnh vừa😢");
                             ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#FF731D"));
 
-                            editText.setHelperTextColor(colorStateList);
+                            textInputLayout.setHelperTextColor(colorStateList);
                         }
-
 //                        if (!textInputEditText.getText().toString().equals(edregistercomfirmPassword.getText().toString()) && edregistercomfirmPassword.getText().toString().length() != 0) {
 //
 //                            edlyregistercomfirmPassword.setHelperText("Mật khẩu xác nhận phải trùng khớp với mật khẩu*'");
