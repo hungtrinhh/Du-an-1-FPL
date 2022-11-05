@@ -5,12 +5,14 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.example.myapplication.R;
+
 public class DialogLostconnection extends Dialog {
 
     public DialogLostconnection(@NonNull Context context) {
 
         super(context);
-       // setContentView();
+        setContentView(R.layout.dialog_lostconecttion);
 
     }
 }

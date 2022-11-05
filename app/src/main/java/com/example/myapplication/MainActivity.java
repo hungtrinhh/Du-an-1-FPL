@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.myapplication.Dialog.DialogLostconnection;
 import com.example.myapplication.Fragment.fragment_Login;
 import com.example.myapplication.Fragment.fragment_Main;
 import com.google.android.material.snackbar.Snackbar;
@@ -45,10 +46,13 @@ public class MainActivity extends AppCompatActivity {
                     status = false;
                 }
             }
+            DialogLostconnection dialog = new DialogLostconnection(getApplicationContext());
 
             if (status) {
                 //        SnackBar hien thi ket noi wifi
-
+                dialog.show();
+            } else {
+                dialog.cancel();
             }
 
 
@@ -59,5 +63,11 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 //        dialog hoac Toast de thoat
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
     }
 }

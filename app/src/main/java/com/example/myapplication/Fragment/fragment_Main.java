@@ -95,7 +95,7 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
     public void onPause() {
         super.onPause();
         Log.d("TAG", "onPause: ");
-        getActivity().unregisterReceiver(broadcastReceiver);
+
     }
 
 

@@ -6,31 +6,57 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:weightSum="10">
 
-            <TextView
-                android:textSize="20dp"
-                android:layout_marginVertical="5dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/intertightsemibold"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mất kết nối mạng rồi..." />
+                android:layout_weight="7"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kiểm tra kết nối mạng rồi thử lại nhé." />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:fontFamily="@font/intertightsemibold"
+                    android:text="Mất kết nối mạng rồi..."
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kiểm tra kết nối mạng rồi thử lại nhé."
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/imglostconnecion" />
 
         </LinearLayout>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="30dp"
+            android:layout_gravity="end"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="50dp"
+            android:background="@drawable/btnlostconection"
+            android:fontFamily="@font/robotoblack"
+            android:text="Thử lại"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
