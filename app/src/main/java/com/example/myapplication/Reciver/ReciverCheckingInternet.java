@@ -45,8 +45,6 @@ public class ReciverCheckingInternet extends BroadcastReceiver implements Dialog
             MainActivity.alertDialog = builder.create();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.dialog_lostconecttion, null);
-            Button btnLostconnecttionRetry;
-            btnLostconnecttionRetry = view.findViewById(R.id.btnLostconnecttionRetry);
             MainActivity.alertDialog.setView(view);
         }
 
