@@ -34,16 +34,6 @@ public class fragment_Login extends Fragment {
 
     }
 
-    private void Anhxa(View v) {
-        layoutLogoWhite = (LinearLayout) v.findViewById(R.id.layout_logoWhite);
-        edEmailLogin = (EditText) v.findViewById(R.id.edEmailLogin);
-        edPasswordLogin = (EditText) v.findViewById(R.id.edPasswordLogin);
-        swRememberAccount = (Switch) v.findViewById(R.id.swRememberAccount);
-        btnLogin = (AppCompatButton) v.findViewById(R.id.btnLogin);
-        btnGotoregister = (TextView) v.findViewById(R.id.btnGotoregister);
-        tvFogotPassword = (TextView)  v.findViewById(R.id.tvFogotPassword);
-    }
-
     public static fragment_Login newInstance() {
         fragment_Login fragment = new fragment_Login();
         return fragment;
@@ -90,5 +80,14 @@ public class fragment_Login extends Fragment {
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Fogot_Password()).addToBackStack("").commit();
 
         });
+    }
+    private void Anhxa(View view) {
+        layoutLogoWhite = (LinearLayout) view.findViewById(R.id.layout_logoWhite);
+        edEmailLogin = (EditText) view.findViewById(R.id.edEmailLogin);
+        edPasswordLogin = (EditText) view.findViewById(R.id.edPasswordLogin);
+        swRememberAccount = (Switch) view.findViewById(R.id.swRememberAccount);
+        btnLogin = (AppCompatButton) view.findViewById(R.id.btnLogin);
+        btnGotoregister = (TextView) view.findViewById(R.id.btnGotoregister);
+        tvFogotPassword = (TextView)  view.findViewById(R.id.tvFogotPassword);
     }
 }
