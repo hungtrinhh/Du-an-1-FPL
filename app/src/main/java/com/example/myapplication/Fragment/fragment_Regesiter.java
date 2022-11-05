@@ -108,6 +108,29 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 });
                 break;
             case R.id.edregisterPhonenumber:
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if (s.length() == 0) {
+
+                            textInputLayout.setHelperText("Bắt buộc*");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                        } else {
+                            textInputLayout.setHelperText("✔");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
                 break;
             case R.id.edregisterPassword:
                 editText.addTextChangedListener(new TextWatcher() {
