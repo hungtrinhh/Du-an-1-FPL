@@ -33,6 +33,7 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
     private FragmentManager fragmentManager = null;
 
 
+
     private BottomNavigationView bottomNav;
 
     public fragment_Main() {
@@ -84,43 +85,17 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
         fragmentManager = getActivity().getSupportFragmentManager();
         bottomNav.getMenu().findItem(R.id.bottomNav_Home).setChecked(true);
         bottomNav.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, filter);
+
         ReplaceFragment(new fragment_Trangchu());
     }
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String status = "";
-            Log.d("TAG", "onReceive: " + status);
-            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-            if (activeNetwork != null) {
-                if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
-                    status = "Wifi enabled";
-                } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-                    status = "Mobile data enabled";
-                } else {
-                    status = "";
-                }
-            }
 
-            if (status.equals("")) {
-                //        SnackBar hien thi ket noi wifi
-                Snackbar snackbar = Snackbar.make(viewcontainer, "Không có kết nối mạng", Snackbar.LENGTH_LONG);
-                snackbar.show();
-            }
-
-
-        }
-    };
 
     @Override
     public void onPause() {
         super.onPause();
         Log.d("TAG", "onPause: ");
-        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
+        getActivity().unregisterReceiver(broadcastReceiver);
     }
 
 
