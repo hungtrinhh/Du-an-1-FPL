@@ -18,7 +18,7 @@ import com.example.myapplication.R;
 
 public class fragment_Fogot_Password extends Fragment {
     private ImageView btnBackToLogin;
-    private TextView tvConditions;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,13 +27,10 @@ public class fragment_Fogot_Password extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        btnBackToLogin = view.findViewById(R.id.btnBackToLogin);
-        tvConditions = view.findViewById(R.id.tvConditions);
+        btnBackToLogin = view.findViewById(R.id.btnBackToLoginFogotPass);
 //        onClick
-
         btnBackToLogin.setOnClickListener(view1 -> {
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Login()).commit();
-
         });
         super.onViewCreated(view, savedInstanceState);
     }
