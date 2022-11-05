@@ -9,7 +9,10 @@
     <string name="nav_Endow">Ưu đãi</string>
     <string name="Login">Đăng nhập</string>
     <string name="Sign_up">Đăng ký</string>
-    <string name="Reset_Password">Đặt lại mật khẩu</string>
+    <string name="Verify">Xác minh</string>
+    <string name="Reset_password">Đặt lại mật khẩu</string>
+    <string name="Verify_phone_number">Xác minh số điện thoại</string>
+    <string name="Verify_phone_number_notify">Nhập vào mã xác minh</string>
     <string name="Terms_and_conditions">PH27731 - Trịnh Đức Hùng\nPH27738 - Nguyễn Minh Giang\nPH28077 - Vũ Viết Khanh\nPh27525 - Nguyễn Quốc Khánh\nPH27512 - Trịnh Công Điền</string>
 
 </resources>
