@@ -33,8 +33,6 @@ public class fragment_Login extends Fragment {
     }
 
     private void Anhxa(View v) {
-
-
         layoutLogoWhite = (LinearLayout) v.findViewById(R.id.layout_logoWhite);
         edEmailLogin = (EditText) v.findViewById(R.id.edEmailLogin);
         edPasswordLogin = (EditText) v.findViewById(R.id.edPasswordLogin);
@@ -46,7 +44,6 @@ public class fragment_Login extends Fragment {
 
     public static fragment_Login newInstance() {
         fragment_Login fragment = new fragment_Login();
-
         return fragment;
     }
 
@@ -73,6 +70,10 @@ public class fragment_Login extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Main()).commit();
             }
+        });
+        btnGotoregister.setOnClickListener(view1 ->{
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Main()).commit();
+
         });
 
     }
