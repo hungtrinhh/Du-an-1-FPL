@@ -30,7 +30,70 @@
         app:sliderIndicatorUnselectedColor="@color/blue"
         app:sliderScrollTimeInSec="2"
         app:sliderStartAutoCycle="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="214dp"
+            android:layout_height="wrap_content"
+            android:text="Danh mục" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="Xem tất cả" />
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="34dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@color/blue" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="214dp"
+            android:layout_height="wrap_content"
+            android:text="Danh mục" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="Xem tất cả" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@color/blue" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="214dp"
+            android:layout_height="wrap_content"
+            android:text="Danh mục" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="Xem tất cả" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@color/blue" />
 </LinearLayout>
