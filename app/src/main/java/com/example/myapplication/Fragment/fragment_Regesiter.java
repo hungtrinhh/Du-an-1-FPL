@@ -88,11 +88,9 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                     }
-
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (s.length() == 0) {
-
                             textInputLayout.setHelperText("Bắt buộc*");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         } else {
@@ -101,7 +99,6 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                         }
                         btnRegister.setEnabled(CheckBtn());
                     }
-
                     @Override
                     public void afterTextChanged(Editable s) {
                     }
@@ -112,9 +109,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
                     }
-
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (s.length() == 0) {
@@ -127,10 +122,8 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                         }
                         btnRegister.setEnabled(CheckBtn());
                     }
-
                     @Override
                     public void afterTextChanged(Editable s) {
-
                     }
                 });
                 btnRegister.setEnabled(CheckBtn());
@@ -140,11 +133,9 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                     }
-
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (s.toString().length() == 0) {
-
                             textInputLayout.setHelperText("Bắt buộc");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         } else if (s.length() < 6) {
@@ -154,7 +145,6 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                             textInputLayout.setHelperText("✔");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_tea)));
                         }
-
                         if (edregisterComfirmPassword.getEditText().getText().toString().equals(s.toString())) {
                             edregisterComfirmPassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
                             edregisterComfirmPassword.setHelperText("✔");
@@ -164,7 +154,6 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                         }
                         btnRegister.setEnabled(CheckBtn());
                     }
-
                     @Override
                     public void afterTextChanged(Editable s) {
                     }
@@ -175,36 +164,28 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
                     }
-
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                         if (s.length() == 0) {
                             textInputLayout.setHelperText("Bắt buộc*");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         } else if (s.toString().equals(edregisterPassword.getEditText().getText().toString())) {
                             textInputLayout.setHelperText("✔");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
-
                         } else {
                             textInputLayout.setHelperText("Mật khẩu xác nhận phải trùng với mật khẩu*");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         }
                         btnRegister.setEnabled(CheckBtn());
                     }
-
                     @Override
                     public void afterTextChanged(Editable s) {
 
                     }
                 });
-
                 break;
         }
-
-
     }
 
     private boolean CheckBtn() {
