@@ -20,6 +20,7 @@ public class fragment_Regesiter extends Fragment {
     private ImageView btnBackToLogin;
     private TextView tvConditions;
 //    bỏ switch button hoặc không
+//    thêm animation fade in với chạy từ phải sang trái cho các phần tử
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
