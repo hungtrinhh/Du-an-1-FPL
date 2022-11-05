@@ -82,12 +82,12 @@ public class fragment_Login extends Fragment {
         });
     }
     private void Anhxa(View view) {
-        layoutLogoWhite = (LinearLayout) view.findViewById(R.id.layout_logoWhite);
-        edEmailLogin = (EditText) view.findViewById(R.id.edEmailLogin);
-        edPasswordLogin = (EditText) view.findViewById(R.id.edPasswordLogin);
-        swRememberAccount = (Switch) view.findViewById(R.id.swRememberAccount);
-        btnLogin = (AppCompatButton) view.findViewById(R.id.btnLogin);
-        btnGotoregister = (TextView) view.findViewById(R.id.btnGotoregister);
-        tvFogotPassword = (TextView)  view.findViewById(R.id.tvFogotPassword);
+        layoutLogoWhite = view.findViewById(R.id.layout_logoWhite);
+        edEmailLogin = view.findViewById(R.id.edEmailLogin);
+        edPasswordLogin = view.findViewById(R.id.edPasswordLogin);
+        swRememberAccount = view.findViewById(R.id.swRememberAccount);
+        btnLogin = view.findViewById(R.id.btnLogin);
+        btnGotoregister = view.findViewById(R.id.btnGotoregister);
+        tvFogotPassword = view.findViewById(R.id.tvFogotPassword);
     }
 }

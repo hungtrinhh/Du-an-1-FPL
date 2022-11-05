@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,9 +33,11 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     private TextInputLayout edregisterPhonenumber;
     private TextInputLayout edregisterPassword;
     private TextInputLayout edregisterComfirmPassword;
+    private CheckBox chkCheckLaw;
+
 
     private AppCompatButton btnRegister;
-
+    private final String TAG = "fragment_Regesiter";
 
 //    thêm animation fade in với chạy từ phải sang trái cho các phần tử
 
@@ -47,28 +51,32 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
-        tvConditions.setOnClickListener(this::onClick);
-        btnBackToLogin.setOnClickListener(this::onClick);
-        btnRegister.setOnClickListener(this::onClick);
+
 
     }
 
     private void Anhxa(View v) {
-        btnBackToLogin = (ImageView) v.findViewById(R.id.btnBackToLogin);
+        btnBackToLogin = v.findViewById(R.id.btnBackToLogin);
 
-        edregistername = (TextInputLayout) v.findViewById(R.id.edregistername);
-        edregisterPhonenumber = (TextInputLayout) v.findViewById(R.id.edregisterPhonenumber);
-        edregisterPassword = (TextInputLayout) v.findViewById(R.id.edregisterPassword);
-        edregisterComfirmPassword = (TextInputLayout) v.findViewById(R.id.edregisterComfirmPassword);
+        edregistername = v.findViewById(R.id.edregistername);
+        edregisterPhonenumber = v.findViewById(R.id.edregisterPhonenumber);
+        edregisterPassword = v.findViewById(R.id.edregisterPassword);
+        edregisterComfirmPassword = v.findViewById(R.id.edregisterComfirmPassword);
+        chkCheckLaw = v.findViewById(R.id.chkCheckLaw);
 
 
-        tvConditions = (TextView) v.findViewById(R.id.tvConditions);
-        btnRegister = (AppCompatButton) v.findViewById(R.id.btnRegister);
+        tvConditions = v.findViewById(R.id.tvConditions);
+        btnRegister = v.findViewById(R.id.btnRegister);
 
         OntextChange(edregistername);
         OntextChange(edregisterPassword);
         OntextChange(edregisterComfirmPassword);
         OntextChange(edregisterPhonenumber);
+
+        tvConditions.setOnClickListener(this::onClick);
+        btnBackToLogin.setOnClickListener(this::onClick);
+        btnRegister.setOnClickListener(this::onClick);
+        chkCheckLaw.setOnClickListener(this::onClick);
 
     }
 
@@ -87,20 +95,18 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
                             textInputLayout.setHelperText("Bắt buộc*");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                        } else if (s.length() < 6) {
-                            textInputLayout.setHelperText("Mật khẩu không được bé hơn 6 kí tự");
-                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-
                         } else {
                             textInputLayout.setHelperText("✔");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
                         }
+                        btnRegister.setEnabled(CheckBtn());
                     }
 
                     @Override
                     public void afterTextChanged(Editable s) {
                     }
                 });
+                btnRegister.setEnabled(CheckBtn());
                 break;
             case R.id.edregisterPhonenumber:
                 editText.addTextChangedListener(new TextWatcher() {
@@ -119,6 +125,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                             textInputLayout.setHelperText("✔");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
                         }
+                        btnRegister.setEnabled(CheckBtn());
                     }
 
                     @Override
@@ -126,6 +133,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
                     }
                 });
+                btnRegister.setEnabled(CheckBtn());
                 break;
             case R.id.edregisterPassword:
                 editText.addTextChangedListener(new TextWatcher() {
@@ -139,16 +147,29 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
                             textInputLayout.setHelperText("Bắt buộc");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                        } else if (s.length() < 6) {
+                            textInputLayout.setHelperText("Mật khẩu không được bé hơn 6 kí tự");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         } else {
                             textInputLayout.setHelperText("✔");
-                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_tea)));
                         }
+
+                        if (edregisterComfirmPassword.getEditText().getText().toString().equals(s.toString())) {
+                            edregisterComfirmPassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
+                            edregisterComfirmPassword.setHelperText("✔");
+                        } else {
+                            edregisterComfirmPassword.setHelperText("Mật khẩu xác nhận phải trùng với mật khẩu*");
+                            edregisterComfirmPassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                        }
+                        btnRegister.setEnabled(CheckBtn());
                     }
 
                     @Override
                     public void afterTextChanged(Editable s) {
                     }
                 });
+                btnRegister.setEnabled(CheckBtn());
                 break;
             case R.id.edregisterComfirmPassword:
                 editText.addTextChangedListener(new TextWatcher() {
@@ -159,6 +180,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                         if (s.length() == 0) {
                             textInputLayout.setHelperText("Bắt buộc*");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
@@ -167,9 +189,10 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
 
                         } else {
-                            textInputLayout.setHelperText("Mật khẩu xác nhận phải trung với mật khẩu*");
+                            textInputLayout.setHelperText("Mật khẩu xác nhận phải trùng với mật khẩu*");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         }
+                        btnRegister.setEnabled(CheckBtn());
                     }
 
                     @Override
@@ -178,12 +201,28 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     }
                 });
 
-
                 break;
-
-
         }
 
+
+    }
+
+    private boolean CheckBtn() {
+        Log.d(TAG, "CheckBtn: ");
+        if (edregisterPhonenumber.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
+            return false;
+        }
+        if (edregisterComfirmPassword.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
+            return false;
+        }
+        if (edregisterPassword.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
+            return false;
+        }
+        if (edregistername.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
+            return false;
+        }
+
+        return chkCheckLaw.isChecked();
     }
 
     @Override
@@ -203,9 +242,12 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 dialog.show();
                 break;
             case R.id.btnRegister:
+                Toast.makeText(getActivity(), "eqweqw", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.chkCheckLaw:
+                btnRegister.setEnabled(CheckBtn());
 
                 break;
-
         }
     }
 

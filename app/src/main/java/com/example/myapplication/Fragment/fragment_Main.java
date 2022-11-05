@@ -78,7 +78,7 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
     private void Anhxa(View v) {
         this.viewcontainer = v;
         Log.d("TAG", "Anhxa: ");
-        bottomNav = (BottomNavigationView) v.findViewById(R.id.bottomNav);
+        bottomNav = v.findViewById(R.id.bottomNav);
 
         fragmentManager = getActivity().getSupportFragmentManager();
         bottomNav.getMenu().findItem(R.id.bottomNav_Home).setChecked(true);

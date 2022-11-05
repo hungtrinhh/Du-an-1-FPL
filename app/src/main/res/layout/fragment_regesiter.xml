@@ -148,6 +148,7 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/chkCheckLaw"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tôi đồng ý với "
