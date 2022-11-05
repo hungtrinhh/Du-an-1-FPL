@@ -1,12 +1,16 @@
 package com.example.myapplication.Fragment;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,6 +63,78 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
         chkcheckLaw = (CheckBox) v.findViewById(R.id.chkcheckLaw);
         tvConditions = (TextView) v.findViewById(R.id.tvConditions);
         btnRegister = (AppCompatButton) v.findViewById(R.id.btnRegister);
+
+        OntextChange(edregisterConfirmPassword);
+        OntextChange(edregisterUsername);
+        OntextChange(edregisterPassword);
+        OntextChange(edregisterPhone);
+
+
+    }
+
+    private void OntextChange(TextInputLayout textLayout) {
+        EditText editText = textLayout.getEditText();
+        switch (textLayout.getId()) {
+            case R.id.edregisterUsername:
+
+
+                break;
+
+            case R.id.edregisterPhone:
+
+
+                break;
+            case R.id.edregisterPassword:
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if (s.toString().length() < 8) {
+                            editText.setHelperText("Không được bé hơn 8 kí tự*");
+                            editText.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#B73E3E")));
+                        } else if (s.toString().length() >= 8 && !s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")) {
+                            editText.setHelperText("Mật khẩu yếu*");
+                            ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#DD5353"));
+                            editText.setHelperTextColor(colorStateList);
+                        } else if (s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
+                            editText.setHelperText("Mật khẩu mạnh✔");
+                            ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#38E54D"));
+                            editText.setHelperTextColor(colorStateList);
+                        } else if (s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")) {
+                            editText.setHelperText("Mật khẩu mạnh vừa😢");
+                            ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#FF731D"));
+
+                            editText.setHelperTextColor(colorStateList);
+                        }
+
+                        if (!textInputEditText.getText().toString().equals(edregistercomfirmPassword.getText().toString()) && edregistercomfirmPassword.getText().toString().length() != 0) {
+
+                            edlyregistercomfirmPassword.setHelperText("Mật khẩu xác nhận phải trùng khớp với mật khẩu*'");
+                            edlyregistercomfirmPassword.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#B73E3E")));
+                        } else if (textInputEditText.getText().toString().equals(edregistercomfirmPassword.getText().toString()) && edregistercomfirmPassword.getText().toString().length() != 0) {
+                            edlyregistercomfirmPassword.setHelperText("Hợp lệ'✔");
+                            edlyregistercomfirmPassword.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#38E54D")));
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+                break;
+            case R.id.edregisterConfirmPassword:
+
+
+                break;
+
+
+        }
+
     }
 
     @Override
@@ -85,4 +161,6 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
         }
     }
+
+
 }
