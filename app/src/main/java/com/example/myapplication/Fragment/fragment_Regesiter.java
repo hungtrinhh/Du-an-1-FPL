@@ -19,12 +19,13 @@ import com.example.myapplication.R;
 public class fragment_Regesiter extends Fragment {
     private ImageView btnBackToLogin;
     private TextView tvConditions;
-//    bỏ switch button hoặc không
+
+    //    bỏ switch button hoặc không
 //    thêm animation fade in với chạy từ phải sang trái cho các phần tử
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_regesiter,container,false);
+        return inflater.inflate(R.layout.fragment_regesiter, container, false);
     }
 
     @Override
@@ -32,7 +33,7 @@ public class fragment_Regesiter extends Fragment {
         btnBackToLogin = view.findViewById(R.id.btnBackToLogin);
         tvConditions = view.findViewById(R.id.tvConditions);
 //        onClick
-        tvConditions.setOnClickListener(view1 -> {
+        tvConditions.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflater = getLayoutInflater();
             View viewDialog = inflater.inflate(R.layout.dialog_conditions, null);
@@ -43,7 +44,7 @@ public class fragment_Regesiter extends Fragment {
 
             dialog.show();
         });
-        btnBackToLogin.setOnClickListener(view1 -> {
+        btnBackToLogin.setOnClickListener(v -> {
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Login()).commit();
 
         });
