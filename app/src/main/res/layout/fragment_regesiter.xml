@@ -49,13 +49,12 @@
         android:textSize="18dp" />
 
     <TextView
-        android:id="@+id/tvError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="-4dp"
         android:paddingLeft="5dp"
-        android:text="error"
+        android:text=""
         android:textColor="@color/red"
         android:textSize="14dp" />
 
@@ -87,7 +86,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="-10dp"
         android:hint="Mật khẩu"
-android:drawableRight="@drawable/ic_baseline_close_24"
+
         android:inputType="textPassword"
         android:textColor="@color/black" />
 
@@ -96,8 +95,9 @@ android:drawableRight="@drawable/ic_baseline_close_24"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="-4dp"
-        android:paddingLeft="5dp"
-        android:text="có lỗi hiển thị X và thông báo, không có hiển thị tick"
+        android:paddingLeft="5dp"        android:id="@+id/tvError"
+
+        android:text=""
         android:textColor="@color/red"
         android:textSize="14dp" />
 

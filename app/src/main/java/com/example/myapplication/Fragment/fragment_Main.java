@@ -32,8 +32,6 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
     private int itemselectID = R.id.bottomNav_Home;
     private FragmentManager fragmentManager = null;
 
-
-
     private BottomNavigationView bottomNav;
 
     public fragment_Main() {
