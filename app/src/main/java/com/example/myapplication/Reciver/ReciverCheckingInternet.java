@@ -28,14 +28,15 @@ public class ReciverCheckingInternet extends BroadcastReceiver implements Dialog
         if (activeNetwork != null) {
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
                 status = true;
-            } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+            } else
+                if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 status = true;
 
             } else {
                 status = false;
             }
         }
-       
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 
