@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#545DFF</color>
     <color name="green_tea">#80DEEA</color>
-    <color name="green_700">#4CFF00</color>
+    <color name="green_700">#2FC863</color>
+    <color name="gray">#707070</color>
 
 </resources>

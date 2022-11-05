@@ -8,5 +8,8 @@
     <string name="fogotPassword">Quên mật khẩu?</string>
     <string name="nav_Endow">Ưu đãi</string>
     <string name="Login">Đăng nhập</string>
+    <string name="Sign_up">Đăng ký</string>
+    <string name="Reset_Password">Đặt lại mật khẩu</string>
+    <string name="Terms_and_conditions">PH27731 - Trịnh Đức Hùng\nPH27738 - Nguyễn Minh Giang\nPH28077 - Vũ Viết Khanh\nPh27525 - Nguyễn Quốc Khánh\nPH27512 - Trịnh Công Điền</string>
 
 </resources>

@@ -55,7 +55,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:backgroundTint="@color/green"
+            android:backgroundTint="@color/green_700"
             android:paddingHorizontal="30dp"
             android:text="Thử lại"
             android:textSize="16dp"

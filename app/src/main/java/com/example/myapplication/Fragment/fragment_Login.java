@@ -4,11 +4,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -24,8 +26,8 @@ public class fragment_Login extends Fragment {
     private EditText edEmailLogin;
     private EditText edPasswordLogin;
     private Switch swRememberAccount;
-    private Button btnLogin;
-    private TextView btnGotoregister;
+    private AppCompatButton btnLogin;
+    private TextView btnGotoregister,tvFogotPassword;
 
 
     public fragment_Login() {
@@ -37,9 +39,9 @@ public class fragment_Login extends Fragment {
         edEmailLogin = (EditText) v.findViewById(R.id.edEmailLogin);
         edPasswordLogin = (EditText) v.findViewById(R.id.edPasswordLogin);
         swRememberAccount = (Switch) v.findViewById(R.id.swRememberAccount);
-        btnLogin = (Button) v.findViewById(R.id.btnLogin);
+        btnLogin = (AppCompatButton) v.findViewById(R.id.btnLogin);
         btnGotoregister = (TextView) v.findViewById(R.id.btnGotoregister);
-
+        tvFogotPassword = (TextView)  v.findViewById(R.id.tvFogotPassword);
     }
 
     public static fragment_Login newInstance() {
@@ -56,7 +58,6 @@ public class fragment_Login extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
@@ -64,7 +65,16 @@ public class fragment_Login extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
+//        animation
+        layoutLogoWhite.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.floatin));
+        edEmailLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        edPasswordLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        swRememberAccount.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        btnLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        btnGotoregister.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        tvFogotPassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
 
+//        onClick
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,9 +82,13 @@ public class fragment_Login extends Fragment {
             }
         });
         btnGotoregister.setOnClickListener(view1 ->{
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Main()).commit();
+//            addToBackStack = nút Back trên màn hình điện thoại
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Regesiter()).addToBackStack("").commit();
 
         });
+        tvFogotPassword.setOnClickListener(view1->{
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Fogot_Password()).addToBackStack("").commit();
 
+        });
     }
 }
