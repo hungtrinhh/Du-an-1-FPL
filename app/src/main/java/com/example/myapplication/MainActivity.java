@@ -19,7 +19,9 @@ import com.example.myapplication.Fragment.fragment_Login;
 import com.example.myapplication.Reciver.ReciverCheckingInternet;
 
 public class MainActivity extends AppCompatActivity {
+   public static AlertDialog alertDialog;
     ReciverCheckingInternet broadcastReceiver = new ReciverCheckingInternet();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
