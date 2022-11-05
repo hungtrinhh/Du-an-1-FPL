@@ -55,12 +55,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
     private void Anhxa(View v) {
         btnBackToLogin = (ImageView) v.findViewById(R.id.btnBackToLogin);
-//        edregisterUsername = (TextInputLayout) v.findViewById(R.id.edregisterUsername);
-//        edregisterPhone = (TextInputLayout) v.findViewById(R.id.edregisterPhone);
 
-
-//        edregisterConfirmPassword = (TextInputLayout) v.findViewById(R.id.edregisterConfirmPassword);
-//        chkcheckLaw = (CheckBox) v.findViewById(R.id.chkcheckLaw);
         edregistername = (TextInputLayout) v.findViewById(R.id.edregistername);
         edregisterPhonenumber = (TextInputLayout) v.findViewById(R.id.edregisterPhonenumber);
         edregisterPassword = (TextInputLayout) v.findViewById(R.id.edregisterPassword);
@@ -207,12 +202,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
                 break;
-//            case R.id.btnRegister:
-//                FbDao.Test("hello");
-//                break;
-//            test
             case R.id.btnRegister:
-
 
                 break;
 
