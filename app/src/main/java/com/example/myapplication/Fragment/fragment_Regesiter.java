@@ -79,17 +79,60 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
     private void OntextChange(TextInputLayout textInputLayout) {
         EditText editText = textInputLayout.getEditText();
-        switch (editText.getId()) {
+        switch (textInputLayout.getId()) {
             case R.id.edregistername:
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
 
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if (s.length() == 0) {
 
+                            textInputLayout.setHelperText("Bắt buộc*");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                        } else if (s.length() < 6) {
+                            textInputLayout.setHelperText("Mật khẩu không được bé hơn 6 kí tự");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+
+                        } else {
+                            textInputLayout.setHelperText("✔");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
                 break;
-
             case R.id.edregisterPhonenumber:
-
-
                 break;
             case R.id.edregisterPassword:
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if (s.toString().length() == 0) {
+
+                            textInputLayout.setHelperText("Bắt buộc");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                        } else {
+                            textInputLayout.setHelperText("✔");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
+                break;
+            case R.id.edregisterComfirmPassword:
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -98,32 +141,17 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        if (s.toString().length() < 8) {
+                        if (s.length() == 0) {
+                            textInputLayout.setHelperText("Bắt buộc*");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                        } else if (s.toString().equals(edregisterPassword.getEditText().getText().toString())) {
+                            textInputLayout.setHelperText("✔");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
 
-                            textInputLayout.setHelperText("Không được bé hơn 8 kí tự*");
-                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#B73E3E")));
-                        } else if (s.toString().length() >= 8 && !s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")) {
-                            textInputLayout.setHelperText("Mật khẩu yếu*");
-                            ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#DD5353"));
-                            textInputLayout.setHelperTextColor(colorStateList);
-                        } else if (s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
-                            textInputLayout.setHelperText("Mật khẩu mạnh✔");
-                            ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#38E54D"));
-                            textInputLayout.setHelperTextColor(colorStateList);
-                        } else if (s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")) {
-                            textInputLayout.setHelperText("Mật khẩu mạnh vừa😢");
-                            ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#FF731D"));
-
-                            textInputLayout.setHelperTextColor(colorStateList);
+                        } else {
+                            textInputLayout.setHelperText("Mật khẩu xác nhận phải trung với mật khẩu*");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         }
-//                        if (!textInputEditText.getText().toString().equals(edregistercomfirmPassword.getText().toString()) && edregistercomfirmPassword.getText().toString().length() != 0) {
-//
-//                            edlyregistercomfirmPassword.setHelperText("Mật khẩu xác nhận phải trùng khớp với mật khẩu*'");
-//                            edlyregistercomfirmPassword.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#B73E3E")));
-//                        } else if (textInputEditText.getText().toString().equals(edregistercomfirmPassword.getText().toString()) && edregistercomfirmPassword.getText().toString().length() != 0) {
-//                            edlyregistercomfirmPassword.setHelperText("Hợp lệ'✔");
-//                            edlyregistercomfirmPassword.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#38E54D")));
-//                        }
                     }
 
                     @Override
@@ -131,8 +159,6 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
                     }
                 });
-                break;
-            case R.id.edregisterComfirmPassword:
 
 
                 break;

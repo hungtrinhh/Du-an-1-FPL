@@ -11,7 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 public class FbDao {
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    private static String TAG = "Firebase Dao";
+    private static final String TAG = "Firebase Dao";
 
     public static void Test(String string) {
         Log.d(TAG, "string is: " + string);
