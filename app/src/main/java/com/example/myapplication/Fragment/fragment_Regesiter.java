@@ -28,7 +28,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class fragment_Regesiter extends Fragment implements View.OnClickListener {
     private ImageView btnBackToLogin;
-    private TextView tvConditions, tvError;
+    private TextView tvConditions;
     private TextInputLayout edregistername;
     private TextInputLayout edregisterPhonenumber;
     private TextInputLayout edregisterPassword;
@@ -229,7 +229,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnBackToLogin:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Login()).commit();
+                getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.tvConditions:
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -242,7 +242,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 dialog.show();
                 break;
             case R.id.btnRegister:
-                Toast.makeText(getActivity(), "eqweqw", Toast.LENGTH_SHORT).show();
+           //   getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain)
                 break;
             case R.id.chkCheckLaw:
                 btnRegister.setEnabled(CheckBtn());
