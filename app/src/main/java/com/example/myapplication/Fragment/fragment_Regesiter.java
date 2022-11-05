@@ -26,11 +26,12 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class fragment_Regesiter extends Fragment implements View.OnClickListener {
     private ImageView btnBackToLogin;
-    private TextView tvConditions,tvError;
-    private TextInputLayout edregisterUsername;
-    private TextInputLayout edregisterPhone;
-    private EditText ed_Passwords;
-    private TextInputLayout edregisterConfirmPassword;
+    private TextView tvConditions, tvError;
+    private TextInputLayout edregistername;
+    private TextInputLayout edregisterPhonenumber;
+    private TextInputLayout edregisterPassword;
+    private TextInputLayout edregisterComfirmPassword;
+
     private AppCompatButton btnRegister;
 
 
@@ -56,58 +57,66 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
         btnBackToLogin = (ImageView) v.findViewById(R.id.btnBackToLogin);
 //        edregisterUsername = (TextInputLayout) v.findViewById(R.id.edregisterUsername);
 //        edregisterPhone = (TextInputLayout) v.findViewById(R.id.edregisterPhone);
-        ed_Passwords = (EditText) v.findViewById(R.id.ed_Passwords);
-        tvError = (TextView) v.findViewById(R.id.tvError);
+
+
 //        edregisterConfirmPassword = (TextInputLayout) v.findViewById(R.id.edregisterConfirmPassword);
 //        chkcheckLaw = (CheckBox) v.findViewById(R.id.chkcheckLaw);
+        edregistername = (TextInputLayout) v.findViewById(R.id.edregistername);
+        edregisterPhonenumber = (TextInputLayout) v.findViewById(R.id.edregisterPhonenumber);
+        edregisterPassword = (TextInputLayout) v.findViewById(R.id.edregisterPassword);
+        edregisterComfirmPassword = (TextInputLayout) v.findViewById(R.id.edregisterComfirmPassword);
+
+
         tvConditions = (TextView) v.findViewById(R.id.tvConditions);
         btnRegister = (AppCompatButton) v.findViewById(R.id.btnRegister);
 
-//        OntextChange(edregisterConfirmPassword);
-//        OntextChange(edregisterUsername);
-//        OntextChange(edregisterPassword);
-//        OntextChange(edregisterPhone);
+        OntextChange(edregistername);
+        OntextChange(edregisterPassword);
+        OntextChange(edregisterComfirmPassword);
+        OntextChange(edregisterPhonenumber);
 
     }
 
-//    private void OntextChange(EditText editText) {
-//        switch (editText.getId()) {
-//            case R.id.edregisterUsername:
-//
-//
-//                break;
-//
-//            case R.id.edregisterPhone:
-//
-//
-//                break;
-//            case R.id.edregisterPassword:
-//                editText.addTextChangedListener(new TextWatcher() {
-//                    @Override
-//                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                        if (s.toString().length() < 8) {
-//                            editText.setHelperText("Không được bé hơn 8 kí tự*");
-//                            editText.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#B73E3E")));
-//                        } else if (s.toString().length() >= 8 && !s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")) {
-//                            editText.setHelperText("Mật khẩu yếu*");
-//                            ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#DD5353"));
-//                            editText.setHelperTextColor(colorStateList);
-//                        } else if (s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
-//                            editText.setHelperText("Mật khẩu mạnh✔");
-//                            ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#38E54D"));
-//                            editText.setHelperTextColor(colorStateList);
-//                        } else if (s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")) {
-//                            editText.setHelperText("Mật khẩu mạnh vừa😢");
-//                            ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#FF731D"));
-//
-//                            editText.setHelperTextColor(colorStateList);
-//                        }
-//
+    private void OntextChange(TextInputLayout textInputLayout) {
+        EditText editText = textInputLayout.getEditText();
+        switch (editText.getId()) {
+            case R.id.edregistername:
+
+
+                break;
+
+            case R.id.edregisterPhonenumber:
+
+
+                break;
+            case R.id.edregisterPassword:
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if (s.toString().length() < 8) {
+
+                            editText.setHelperText("Không được bé hơn 8 kí tự*");
+                            editText.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#B73E3E")));
+                        } else if (s.toString().length() >= 8 && !s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")) {
+                            editText.setHelperText("Mật khẩu yếu*");
+                            ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#DD5353"));
+                            editText.setHelperTextColor(colorStateList);
+                        } else if (s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
+                            editText.setHelperText("Mật khẩu mạnh✔");
+                            ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#38E54D"));
+                            editText.setHelperTextColor(colorStateList);
+                        } else if (s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")) {
+                            editText.setHelperText("Mật khẩu mạnh vừa😢");
+                            ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#FF731D"));
+
+                            editText.setHelperTextColor(colorStateList);
+                        }
+
 //                        if (!textInputEditText.getText().toString().equals(edregistercomfirmPassword.getText().toString()) && edregistercomfirmPassword.getText().toString().length() != 0) {
 //
 //                            edlyregistercomfirmPassword.setHelperText("Mật khẩu xác nhận phải trùng khớp với mật khẩu*'");
@@ -116,23 +125,23 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 //                            edlyregistercomfirmPassword.setHelperText("Hợp lệ'✔");
 //                            edlyregistercomfirmPassword.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#38E54D")));
 //                        }
-//                    }
-//
-//                    @Override
-//                    public void afterTextChanged(Editable s) {
-//
-//                    }
-//                });
-//                break;
-//            case R.id.edregisterConfirmPassword:
-//
-//
-//                break;
-//
-//
-//        }
-//
-//    }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+                break;
+            case R.id.edregisterComfirmPassword:
+
+
+                break;
+
+
+        }
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -155,47 +164,8 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 //                break;
 //            test
             case R.id.btnRegister:
-                ed_Passwords.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                    }
 
-                    @Override
-                    public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-//                        input password: aaaa
- //                       có thể thay bằng mắt xem mật khẩu
-
-                        if (s.toString().length() < 8) {
-                            tvError.setText("Không được bé hơn 8 kí tự");
-                            ed_Passwords.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,getActivity().getDrawable(R.drawable.ic_baseline_close_24),null);
-                        }
-//                        input password: a123545435
-                        else if (s.toString().length() >= 8 && !s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")) {
-                            tvError.setText("Mật khẩu yếu*");
-
-//                            input strong password: a5Sa3R^%XnzkeW5n
-                        } else if (s.toString().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
-                            tvError.setText("Mật khẩu mạnh");
-                            tvError.setTextColor(getResources().getColor(R.color.green_700));
-                            ed_Passwords.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,getActivity().getDrawable(R.drawable.ic_baseline_done_24),null);
-                        }
-//                        if (!textInputEditText.getText().toString().equals(edregistercomfirmPassword.getText().toString()) && edregistercomfirmPassword.getText().toString().length() != 0) {
-//
-//                            edlyregistercomfirmPassword.setHelperText("Mật khẩu xác nhận phải trùng khớp với mật khẩu*'");
-//                            edlyregistercomfirmPassword.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#B73E3E")));
-//                        } else if (textInputEditText.getText().toString().equals(edregistercomfirmPassword.getText().toString()) && edregistercomfirmPassword.getText().toString().length() != 0) {
-//                            edlyregistercomfirmPassword.setHelperText("Hợp lệ'✔");
-//                            edlyregistercomfirmPassword.setHelperTextColor(ColorStateList.valueOf(Color.parseColor("#38E54D")));
-//                        }
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable editable) {
-
-                    }
-                });
                 break;
 
         }
