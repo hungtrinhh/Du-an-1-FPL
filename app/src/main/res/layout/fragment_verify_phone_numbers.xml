@@ -8,7 +8,7 @@
 
     <ImageView
 
-        android:id="@+id/btnBackToLogin"
+        android:id="@+id/btnBackToRegister"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginLeft="20dp"
@@ -42,12 +42,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="8">
 
         <EditText
-            android:layout_width="50dp"
-            android:layout_height="55dp"
-            android:layout_marginRight="20dp"
+            android:id="@+id/edCode1"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
             android:background="@drawable/background_input_otp"
             android:gravity="center"
             android:imeOptions="actionNext"
@@ -57,9 +60,12 @@
             android:textSize="48dp" />
 
         <EditText
-            android:layout_width="50dp"
-            android:layout_height="55dp"
-            android:layout_marginRight="20dp"
+            android:id="@+id/edCode2"
+
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
             android:background="@drawable/background_input_otp"
             android:gravity="center"
             android:imeOptions="actionNext"
@@ -69,21 +75,12 @@
             android:textSize="48dp" />
 
         <EditText
-            android:layout_width="50dp"
-            android:layout_height="55dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/background_input_otp"
-            android:gravity="center"
-            android:imeOptions="actionNext"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:maxLength="1"
+            android:id="@+id/edCode3"
 
-            />
-
-        <EditText
-            android:layout_width="50dp"
-            android:layout_height="55dp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
             android:background="@drawable/background_input_otp"
             android:gravity="center"
             android:imeOptions="actionNext"
@@ -91,6 +88,53 @@
             android:inputType="number"
             android:maxLength="1"
             android:textSize="48dp" />
+
+        <EditText
+            android:id="@+id/edCode4"
+
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_input_otp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="48dp" />
+
+        <EditText
+            android:id="@+id/edCode5"
+
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_input_otp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="48dp" />
+
+        <EditText
+            android:id="@+id/edCode6"
+
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_input_otp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="48dp" />
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -108,7 +152,7 @@
             android:textSize="16dp" />
 
         <TextView
-            android:id="@+id/btnGotoregister"
+            android:id="@+id/btnSendvetifiAgain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gửi lại"

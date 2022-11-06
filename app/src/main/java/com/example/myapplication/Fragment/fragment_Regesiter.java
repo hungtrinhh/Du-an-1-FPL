@@ -88,6 +88,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                     }
+
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (s.length() == 0) {
@@ -99,6 +100,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                         }
                         btnRegister.setEnabled(CheckBtn());
                     }
+
                     @Override
                     public void afterTextChanged(Editable s) {
                     }
@@ -110,6 +112,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                     }
+
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (s.length() == 0) {
@@ -122,6 +125,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                         }
                         btnRegister.setEnabled(CheckBtn());
                     }
+
                     @Override
                     public void afterTextChanged(Editable s) {
                     }
@@ -133,6 +137,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                     }
+
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (s.toString().length() == 0) {
@@ -154,6 +159,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                         }
                         btnRegister.setEnabled(CheckBtn());
                     }
+
                     @Override
                     public void afterTextChanged(Editable s) {
                     }
@@ -165,6 +171,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                     }
+
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (s.length() == 0) {
@@ -179,6 +186,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                         }
                         btnRegister.setEnabled(CheckBtn());
                     }
+
                     @Override
                     public void afterTextChanged(Editable s) {
 
@@ -223,7 +231,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 dialog.show();
                 break;
             case R.id.btnRegister:
-           //   getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain)
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_verify_Phone()).addToBackStack("").commit();
                 break;
             case R.id.chkCheckLaw:
                 btnRegister.setEnabled(CheckBtn());
