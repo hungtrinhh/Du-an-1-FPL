@@ -14,7 +14,6 @@ import com.example.myapplication.R;
 public class fragment_Uudai extends Fragment {
 
 //    scroll view dạng horizontal
-
     public fragment_Uudai() {
 
     }

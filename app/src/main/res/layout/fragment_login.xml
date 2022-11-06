@@ -51,7 +51,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/edEmailLogin"
+                android:id="@+id/ed_Username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="17dp"
@@ -71,7 +71,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/edPasswordLogin"
+                android:id="@+id/ed_Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_lock_outline_24px"
@@ -92,7 +92,7 @@
             android:orientation="horizontal">
 
             <Switch
-                android:id="@+id/swRememberAccount"
+                android:id="@+id/sw_RememberAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
@@ -103,7 +103,7 @@
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <TextView
-                android:id="@+id/tvFogotPassword"
+                android:id="@+id/tv_FogotPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
@@ -113,7 +113,7 @@
         </LinearLayout>
         <!--Button dang nhap-->
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnLogin"
+            android:id="@+id/btn_Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -136,12 +136,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:fontFamily="@font/poppins_regular"    android:text="Chưa có tài khoản? " />
 
 
             <TextView
-                android:id="@+id/btnGotoregister"
+                android:id="@+id/tv_GoToRegister"
                 android:layout_width="wrap_content"
                 android:textColor="@color/blue"
                 android:textStyle="bold"

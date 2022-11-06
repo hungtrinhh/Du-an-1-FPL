@@ -22,7 +22,6 @@ public class ReciverCheckingInternet extends BroadcastReceiver implements Dialog
     @Override
     public void onReceive(Context context, Intent intent) {
         boolean status = false;
-
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         if (activeNetwork != null) {

@@ -21,32 +21,13 @@ import com.example.myapplication.Adapter.SliderAdapter;
 import com.google.android.material.snackbar.Snackbar;
 import com.smarteist.autoimageslider.SliderView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link fragment_Trangchu#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class fragment_Trangchu extends Fragment {
-    private SliderView imageSlider;
+    //  khai báo
+    private SliderView image_Slider;
     private LinearLayout layout_troChoi, layout_thanhToan, layout_soDu;
 
-    public fragment_Trangchu() {
-
-    }
-
-
-    public static fragment_Trangchu newInstance() {
-        fragment_Trangchu fragment = new fragment_Trangchu();
-
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
+    //khai báo view
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,36 +35,61 @@ public class fragment_Trangchu extends Fragment {
         return inflater.inflate(R.layout.fragment_trangchu, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
+        Anhxa(view);
+
+        // gọi hàm animation (truyền vào các tham số)
+        animation(image_Slider, layout_troChoi, layout_thanhToan, layout_soDu);
+
+        // khai báo mảng ảnh và gán giá trị src ảnh
+        int[] img = new int[]{R.drawable.img1, R.drawable.img2, R.drawable.img3};
+
+        // khai báo SliderAdapter và gán giá trị bằng img
+        SliderAdapter adapter = new SliderAdapter(img);
+
+        // set lên slideAdapter
+        image_Slider.setSliderAdapter(adapter);
+    }
+
+    //    khai báo hàm Anhxa
     private void Anhxa(View view) {
-        imageSlider = view.findViewById(R.id.image_slider);
+        image_Slider = view.findViewById(R.id.image_Slider);
         layout_troChoi = view.findViewById(R.id.layout_troChoi);
         layout_thanhToan = view.findViewById(R.id.layout_thanhToan);
         layout_soDu = view.findViewById(R.id.layout_soDu);
-        int[] img = new int[]{R.drawable.img1, R.drawable.img2, R.drawable.img3};
-        SliderAdapter adapter = new SliderAdapter(img);
-        imageSlider.setSliderAdapter(adapter);
 
 
-//        set animation cac phan tu trong layout
-        imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
+    }
+
+    // khai báo hàm animation
+    private void animation(SliderView image_Slider, LinearLayout layout_troChoi, LinearLayout layout_thanhToan, LinearLayout layout_soDu) {
+        image_Slider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
         layout_soDu.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
         layout_thanhToan.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
         layout_troChoi.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
 
-
-//        LinearLayout contentContainer = (LinearLayout)view.findViewById(R.id.content_containerTrangchu);
-//        contentContainer.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.conten_appear));
-
-
     }
-
 
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Anhxa(view);
-
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
     }
+
+    //khai báo constructor rỗng
+    public fragment_Trangchu() {
+    }
+
+    //ko biết
+    public static fragment_Trangchu newInstance() {
+        fragment_Trangchu fragment = new fragment_Trangchu();
+
+        return fragment;
+    }
+
+
 }

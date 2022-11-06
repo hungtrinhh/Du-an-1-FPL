@@ -11,7 +11,6 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder>{
 //  khai bao array images
     int[] images;
-
     public SliderAdapter(int[] images){
 
         this.images = images;

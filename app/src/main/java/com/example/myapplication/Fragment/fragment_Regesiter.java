@@ -1,5 +1,6 @@
 package com.example.myapplication.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -42,22 +43,21 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.concurrent.TimeUnit;
 
 public class fragment_Regesiter extends Fragment implements View.OnClickListener {
-    private ImageView btnBackToLogin;
-    private TextView tvConditions;
-    private TextInputLayout edregistername;
-    private TextInputLayout edregisterPhonenumber;
-    private TextInputLayout edregisterPassword;
-    private TextInputLayout edregisterComfirmPassword;
-    private CheckBox chkCheckLaw;
+    //  khai báo
+    private ImageView btn_BackToLogin;
+    private TextView tv_Conditions;
+    private TextInputLayout text_Username;
+    private TextInputLayout text_Phonenumber;
+    private TextInputLayout text_Password;
+    private TextInputLayout text_rePassword;
+    private CheckBox chk_CheckConditions;
     private LinearLayout layout_Conditions;
-
-    private AppCompatButton btnRegister;
+    private AppCompatButton btn_Register;
+    // khai báo firebase
+    private FirebaseAuth mAuth;
     private final String TAG = "fragment_Regesiter";
 
-    private FirebaseAuth mAuth;
-
-
-
+    //  khai báo view
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,47 +67,62 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         Anhxa(view);
+        // khởi tạo biến mAuth Firebase
         mAuth = FirebaseAuth.getInstance();
-        Animation(edregistername,edregisterPhonenumber,edregisterPassword,edregisterComfirmPassword,layout_Conditions,btnRegister);
+        // gọi hàm animation (truyền vào các tham số)
+        Animation(text_Username, text_Phonenumber, text_Password, text_rePassword, layout_Conditions, btn_Register);
+        // gọi hàm OntextChange(truyền vào TextInputLayout)
+        OntextChange(text_Username);
+        OntextChange(text_Password);
+        OntextChange(text_rePassword);
+        OntextChange(text_Phonenumber);
+        // bắt sự kiện khi click
+        tv_Conditions.setOnClickListener(this::onClick);
+        btn_BackToLogin.setOnClickListener(this::onClick);
+        btn_Register.setOnClickListener(this::onClick);
+        chk_CheckConditions.setOnClickListener(this::onClick);
+
+
     }
-    private void Animation(TextInputLayout edregistername,TextInputLayout edregisterPhonenumber,TextInputLayout edregisterPassword,TextInputLayout edregisterComfirmPassword,LinearLayout layout_Conditions,AppCompatButton btnRegister){
-        edregistername.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
-        edregisterPhonenumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
-        edregisterPassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
-        edregisterComfirmPassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
-        edregistername.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
+
+    // khai báo hàm animation
+    private void Animation(TextInputLayout text_Username, TextInputLayout text_Phonenumber, TextInputLayout text_Password, TextInputLayout text_rePassword, LinearLayout layout_Conditions, AppCompatButton btn_Register) {
+        text_Username.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
+        text_Phonenumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
+        text_Password.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
+        text_rePassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
+        layout_Conditions.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
         layout_Conditions.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.floatin));
-        btnRegister.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        btn_Register.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
 
     }
+
+    // khai báo hàm Anhxa
     private void Anhxa(View view) {
-        btnBackToLogin = view.findViewById(R.id.btnBackToLogin);
+        btn_BackToLogin = view.findViewById(R.id.btn_BackToLogin);
         layout_Conditions = view.findViewById(R.id.layout_Conditions);
-        edregistername = view.findViewById(R.id.edregistername);
-        edregisterPhonenumber = view.findViewById(R.id.edregisterPhonenumber);
-        edregisterPassword = view.findViewById(R.id.edregisterPassword);
-        edregisterComfirmPassword = view.findViewById(R.id.edregisterComfirmPassword);
-        chkCheckLaw = view.findViewById(R.id.chkCheckLaw);
-        tvConditions = view.findViewById(R.id.tvConditions);
-        btnRegister = view.findViewById(R.id.btnRegister);
+        text_Username = view.findViewById(R.id.text_Username);
+        text_Phonenumber = view.findViewById(R.id.text_Phonenumber);
+        text_Password = view.findViewById(R.id.text_Password);
+        text_rePassword = view.findViewById(R.id.text_rePassword);
+        chk_CheckConditions = view.findViewById(R.id.chk_CheckConditions);
+        tv_Conditions = view.findViewById(R.id.tv_Conditions);
+        btn_Register = view.findViewById(R.id.btn_Register);
 
-        OntextChange(edregistername);
-        OntextChange(edregisterPassword);
-        OntextChange(edregisterComfirmPassword);
-        OntextChange(edregisterPhonenumber);
-
-        tvConditions.setOnClickListener(this::onClick);
-        btnBackToLogin.setOnClickListener(this::onClick);
-        btnRegister.setOnClickListener(this::onClick);
-        chkCheckLaw.setOnClickListener(this::onClick);
 
     }
 
+    //    khai báo hàm OntextChange phạm vi truy cập trong Class này
+    @SuppressLint("NonConstantResourceId")
     private void OntextChange(TextInputLayout textInputLayout) {
+        //  Khai báo editText và gán giá trị bằng giá trị của textInputLayout
         EditText editText = textInputLayout.getEditText();
+        //  chọn theo id của textInputLayout
         switch (textInputLayout.getId()) {
-            case R.id.edregistername:
+            // chọn nhập Username
+            case R.id.text_Username:
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -122,16 +137,18 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                             textInputLayout.setHelperText("✔");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
                         }
-                        btnRegister.setEnabled(CheckBtn());
+                        btn_Register.setEnabled(CheckBtn());
                     }
 
                     @Override
                     public void afterTextChanged(Editable s) {
                     }
                 });
-                btnRegister.setEnabled(CheckBtn());
+                btn_Register.setEnabled(CheckBtn());
                 break;
-            case R.id.edregisterPhonenumber:
+            // chọn nhập Số điện thoại
+
+            case R.id.text_Phonenumber:
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -147,16 +164,18 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                             textInputLayout.setHelperText("✔");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
                         }
-                        btnRegister.setEnabled(CheckBtn());
+                        btn_Register.setEnabled(CheckBtn());
                     }
 
                     @Override
                     public void afterTextChanged(Editable s) {
                     }
                 });
-                btnRegister.setEnabled(CheckBtn());
+                btn_Register.setEnabled(CheckBtn());
                 break;
-            case R.id.edregisterPassword:
+
+            // chọn nhập Mật khẩu
+            case R.id.text_Password:
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -174,23 +193,24 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                             textInputLayout.setHelperText("✔");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
                         }
-                        if (edregisterComfirmPassword.getEditText().getText().toString().equals(s.toString())) {
-                            edregisterComfirmPassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
-                            edregisterComfirmPassword.setHelperText("✔");
+                        if (text_rePassword.getEditText().getText().toString().equals(s.toString())) {
+                            text_rePassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
+                            text_rePassword.setHelperText("✔");
                         } else {
-                            edregisterComfirmPassword.setHelperText("Mật khẩu xác nhận phải trùng với mật khẩu*");
-                            edregisterComfirmPassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                            text_rePassword.setHelperText("Mật khẩu nhập lại không đúng*");
+                            text_rePassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         }
-                        btnRegister.setEnabled(CheckBtn());
+                        btn_Register.setEnabled(CheckBtn());
                     }
 
                     @Override
                     public void afterTextChanged(Editable s) {
                     }
                 });
-                btnRegister.setEnabled(CheckBtn());
+                btn_Register.setEnabled(CheckBtn());
                 break;
-            case R.id.edregisterComfirmPassword:
+            // chọn nhập lại Mật khẩu
+            case R.id.text_rePassword:
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -201,14 +221,14 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                         if (s.length() == 0) {
                             textInputLayout.setHelperText("Bắt buộc*");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                        } else if (s.toString().equals(edregisterPassword.getEditText().getText().toString())) {
+                        } else if (s.toString().equals(text_Password.getEditText().getText().toString())) {
                             textInputLayout.setHelperText("✔");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
                         } else {
                             textInputLayout.setHelperText("Mật khẩu xác nhận phải trùng với mật khẩu*");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         }
-                        btnRegister.setEnabled(CheckBtn());
+                        btn_Register.setEnabled(CheckBtn());
                     }
 
                     @Override
@@ -220,32 +240,33 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
         }
     }
 
-
+    //ko biét
     private boolean CheckBtn() {
         Log.d(TAG, "CheckBtn: ");
-        if (edregisterPhonenumber.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
+        if (text_Phonenumber.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
             return false;
         }
-        if (edregisterComfirmPassword.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
+        if (text_rePassword.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
             return false;
         }
-        if (edregisterPassword.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
+        if (text_Password.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
             return false;
         }
-        if (edregistername.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
+        if (text_Username.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
             return false;
         }
 
-        return chkCheckLaw.isChecked();
+        return chk_CheckConditions.isChecked();
     }
 
+    // hàm bắt sự kiện nút bấm trong fragment Regesiter
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnBackToLogin:
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_BackToLogin:
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
-            case R.id.tvConditions:
+            case R.id.tv_Conditions:
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 LayoutInflater inflater = getLayoutInflater();
                 View viewDialog = inflater.inflate(R.layout.dialog_conditions, null);
@@ -255,16 +276,17 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
                 break;
-            case R.id.btnRegister:
+            case R.id.btn_Register:
+                sendverifyCode(text_Phonenumber.getEditText().getText().toString());
 
                 break;
-            case R.id.chkCheckLaw:
-                btnRegister.setEnabled(CheckBtn());
-                SendverifyCode(edregisterPhonenumber.getEditText().getText().toString());
+            case R.id.chk_CheckConditions:
+                btn_Register.setEnabled(CheckBtn());
                 break;
         }
     }
 
+    //    hàm đăng nhập với số điện thoại fireBase
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential, String Username, String Password) {
         mAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -272,7 +294,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success");
-                    getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_Login(Username, Password)).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, new fragment_Login(Username, Password)).commit();
 
                 } else {
 
@@ -286,44 +308,41 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
     }
 
-    private void SendverifyCode(String phoneNumber) {
-        String Username = edregistername.getEditText().getText().toString();
-        String Password = edregisterPassword.getEditText().getText().toString();
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(phoneNumber)       // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(getActivity())                 // Activity (for callback binding)
-                        .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                            @Override
-                            public void onVerificationCompleted(PhoneAuthCredential credential) {
-                                Log.d(TAG, "onVerificationCompleted:" + credential);
+    //    hàm gửi mã OTP về số điện thoại
+    private void sendverifyCode(String phoneNumber) {
+        String Username = text_Username.getEditText().getText().toString();
+        String Password = text_Password.getEditText().getText().toString();
+        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth).setPhoneNumber(phoneNumber)       // Phone number to verify
+                .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                .setActivity(getActivity())                 // Activity (for callback binding)
+                .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                    @Override
+                    public void onVerificationCompleted(PhoneAuthCredential credential) {
+                        Log.d(TAG, "onVerificationCompleted:" + credential);
 
-                                signInWithPhoneAuthCredential(credential, Username, Password);
-                            }
+                        signInWithPhoneAuthCredential(credential, Username, Password);
+                    }
 
-                            @Override
-                            public void onVerificationFailed(FirebaseException e) {
-                                Log.w(TAG, "onVerificationFailed", e);
-                                Toast.makeText(getActivity(), "Gửi mã xác minh thất bại,Hãy liên hệ với quản trị viên để được giúp đỡ", Toast.LENGTH_SHORT).show();
-                                if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                    @Override
+                    public void onVerificationFailed(FirebaseException e) {
+                        Log.w(TAG, "onVerificationFailed", e);
+                        Toast.makeText(getActivity(), "Gửi mã xác minh thất bại,Hãy liên hệ với quản trị viên để được giúp đỡ", Toast.LENGTH_SHORT).show();
+                        if (e instanceof FirebaseAuthInvalidCredentialsException) {
 
-                                } else if (e instanceof FirebaseTooManyRequestsException) {
+                        } else if (e instanceof FirebaseTooManyRequestsException) {
 
-                                }
+                        }
 
 
-                            }
+                    }
 
-                            @Override
-                            public void onCodeSent(@NonNull String verificationId,
-                                                   @NonNull PhoneAuthProvider.ForceResendingToken token) {
-                                super.onCodeSent(verificationId, token);
-                                Log.d(TAG, "onCodeSent:" + verificationId);
-                                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_verify_Phone(phoneNumber, Username, Password, verificationId)).commit();
-                            }
-                        })
-                        .build();
+                    @Override
+                    public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken token) {
+                        super.onCodeSent(verificationId, token);
+                        Log.d(TAG, "onCodeSent:" + verificationId);
+                        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, new fragment_verify_Phone(phoneNumber, Username, Password, verificationId)).commit();
+                    }
+                }).build();
         PhoneAuthProvider.verifyPhoneNumber(options);
 
     }

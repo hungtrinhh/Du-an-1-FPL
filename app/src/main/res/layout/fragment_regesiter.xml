@@ -9,7 +9,7 @@
 
     <ImageView
 
-        android:id="@+id/btnBackToLogin"
+        android:id="@+id/btn_BackToLogin"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
@@ -17,9 +17,9 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"        android:fontFamily="@font/poppins_semi_bold"
-
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_semi_bold"
         android:text="Đăng ký"
         android:textAllCaps="false"
         android:textColor="@color/blue"
@@ -45,7 +45,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edregistername"
+                android:id="@+id/text_Username"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edregisterPhonenumber"
+                android:id="@+id/text_Phonenumber"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edregisterPassword"
+                android:id="@+id/text_Password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edregisterComfirmPassword"
+                android:id="@+id/text_rePassword"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -138,15 +138,15 @@
 
 
             <LinearLayout
+                android:id="@+id/layout_Conditions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/layout_Conditions"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/chkCheckLaw"
+                    android:id="@+id/chk_CheckConditions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tôi đồng ý với "
@@ -154,7 +154,7 @@
                     android:textSize="15dp" />
 
                 <TextView
-                    android:id="@+id/tvConditions"
+                    android:id="@+id/tv_Conditions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Điều khoản và Điều kiện."
@@ -166,15 +166,15 @@
     </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRegister"
+        android:id="@+id/btn_Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/background_button"
+        android:enabled="false"
         android:padding="8dp"
         android:text="@string/Sign_up"
-        android:enabled="false"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18dp" />

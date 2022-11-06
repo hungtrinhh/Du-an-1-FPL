@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/bottomNav_Doter"
+        android:id="@+id/nav_Endow"
         android:icon="@drawable/selector_endow"
         android:title="@string/nav_Endow" />
 
     <item
-        android:id="@+id/bottomNav_Home"
+        android:id="@+id/nav_Home"
         android:icon="@drawable/selector_home"
         android:title="@string/nav_Home" />
 
     <item
-        android:id="@+id/bottomNav_User"
+        android:id="@+id/nav_User"
         android:icon="@drawable/selector_account"
         android:title="@string/nav_Account" />
 

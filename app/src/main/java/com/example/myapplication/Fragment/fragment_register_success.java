@@ -13,14 +13,16 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.R;
 
 
-public class fragment_Register_success extends Fragment  {
-    private ImageView btnCancelToLogin;
+public class fragment_Register_success extends Fragment {
+    //  khai báo
+    private ImageView btn_CancelToLogin;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
-
+    //khai báo view
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -31,17 +33,17 @@ public class fragment_Register_success extends Fragment  {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         Anhxa(view);
-        btnCancelToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Login()).commit();
-            }
+        //bắt sự kiện khi click
+        btn_CancelToLogin.setOnClickListener(view1 -> {
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
         });
     }
 
+    //    khai báo hàm Anhxa
     private void Anhxa(View view) {
-        btnCancelToLogin = view.findViewById(R.id.btnCancelToLogin);
+        btn_CancelToLogin = view.findViewById(R.id.btn_CancelToLogin);
     }
 
 

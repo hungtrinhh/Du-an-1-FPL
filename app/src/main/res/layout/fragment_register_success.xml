@@ -8,7 +8,7 @@
 
     <ImageView
 
-        android:id="@+id/btnCancelToLogin"
+        android:id="@+id/btn_CancelToLogin"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginLeft="20dp"

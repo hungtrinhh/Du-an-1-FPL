@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.util.Log;
@@ -27,19 +28,62 @@ import com.google.android.material.snackbar.Snackbar;
 
 
 public class fragment_Main extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
-
-
-    private int itemselectID = R.id.bottomNav_Home;
-    private FragmentManager fragmentManager = null;
-
-    private BottomNavigationView bottomNav;
-
-    public fragment_Main() {
+    //khai báo khi vào màn hình chính sẽ tự động select Trang Chủ
+    private int item_selected = R.id.nav_Home;
+    //khai báo BottomNavigation
+    private BottomNavigationView bottom_Nav;
+    //khai báo view
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_main, container, false);
     }
 
-    public static fragment_Main newInstance() {
-        fragment_Main fragment = new fragment_Main();
-        return fragment;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
+        Anhxa(view);
+    }
+
+    //chọn item trong bottomNavigation
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        //nếu item chọn trùng với item đã chọn thì không thay đổi
+        if (item.getItemId() == item_selected) {
+            return true;
+        }
+        switch (item.getItemId()) {
+            //trang chủ
+            case R.id.nav_Home:
+                replaceFragment(new fragment_Trangchu());
+                break;
+            //cá nhân
+            case R.id.nav_User:
+                replaceFragment(new fragment_User());
+                break;
+            //ưu đãi
+            case R.id.nav_Endow:
+                replaceFragment(new fragment_Uudai());
+                break;
+        }
+        item_selected = item.getItemId();
+        return true;
+    }
+
+    //    khai báo hàm Anhxa
+    private void Anhxa(View v) {
+        bottom_Nav = v.findViewById(R.id.bottomNav);
+        bottom_Nav.getMenu().findItem(R.id.nav_Home).setChecked(true);
+        bottom_Nav.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+        replaceFragment(new fragment_Trangchu());
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("TAG", "onPause: ");
+
     }
 
     @Override
@@ -54,73 +98,19 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-
-        Log.d("TAG", "onCreateView: ");
-        View view = inflater.inflate(R.layout.fragment_main, null);
-        Anhxa(view);
-        return view;
-
+    //khai báo constructor rỗng
+    public fragment_Main() {
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
+    //ko biết
+    public static fragment_Main newInstance() {
+        fragment_Main fragment = new fragment_Main();
+        return fragment;
     }
 
-    private View viewcontainer;
-
-    private void Anhxa(View v) {
-        this.viewcontainer = v;
-        Log.d("TAG", "Anhxa: ");
-        bottomNav = v.findViewById(R.id.bottomNav);
-
-        fragmentManager = getActivity().getSupportFragmentManager();
-        bottomNav.getMenu().findItem(R.id.bottomNav_Home).setChecked(true);
-        bottomNav.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
-
-        ReplaceFragment(new fragment_Trangchu());
-    }
-
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("TAG", "onPause: ");
-
-    }
-
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        //nếu item chọn trùng với item đã chọn thì không thay đổi
-        if (item.getItemId() == itemselectID) {
-            return true;
-        }
-        switch (item.getItemId()) {
-            case R.id.bottomNav_Home:
-                ReplaceFragment(new fragment_Trangchu());
-                break;
-            case R.id.bottomNav_User:
-                ReplaceFragment(new fragment_User());
-                break;
-            case R.id.bottomNav_Doter:
-                ReplaceFragment(new fragment_Uudai());
-                break;
-        }
-
-        itemselectID = item.getItemId();
-        return true;
-    }
-
-    private void ReplaceFragment(Fragment fragment) {
-        fragmentManager.beginTransaction().replace(R.id.frameContainer, fragment).commit();
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, fragment).commit();
+        fragmentTransaction.commit();
     }
 }

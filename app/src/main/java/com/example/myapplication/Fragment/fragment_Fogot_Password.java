@@ -12,13 +12,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
 
 public class fragment_Fogot_Password extends Fragment {
-    private ImageView btnBackToLogin;
-
+//    khai báo
+    private ImageView btn_BackToLogin;
+    private AppCompatButton btn_ResetPassword;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,10 +29,12 @@ public class fragment_Fogot_Password extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        btnBackToLogin = view.findViewById(R.id.btnBackToLoginFogotPass);
-//        onClick
-        btnBackToLogin.setOnClickListener(view1 -> {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Login()).commit();
+//        ánh xạ
+        btn_BackToLogin = view.findViewById(R.id.btn_BackToLogin);
+        btn_ResetPassword  = view.findViewById(R.id.btn_ResetPassword);
+//        bắt sự kiện
+        btn_BackToLogin.setOnClickListener(view1 -> {
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
         });
         super.onViewCreated(view, savedInstanceState);
     }

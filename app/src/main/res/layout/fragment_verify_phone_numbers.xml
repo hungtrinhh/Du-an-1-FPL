@@ -8,7 +8,7 @@
 
     <ImageView
 
-        android:id="@+id/btnBackToRegister"
+        android:id="@+id/btn_BackToRegister"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginLeft="20dp"
@@ -161,7 +161,7 @@
             android:textSize="16dp" />
 
         <TextView
-            android:id="@+id/btnSendvetifiAgain"
+            android:id="@+id/tv_SendVerifyAgain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semi_bold"
@@ -173,7 +173,7 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCheckphone"
+        android:id="@+id/btn_CheckOTP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
