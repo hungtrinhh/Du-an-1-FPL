@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -73,7 +72,7 @@ public class fragment_Login extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Main()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Register_success()).commit();
             }
         });
         btnGotoregister.setOnClickListener(view1 -> {
@@ -95,7 +94,6 @@ public class fragment_Login extends Fragment {
         btnLogin = view.findViewById(R.id.btnLogin);
         btnGotoregister = view.findViewById(R.id.btnGotoregister);
         tvFogotPassword = view.findViewById(R.id.tvFogotPassword);
-
         edEmailLogin.setText(username);
         edPasswordLogin.setText(password);
     }

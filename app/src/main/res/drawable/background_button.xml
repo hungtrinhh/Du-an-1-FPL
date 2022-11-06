@@ -10,10 +10,8 @@
     </item>
     <item android:state_enabled="false">
         <shape>
-
             <corners android:radius="24dp" />
-            <gradient android:endColor="#C6C6C6" android:startColor="#555555" />
-
+            <solid android:color="@color/gray"/>
         </shape>
     </item>
 

@@ -10,9 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +49,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     private TextInputLayout edregisterPassword;
     private TextInputLayout edregisterComfirmPassword;
     private CheckBox chkCheckLaw;
-
+    private LinearLayout layout_Conditions;
 
     private AppCompatButton btnRegister;
     private final String TAG = "fragment_Regesiter";
@@ -55,7 +57,6 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     private FirebaseAuth mAuth;
 
 
-//    thêm animation fade in với chạy từ phải sang trái cho các phần tử
 
     @Nullable
     @Override
@@ -68,21 +69,28 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
         mAuth = FirebaseAuth.getInstance();
+        Animation(edregistername,edregisterPhonenumber,edregisterPassword,edregisterComfirmPassword,layout_Conditions,btnRegister);
+    }
+    private void Animation(TextInputLayout edregistername,TextInputLayout edregisterPhonenumber,TextInputLayout edregisterPassword,TextInputLayout edregisterComfirmPassword,LinearLayout layout_Conditions,AppCompatButton btnRegister){
+        edregistername.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
+        edregisterPhonenumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
+        edregisterPassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
+        edregisterComfirmPassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
+        edregistername.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
+        layout_Conditions.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.floatin));
+        btnRegister.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
 
     }
-
-    private void Anhxa(View v) {
-        btnBackToLogin = v.findViewById(R.id.btnBackToLogin);
-
-        edregistername = v.findViewById(R.id.edregistername);
-        edregisterPhonenumber = v.findViewById(R.id.edregisterPhonenumber);
-        edregisterPassword = v.findViewById(R.id.edregisterPassword);
-        edregisterComfirmPassword = v.findViewById(R.id.edregisterComfirmPassword);
-        chkCheckLaw = v.findViewById(R.id.chkCheckLaw);
-
-
-        tvConditions = v.findViewById(R.id.tvConditions);
-        btnRegister = v.findViewById(R.id.btnRegister);
+    private void Anhxa(View view) {
+        btnBackToLogin = view.findViewById(R.id.btnBackToLogin);
+        layout_Conditions = view.findViewById(R.id.layout_Conditions);
+        edregistername = view.findViewById(R.id.edregistername);
+        edregisterPhonenumber = view.findViewById(R.id.edregisterPhonenumber);
+        edregisterPassword = view.findViewById(R.id.edregisterPassword);
+        edregisterComfirmPassword = view.findViewById(R.id.edregisterComfirmPassword);
+        chkCheckLaw = view.findViewById(R.id.chkCheckLaw);
+        tvConditions = view.findViewById(R.id.tvConditions);
+        btnRegister = view.findViewById(R.id.btnRegister);
 
         OntextChange(edregistername);
         OntextChange(edregisterPassword);
@@ -164,7 +172,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         } else {
                             textInputLayout.setHelperText("✔");
-                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_tea)));
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
                         }
                         if (edregisterComfirmPassword.getEditText().getText().toString().equals(s.toString())) {
                             edregisterComfirmPassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
