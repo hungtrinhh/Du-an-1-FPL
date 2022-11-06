@@ -10,6 +10,7 @@
     <string name="Login">Đăng nhập</string>
     <string name="Sign_up">Đăng ký</string>
     <string name="Verify">Xác minh</string>
+    <string name="Continue">Tiếp tục</string>
     <string name="Reset_password">Đặt lại mật khẩu</string>
     <string name="Verify_phone_number">Xác minh số điện thoại</string>
     <string name="Verify_phone_number_notify">Nhập vào mã xác minh</string>

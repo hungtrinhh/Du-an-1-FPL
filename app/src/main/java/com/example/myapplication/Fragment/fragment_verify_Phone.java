@@ -325,6 +325,8 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
             case R.id.btnCheckphone:
                 phoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, GetCodefromEdittext());
                 signInWithPhoneAuthCredential(phoneAuthCredential);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Login()).commit();
+
                 break;
 
         }
