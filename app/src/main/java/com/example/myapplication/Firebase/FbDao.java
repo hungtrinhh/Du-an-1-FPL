@@ -2,6 +2,7 @@ package com.example.myapplication.Firebase;
 
 import android.util.Log;
 
+import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +34,19 @@ public class FbDao {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+    }
+
+    private void SendCode(){
+
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(mAuth)
+                        .setPhoneNumber(phoneNumber)       // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(getActivity())                 // Activity (for callback binding)
+                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
+
     }
 
 }

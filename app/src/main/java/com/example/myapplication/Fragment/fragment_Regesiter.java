@@ -196,18 +196,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 break;
         }
     }
-    private void SendCode(){
-
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(phoneNumber)       // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(getActivity())                 // Activity (for callback binding)
-                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
-
-    }
+ 
 
     private boolean CheckBtn() {
         Log.d(TAG, "CheckBtn: ");
