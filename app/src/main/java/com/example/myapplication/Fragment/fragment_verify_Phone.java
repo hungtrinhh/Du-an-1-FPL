@@ -48,12 +48,16 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
     private FirebaseAuth mAuth;
     private String Username = "";
     private String Password = "";
+    private String verificationId = "";
+    private PhoneAuthCredential phoneAuthCredential;
 
-    public fragment_verify_Phone(String mPhonenumber, String Username, String Password, String code) {
+    public fragment_verify_Phone(String mPhonenumber, String Username, String Password, String verificationId) {
         this.mPhonenumber = mPhonenumber;
         mAuth = FirebaseAuth.getInstance();
         this.Username = Username;
         this.Password = Password;
+        this.verificationId = verificationId;
+
     }
 
 
@@ -128,6 +132,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
                                 Log.d(TAG, "onVerificationCompleted:" + credential);
                                 signInWithPhoneAuthCredential(credential);
                             }
+
                             @Override
                             public void onVerificationFailed(FirebaseException e) {
                                 Log.w(TAG, "onVerificationFailed", e);
@@ -136,12 +141,13 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
                                 } else if (e instanceof FirebaseTooManyRequestsException) {
                                 }
                             }
+
                             @Override
                             public void onCodeSent(@NonNull String verificationId,
                                                    @NonNull PhoneAuthProvider.ForceResendingToken token) {
                                 super.onCodeSent(verificationId, token);
                                 Log.d(TAG, "onCodeSent:" + verificationId);
-                                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_verify_Phone(phoneNumber, Username, Password, verificationId)).commit();
+                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Login(Username, Password)).commit();
                             }
                         })
                         .build();
@@ -317,8 +323,8 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
 
                 break;
             case R.id.btnCheckphone:
-
-
+                phoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, GetCodefromEdittext());
+                signInWithPhoneAuthCredential(phoneAuthCredential);
                 break;
 
         }

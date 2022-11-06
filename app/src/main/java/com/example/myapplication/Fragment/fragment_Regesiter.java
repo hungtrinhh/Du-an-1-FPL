@@ -313,7 +313,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                                                    @NonNull PhoneAuthProvider.ForceResendingToken token) {
                                 super.onCodeSent(verificationId, token);
                                 Log.d(TAG, "onCodeSent:" + verificationId);
-                             //   getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_verify_Phone(phoneNumber, Username, Password,verificationId)).commit();
+                                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_verify_Phone(phoneNumber, Username, Password,verificationId)).commit();
                             }
                         })
                         .build();
