@@ -1,5 +1,8 @@
 package com.example.myapplication.Fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -44,9 +49,66 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
     // khai báo firebase
     private FirebaseAuth mAuth;
     // khai báo biến username & password giá trị rỗng
-    private String Username = "",Password = "",verificationId = "";
+    private String Username = "", Password = "", verificationId = "";
     // ko biet
     private PhoneAuthCredential phoneAuthCredential;
+    private PhoneAuthProvider.ForceResendingToken token;
+    private int second = 60;
+    Thread runReloadtv;
+
+    // khởi tạo constructor (truyền tham số)
+    public fragment_verify_Phone(String mPhonenumber, String Username, String Password, String verificationId, PhoneAuthProvider.ForceResendingToken token) {
+        this.mPhonenumber = mPhonenumber;
+        mAuth = FirebaseAuth.getInstance();
+        this.Username = Username;
+        this.Password = Password;
+        this.verificationId = verificationId;
+        this.token = token;
+        Handler handler = new Handler();
+        runReloadtv = new Thread(new Runnable() {
+
+
+            @Override
+            public void run() {
+                Looper.prepare();
+
+                while (second >= 0) {
+
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_SendVerifyAgain.setText(second + "");
+                            tv_SendVerifyAgain.setEnabled(false);
+                        }
+                    }, 0);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (second == 0) {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                tv_SendVerifyAgain.setText("Gửi lại");
+                                tv_SendVerifyAgain.setEnabled(true);
+
+                            }
+                        }, 0);
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                    second--;
+                }
+
+            }
+        });
+    }
 
 
     @Override
@@ -70,23 +132,14 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         Anhxa(view);
         setupEditext();
-
-
-    }
-
-    // khởi tạo constructor (truyền tham số)
-    public fragment_verify_Phone(String mPhonenumber, String Username, String Password, String verificationId) {
-        this.mPhonenumber = mPhonenumber;
-        mAuth = FirebaseAuth.getInstance();
-        this.Username = Username;
-        this.Password = Password;
-        this.verificationId = verificationId;
+        runReloadtv.start();
 
     }
+
 
     //  ko biết
     public static fragment_verify_Phone newInstance() {
-        fragment_verify_Phone fragment = new fragment_verify_Phone(null, null, null, null);
+        fragment_verify_Phone fragment = new fragment_verify_Phone(null, null, null, null, null);
 
         return fragment;
     }
@@ -102,6 +155,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
         code += edCode6.getText().toString();
         return code;
     }
+
     // khai báo hàm Anhxa
     private void Anhxa(View view) {
         edCode1 = view.findViewById(R.id.edCode1);
@@ -120,6 +174,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
         btn_BackToRegister.setOnClickListener(this::onClick);
 
     }
+
     //    khai báo hàm sendverifyCode phạm vi truy cập trong Class này
     private void sendverifyCode(String phoneNumber) {
 
@@ -128,6 +183,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
                         .setPhoneNumber(phoneNumber)       // Phone number to verify
                         .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(getActivity())                 // Activity (for callback binding)
+                        .setForceResendingToken(token)
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(PhoneAuthCredential credential) {
@@ -149,13 +205,14 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
                                                    @NonNull PhoneAuthProvider.ForceResendingToken token) {
                                 super.onCodeSent(verificationId, token);
                                 Log.d(TAG, "onCodeSent:" + verificationId);
-                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login(Username, Password)).commit();
+                                fragment_verify_Phone.this.verificationId = verificationId;
                             }
                         })
                         .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
 
     }
+
     // khai báo hàm setupEditext
     private void setupEditext() {
         edCode1.addTextChangedListener(new TextWatcher() {
@@ -289,6 +346,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
 
 
     }
+
     // khai báo hàm signInWithPhoneAuthCredential
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -298,7 +356,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
 
                     Log.d(TAG, "signInWithCredential:success");
 
-                    getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, new fragment_Login(Username, Password)).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, new fragment_register_success()).commit();
 
                 } else {
 
@@ -311,23 +369,25 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
         });
 
     }
+
     // hàm bắt sự kiện nút bấm trong fragment Regesiter
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_BackToRegister:
                 getActivity().getSupportFragmentManager().popBackStack();
-
-
                 break;
             case R.id.tv_SendVerifyAgain:
 
 
+                //  sendverifyCode(mPhonenumber);
+                runReloadtv.stop();
+                runReloadtv.start();
                 break;
             case R.id.btn_CheckOTP:
                 phoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, getCodefromEdittext());
                 signInWithPhoneAuthCredential(phoneAuthCredential);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
+
 
                 break;
 

@@ -19,7 +19,7 @@ import com.example.myapplication.Fragment.fragment_Login;
 import com.example.myapplication.Reciver.ReciverCheckingInternet;
 
 public class MainActivity extends AppCompatActivity {
-   public static AlertDialog alertDialog;
+    public static AlertDialog alertDialog;
     ReciverCheckingInternet broadcastReceiver = new ReciverCheckingInternet();
 
     @Override
@@ -27,11 +27,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(broadcastReceiver, filter);
+
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(broadcastReceiver, filter);
+    }
 
     @Override
     public void onBackPressed() {

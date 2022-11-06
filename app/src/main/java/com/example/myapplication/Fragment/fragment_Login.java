@@ -48,7 +48,7 @@ public class fragment_Login extends Fragment {
 
         //bắt sự kiện khi click
         btn_Login.setOnClickListener(view1 -> {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Register_success()).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_register_success()).commit();
         });
         tv_GoToRegister.setOnClickListener(view1 -> {
 //            addToBackStack = nút Back trên màn hình điện thoại

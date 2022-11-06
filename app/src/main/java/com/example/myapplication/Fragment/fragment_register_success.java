@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.R;
 
 
-public class fragment_Register_success extends Fragment {
+public class fragment_register_success extends Fragment {
     //  khai báo
     private ImageView btn_CancelToLogin;
 

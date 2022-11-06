@@ -277,7 +277,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 dialog.show();
                 break;
             case R.id.btn_Register:
-                sendverifyCode(text_Phonenumber.getEditText().getText().toString());
+//                sendverifyCode(text_Phonenumber.getEditText().getText().toString());
 
                 break;
             case R.id.chk_CheckConditions:
@@ -340,7 +340,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken token) {
                         super.onCodeSent(verificationId, token);
                         Log.d(TAG, "onCodeSent:" + verificationId);
-                        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, new fragment_verify_Phone(phoneNumber, Username, Password, verificationId)).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").add(R.id.fragment_container, new fragment_verify_Phone(phoneNumber, Username, Password, "verificationId", token)).commit();
                     }
                 }).build();
         PhoneAuthProvider.verifyPhoneNumber(options);
