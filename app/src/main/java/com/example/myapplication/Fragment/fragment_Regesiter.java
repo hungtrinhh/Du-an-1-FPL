@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 //import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.R;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.PhoneAuthOptions;
 
 public class fragment_Regesiter extends Fragment implements View.OnClickListener {
     private ImageView btnBackToLogin;
@@ -197,7 +198,14 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     }
     private void SendCode(){
 
-
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(mAuth)
+                        .setPhoneNumber(phoneNumber)       // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(getActivity())                 // Activity (for callback binding)
+                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
 
     }
 
