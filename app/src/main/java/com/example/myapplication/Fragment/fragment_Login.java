@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,11 @@ public class fragment_Login extends Fragment {
         });
     }
 
+    String TAG = fragment_Login.class.toString();
+
+
+
+
     // khai báo hàm animation
     private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, Switch swRememberAccount, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
         layoutLogoWhite.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.floatin));
@@ -93,6 +99,7 @@ public class fragment_Login extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
+
     //    khai báo hàm Anhxa
     private void Anhxa(View view) {
         layoutLogoWhite = view.findViewById(R.id.layout_logoWhite);
