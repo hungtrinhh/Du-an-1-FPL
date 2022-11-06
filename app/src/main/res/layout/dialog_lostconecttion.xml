@@ -28,7 +28,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
-                    android:fontFamily="@font/intertightsemibold"
                     android:text="Mất kết nối mạng rồi..."
                     android:textColor="@color/black"
                     android:textSize="20dp" />

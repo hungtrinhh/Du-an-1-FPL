@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
 
         registerReceiver(broadcastReceiver, filter);
-     
+
     }
 
 
