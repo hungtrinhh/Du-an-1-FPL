@@ -195,6 +195,11 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 break;
         }
     }
+    private void SendCode(){
+
+
+
+    }
 
     private boolean CheckBtn() {
         Log.d(TAG, "CheckBtn: ");
@@ -231,7 +236,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 dialog.show();
                 break;
             case R.id.btnRegister:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_verify_Phone()).addToBackStack("").commit();
+                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_verify_Phone()).commit();
                 break;
             case R.id.chkCheckLaw:
                 btnRegister.setEnabled(CheckBtn());
