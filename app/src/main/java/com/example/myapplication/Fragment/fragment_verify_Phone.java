@@ -9,14 +9,28 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class fragment_verify_Phone extends Fragment implements View.OnClickListener {
@@ -30,14 +44,21 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
     private TextView btnSendvetifiAgain;
     private AppCompatButton btnCheckphone;
     private String mPhonenumber;
+    private final String TAG = "fragment_verify_Phone";
+    private FirebaseAuth mAuth;
+    private String Username = "";
+    private String Password = "";
 
-    public fragment_verify_Phone(String mPhonenumber) {
+    public fragment_verify_Phone(String mPhonenumber, String Username, String Password, String code) {
         this.mPhonenumber = mPhonenumber;
+        mAuth = FirebaseAuth.getInstance();
+        this.Username = Username;
+        this.Password = Password;
     }
 
 
     public static fragment_verify_Phone newInstance() {
-        fragment_verify_Phone fragment = new fragment_verify_Phone(null);
+        fragment_verify_Phone fragment = new fragment_verify_Phone(null, null, null, null);
 
         return fragment;
     }
@@ -65,6 +86,17 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
 
     }
 
+    private String GetCodefromEdittext() {
+        String code = "";
+        code += edCode1.getText().toString();
+        code += edCode2.getText().toString();
+        code += edCode3.getText().toString();
+        code += edCode4.getText().toString();
+        code += edCode5.getText().toString();
+        code += edCode6.getText().toString();
+        return code;
+    }
+
     private void Anhxa(View v) {
         edCode1 = v.findViewById(R.id.edCode1);
         edCode2 = v.findViewById(R.id.edCode2);
@@ -80,6 +112,40 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
         btnCheckphone.setOnClickListener(this::onClick);
         btnSendvetifiAgain.setOnClickListener(this::onClick);
         btnBackToRegister.setOnClickListener(this::onClick);
+
+    }
+
+    private void SendverifyCode(String phoneNumber) {
+
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(mAuth)
+                        .setPhoneNumber(phoneNumber)       // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(getActivity())                 // Activity (for callback binding)
+                        .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                            @Override
+                            public void onVerificationCompleted(PhoneAuthCredential credential) {
+                                Log.d(TAG, "onVerificationCompleted:" + credential);
+                                signInWithPhoneAuthCredential(credential);
+                            }
+                            @Override
+                            public void onVerificationFailed(FirebaseException e) {
+                                Log.w(TAG, "onVerificationFailed", e);
+                                Toast.makeText(getActivity(), "Gửi mã xác minh thất bại,Hãy liên hệ với quản trị viên để được giúp đỡ", Toast.LENGTH_SHORT).show();
+                                if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                                } else if (e instanceof FirebaseTooManyRequestsException) {
+                                }
+                            }
+                            @Override
+                            public void onCodeSent(@NonNull String verificationId,
+                                                   @NonNull PhoneAuthProvider.ForceResendingToken token) {
+                                super.onCodeSent(verificationId, token);
+                                Log.d(TAG, "onCodeSent:" + verificationId);
+                                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_verify_Phone(phoneNumber, Username, Password, verificationId)).commit();
+                            }
+                        })
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
 
     }
 
@@ -213,6 +279,28 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
             }
         });
 
+
+    }
+
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+
+                    Log.d(TAG, "signInWithCredential:success");
+
+                    getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_Login(Username, Password)).commit();
+
+                } else {
+
+                    Log.w(TAG, "signInWithCredential:failure", task.getException());
+                    if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+
+                    }
+                }
+            }
+        });
 
     }
 

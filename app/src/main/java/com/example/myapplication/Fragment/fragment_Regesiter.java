@@ -257,7 +257,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
         }
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential, String Username, String Password) {
         mAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -265,7 +265,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success");
 
-                    getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_Login()).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_Login(Username, Password)).commit();
 
                 } else {
 
@@ -280,6 +280,8 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     }
 
     private void SendverifyCode(String phoneNumber) {
+        String Username = edregistername.getEditText().getText().toString();
+        String Password = edregisterPassword.getEditText().getText().toString();
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
                         .setPhoneNumber(phoneNumber)       // Phone number to verify
@@ -290,7 +292,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                             public void onVerificationCompleted(PhoneAuthCredential credential) {
                                 Log.d(TAG, "onVerificationCompleted:" + credential);
 
-                                signInWithPhoneAuthCredential(credential);
+                                signInWithPhoneAuthCredential(credential,Username,Password);
                             }
 
                             @Override
@@ -311,7 +313,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                                                    @NonNull PhoneAuthProvider.ForceResendingToken token) {
                                 super.onCodeSent(verificationId, token);
                                 Log.d(TAG, "onCodeSent:" + verificationId);
-                                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_verify_Phone()).commit();
+                             //   getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_verify_Phone(phoneNumber, Username, Password,verificationId)).commit();
                             }
                         })
                         .build();

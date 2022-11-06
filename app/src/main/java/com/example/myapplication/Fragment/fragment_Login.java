@@ -27,11 +27,16 @@ public class fragment_Login extends Fragment {
     private EditText edPasswordLogin;
     private Switch swRememberAccount;
     private AppCompatButton btnLogin;
-    private TextView btnGotoregister,tvFogotPassword;
-
+    private TextView btnGotoregister, tvFogotPassword;
+    String username = "", password = "";
 
     public fragment_Login() {
 
+    }
+
+    public fragment_Login(String userName, String passWord) {
+        this.username = userName;
+        this.password = passWord;
     }
 
     public static fragment_Login newInstance() {
@@ -71,16 +76,17 @@ public class fragment_Login extends Fragment {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Main()).commit();
             }
         });
-        btnGotoregister.setOnClickListener(view1 ->{
+        btnGotoregister.setOnClickListener(view1 -> {
 //            addToBackStack = nút Back trên màn hình điện thoại
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Regesiter()).addToBackStack("").commit();
 
         });
-        tvFogotPassword.setOnClickListener(view1->{
+        tvFogotPassword.setOnClickListener(view1 -> {
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, new fragment_Fogot_Password()).addToBackStack("").commit();
 
         });
     }
+
     private void Anhxa(View view) {
         layoutLogoWhite = view.findViewById(R.id.layout_logoWhite);
         edEmailLogin = view.findViewById(R.id.edEmailLogin);
@@ -89,5 +95,8 @@ public class fragment_Login extends Fragment {
         btnLogin = view.findViewById(R.id.btnLogin);
         btnGotoregister = view.findViewById(R.id.btnGotoregister);
         tvFogotPassword = view.findViewById(R.id.tvFogotPassword);
+
+        edEmailLogin.setText(username);
+        edPasswordLogin.setText(password);
     }
 }
