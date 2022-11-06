@@ -29,15 +29,15 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
     private EditText edCode6;
     private TextView btnSendvetifiAgain;
     private AppCompatButton btnCheckphone;
+    private String mPhonenumber;
 
-
-    public fragment_verify_Phone() {
-        // Required empty public constructor
+    public fragment_verify_Phone(String mPhonenumber) {
+        this.mPhonenumber = mPhonenumber;
     }
 
 
-    public static fragment_verify_Phone newInstance(String param1, String param2) {
-        fragment_verify_Phone fragment = new fragment_verify_Phone();
+    public static fragment_verify_Phone newInstance() {
+        fragment_verify_Phone fragment = new fragment_verify_Phone(null);
 
         return fragment;
     }
@@ -212,7 +212,6 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
 
             }
         });
-
 
 
     }

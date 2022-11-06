@@ -24,8 +24,20 @@ import androidx.fragment.app.Fragment;
 
 //import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
+
+import java.util.concurrent.TimeUnit;
 
 public class fragment_Regesiter extends Fragment implements View.OnClickListener {
     private ImageView btnBackToLogin;
@@ -40,6 +52,9 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     private AppCompatButton btnRegister;
     private final String TAG = "fragment_Regesiter";
 
+    private FirebaseAuth mAuth;
+
+
 //    thêm animation fade in với chạy từ phải sang trái cho các phần tử
 
     @Nullable
@@ -52,7 +67,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
-
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
@@ -196,7 +211,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 break;
         }
     }
- 
+
 
     private boolean CheckBtn() {
         Log.d(TAG, "CheckBtn: ");
@@ -233,13 +248,75 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                 dialog.show();
                 break;
             case R.id.btnRegister:
-                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_verify_Phone()).commit();
+
                 break;
             case R.id.chkCheckLaw:
                 btnRegister.setEnabled(CheckBtn());
-
+                SendverifyCode(edregisterPhonenumber.getEditText().getText().toString());
                 break;
         }
+    }
+
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithCredential:success");
+
+                    getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_Login()).commit();
+
+                } else {
+
+                    Log.w(TAG, "signInWithCredential:failure", task.getException());
+                    if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+
+                    }
+                }
+            }
+        });
+
+    }
+
+    private void SendverifyCode(String phoneNumber) {
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(mAuth)
+                        .setPhoneNumber(phoneNumber)       // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(getActivity())                 // Activity (for callback binding)
+                        .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                            @Override
+                            public void onVerificationCompleted(PhoneAuthCredential credential) {
+                                Log.d(TAG, "onVerificationCompleted:" + credential);
+
+                                signInWithPhoneAuthCredential(credential);
+                            }
+
+                            @Override
+                            public void onVerificationFailed(FirebaseException e) {
+                                Log.w(TAG, "onVerificationFailed", e);
+                                Toast.makeText(getActivity(), "Gửi mã xác minh thất bại,Hãy liên hệ với quản trị viên để được giúp đỡ", Toast.LENGTH_SHORT).show();
+                                if (e instanceof FirebaseAuthInvalidCredentialsException) {
+
+                                } else if (e instanceof FirebaseTooManyRequestsException) {
+
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onCodeSent(@NonNull String verificationId,
+                                                   @NonNull PhoneAuthProvider.ForceResendingToken token) {
+                                super.onCodeSent(verificationId, token);
+                                Log.d(TAG, "onCodeSent:" + verificationId);
+                                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.containerMain, new fragment_verify_Phone()).commit();
+                            }
+                        })
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
+
     }
 
 

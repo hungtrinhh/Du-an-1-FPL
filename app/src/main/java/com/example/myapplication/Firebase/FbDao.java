@@ -1,17 +1,25 @@
 package com.example.myapplication.Firebase;
 
+import android.app.Activity;
 import android.util.Log;
 
+import com.example.myapplication.MainActivity;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.TimeUnit;
+
 public class FbDao {
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
-
+    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static final String TAG = "Firebase Dao";
 
     public static void Test(String string) {
@@ -36,17 +44,6 @@ public class FbDao {
         });
     }
 
-    private void SendCode(){
-
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(phoneNumber)       // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(getActivity())                 // Activity (for callback binding)
-                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
-
-    }
+    ///////////////////////////////////////////////////////////////////////////
 
 }
