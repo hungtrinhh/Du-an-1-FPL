@@ -181,7 +181,7 @@
         android:fontFamily="@font/poppins_medium"
         android:background="@drawable/background_button"
         android:paddingTop="5dp"
-        android:text="@string/Continue"
+        android:text="@string/Verify"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18dp" />
