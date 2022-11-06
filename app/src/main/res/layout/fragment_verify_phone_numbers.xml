@@ -18,6 +18,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
         android:layout_marginTop="20dp"
         android:paddingLeft="20dp"
         android:text="@string/Verify_phone_number"
@@ -31,6 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:paddingLeft="20dp"
+        android:fontFamily="@font/poppins_regular"
+
         android:text="@string/Verify_phone_number_notify"
         android:textAllCaps="false"
         android:textColor="@color/gray"
@@ -57,10 +60,12 @@
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="1"
+            android:textStyle="bold"
             android:textSize="48dp" />
 
         <EditText
             android:id="@+id/edCode2"
+            android:textStyle="bold"
 
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -76,6 +81,7 @@
 
         <EditText
             android:id="@+id/edCode3"
+            android:textStyle="bold"
 
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -91,6 +97,7 @@
 
         <EditText
             android:id="@+id/edCode4"
+            android:textStyle="bold"
 
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -106,6 +113,7 @@
 
         <EditText
             android:id="@+id/edCode5"
+            android:textStyle="bold"
 
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -121,6 +129,7 @@
 
         <EditText
             android:id="@+id/edCode6"
+            android:textStyle="bold"
 
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -148,13 +157,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Không nhận được mã xác minh? "
-
+            android:fontFamily="@font/poppins_regular"
             android:textSize="16dp" />
 
         <TextView
             android:id="@+id/btnSendvetifiAgain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semi_bold"
+
             android:text="Gửi lại"
             android:textColor="@color/blue"
             android:textSize="16dp"
@@ -167,8 +178,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_medium"
         android:background="@drawable/background_button"
-        android:padding="8dp"
+        android:paddingTop="5dp"
         android:text="@string/Continue"
         android:textAllCaps="false"
         android:textColor="@color/white"

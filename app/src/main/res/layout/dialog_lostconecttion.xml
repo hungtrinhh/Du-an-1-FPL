@@ -30,11 +30,13 @@
                     android:layout_marginVertical="5dp"
                     android:text="Mất kết nối mạng rồi..."
                     android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_semi_bold"
                     android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="Kiểm tra kết nối mạng rồi thử lại nhé."
                     android:textSize="15dp" />
             </LinearLayout>
@@ -51,15 +53,16 @@
             android:id="@+id/btnLostconnecttionRetry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="right"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:backgroundTint="@color/green_700"
             android:paddingHorizontal="30dp"
             android:text="Thử lại"
             android:textSize="16dp"
+            android:fontFamily="@font/poppins_semi_bold"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+             />
 
     </LinearLayout>
 

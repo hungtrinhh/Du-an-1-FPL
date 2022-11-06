@@ -6,16 +6,19 @@
 
     <LinearLayout
 
-android:background="@color/white"        android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="10dp"
-        android:orientation="vertical">
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingVertical="10dp">
+
         <TextView
             android:layout_width="match_parent"
-            android:textColor="@color/black"
-            android:textSize="22dp"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_height="wrap_content"
             android:text="@string/Terms_and_conditions"
-            android:layout_height="wrap_content"/>
+            android:textColor="@color/black"
+            android:textSize="22dp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
