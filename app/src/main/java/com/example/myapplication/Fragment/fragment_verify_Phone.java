@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -56,6 +57,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
     private PhoneAuthProvider.ForceResendingToken token;
     private int second = 60;
     Thread runReloadtv;
+    User user;
 
     // khởi tạo constructor (truyền tham số)
     public fragment_verify_Phone(User user, String verificationId, PhoneAuthProvider.ForceResendingToken token) {
@@ -65,6 +67,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
         this.Password = user.getPassword();
         this.verificationId = verificationId;
         this.token = token;
+        this.user = user;
         Handler handler = new Handler();
         runReloadtv = new Thread(new Runnable() {
 
@@ -140,7 +143,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
 
     //  ko biết
     public static fragment_verify_Phone newInstance() {
-        fragment_verify_Phone fragment = new fragment_verify_Phone(null,  null, null);
+        fragment_verify_Phone fragment = new fragment_verify_Phone(null, null, null);
 
         return fragment;
     }
@@ -357,6 +360,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
 
                     Log.d(TAG, "signInWithCredential:success");
 
+                    FbDao.AddUser(user);
                     getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, new fragment_register_success()).commit();
 
                 } else {
@@ -371,7 +375,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
 
     }
 
-    // hàm bắt sự kiện nút bấm trong fragment Regesiter
+    /// hàm bắt sự kiện nút bấm trong fragment Regesiter
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
