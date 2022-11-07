@@ -25,11 +25,21 @@ import java.util.concurrent.TimeUnit;
 public class FbDao {
 
 
-    public static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private static final String TAG = "Firebase Dao";
+    public FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final String TAG = "Firebase Dao";
+    private static List<User> list;
 
-    public static void Test(String string) {
+    public static java.util.List<User> getList() {
+
+        return list;
+    }
+
+    public FbDao() {
+        ReadUser();
+    }
+
+    public void Test(String string) {
         Log.d(TAG, "string is: " + string);
         DatabaseReference myRef = database.getReference("message");
         myRef.setValue(string);
@@ -51,14 +61,15 @@ public class FbDao {
         });
     }
 
-    public static void AddUser(User user) {
+    public void AddUser(User user) {
         DatabaseReference myRef = database.getReference("Users");
         myRef.push().setValue(user);
 
     }
 
-    public static List<User> ReadUser() {
-        List<User> list = new ArrayList<>();
+    public void ReadUser() {
+        Log.d(TAG, "ReadUser: ");
+        list = new ArrayList<>();
         DatabaseReference myRef = database.getReference("Users");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -71,9 +82,12 @@ public class FbDao {
                     }
                     u.setId(dt.getKey());
                     list.add(u);
-                }
+                    Log.d(TAG, "onDataChange: " + u.getName());
 
+                }
             }
+
+            int a = 0;
 
             @Override
             public void onCancelled(DatabaseError error) {
@@ -81,7 +95,7 @@ public class FbDao {
                 );
             }
         });
-        return list;
+
     }
 
     ///////////////////////////////////////////////////////////////////////////

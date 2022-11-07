@@ -30,8 +30,7 @@ public class fragment_splastScreen extends Fragment {
 
     private ImageView imageView;
     private TextView textView;
-    private List<User> userList;
-    private boolean dk1 = false;
+
 
     public fragment_splastScreen() {
 
@@ -53,8 +52,7 @@ public class fragment_splastScreen extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, new IntentFilter("getUserFromInternet"));
-        getActivity().startService(new Intent("getUserFromInternet"));
+
     }
 
     @Override
@@ -68,41 +66,23 @@ public class fragment_splastScreen extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (dk1) {
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login(userList));
-                }
+
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
+
             }
-        }, 2000);
+        }, 3000);
 
     }
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Bundle b = intent.getBundleExtra("b");
-            userList = (List<User>) b.getSerializable("list");
-            dk1 = true;
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (dk1) {
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login(userList));
-
-                    }
-                }
-            }, 2000);
-        }
-    };
 
     @Override
     public void onPause() {
         super.onPause();
-        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
     }
 
     private void Anhxa(View v) {

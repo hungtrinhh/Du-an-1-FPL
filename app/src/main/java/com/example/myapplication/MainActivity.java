@@ -15,9 +15,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragment_Login;
 import com.example.myapplication.Fragment.fragment_splastScreen;
+import com.example.myapplication.Model.User;
 import com.example.myapplication.Reciver.ReciverCheckingInternet;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static AlertDialog alertDialog;
@@ -28,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_splastScreen()).commit();
-
-
+      FbDao dao = new FbDao();
+        List<User> list=   FbDao.getList();
+        int a = 0;
     }
 
     @Override

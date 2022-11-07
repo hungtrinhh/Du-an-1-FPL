@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 
@@ -62,18 +63,20 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_Login:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_register_success()).commit();
                 String username = ed_Username.getText().toString();
                 String password = ed_Password.getText().toString();
                 for (User u : list
                 ) {
+                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
 
+                    }
 
                 }
 
                 break;
             case R.id.tv_GoToRegister:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Regesiter()).addToBackStack("").commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Regesiter(list)).addToBackStack("").commit();
                 break;
             case R.id.tv_FogotPassword:
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Fogot_Password()).addToBackStack("").commit();
@@ -95,8 +98,8 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
 
     //   khai báo constructor
-    public fragment_Login(List<User> userList) {
-        this.list = userList;
+    public fragment_Login() {
+        this.list = FbDao.getList();
     }
 
     //  Phương thức khởi tạo có tham số username & password
@@ -106,7 +109,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     }
 
     public static fragment_Login newInstance() {
-        fragment_Login fragment = new fragment_Login(null);
+        fragment_Login fragment = new fragment_Login();
         return fragment;
     }
 

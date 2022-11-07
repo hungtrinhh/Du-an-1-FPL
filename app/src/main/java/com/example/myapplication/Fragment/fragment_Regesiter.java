@@ -61,6 +61,10 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     private List<User> list;
     private final String TAG = "fragment_Regesiter";
 
+    public fragment_Regesiter(List<User> list) {
+        this.list = list;
+    }
+
     //  khai báo view
     @Nullable
     @Override
