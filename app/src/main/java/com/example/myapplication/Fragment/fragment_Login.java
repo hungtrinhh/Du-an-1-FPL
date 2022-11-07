@@ -68,7 +68,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 String username = ed_Username.getText().toString();
                 String password = ed_Password.getText().toString();
 //                test
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_register_success()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, new fragment_register_success()).commit();
 //
 //                boolean dk = false;
 //                for (User u : list
