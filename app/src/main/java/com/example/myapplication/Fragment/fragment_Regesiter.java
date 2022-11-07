@@ -148,9 +148,11 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
                         for (User u : list
                         ) {
-                            if (u.getName().equals(s.toString()))
+                            if (u.getName().equals(s.toString())){
+                                textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                                 textInputLayout.setHelperText("Tên đã tồn tại*");
-                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+
+                            }
                             break;
                         }
                         btn_Register.setEnabled(CheckBtn());
