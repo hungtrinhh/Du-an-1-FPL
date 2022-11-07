@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.myapplication.Fragment.fragment_Login;
+import com.example.myapplication.Fragment.fragment_splastScreen;
 import com.example.myapplication.Reciver.ReciverCheckingInternet;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_splastScreen()).commit();
 
 
     }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.hardware.usb.UsbRequest;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -41,6 +42,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class fragment_Regesiter extends Fragment implements View.OnClickListener {
@@ -56,6 +58,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     private AppCompatButton btn_Register;
     // khai báo firebase
     private FirebaseAuth mAuth;
+    private List<User> list;
     private final String TAG = "fragment_Regesiter";
 
     //  khai báo view
@@ -137,6 +140,14 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                         } else {
                             textInputLayout.setHelperText("✔");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.green_700)));
+                        }
+
+                        for (User u : list
+                        ) {
+                            if (u.getName().equals(s.toString()))
+                                textInputLayout.setHelperText("Tên đã tồn tại*");
+                            textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                            break;
                         }
                         btn_Register.setEnabled(CheckBtn());
                     }

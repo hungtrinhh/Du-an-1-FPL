@@ -1,6 +1,5 @@
 package com.example.myapplication.Fragment;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 
+import java.util.List;
 
-public class fragment_Login extends Fragment {
+
+public class fragment_Login extends Fragment implements View.OnClickListener {
     //  khai báo
     private LinearLayout layoutLogoWhite;
     private EditText ed_Username;
@@ -31,6 +32,9 @@ public class fragment_Login extends Fragment {
     private TextView tv_GoToRegister, tv_FogotPassword;
     //    khai báo biến username & password giá trị rỗng
     private String username = "", password = "";
+    private List<User> list;
+    private String TAG = fragment_Login.class.toString();
+
 
     //khai báo view
     @Override
@@ -48,23 +52,34 @@ public class fragment_Login extends Fragment {
         animation(layoutLogoWhite, ed_Username, ed_Password, sw_RememberAccount, btn_Login, tv_GoToRegister, tv_FogotPassword);
 
         //bắt sự kiện khi click
-        btn_Login.setOnClickListener(view1 -> {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_register_success()).commit();
-        });
-        tv_GoToRegister.setOnClickListener(view1 -> {
-//            addToBackStack = nút Back trên màn hình điện thoại
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Regesiter()).addToBackStack("").commit();
+        btn_Login.setOnClickListener(this::onClick);
+        tv_GoToRegister.setOnClickListener(this::onClick);
+        tv_FogotPassword.setOnClickListener(this::onClick);
 
-        });
-        tv_FogotPassword.setOnClickListener(view1 -> {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Fogot_Password()).addToBackStack("").commit();
-
-        });
     }
 
-    String TAG = fragment_Login.class.toString();
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_Login:
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_register_success()).commit();
+                String username = ed_Username.getText().toString();
+                String password = ed_Password.getText().toString();
+                for (User u : list
+                ) {
 
 
+                }
+
+                break;
+            case R.id.tv_GoToRegister:
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Regesiter()).addToBackStack("").commit();
+                break;
+            case R.id.tv_FogotPassword:
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Fogot_Password()).addToBackStack("").commit();
+                break;
+        }
+    }
 
 
     // khai báo hàm animation
@@ -80,7 +95,8 @@ public class fragment_Login extends Fragment {
 
 
     //   khai báo constructor
-    public fragment_Login() {
+    public fragment_Login(List<User> userList) {
+        this.list = userList;
     }
 
     //  Phương thức khởi tạo có tham số username & password
@@ -90,7 +106,7 @@ public class fragment_Login extends Fragment {
     }
 
     public static fragment_Login newInstance() {
-        fragment_Login fragment = new fragment_Login();
+        fragment_Login fragment = new fragment_Login(null);
         return fragment;
     }
 
@@ -112,4 +128,6 @@ public class fragment_Login extends Fragment {
         ed_Username.setText(username);
         ed_Password.setText(password);
     }
+
+
 }

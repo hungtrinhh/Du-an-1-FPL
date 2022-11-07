@@ -37,7 +37,7 @@ public class fragment_register_success extends Fragment {
         Anhxa(view);
         //bắt sự kiện khi click
         btn_CancelToLogin.setOnClickListener(view1 -> {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login(userList)).commit();
         });
     }
 

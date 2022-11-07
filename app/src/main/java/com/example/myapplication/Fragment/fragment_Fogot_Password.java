@@ -1,17 +1,13 @@
 package com.example.myapplication.Fragment;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
@@ -34,7 +30,7 @@ public class fragment_Fogot_Password extends Fragment {
         btn_ResetPassword  = view.findViewById(R.id.btn_ResetPassword);
 //        bắt sự kiện
         btn_BackToLogin.setOnClickListener(view1 -> {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login(userList)).commit();
         });
         super.onViewCreated(view, savedInstanceState);
     }
