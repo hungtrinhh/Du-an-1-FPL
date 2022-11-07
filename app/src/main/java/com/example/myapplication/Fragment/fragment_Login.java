@@ -65,22 +65,22 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_Login:
-                String username = ed_Username.getText().toString();
-                String password = ed_Password.getText().toString();
-
-
-                boolean dk = false;
-                for (User u : list
-                ) {
-                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
+//                String username = ed_Username.getText().toString();
+//                String password = ed_Password.getText().toString();
+//
+//
+//                boolean dk = false;
+//                for (User u : list
+//                ) {
+//                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
-                        dk = true;
-                    }
-                }
-                if (!dk) {
-                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản sai", 2000).show();
-
-                }
+//                        dk = true;
+//                    }
+//                }
+//                if (!dk) {
+//                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản sai", 2000).show();
+//
+//                }
 
                 break;
             case R.id.tv_GoToRegister:

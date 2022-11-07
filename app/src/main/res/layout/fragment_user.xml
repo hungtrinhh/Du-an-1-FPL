@@ -17,11 +17,11 @@
 
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:background="@drawable/circle"
-            android:src="@drawable/userimg" />
+            android:src="@drawable/avatar" />
 
         <TextView
             android:layout_width="match_parent"

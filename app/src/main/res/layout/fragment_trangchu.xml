@@ -4,9 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:companyApp="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_container"
     android:orientation="vertical"
     tools:context=".Fragment.fragment_Trangchu">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:titleTextColor="@color/white"
+        android:layout_width="match_parent"
+        app:menu="@menu/toolbar_menu"
+        android:layout_height="?attr/actionBarSize"
+        companyApp:titleTextAppearance="@style/ActionBar.nameText"
+        app:title="@string/app_name" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,10 +27,10 @@
 
 
         <ImageView
-            android:layout_width="76dp"
-            android:layout_height="76dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             android:background="@drawable/circle"
-            android:src="@drawable/userimg" />
+            android:src="@drawable/avatar" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,9 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="5dp"
-                android:text="Trịnh Đức Hùng"
+                android:text="Hung Duc Trinh"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="24dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -59,7 +69,7 @@
         android:id="@+id/content_containerTrangchu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/conten_background"
         android:orientation="vertical">
 
@@ -87,10 +97,12 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:id="@+id/layout_troChoi"
                     android:layout_width="match_parent"

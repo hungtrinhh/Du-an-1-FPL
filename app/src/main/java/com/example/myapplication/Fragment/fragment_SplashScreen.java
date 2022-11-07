@@ -1,15 +1,10 @@
 package com.example.myapplication.Fragment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -19,26 +14,22 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myapplication.Firebase.FbDao;
-import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 
-import java.util.List;
 
-
-public class fragment_splastScreen extends Fragment {
+public class fragment_SplashScreen extends Fragment {
 
     private ImageView imageView;
     private TextView textView;
 
 
-    public fragment_splastScreen() {
+    public fragment_SplashScreen() {
 
     }
 
 
-    public static fragment_splastScreen newInstance() {
-        fragment_splastScreen fragment = new fragment_splastScreen();
+    public static fragment_SplashScreen newInstance() {
+        fragment_SplashScreen fragment = new fragment_SplashScreen();
 
         return fragment;
     }
