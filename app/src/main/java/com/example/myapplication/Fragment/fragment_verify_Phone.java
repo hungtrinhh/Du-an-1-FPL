@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,11 +58,11 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
     Thread runReloadtv;
 
     // khởi tạo constructor (truyền tham số)
-    public fragment_verify_Phone(String mPhonenumber, String Username, String Password, String verificationId, PhoneAuthProvider.ForceResendingToken token) {
+    public fragment_verify_Phone(User user, String verificationId, PhoneAuthProvider.ForceResendingToken token) {
         this.mPhonenumber = mPhonenumber;
         mAuth = FirebaseAuth.getInstance();
-        this.Username = Username;
-        this.Password = Password;
+        this.Username = user.getName();
+        this.Password = user.getPassword();
         this.verificationId = verificationId;
         this.token = token;
         Handler handler = new Handler();
@@ -139,7 +140,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
 
     //  ko biết
     public static fragment_verify_Phone newInstance() {
-        fragment_verify_Phone fragment = new fragment_verify_Phone(null, null, null, null, null);
+        fragment_verify_Phone fragment = new fragment_verify_Phone(null,  null, null);
 
         return fragment;
     }
@@ -380,7 +381,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
             case R.id.tv_SendVerifyAgain:
 
 
-                //  sendverifyCode(mPhonenumber);
+                sendverifyCode(mPhonenumber);
                 runReloadtv.stop();
                 runReloadtv.start();
                 break;

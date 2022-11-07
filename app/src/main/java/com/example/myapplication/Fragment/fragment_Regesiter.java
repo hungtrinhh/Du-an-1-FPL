@@ -26,6 +26,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 //import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -340,7 +341,8 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken token) {
                         super.onCodeSent(verificationId, token);
                         Log.d(TAG, "onCodeSent:" + verificationId);
-                        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, new fragment_verify_Phone(phoneNumber, Username, Password, verificationId, token)).commit();
+                        User user = new User(text_Username.getEditText().getText().toString(), Password, phoneNumber, 0);
+                        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, new fragment_verify_Phone(user, verificationId, token)).commit();
                     }
                 }).build();
         PhoneAuthProvider.verifyPhoneNumber(options);
