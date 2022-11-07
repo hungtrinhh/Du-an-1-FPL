@@ -46,13 +46,6 @@
            android:text="Bạn đã đăng ký thành công"
            android:textColor="@color/black"
            />
-       <TextView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:gravity="center"
-           android:fontFamily="@font/poppins_regular"
-           android:text="Chuyển trang sau số dây, hoặc để nguyên như thé này"
-           android:textColor="@color/black"
-           />
+
    </LinearLayout>
 </LinearLayout>
