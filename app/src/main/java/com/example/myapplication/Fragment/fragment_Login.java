@@ -81,7 +81,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 ) {
                     if (username.equals(u.getName()) && password.equals(u.getPassword())) {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
-                        saveAccount();
+
                         dk = true;
                     }
                 }
@@ -110,18 +110,26 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         tvFogotPassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        saveAccount();
+    }
+
     public void saveAccount() {
+
         SharedPreferences s = getActivity().getSharedPreferences("acc", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = s.edit();
-
-        if (dk) {
-            editor.putString("name", ed_Username.getText().toString());
-            editor.putString("pass", ed_Password.getText().toString());
-            editor.putBoolean("save", dk);
-
-        } else {
+        if (!sw_RememberAccount.isChecked()) {
             editor.clear();
+            editor.commit();
+
+            return;
         }
+
+        editor.putString("name", ed_Username.getText().toString());
+        editor.putString("pass", ed_Password.getText().toString());
+        editor.putBoolean("save", sw_RememberAccount.isChecked());
         editor.commit();
 
 
@@ -131,7 +139,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         SharedPreferences s = getActivity().getSharedPreferences("acc", Context.MODE_PRIVATE);
         ed_Username.setText(s.getString("name", ""));
         ed_Password.setText(s.getString("pass", ""));
-        sw_RememberAccount.setChecked(s.getString("save", false));
+        sw_RememberAccount.setChecked(s.getBoolean("save", false));
 
     }
 
