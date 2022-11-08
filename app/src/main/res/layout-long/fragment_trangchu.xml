@@ -7,7 +7,6 @@
     xmlns:companyApp="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_container"
     android:orientation="vertical"
-    android:paddingTop="35dp"
     tools:context=".Fragment.fragment_Trangchu">
 
     <androidx.appcompat.widget.Toolbar
