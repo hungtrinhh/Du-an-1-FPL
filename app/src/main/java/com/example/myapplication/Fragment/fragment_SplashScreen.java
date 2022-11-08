@@ -79,7 +79,6 @@ public class fragment_SplashScreen extends Fragment {
     private void Anhxa(View v) {
         imageView = v.findViewById(R.id.buiqwiuiqubi);
         textView = v.findViewById(R.id.asnwqnjasnjqoe);
-
         imageView.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         textView.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
 

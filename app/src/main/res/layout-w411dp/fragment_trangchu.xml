@@ -22,9 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:paddingHorizontal="30dp">
-
-
         <ImageView
             android:layout_width="85dp"
             android:layout_height="85dp"
@@ -68,7 +67,7 @@
         android:id="@+id/content_containerTrangchu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/conten_background"
         android:orientation="vertical">
 
