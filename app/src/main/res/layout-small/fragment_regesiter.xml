@@ -31,12 +31,10 @@
         android:layout_height="wrap_content"
         android:text="Đăng ký để trải nghiệm nhiều ưu đãi hơn của\nchúng tôi."
         android:textAllCaps="false"
-        android:textColor="@color/gray"
+        android:textColor="@color/gray"        android:layout_marginTop="-10dp"
+
         android:textSize="16dp" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -157,7 +155,6 @@ android:layout_marginTop="10dp"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_Register"
