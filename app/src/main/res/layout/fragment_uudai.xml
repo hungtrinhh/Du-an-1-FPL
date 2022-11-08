@@ -7,9 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.fragment_Uudai">
         <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView_uuDai"
             android:layout_width="match_parent"
             android:maxWidth="100000dp"
-            app:queryHint="Tìm kiếm ưu đãi"
+            app:queryHint="Nhập Mã Ưu Đãi Tìm Kiếm"
             android:layout_height="wrap_content"/>
     <com.smarteist.autoimageslider.SliderView
         android:id="@+id/image_slider"
@@ -30,71 +31,9 @@
         app:sliderIndicatorUnselectedColor="@color/blue"
         app:sliderScrollTimeInSec="2"
         app:sliderStartAutoCycle="true" />
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:padding="20dp"
+        android:id="@+id/recyclerview_voucher"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="10dp"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="214dp"
-            android:layout_height="wrap_content"
-            android:text="Danh mục" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="Xem tất cả" />
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="34dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@color/blue" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="10dp"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="214dp"
-            android:layout_height="wrap_content"
-            android:text="Danh mục" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="Xem tất cả" />
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="34dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@color/blue" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="10dp"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="214dp"
-            android:layout_height="wrap_content"
-            android:text="Danh mục" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="Xem tất cả" />
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="34dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@color/blue" />
+        android:layout_height="match_parent"/>
 </LinearLayout>
