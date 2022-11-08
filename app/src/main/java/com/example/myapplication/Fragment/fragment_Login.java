@@ -1,5 +1,7 @@
 package com.example.myapplication.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,7 @@ import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -53,7 +56,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         Anhxa(view);
         //gọi hàm animation (truyền vào các tham số)
         animation(layoutLogoWhite, ed_Username, ed_Password, sw_RememberAccount, btn_Login, tv_GoToRegister, tv_FogotPassword);
-
+        getAccount();
         //bắt sự kiện khi click
         btn_Login.setOnClickListener(this::onClick);
         tv_GoToRegister.setOnClickListener(this::onClick);
@@ -65,23 +68,26 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_Login:
-//                String username = ed_Username.getText().toString();
-//                String password = ed_Password.getText().toString();
-//
-//
-//                boolean dk = false;
-//                for (User u : list
-//                ) {
-//                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
-//                        dk = true;
-//                    }
-//                }
-//                if (!dk) {
-//                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản sai", 2000).show();
-//
-//                }
+                String username = ed_Username.getText().toString();
+                String password = ed_Password.getText().toString();
 
+                if (username.equals("") || password.equals("")) {
+                    Snackbar.make(getView(), "Không được để trống tài khoản và mật khẩu", 2000).show();
+                    break;
+                }
+
+                boolean dk = false;
+                for (User u : list
+                ) {
+                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+                        saveAccount();
+                        dk = true;
+                    }
+                }
+                if (!dk) {
+                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản sai", 2000).show();
+                }
                 break;
             case R.id.tv_GoToRegister:
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Regesiter(list)).addToBackStack("").commit();
@@ -102,6 +108,31 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         btnLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         btnGoToRegister.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         tvFogotPassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+    }
+
+    public void saveAccount() {
+        SharedPreferences s = getActivity().getSharedPreferences("acc", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = s.edit();
+
+        if (dk) {
+            editor.putString("name", ed_Username.getText().toString());
+            editor.putString("pass", ed_Password.getText().toString());
+            editor.putBoolean("save", dk);
+
+        } else {
+            editor.clear();
+        }
+        editor.commit();
+
+
+    }
+
+    private void getAccount() {
+        SharedPreferences s = getActivity().getSharedPreferences("acc", Context.MODE_PRIVATE);
+        ed_Username.setText(s.getString("name", ""));
+        ed_Password.setText(s.getString("pass", ""));
+        sw_RememberAccount.setChecked(s.getString("save", false));
+
     }
 
 
