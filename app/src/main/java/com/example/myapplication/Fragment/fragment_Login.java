@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     private LinearLayout layoutLogoWhite;
     private EditText ed_Username;
     private EditText ed_Password;
-    private Switch sw_RememberAccount;
+    private SwitchCompat sw_RememberAccount;
     private AppCompatButton btn_Login;
     private TextView tv_GoToRegister, tv_FogotPassword;
     //    khai báo biến username & password giá trị rỗng
@@ -100,7 +101,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
 
     // khai báo hàm animation
-    private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, Switch swRememberAccount, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
+    private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, SwitchCompat swRememberAccount, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
         layoutLogoWhite.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.floatin));
         edEmailLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         edPasswordLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));

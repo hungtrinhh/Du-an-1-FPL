@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
        >
 
@@ -36,7 +36,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="35dp"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingTop="30dp">
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <EditText
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.SwitchCompat
@@ -96,6 +96,7 @@
                 android:paddingLeft="-3dp"
                 android:switchPadding="3dp"
                 android:text="@string/rememberAccount"
+                android:textSize="15dp"
                 android:textColor="@color/black"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -103,7 +104,8 @@
                 android:id="@+id/tv_FogotPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:gravity="end"                android:textSize="15dp"
+
                 android:paddingRight="10dp"
                 android:text="@string/fogotPassword"
                 android:textColor="@color/black" />
@@ -133,7 +135,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/poppins_regular"                android:textSize="16dp"
+
                 android:text="Chưa có tài khoản? " />
 
 
@@ -144,7 +147,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="Đăng ký"
                 android:textColor="@color/blue"
-                android:textSize="16dp"
+                android:textSize="17dp"
                 android:textStyle="bold" />
         </LinearLayout>
 
