@@ -22,10 +22,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.google.android.material.snackbar.Snackbar;
 import com.smarteist.autoimageslider.SliderView;
+
+import java.util.List;
 
 
 public class fragment_Trangchu extends Fragment {
@@ -53,6 +57,7 @@ public class fragment_Trangchu extends Fragment {
         // khai báo mảng ảnh và gán giá trị src ảnh
         int[] img = new int[]{R.drawable.img1, R.drawable.img2, R.drawable.img3};
 
+    List<User> list =  FbDao.getList();
         // khai báo SliderAdapter và gán giá trị bằng img
         SliderAdapter adapter = new SliderAdapter(img);
 

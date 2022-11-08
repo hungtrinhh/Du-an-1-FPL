@@ -31,9 +31,8 @@ public class MainActivity extends AppCompatActivity {
 */
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_SplashScreen()).commit();
-        FbDao dao = new FbDao();
-        List<User> list = FbDao.getList();
-        int a = 0;
+        new FbDao();
+
 
     }
 
