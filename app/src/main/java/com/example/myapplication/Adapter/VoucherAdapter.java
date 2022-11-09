@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.helper.widget.Layer;
@@ -47,6 +48,9 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
         }
         holder.tv_MaVoucher.setText(voucher.getMaVoucher());
         holder.tv_TieuDeVoucher.setText("Giảm " + voucher.getGiamGia() + "% mọi loại máy");
+        holder.tv_dung.setOnClickListener(view -> {
+            Toast.makeText(context, voucher.getMaVoucher(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
@@ -59,13 +63,13 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
 
     public class VoucherViewHoler extends RecyclerView.ViewHolder {private ImageView imageView2;
         private TextView tv_MaVoucher;
-        private TextView tv_TieuDeVoucher;
+        private TextView tv_TieuDeVoucher,tv_dung;
         public VoucherViewHoler(@NonNull View itemView) {
             super(itemView);
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
             tv_MaVoucher = (TextView) itemView.findViewById(R.id.tv_maVoucher);
             tv_TieuDeVoucher = (TextView) itemView.findViewById(R.id.tv_tieuDeVoucher);
-
+            tv_dung = (TextView) itemView.findViewById(R.id.tv_dung);
         }
     }
 }
