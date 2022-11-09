@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.Model.User;
+import com.example.myapplication.Model.Voucher;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -28,15 +29,46 @@ public class FbDao {
     public FirebaseDatabase database = FirebaseDatabase.getInstance();
     public FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private final String TAG = "Firebase Dao";
-    private static List<User> list;
-
+    private static List<User> listUser;
+    private static List<Voucher> listVoucher;
+    public static List<Voucher> getListVoucher(){
+        return listVoucher;
+    }
     public static java.util.List<User> getList() {
-        return list;
+        return listUser;
     }
 
     public FbDao() {
         ReadUser();
+        ReadVoucher();
+    }
 
+    private void ReadVoucher() {
+        Log.d(TAG, "ReadVoucher: ");
+        listVoucher = new ArrayList<>();
+        DatabaseReference myRef = database.getReference("Voucher");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                    Voucher u = dt.getValue(Voucher.class);
+                    if (u == null) {
+                        return;
+                    }
+                    listVoucher.add(u);
+                    Log.d(TAG, "onDataChange: " + u.getMaVoucher());
+
+                }
+            }
+
+            int a = 0;
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.e(TAG, "DatabaseError: " + error.toString()
+                );
+            }
+        });
     }
 
     public void Test(String string) {
@@ -52,7 +84,6 @@ public class FbDao {
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is: " + value);
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
@@ -69,7 +100,7 @@ public class FbDao {
 
     public void ReadUser() {
         Log.d(TAG, "ReadUser: ");
-        list = new ArrayList<>();
+        listUser = new ArrayList<>();
         DatabaseReference myRef = database.getReference("Users");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -81,7 +112,7 @@ public class FbDao {
                         return;
                     }
                     u.setId(dt.getKey());
-                    list.add(u);
+                    listUser.add(u);
                     Log.d(TAG, "onDataChange: " + u.getName());
 
                 }

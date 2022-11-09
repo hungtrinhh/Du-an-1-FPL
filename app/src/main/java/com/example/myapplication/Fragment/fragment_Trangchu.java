@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.User;
+import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.google.android.material.snackbar.Snackbar;
@@ -57,10 +59,11 @@ public class fragment_Trangchu extends Fragment {
         // khai báo mảng ảnh và gán giá trị src ảnh
         int[] img = new int[]{R.drawable.img1, R.drawable.img2, R.drawable.img3};
 
-    List<User> list =  FbDao.getList();
+        List<User> list = FbDao.getList();
         // khai báo SliderAdapter và gán giá trị bằng img
         SliderAdapter adapter = new SliderAdapter(img);
 
+        List<Voucher> listVoucher = FbDao.getListVoucher();
         // set lên slideAdapter
         image_Slider.setSliderAdapter(adapter);
         //    toolbar

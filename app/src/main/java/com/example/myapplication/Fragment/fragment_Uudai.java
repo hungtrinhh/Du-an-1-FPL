@@ -18,6 +18,7 @@ import android.widget.Filterable;
 import android.widget.Toast;
 
 import com.example.myapplication.Adapter.VoucherAdapter;
+import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 import com.google.firebase.database.DataSnapshot;
@@ -80,38 +81,10 @@ public class fragment_Uudai extends Fragment{
 
     public void FillRecycleView() {
         voucherAdapter = new VoucherAdapter(getActivity());
-        voucherList = new ArrayList<>();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Voucher");
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Voucher voucher = dataSnapshot.getValue(Voucher.class);
-                    voucherList.add(voucher);
-                }
-                setListVoucher();
-                searchView_uuDai.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        searchUuDai(query);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-                        searchUuDai(newText);
-                        return false;
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d(TAG, "onCancelled: " + error.toException());
-
-            }
-        });
+        voucherList = FbDao.getListVoucher();
+        voucherAdapter.setListDanhSachVoucher(voucherList);
+        recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        recyclerviewVoucher.setAdapter(voucherAdapter);
     }
     public void searchUuDai(String query){
         voucherSearchList = new ArrayList<>();
