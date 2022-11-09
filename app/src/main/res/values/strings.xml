@@ -1,5 +1,20 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Yahh Home</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_Home">Trang chủ</string>
+    <string name="nav_Account">Cá nhân</string>
+    <string name="rememberAccount">Nhớ tài khoản</string>
+    <string name="fogotPassword">Quên mật khẩu?</string>
+    <string name="nav_Endow">Ưu đãi</string>
+    <string name="toolbar_search">Tìm kiếm</string>
+    <string name="Login">Đăng nhập</string>
+    <string name="Sign_up">Đăng ký</string>
+    <string name="Verify">Xác minh</string>
+    <string name="Continue">Tiếp tục</string>
+    <string name="Reset_password">Đặt lại mật khẩu</string>
+    <string name="Verify_phone_number">Xác minh số điện thoại</string>
+    <string name="Verify_phone_number_notify">Nhập vào mã xác minh</string>
+    <string name="Terms_and_conditions">PH27731 - Trịnh Đức Hùng\nPH27738 - Nguyễn Minh Giang\nPH28077 - Vũ Viết Khanh\nPh27525 - Nguyễn Quốc Khánh\nPH27512 - Trịnh Công Điền</string>
+
 </resources>
