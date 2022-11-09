@@ -67,7 +67,6 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
         public VoucherViewHoler(@NonNull View itemView) {
             super(itemView);
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
-            tv_MaVoucher = (TextView) itemView.findViewById(R.id.tv_maVoucher);
             tv_TieuDeVoucher = (TextView) itemView.findViewById(R.id.tv_tieuDeVoucher);
             tv_dung = (TextView) itemView.findViewById(R.id.tv_dung);
         }
