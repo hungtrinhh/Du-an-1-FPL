@@ -31,12 +31,12 @@ public class FbDao {
     private static List<User> list;
 
     public static java.util.List<User> getList() {
-
         return list;
     }
 
     public FbDao() {
         ReadUser();
+
     }
 
     public void Test(String string) {
@@ -95,6 +95,7 @@ public class FbDao {
                 );
             }
         });
+
 
     }
 
