@@ -78,7 +78,7 @@ public class fragment_Uudai extends Fragment{
         animation(imageSlider);
 
         // khai báo mảng ảnh và gán giá trị src ảnh
-        int[] img = new int[]{R.drawable.background_login, R.drawable.approved};
+        int[] img = new int[]{R.drawable.banner11, R.drawable.banner20};
         SliderAdapter adapter = new SliderAdapter(img);
         // set lên slideAdapter
         imageSlider.setSliderAdapter(adapter);
