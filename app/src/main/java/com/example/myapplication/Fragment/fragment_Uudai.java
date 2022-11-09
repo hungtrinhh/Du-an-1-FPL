@@ -13,10 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Adapter.VoucherAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Voucher;
@@ -71,6 +74,14 @@ public class fragment_Uudai extends Fragment{
         AnhXa(view);
         FillRecycleView();
         Log.d(TAG, "onViewCreated: " + voucherList.size());
+
+        animation(imageSlider);
+
+        // khai báo mảng ảnh và gán giá trị src ảnh
+        int[] img = new int[]{R.drawable.background_login, R.drawable.approved};
+        SliderAdapter adapter = new SliderAdapter(img);
+        // set lên slideAdapter
+        imageSlider.setSliderAdapter(adapter);
     }
 
     public void AnhXa(View view) {
@@ -106,5 +117,9 @@ public class fragment_Uudai extends Fragment{
         voucherAdapter.setListDanhSachVoucher(voucherList);
         recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerviewVoucher.setAdapter(voucherAdapter);
+    }
+    // khai báo hàm animation
+    private void animation(SliderView imageSlider) {
+        imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
     }
 }
