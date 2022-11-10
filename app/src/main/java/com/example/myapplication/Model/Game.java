@@ -1,12 +1,21 @@
 package com.example.myapplication.Model;
 
 public class Game {
+    private int id;
     private int gia;
     private String kieu;
     private String tenGame;
     private String trangThai;
 
     public Game() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getGia() {

@@ -1,6 +1,7 @@
 package com.example.myapplication.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 
@@ -18,11 +21,20 @@ import java.util.List;
 
 public class VoucherVerticalAdapter extends RecyclerView.Adapter<VoucherVerticalAdapter.VoucherViewHoler> {
     private List<Voucher> listDanhSachVoucher;
+    private List<Game> listGame;
     private Context context;
-
     public VoucherVerticalAdapter() {
     }
-
+    public String getTenGame(int id){
+        String tenGame = "Mọi Loại Game";
+        listGame = FbDao.getListGame();
+        for(Game game : listGame){
+            if(game.getId() == id){
+                tenGame =  game.getTenGame();
+            }
+        }
+        return tenGame;
+    }
     public VoucherVerticalAdapter(Context context) {
         this.context = context;
     }
@@ -45,7 +57,7 @@ public class VoucherVerticalAdapter extends RecyclerView.Adapter<VoucherVertical
         if(voucher == null){
             return;
         }
-        holder.tv_TieuDeVoucher.setText("Giảm " + voucher.getGiamGia() + "% mọi loại máy");
+        holder.tv_TieuDeVoucher.setText("Giảm " + voucher.getGiamGia() + "% Cho Game " + getTenGame(voucher.getLoaiGame()));
     }
 
     @Override

@@ -62,7 +62,7 @@ public class FbDao {
                         return;
                     }
                     listGame.add(u);
-                    Log.d(TAG, "onDataChange: " + u.getTenGame());
+                    Log.d(TAG, "onDataChange: " + u.getId());
                 }
             }
 
@@ -89,7 +89,7 @@ public class FbDao {
                         return;
                     }
                     listVoucher.add(u);
-                    Log.d(TAG, "onDataChange: " + u.getMaVoucher());
+                    Log.d(TAG, "onDataChange: " + u.getLoaiGame());
 
                 }
             }

@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 
@@ -19,6 +21,7 @@ import java.util.List;
 public class VoucherHorizontalAdapter extends RecyclerView.Adapter<VoucherHorizontalAdapter.VoucherViewHoler> {
     private List<Voucher> listDanhSachVoucher;
     private Context context;
+    private List<Game> listGame;
 
     public VoucherHorizontalAdapter() {
     }
@@ -45,7 +48,7 @@ public class VoucherHorizontalAdapter extends RecyclerView.Adapter<VoucherHorizo
         if(voucher == null){
             return;
         }
-        holder.tv_TieuDeVoucher.setText("Giảm " + voucher.getGiamGia() + "% mọi loại máy");
+        holder.tv_TieuDeVoucher.setText("Giảm " + voucher.getGiamGia() + "% Cho Game " + getTenGame(voucher.getLoaiGame()));
     }
 
     @Override
@@ -65,5 +68,15 @@ public class VoucherHorizontalAdapter extends RecyclerView.Adapter<VoucherHorizo
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
             tv_TieuDeVoucher = (TextView) itemView.findViewById(R.id.tv_tieuDeVoucher);
         }
+    }
+    public String getTenGame(int id){
+        String tenGame = "Mọi Loại Game";
+        listGame = FbDao.getListGame();
+        for(Game game : listGame){
+            if(game.getId() == id){
+                tenGame =  game.getTenGame();
+            }
+        }
+        return tenGame;
     }
 }

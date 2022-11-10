@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import com.example.myapplication.Adapter.GameHorizontalAdapter;
@@ -45,6 +47,7 @@ public class fragment_Uudai extends Fragment {
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private GameHorizontalAdapter gameHorizontalAdapter;
     private GameVerticalAdapter gameVerticalAdapter;
+    private String[] testList = {"Việt Nam","Englang","Vn","EN"};
     //    scroll view dạng horizontal
     public fragment_Uudai() {
 
@@ -95,7 +98,6 @@ public class fragment_Uudai extends Fragment {
         recyclerViewGame = view.findViewById(R.id.recyclerview_danh_muc);
         tv_showAllGame = view.findViewById(R.id.tv_show_all_game);
     }
-
     public void showAllVoucher() {
         tv_showAllVoucher.setOnClickListener(view -> {
             if (tv_showAllVoucher.getText().toString().equals("Xem Tất Cả")) {

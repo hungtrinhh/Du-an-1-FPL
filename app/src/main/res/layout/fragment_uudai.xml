@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Fragment.fragment_Uudai">
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView_uuDai"
-            android:layout_width="match_parent"
-            android:maxWidth="100000dp"
-            app:queryHint="Nhập Mã Ưu Đãi Tìm Kiếm"
-            android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView_uuDai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="100000dp"
+        app:queryHint="Nhập Mã Ưu Đãi Tìm Kiếm"/>
+
     <com.smarteist.autoimageslider.SliderView
         android:id="@+id/image_slider"
         android:layout_width="match_parent"
@@ -31,53 +32,62 @@
         app:sliderIndicatorUnselectedColor="@color/blue"
         app:sliderScrollTimeInSec="2"
         app:sliderStartAutoCycle="true" />
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:weightSum="2"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
             <TextView
-                android:text="Danh Mục"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:layout_height="wrap_content"/>
+                android:text="Danh Mục" />
+
             <TextView
                 android:id="@+id/tv_show_all_game"
-                android:layout_weight="0.5"
-                android:text="Xem Tất Cả"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Xem Tất Cả" />
         </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_danh_muc"
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_height="200dp" />
     </LinearLayout>
+
     <LinearLayout
-        android:gravity="bottom"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:weightSum="2"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
             <TextView
-                android:text="Voucher"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:layout_height="wrap_content"/>
+                android:text="Voucher" />
+
             <TextView
                 android:id="@+id/tv_show_all_voucher"
-                android:layout_weight="0.5"
-                android:text="Xem Tất Cả"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Xem Tất Cả" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
