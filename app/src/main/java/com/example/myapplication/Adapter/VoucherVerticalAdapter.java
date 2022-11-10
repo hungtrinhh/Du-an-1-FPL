@@ -26,11 +26,11 @@ public class VoucherVerticalAdapter extends RecyclerView.Adapter<VoucherVertical
     public VoucherVerticalAdapter() {
     }
     public String getTenGame(int id){
-        String tenGame = "Mọi Loại Game";
+        String tenGame = "% Cho Mọi Loại Game";
         listGame = FbDao.getListGame();
         for(Game game : listGame){
             if(game.getId() == id){
-                tenGame =  game.getTenGame();
+                tenGame = "% Cho Game " + game.getTenGame();
             }
         }
         return tenGame;
@@ -57,7 +57,7 @@ public class VoucherVerticalAdapter extends RecyclerView.Adapter<VoucherVertical
         if(voucher == null){
             return;
         }
-        holder.tv_TieuDeVoucher.setText("Giảm " + voucher.getGiamGia() + "% Cho Game " + getTenGame(voucher.getLoaiGame()));
+        holder.tv_TieuDeVoucher.setText("Giảm " + voucher.getGiamGia() + getTenGame(voucher.getLoaiGame()));
     }
 
     @Override
