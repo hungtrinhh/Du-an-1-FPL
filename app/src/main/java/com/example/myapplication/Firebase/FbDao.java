@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
 import com.google.firebase.FirebaseException;
@@ -29,8 +30,12 @@ public class FbDao {
     public FirebaseDatabase database = FirebaseDatabase.getInstance();
     public FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private final String TAG = "Firebase Dao";
+    private static List<Game> listGame;
     private static List<User> listUser;
     private static List<Voucher> listVoucher;
+    public static List<Game> getListGame(){
+        return listGame;
+    }
     public static List<Voucher> getListVoucher(){
         return listVoucher;
     }
@@ -41,6 +46,34 @@ public class FbDao {
     public FbDao() {
         ReadUser();
         ReadVoucher();
+        ReadGame();
+    }
+
+    private void ReadGame() {
+        Log.d(TAG, "ReadVoucher: ");
+        listGame = new ArrayList<>();
+        DatabaseReference myRef = database.getReference("Game");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                    Game u = dt.getValue(Game.class);
+                    if (u == null) {
+                        return;
+                    }
+                    listGame.add(u);
+                    Log.d(TAG, "onDataChange: " + u.getTenGame());
+                }
+            }
+
+            int a = 0;
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.e(TAG, "DatabaseError: " + error.toString()
+                );
+            }
+        });
     }
 
     private void ReadVoucher() {

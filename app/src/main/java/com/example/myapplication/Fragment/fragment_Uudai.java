@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,37 +13,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import com.example.myapplication.Adapter.GameHorizontalAdapter;
+import com.example.myapplication.Adapter.GameVerticalAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
-import com.example.myapplication.Adapter.VoucherAdapter;
+import com.example.myapplication.Adapter.VoucherHorizontalAdapter;
+import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.smarteist.autoimageslider.SliderView;
 
-import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class fragment_Uudai extends Fragment{
-    private VoucherAdapter voucherAdapter;
+public class fragment_Uudai extends Fragment {
+    private VoucherHorizontalAdapter voucherHorizontalAdapter;
     private List<Voucher> voucherList;
     private SliderView imageSlider;
     private List<Voucher> voucherSearchList;
     private RecyclerView recyclerviewVoucher;
+    private RecyclerView recyclerViewGame;
     private androidx.appcompat.widget.SearchView searchView_uuDai;
+    private TextView tv_showAllVoucher;
+    private TextView tv_showAllGame;
+    private List<Game> listGame;
     private static final String TAG = "ReadVoucher";
-
+    private VoucherVerticalAdapter voucherVerticalAdapter;
+    private GameHorizontalAdapter gameHorizontalAdapter;
+    private GameVerticalAdapter gameVerticalAdapter;
     //    scroll view dạng horizontal
     public fragment_Uudai() {
 
@@ -72,7 +72,10 @@ public class fragment_Uudai extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AnhXa(view);
-        FillRecycleView();
+        FillRecycleViewVoucher();
+        FillRecycleViewGame();
+        showAllVoucher();
+        showAllGame();
         Log.d(TAG, "onViewCreated: " + voucherList.size());
 
         animation(imageSlider);
@@ -88,36 +91,74 @@ public class fragment_Uudai extends Fragment{
         imageSlider = (SliderView) view.findViewById(R.id.image_slider);
         recyclerviewVoucher = (RecyclerView) view.findViewById(R.id.recyclerview_voucher);
         searchView_uuDai = (androidx.appcompat.widget.SearchView) view.findViewById(R.id.searchView_uuDai);
+        tv_showAllVoucher = (TextView) view.findViewById(R.id.tv_show_all_voucher);
+        recyclerViewGame = view.findViewById(R.id.recyclerview_danh_muc);
+        tv_showAllGame = view.findViewById(R.id.tv_show_all_game);
     }
 
-    public void FillRecycleView() {
-        voucherAdapter = new VoucherAdapter(getActivity());
-        voucherList = FbDao.getListVoucher();
-        voucherAdapter.setListDanhSachVoucher(voucherList);
-        recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        recyclerviewVoucher.setAdapter(voucherAdapter);
+    public void showAllVoucher() {
+        tv_showAllVoucher.setOnClickListener(view -> {
+            if (tv_showAllVoucher.getText().toString().equals("Xem Tất Cả")) {
+                tv_showAllVoucher.setText("Ẩn Bớt");
+                voucherVerticalAdapter = new VoucherVerticalAdapter(getActivity());
+                voucherVerticalAdapter.setListDanhSachVoucher(voucherList);
+                recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                recyclerviewVoucher.setAdapter(voucherVerticalAdapter);
+            } else {
+                tv_showAllVoucher.setText("Xem Tất Cả");
+                FillRecycleViewVoucher();
+            }
+        });
     }
-    public void searchUuDai(String query){
+
+    public void FillRecycleViewVoucher() {
+        voucherList = FbDao.getListVoucher();
+        voucherHorizontalAdapter = new VoucherHorizontalAdapter(getActivity());
+        voucherHorizontalAdapter.setListDanhSachVoucher(voucherList);
+        recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerviewVoucher.setAdapter(voucherHorizontalAdapter);
+    }
+    /////////////
+
+    public void showAllGame() {
+        tv_showAllGame.setOnClickListener(view -> {
+            if (tv_showAllGame.getText().toString().equals("Xem Tất Cả")) {
+                tv_showAllGame.setText("Ẩn Bớt");
+                gameVerticalAdapter = new GameVerticalAdapter(getActivity());
+                gameVerticalAdapter.setListDanhSachGame(listGame);
+                recyclerViewGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                recyclerViewGame.setAdapter(gameVerticalAdapter);
+            } else {
+                tv_showAllGame.setText("Xem Tất Cả");
+                FillRecycleViewGame();
+            }
+        });
+    }
+
+    public void FillRecycleViewGame() {
+        listGame = FbDao.getListGame();
+        gameHorizontalAdapter = new GameHorizontalAdapter(getActivity());
+        gameHorizontalAdapter.setListDanhSachGame(listGame);
+        recyclerViewGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewGame.setAdapter(gameHorizontalAdapter);
+    }
+
+    public void searchUuDai(String query) {
         voucherSearchList = new ArrayList<>();
-        if("".equalsIgnoreCase(query)){
-            voucherAdapter.setListDanhSachVoucher(voucherList);
-            recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-            recyclerviewVoucher.setAdapter(voucherAdapter);
-        }else {
-            for(Voucher voucher : voucherList){
-                if(voucher.getMaVoucher().toLowerCase().contains(query)){
+        if ("".equalsIgnoreCase(query)) {
+            voucherHorizontalAdapter.setListDanhSachVoucher(voucherList);
+            recyclerviewVoucher.setAdapter(voucherHorizontalAdapter);
+        } else {
+            for (Voucher voucher : voucherList) {
+                if (voucher.getMaVoucher().toLowerCase().contains(query)) {
                     voucherSearchList.add(voucher);
                 }
-            }voucherAdapter.setListDanhSachVoucher(voucherSearchList);
-            recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-            recyclerviewVoucher.setAdapter(voucherAdapter);
+            }
+            voucherHorizontalAdapter.setListDanhSachVoucher(voucherSearchList);
+            recyclerviewVoucher.setAdapter(voucherHorizontalAdapter);
         }
     }
-    public void setListVoucher(){
-        voucherAdapter.setListDanhSachVoucher(voucherList);
-        recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        recyclerviewVoucher.setAdapter(voucherAdapter);
-    }
+
     // khai báo hàm animation
     private void animation(SliderView imageSlider) {
         imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
