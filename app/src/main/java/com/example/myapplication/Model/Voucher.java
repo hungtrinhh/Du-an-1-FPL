@@ -10,6 +10,12 @@ public class Voucher implements Serializable {
     public Voucher() {
     }
 
+    public Voucher(int giamGia, int loaiGame, String maVoucher) {
+        this.giamGia = giamGia;
+        this.loaiGame = loaiGame;
+        this.maVoucher = maVoucher;
+    }
+
     public int getGiamGia() {
         return giamGia;
     }

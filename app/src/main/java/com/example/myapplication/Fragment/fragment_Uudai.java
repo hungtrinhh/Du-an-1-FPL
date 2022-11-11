@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.Adapter.GameHorizontalAdapter;
 import com.example.myapplication.Adapter.GameVerticalAdapter;
@@ -47,10 +49,10 @@ public class fragment_Uudai extends Fragment {
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private GameHorizontalAdapter gameHorizontalAdapter;
     private GameVerticalAdapter gameVerticalAdapter;
-    private String[] testList = {"Việt Nam","Englang","Vn","EN"};
+    private String[] testList = {"Việt Nam", "Englang", "Vn", "EN"};
+
     //    scroll view dạng horizontal
     public fragment_Uudai() {
-
     }
 
 
@@ -100,16 +102,17 @@ public class fragment_Uudai extends Fragment {
     }
     public void showAllVoucher() {
         tv_showAllVoucher.setOnClickListener(view -> {
-            if (tv_showAllVoucher.getText().toString().equals("Xem Tất Cả")) {
-                tv_showAllVoucher.setText("Ẩn Bớt");
-                voucherVerticalAdapter = new VoucherVerticalAdapter(getActivity());
-                voucherVerticalAdapter.setListDanhSachVoucher(voucherList);
-                recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-                recyclerviewVoucher.setAdapter(voucherVerticalAdapter);
-            } else {
-                tv_showAllVoucher.setText("Xem Tất Cả");
-                FillRecycleViewVoucher();
-            }
+//            if (tv_showAllVoucher.getText().toString().equals("Xem Tất Cả")) {
+//                tv_showAllVoucher.setText("Ẩn Bớt");
+//                voucherVerticalAdapter = new VoucherVerticalAdapter(getActivity());
+//                voucherVerticalAdapter.setListDanhSachVoucher(voucherList);
+//                recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+//                recyclerviewVoucher.setAdapter(voucherVerticalAdapter);
+//            } else {
+//                tv_showAllVoucher.setText("Xem Tất Cả");
+//                FillRecycleViewVoucher();
+//            }
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment_ListVoucherUuDai()).commit();
         });
     }
 
@@ -124,16 +127,17 @@ public class fragment_Uudai extends Fragment {
 
     public void showAllGame() {
         tv_showAllGame.setOnClickListener(view -> {
-            if (tv_showAllGame.getText().toString().equals("Xem Tất Cả")) {
-                tv_showAllGame.setText("Ẩn Bớt");
-                gameVerticalAdapter = new GameVerticalAdapter(getActivity());
-                gameVerticalAdapter.setListDanhSachGame(listGame);
-                recyclerViewGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-                recyclerViewGame.setAdapter(gameVerticalAdapter);
-            } else {
-                tv_showAllGame.setText("Xem Tất Cả");
-                FillRecycleViewGame();
-            }
+//            if (tv_showAllGame.getText().toString().equals("Xem Tất Cả")) {
+//                tv_showAllGame.setText("Ẩn Bớt");
+//                gameVerticalAdapter = new GameVerticalAdapter(getActivity());
+//                gameVerticalAdapter.setListDanhSachGame(listGame);
+//                recyclerViewGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+//                recyclerViewGame.setAdapter(gameVerticalAdapter);
+//            } else {
+//                tv_showAllGame.setText("Xem Tất Cả");
+//                FillRecycleViewGame();
+//            }
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment_ListGameUuDai()).commit();
         });
     }
 

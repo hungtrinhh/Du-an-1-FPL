@@ -10,6 +10,14 @@ public class Game {
     public Game() {
     }
 
+    public Game(int id, int gia, String kieu, String tenGame, String trangThai) {
+        this.id = id;
+        this.gia = gia;
+        this.kieu = kieu;
+        this.tenGame = tenGame;
+        this.trangThai = trangThai;
+    }
+
     public int getId() {
         return id;
     }
