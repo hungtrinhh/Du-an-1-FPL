@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ import java.util.List;
 
 public class fragment_Login extends Fragment implements View.OnClickListener {
     //  khai báo
-    private LinearLayout layoutLogoWhite;
+    private ConstraintLayout layoutLogoWhite;
     private EditText ed_Username;
     private EditText ed_Password;
     private SwitchCompat sw_RememberAccount;
@@ -100,7 +101,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
 
     // khai báo hàm animation
-    private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, SwitchCompat swRememberAccount, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
+    private void animation(ConstraintLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, SwitchCompat swRememberAccount, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
         layoutLogoWhite.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.floatin));
         edEmailLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         edPasswordLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
