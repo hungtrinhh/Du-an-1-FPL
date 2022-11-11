@@ -5,26 +5,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.helper.widget.Layer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 
 import java.util.List;
 
-public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherViewHoler> {
+public class VoucherHorizontalAdapter extends RecyclerView.Adapter<VoucherHorizontalAdapter.VoucherViewHoler> {
     private List<Voucher> listDanhSachVoucher;
     private Context context;
+    private List<Game> listGame;
 
-    public VoucherAdapter() {
+    public VoucherHorizontalAdapter() {
     }
 
-    public VoucherAdapter(Context context) {
+    public VoucherHorizontalAdapter(Context context) {
         this.context = context;
     }
 
@@ -36,7 +38,7 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
     @NonNull
     @Override
     public VoucherViewHoler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.voucher_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.voucher_item_horizontal,parent,false);
         return new VoucherViewHoler(view);
     }
 
@@ -46,11 +48,7 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
         if(voucher == null){
             return;
         }
-        holder.tv_MaVoucher.setText(voucher.getMaVoucher());
-        holder.tv_TieuDeVoucher.setText("Giảm " + voucher.getGiamGia() + "% mọi loại máy");
-        holder.tv_dung.setOnClickListener(view -> {
-            Toast.makeText(context, voucher.getMaVoucher(), Toast.LENGTH_SHORT).show();
-        });
+        holder.tv_TieuDeVoucher.setText("Giảm " + voucher.getGiamGia() + getTenGame(voucher.getLoaiGame()));
     }
 
     @Override
@@ -63,13 +61,22 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
 
     public class VoucherViewHoler extends RecyclerView.ViewHolder {private ImageView imageView2;
         private TextView tv_MaVoucher;
-        private TextView tv_TieuDeVoucher,tv_dung;
+        private TextView tv_TieuDeVoucher;
+        private LinearLayout linearLayout_voucher;
         public VoucherViewHoler(@NonNull View itemView) {
             super(itemView);
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
-            tv_MaVoucher = (TextView) itemView.findViewById(R.id.tv_maVoucher);
             tv_TieuDeVoucher = (TextView) itemView.findViewById(R.id.tv_tieuDeVoucher);
-            tv_dung = (TextView) itemView.findViewById(R.id.tv_dung);
         }
+    }
+    public String getTenGame(int id){
+        String tenGame = "% Cho Mọi Loại Game";
+        listGame = FbDao.getListGame();
+        for(Game game : listGame){
+            if(game.getId() == id){
+                tenGame = "% Cho Game " + game.getTenGame();
+            }
+        }
+        return tenGame;
     }
 }

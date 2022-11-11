@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 //        set startus bar transparent color
 //        Window window = getWindow();
 //        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
+        System.out.println("hehehehe");
         setContentView(R.layout.activity_main);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_SplashScreen()).commit();
