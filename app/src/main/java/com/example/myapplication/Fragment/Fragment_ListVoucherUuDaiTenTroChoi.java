@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
-import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 

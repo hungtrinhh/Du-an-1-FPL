@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/danhmuctrochoi"
+                    android:text="@string/daanhsachgamevoucher"
                     android:textColor="@color/white"
                     android:textSize="23dp"
                     android:textStyle="bold" />

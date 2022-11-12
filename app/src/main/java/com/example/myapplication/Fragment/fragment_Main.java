@@ -111,6 +111,5 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment).commit();
-
     }
 }

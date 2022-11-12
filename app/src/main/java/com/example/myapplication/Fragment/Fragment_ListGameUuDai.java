@@ -50,7 +50,7 @@ public class Fragment_ListGameUuDai extends Fragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__list_game_uu_dai, container, false);
+        return inflater.inflate(R.layout.fragment_list_game_danh_sach, container, false);
     }
 
     @Override

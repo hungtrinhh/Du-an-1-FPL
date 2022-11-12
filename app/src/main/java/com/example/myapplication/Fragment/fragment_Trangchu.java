@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,12 +35,12 @@ import com.smarteist.autoimageslider.SliderView;
 import java.util.List;
 
 
-public class fragment_Trangchu extends Fragment {
+public class fragment_Trangchu extends Fragment implements View.OnClickListener {
     //  khai báo
     private SliderView image_Slider;
     private LinearLayout layout_troChoi, layout_thanhToan, layout_soDu;
     private Toolbar toolbar;
-
+    private static final String TAG = "FRAGMENT_TRANG_CHU";
     //khai báo view
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,6 +70,7 @@ public class fragment_Trangchu extends Fragment {
         //    toolbar
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
+        onClickLayout();
     }
 
     // toolbar
@@ -126,4 +128,19 @@ public class fragment_Trangchu extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.layout_troChoi:
+                replaceFragment(new Fragment_ListDanhSachTroChoi());
+                break;
+        }
+    }
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, fragment).addToBackStack(fragment_Trangchu.TAG).commit();
+    }
+    public void onClickLayout(){
+        layout_troChoi.setOnClickListener(this::onClick);
+    }
 }
