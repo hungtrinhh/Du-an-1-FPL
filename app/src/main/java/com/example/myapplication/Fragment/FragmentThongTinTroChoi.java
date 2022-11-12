@@ -1,5 +1,6 @@
 package com.example.myapplication.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,7 @@ public class FragmentThongTinTroChoi extends Fragment {
     private TextView tvTemGameFragThongTin;
     private TextView tvMoTa;
     private TextView tvTrangThaiFragThongTin;
-    private TextView tvLoaTroChoi;
+    private TextView tvLoaTroChoi,tv_giaTien;
     private Button btnChoi;
     private Toolbar toolbarDanhSachGame;
     private ImageView btnBackToDanhSachGame;
@@ -50,6 +51,7 @@ public class FragmentThongTinTroChoi extends Fragment {
         btnChoi = (Button) view.findViewById(R.id.btn_choi);
         toolbarDanhSachGame = (Toolbar) view.findViewById(R.id.toolbar_DanhSachGame);
         btnBackToDanhSachGame = (ImageView) view.findViewById(R.id.btn_backToDanhSachGame);
+        tv_giaTien = view.findViewById(R.id.tv_giaTien);
     }
     public void backToDanhSach(){
         btnBackToDanhSachGame.setOnClickListener(view -> {
@@ -60,9 +62,21 @@ public class FragmentThongTinTroChoi extends Fragment {
     public void thongTinGame() {
         Bundle bundle = getArguments();
         Game game = (Game) bundle.get("obj_game");
+        if(game.getKieu().equalsIgnoreCase("lượt")){
+            tv_giaTien.setText(game.getGia() + " / 1 lượt");
+        }else {
+            tv_giaTien.setText(game.getGia() + " / 15 phút");
+        }
+        tvLoaTroChoi.setText(game.getKieu());
         tvMoTa.setText(game.getMoTa());
         tvTemGameFragThongTin.setText(game.getTenGame());
-        tvLoaTroChoi.setText(game.getKieu());
         tvTrangThaiFragThongTin.setText(game.getTrangThai());
+        if(game.getTrangThai().equalsIgnoreCase("Đang Hoặt Động")){
+            tvTrangThaiFragThongTin.setTextColor(Color.parseColor("#2FC863"));
+            btnChoi.setEnabled(true);
+        }else {
+            tvTrangThaiFragThongTin.setTextColor(Color.parseColor("#E04119"));
+            btnChoi.setEnabled(false);
+        }
     }
 }
