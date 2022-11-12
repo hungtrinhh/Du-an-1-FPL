@@ -16,18 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapplication.Adapter.GameUuDaiHorizontalAdapter;
-import com.example.myapplication.Adapter.GameUuDaiVerticalAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Adapter.VoucherHorizontalAdapter;
-import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
-import com.example.myapplication.SetOnClickItemIterface.OnclickItemGameUuDai;
+import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
@@ -101,7 +98,7 @@ public class fragment_Uudai extends Fragment {
         recyclerViewGame = view.findViewById(R.id.recyclerview_danh_muc);
         tv_showAllGame = view.findViewById(R.id.tv_show_all_game);
         tvthongBao = view.findViewById(R.id.tv_thong_bao);
-        tvthongBao.setVisibility(View.INVISIBLE);
+        tvthongBao.setVisibility(View.GONE);
     }
 
     public void showAllVoucher() {
@@ -161,7 +158,7 @@ public class fragment_Uudai extends Fragment {
 
     public void FillRecycleViewGame() {
         listGame = FbDao.getListGame();
-        gameUuDaiHorizontalAdapter = new GameUuDaiHorizontalAdapter(getActivity(), new OnclickItemGameUuDai() {
+        gameUuDaiHorizontalAdapter = new GameUuDaiHorizontalAdapter(getActivity(), new OnclickItemGame() {
             @Override
             public void onclickItemGame(Game game) {
                 showVocheNameGame(game);
@@ -188,19 +185,21 @@ public class fragment_Uudai extends Fragment {
     }
 
     public void setListSerachVoucher(String query) {
-        gameSearchList = new ArrayList<>();
         if ("".equalsIgnoreCase(query)) {
-            tvthongBao.setVisibility(View.INVISIBLE);
+            tvthongBao.setVisibility(View.GONE);
             gameUuDaiHorizontalAdapter.setListDanhSachGame(listGame);
             recyclerViewGame.setAdapter(gameUuDaiHorizontalAdapter);
         } else {
+            gameSearchList = new ArrayList<>();
             for (Game game : listGame) {
                 if (game.getTenGame().toLowerCase().contains(query)) {
                     gameSearchList.add(game);
-                    tvthongBao.setVisibility(View.INVISIBLE);
-                } else {
-                    tvthongBao.setVisibility(View.VISIBLE);
                 }
+            }
+            if(gameSearchList.size() == 0){
+                tvthongBao.setVisibility(View.VISIBLE);
+            }else{
+                tvthongBao.setVisibility(View.GONE);
             }
             gameUuDaiHorizontalAdapter.setListDanhSachGame(gameSearchList);
             recyclerViewGame.setAdapter(gameUuDaiHorizontalAdapter);

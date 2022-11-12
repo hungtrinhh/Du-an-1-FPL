@@ -17,7 +17,7 @@ import java.util.List;
 public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapter.DanhSachGameViewHoler> {
     private List<Game> listGame;
 
-    public DanhSachGameAdapter(List<Game> listGame) {
+    public void setListGame(List<Game> listGame) {
         this.listGame = listGame;
         notifyDataSetChanged();
     }

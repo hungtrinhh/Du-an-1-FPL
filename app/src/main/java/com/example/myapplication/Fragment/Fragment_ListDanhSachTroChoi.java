@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,7 +44,9 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     private SliderView imageSlider;
     private RecyclerView recyclerviewListGame;
     private List<Game> listDanhSachGame;
+    private List<Game> gameSearchList;
     private DanhSachGameAdapter danhSachGameAdapter;
+    private TextView tvthongBao;
     public Fragment_ListDanhSachTroChoi() {
         // Required empty public constructor
     }
@@ -81,6 +84,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         // bắt sự kiện khi click
         btnBackToTrangChu.setOnClickListener(this::onClick);
         btnSearchTroChoi.setOnClickListener(this::onClick);
+        searchGame();
     }
 
     private void AnhXa(View view) {
@@ -91,11 +95,14 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         searchViewListGame = (SearchView) view.findViewById(R.id.searchView_listGame);
         imageSlider = (SliderView) view.findViewById(R.id.image_slider);
         recyclerviewListGame = (RecyclerView) view.findViewById(R.id.recyclerview_ListGame);
+        tvthongBao = view.findViewById(R.id.tv_thong_bao);
+        tvthongBao.setVisibility(View.GONE);
     }
 
     private void ShowListVoucher() {
         listDanhSachGame = FbDao.getListGame();
-        danhSachGameAdapter = new DanhSachGameAdapter(listDanhSachGame);
+        danhSachGameAdapter = new DanhSachGameAdapter();
+        danhSachGameAdapter.setListGame(listDanhSachGame);
         recyclerviewListGame.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
         recyclerviewListGame.setAdapter(danhSachGameAdapter);
     }
@@ -122,5 +129,41 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
 
     private void animation(SliderView imageSlider) {
         imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
+    }
+    public void searchGame() {
+        searchViewListGame.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                setListSerachGame(newText);
+                return false;
+            }
+        });
+    }
+
+    private void setListSerachGame(String query) {
+        if ("".equalsIgnoreCase(query)) {
+            tvthongBao.setVisibility(View.GONE);
+            danhSachGameAdapter.setListGame(listDanhSachGame);
+            recyclerviewListGame.setAdapter(danhSachGameAdapter);
+        } else {
+            gameSearchList = new ArrayList<>();
+            for (Game game : listDanhSachGame) {
+                if (game.getTenGame().toLowerCase().contains(query)) {
+                    gameSearchList.add(game);
+                }
+            }
+            if(gameSearchList.size() == 0){
+                tvthongBao.setVisibility(View.VISIBLE);
+            }else {
+                tvthongBao.setVisibility(View.GONE);
+            }
+            danhSachGameAdapter.setListGame(gameSearchList);
+            recyclerviewListGame.setAdapter(danhSachGameAdapter);
+        }
     }
 }

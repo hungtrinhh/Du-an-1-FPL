@@ -13,16 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
-import com.example.myapplication.SetOnClickItemIterface.OnclickItemGameUuDai;
+import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
 
 import java.util.List;
 
 public class GameUuDaiHorizontalAdapter extends RecyclerView.Adapter<GameUuDaiHorizontalAdapter.VoucherViewHoler> {
     private List<Game> listGame;
     private Context context;
-    private OnclickItemGameUuDai onclickItemGame;
+    private OnclickItemGame onclickItemGame;
 
-    public GameUuDaiHorizontalAdapter(Context context,OnclickItemGameUuDai onclickItemGame) {
+    public GameUuDaiHorizontalAdapter(Context context, OnclickItemGame onclickItemGame) {
         this.context = context;
         this.onclickItemGame = onclickItemGame;
     }
