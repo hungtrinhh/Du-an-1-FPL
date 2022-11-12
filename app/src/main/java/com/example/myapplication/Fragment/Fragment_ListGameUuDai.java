@@ -7,10 +7,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,6 +24,7 @@ import com.example.myapplication.Adapter.GameVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +34,12 @@ import java.util.List;
  * Use the {@link Fragment_ListGameUuDai#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_ListGameUuDai extends Fragment {
+public class Fragment_ListGameUuDai extends Fragment implements View.OnClickListener{
     private RecyclerView recyclerView_danhmuc_ListGame;
-    private ImageView btn_BackToUuDai;
+    private ImageView btn_BackToUuDai,btn_Search;
     private GameVerticalAdapter gameVerticalAdapter;
     private List<Game> listGame;
-    private Toolbar toolbar;
+    private androidx.appcompat.widget.SearchView searchView_listGameUuDai;
     public Fragment_ListGameUuDai() {
         // Required empty public constructor
     }
@@ -61,29 +66,41 @@ public class Fragment_ListGameUuDai extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         AnhXa(view);
         ShowListGame();
-        //    toolbar
-//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        btn_BackToUuDai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack();
-                Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
-            }
-        });
+        searchView_listGameUuDai.setVisibility(View.GONE);
+        // bắt sự kiện khi click
+        btn_BackToUuDai.setOnClickListener(this::onClick);
+        btn_Search.setOnClickListener(this::onClick);
     }
     private void AnhXa(View view){
-        toolbar = view.findViewById(R.id.toolbar_DanhMuc);
         recyclerView_danhmuc_ListGame = view.findViewById(R.id.recyclerview_danhmuc_ListGame);
-        btn_BackToUuDai = view.findViewById(R.id.btn_BackToUuDai);
+        btn_BackToUuDai = view.findViewById(R.id.btn_BackToUuDai_fragDanhmuc);
+        searchView_listGameUuDai = view.findViewById(R.id.searchView_listGameUuDai);
+        btn_Search = view.findViewById(R.id.btn_search_fragDanhmuc);
     }
     private void ShowListGame(){
-        listGame = new ArrayList<>();
-        listGame.add(new Game(1,1,"khong","khong","khong"));
-//        listGame = FbDao.getListGame();
+        listGame = FbDao.getListGame();
         gameVerticalAdapter = new GameVerticalAdapter(getActivity());
         gameVerticalAdapter.setListDanhSachGame(listGame);
         recyclerView_danhmuc_ListGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView_danhmuc_ListGame.setAdapter(gameVerticalAdapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_BackToUuDai_fragDanhmuc:
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame, fragment_Uudai.newInstance()).commit();
+                break;
+            case R.id.btn_search_fragDanhmuc:
+                if (searchView_listGameUuDai.getVisibility()==View.GONE){
+                    searchView_listGameUuDai.setVisibility(View.VISIBLE);
+                    searchView_listGameUuDai.onActionViewExpanded();
+                }else {
+                    searchView_listGameUuDai.setVisibility(View.GONE);
+                }
+                break;
+        }
     }
 }

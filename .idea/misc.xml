@@ -6,6 +6,8 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable-v24/ic_uudai_selected.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/background_button.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/background_container.xml" value="0.1" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/ic_baseline_arrow_back.xml" value="0.1" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout-large/fragment_login.xml" value="0.61" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout-normal/fragment_login.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout-small/fragment_login.xml" value="1.0748898678414096" />
@@ -14,7 +16,7 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/dialog_conditions.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/dialog_lostconecttion.xml" value="0.14166666666666666" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment__list_game.xml" value="0.2" />
-        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment__list_game_uu_dai.xml" value="0.2" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment__list_game_uu_dai.xml" value="0.152" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment__list_voucher_uu_dai.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_fogot_password.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_login.xml" value="0.14166666666666666" />

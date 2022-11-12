@@ -112,7 +112,8 @@ public class fragment_Uudai extends Fragment {
 //                tv_showAllVoucher.setText("Xem Tất Cả");
 //                FillRecycleViewVoucher();
 //            }
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment_ListVoucherUuDai()).commit();
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, Fragment_ListVoucherUuDai.newInstance()).commit();
         });
     }
 
@@ -137,7 +138,8 @@ public class fragment_Uudai extends Fragment {
 //                tv_showAllGame.setText("Xem Tất Cả");
 //                FillRecycleViewGame();
 //            }
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment_ListGameUuDai()).commit();
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, Fragment_ListGameUuDai.newInstance()).commit();
         });
     }
 
