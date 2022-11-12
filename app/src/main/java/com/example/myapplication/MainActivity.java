@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_SplashScreen()).commit();
         new FbDao();
-
-
     }
 
     @Override

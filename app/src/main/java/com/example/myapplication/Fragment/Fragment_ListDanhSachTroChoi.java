@@ -17,13 +17,16 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Adapter.DanhSachGameAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 import com.smarteist.autoimageslider.SliderView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +42,8 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     private SearchView searchViewListGame;
     private SliderView imageSlider;
     private RecyclerView recyclerviewListGame;
-
+    private List<Game> listDanhSachGame;
+    private DanhSachGameAdapter danhSachGameAdapter;
     public Fragment_ListDanhSachTroChoi() {
         // Required empty public constructor
     }
@@ -65,7 +69,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AnhXa(view);
-//        ShowListVoucher();
+        ShowListVoucher();
 
         // khai báo mảng ảnh và gán giá trị src ảnh
         int[] img = new int[]{R.drawable.banner11, R.drawable.banner20};
@@ -90,6 +94,10 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     }
 
     private void ShowListVoucher() {
+        listDanhSachGame = FbDao.getListGame();
+        danhSachGameAdapter = new DanhSachGameAdapter(listDanhSachGame);
+        recyclerviewListGame.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
+        recyclerviewListGame.setAdapter(danhSachGameAdapter);
     }
 
     @Override

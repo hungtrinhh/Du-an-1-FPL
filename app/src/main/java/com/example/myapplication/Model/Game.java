@@ -6,7 +6,7 @@ public class Game {
     private String kieu;
     private String tenGame;
     private String trangThai;
-
+    private String moTa;
     public Game() {
     }
 
@@ -16,6 +16,14 @@ public class Game {
         this.kieu = kieu;
         this.tenGame = tenGame;
         this.trangThai = trangThai;
+    }
+
+    public String getMoTa() {
+        return moTa;
+    }
+
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
     }
 
     public int getId() {

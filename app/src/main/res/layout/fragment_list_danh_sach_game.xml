@@ -71,6 +71,10 @@
             app:sliderIndicatorUnselectedColor="@color/blue"
             app:sliderScrollTimeInSec="2"
             app:sliderStartAutoCycle="true" />
+        <TextView
+            android:text="Danh Sách Trò Chơi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
