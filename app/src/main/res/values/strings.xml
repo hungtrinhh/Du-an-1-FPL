@@ -19,5 +19,6 @@
     <string name="danhmuctrochoi">Danh mục</string>
     <string name="daanhsachgamevoucher">Danh Sách Game</string>
     <string name="voucher">Voucher</string>
+    <string name="thongtingame">Thông Tin Game</string>
 
 </resources>

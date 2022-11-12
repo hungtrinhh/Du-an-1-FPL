@@ -4,18 +4,29 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
+import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
 
 import java.util.List;
 
 public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapter.DanhSachGameViewHoler> {
     private List<Game> listGame;
+    private OnclickItemGame onclickItemGame;
+
+    public DanhSachGameAdapter(OnclickItemGame onclickItemGame) {
+        this.onclickItemGame = onclickItemGame;
+    }
+
+    public DanhSachGameAdapter() {
+    }
 
     public void setListGame(List<Game> listGame) {
         this.listGame = listGame;
@@ -42,6 +53,9 @@ public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapte
         }else{
             holder.tvTrangThai.setTextColor(Color.parseColor("#2FC863"));
         }
+        holder.linearLayoutDanhSachGame.setOnClickListener(view -> {
+            onclickItemGame.onclickItemGame(game);
+        });
     }
 
     @Override
@@ -55,12 +69,12 @@ public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapte
     public class DanhSachGameViewHoler extends RecyclerView.ViewHolder {
         private TextView tvTenGame;
         private TextView tvTrangThai;
+        private LinearLayout linearLayoutDanhSachGame;
         public DanhSachGameViewHoler(@NonNull View itemView) {
             super(itemView);
             tvTenGame = (TextView) itemView.findViewById(R.id.tv_ten_game);
             tvTrangThai = (TextView) itemView.findViewById(R.id.tv_trang_thai);
-
-
+            linearLayoutDanhSachGame = itemView.findViewById(R.id.linear_danh_sach_game);
         }
     }
 }

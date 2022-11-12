@@ -25,6 +25,7 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
+import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     private List<Game> gameSearchList;
     private DanhSachGameAdapter danhSachGameAdapter;
     private TextView tvthongBao;
+    private static final String TAG = "FRAGMENT_TRO_CHOI";
     public Fragment_ListDanhSachTroChoi() {
         // Required empty public constructor
     }
@@ -101,7 +103,17 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
 
     private void ShowListVoucher() {
         listDanhSachGame = FbDao.getListGame();
-        danhSachGameAdapter = new DanhSachGameAdapter();
+        danhSachGameAdapter = new DanhSachGameAdapter(new OnclickItemGame() {
+            @Override
+            public void onclickItemGame(Game game) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                FragmentThongTinTroChoi fragmentThongTinTroChoi = new FragmentThongTinTroChoi();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("obj_game",game);
+                fragmentThongTinTroChoi.setArguments(bundle);
+                fragmentTransaction.replace(R.id.content_frame,fragmentThongTinTroChoi).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
+            }
+        });
         danhSachGameAdapter.setListGame(listDanhSachGame);
         recyclerviewListGame.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
         recyclerviewListGame.setAdapter(danhSachGameAdapter);
