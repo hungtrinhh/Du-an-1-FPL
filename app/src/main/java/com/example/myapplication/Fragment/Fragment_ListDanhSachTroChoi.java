@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Voucher;
@@ -65,6 +67,12 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         AnhXa(view);
 //        ShowListVoucher();
 
+        // khai báo mảng ảnh và gán giá trị src ảnh
+        int[] img = new int[]{R.drawable.banner11, R.drawable.banner20};
+        SliderAdapter adapter = new SliderAdapter(img);
+        // set lên slideAdapter
+        imageSlider.setSliderAdapter(adapter);
+        animation(imageSlider);
         searchViewListGame.setVisibility(View.GONE);
         // bắt sự kiện khi click
         btnBackToTrangChu.setOnClickListener(this::onClick);
@@ -102,5 +110,9 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
                 }
                 break;
         }
+    }
+
+    private void animation(SliderView imageSlider) {
+        imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
     }
 }
