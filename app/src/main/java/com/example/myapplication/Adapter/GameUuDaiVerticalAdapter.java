@@ -5,26 +5,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.Game;
-import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 
 import java.util.List;
 
-public class GameHorizontalAdapter extends RecyclerView.Adapter<GameHorizontalAdapter.VoucherViewHoler> {
+public class GameUuDaiVerticalAdapter extends RecyclerView.Adapter<GameUuDaiVerticalAdapter.VoucherViewHoler> {
     private List<Game> listGame;
     private Context context;
 
-    public GameHorizontalAdapter() {
+    public GameUuDaiVerticalAdapter() {
     }
 
-    public GameHorizontalAdapter(Context context) {
+    public GameUuDaiVerticalAdapter(Context context) {
         this.context = context;
     }
 
@@ -36,7 +34,7 @@ public class GameHorizontalAdapter extends RecyclerView.Adapter<GameHorizontalAd
     @NonNull
     @Override
     public VoucherViewHoler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_item_horizontal,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_item_vertical,parent,false);
         return new VoucherViewHoler(view);
     }
 

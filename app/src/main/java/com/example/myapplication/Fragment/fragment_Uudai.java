@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,13 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapplication.Adapter.GameHorizontalAdapter;
-import com.example.myapplication.Adapter.GameVerticalAdapter;
+import com.example.myapplication.Adapter.GameUuDaiHorizontalAdapter;
+import com.example.myapplication.Adapter.GameUuDaiVerticalAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Adapter.VoucherHorizontalAdapter;
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
@@ -28,9 +27,12 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
+import com.example.myapplication.SetOnClickItemIterface.OnclickItemGameUuDai;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -38,17 +40,18 @@ public class fragment_Uudai extends Fragment {
     private VoucherHorizontalAdapter voucherHorizontalAdapter;
     private List<Voucher> voucherList;
     private SliderView imageSlider;
-    private List<Voucher> voucherSearchList;
+    private List<Game> gameSearchList;
     private RecyclerView recyclerviewVoucher;
     private RecyclerView recyclerViewGame;
     private androidx.appcompat.widget.SearchView searchView_uuDai;
     private TextView tv_showAllVoucher;
     private TextView tv_showAllGame;
     private List<Game> listGame;
+    private List<Voucher> listVoucherGameName;
     private static final String TAG = "ReadVoucher";
     private VoucherVerticalAdapter voucherVerticalAdapter;
-    private GameHorizontalAdapter gameHorizontalAdapter;
-    private GameVerticalAdapter gameVerticalAdapter;
+    private GameUuDaiHorizontalAdapter gameUuDaiHorizontalAdapter;
+    private GameUuDaiVerticalAdapter gameUuDaiVerticalAdapter;
     private String[] testList = {"Việt Nam", "Englang", "Vn", "EN"};
 
     //    scroll view dạng horizontal
@@ -81,6 +84,7 @@ public class fragment_Uudai extends Fragment {
         FillRecycleViewGame();
         showAllVoucher();
         showAllGame();
+        searchVoucher();
         Log.d(TAG, "onViewCreated: " + voucherList.size());
 
         animation(imageSlider);
@@ -113,12 +117,24 @@ public class fragment_Uudai extends Fragment {
 //                FillRecycleViewVoucher();
 //            }
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content_frame, Fragment_ListVoucherUuDai.newInstance()).commit();
+            fragmentTransaction.replace(R.id.content_frame, Fragment_ListVoucherUuDai.newInstance()).addToBackStack(fragment_Uudai.TAG).commit();
         });
     }
 
     public void FillRecycleViewVoucher() {
         voucherList = FbDao.getListVoucher();
+        Collections.sort(voucherList, new Comparator<Voucher>() {
+            @Override
+            public int compare(Voucher voucher, Voucher t1) {
+                if(voucher.getGiamGia() == t1.getGiamGia()){
+                    return 0;
+                }
+                if(voucher.getGiamGia() > t1.getGiamGia()){
+                    return 1;
+                }
+                return -1;
+            }
+        });
         voucherHorizontalAdapter = new VoucherHorizontalAdapter(getActivity());
         voucherHorizontalAdapter.setListDanhSachVoucher(voucherList);
         recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -139,36 +155,76 @@ public class fragment_Uudai extends Fragment {
 //                FillRecycleViewGame();
 //            }
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content_frame, Fragment_ListGameUuDai.newInstance()).commit();
+            fragmentTransaction.replace(R.id.content_frame, Fragment_ListGameUuDai.newInstance()).addToBackStack(fragment_Uudai.TAG).commit();
         });
     }
 
     public void FillRecycleViewGame() {
         listGame = FbDao.getListGame();
-        gameHorizontalAdapter = new GameHorizontalAdapter(getActivity());
-        gameHorizontalAdapter.setListDanhSachGame(listGame);
+        gameUuDaiHorizontalAdapter = new GameUuDaiHorizontalAdapter(getActivity(), new OnclickItemGameUuDai() {
+            @Override
+            public void onclickItemGame(Game game) {
+                showVocheNameGame(game);
+            }
+        });
+        gameUuDaiHorizontalAdapter.setListDanhSachGame(listGame);
         recyclerViewGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewGame.setAdapter(gameHorizontalAdapter);
+        recyclerViewGame.setAdapter(gameUuDaiHorizontalAdapter);
     }
+    public void searchVoucher(){
+        searchView_uuDai.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-    public void searchUuDai(String query) {
-        voucherSearchList = new ArrayList<>();
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                setListSerachVoucher(newText);
+                return false;
+            }
+        });
+    }
+    public void setListSerachVoucher(String query) {
+        gameSearchList = new ArrayList<>();
         if ("".equalsIgnoreCase(query)) {
-            voucherHorizontalAdapter.setListDanhSachVoucher(voucherList);
-            recyclerviewVoucher.setAdapter(voucherHorizontalAdapter);
+            gameUuDaiHorizontalAdapter.setListDanhSachGame(listGame);
+            recyclerViewGame.setAdapter(gameUuDaiHorizontalAdapter);
         } else {
-            for (Voucher voucher : voucherList) {
-                if (voucher.getMaVoucher().toLowerCase().contains(query)) {
-                    voucherSearchList.add(voucher);
+            for (Game game : listGame) {
+                if (game.getTenGame().toLowerCase().contains(query)) {
+                    gameSearchList.add(game);
                 }
             }
-            voucherHorizontalAdapter.setListDanhSachVoucher(voucherSearchList);
-            recyclerviewVoucher.setAdapter(voucherHorizontalAdapter);
+            gameUuDaiHorizontalAdapter.setListDanhSachGame(gameSearchList);
+            recyclerViewGame.setAdapter(gameUuDaiHorizontalAdapter);
         }
     }
 
     // khai báo hàm animation
     private void animation(SliderView imageSlider) {
         imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
+    }
+    public void showVocheNameGame(Game game){
+        listVoucherGameName = new ArrayList<>();
+        for (Voucher voucher : voucherList){
+            if(voucher.getLoaiGame() == game.getId() || voucher.getLoaiGame() == 0){
+                listVoucherGameName.add(voucher);
+            }
+        }
+        Collections.sort(listVoucherGameName, new Comparator<Voucher>() {
+            @Override
+            public int compare(Voucher voucher, Voucher t1) {
+                if(voucher.getGiamGia() == t1.getGiamGia()){
+                    return 0;
+                }
+                if(voucher.getGiamGia() > t1.getGiamGia()){
+                    return 1;
+                }
+                return -1;
+            }
+        });
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, new Fragment_ListVoucherUuDaiTenTroChoi(listVoucherGameName)).addToBackStack(fragment_Uudai.TAG).commit();
     }
 }

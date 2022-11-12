@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="100000dp"
-        app:queryHint="Nhập Mã Ưu Đãi Tìm Kiếm"/>
+        app:queryHint="Nhập Game Cần Tìm Kiếm Ưu Đãi"/>
 
     <com.smarteist.autoimageslider.SliderView
         android:id="@+id/image_slider"

@@ -4,29 +4,21 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.myapplication.Adapter.GameVerticalAdapter;
+import com.example.myapplication.Adapter.GameUuDaiVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +29,7 @@ import java.util.List;
 public class Fragment_ListGameUuDai extends Fragment implements View.OnClickListener{
     private RecyclerView recyclerView_danhmuc_ListGame;
     private ImageView btn_BackToUuDai,btn_Search;
-    private GameVerticalAdapter gameVerticalAdapter;
+    private GameUuDaiVerticalAdapter gameUuDaiVerticalAdapter;
     private List<Game> listGame;
     private androidx.appcompat.widget.SearchView searchView_listGameUuDai;
     public Fragment_ListGameUuDai() {
@@ -80,10 +72,10 @@ public class Fragment_ListGameUuDai extends Fragment implements View.OnClickList
     }
     private void ShowListGame(){
         listGame = FbDao.getListGame();
-        gameVerticalAdapter = new GameVerticalAdapter(getActivity());
-        gameVerticalAdapter.setListDanhSachGame(listGame);
+        gameUuDaiVerticalAdapter = new GameUuDaiVerticalAdapter(getActivity());
+        gameUuDaiVerticalAdapter.setListDanhSachGame(listGame);
         recyclerView_danhmuc_ListGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        recyclerView_danhmuc_ListGame.setAdapter(gameVerticalAdapter);
+        recyclerView_danhmuc_ListGame.setAdapter(gameUuDaiVerticalAdapter);
     }
 
     @Override
