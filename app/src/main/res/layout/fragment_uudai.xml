@@ -67,6 +67,13 @@
                 android:id="@+id/recyclerview_danh_muc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_thong_bao"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Không Có Trò Chơi Nào Bạn Đã Nhập"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
             <LinearLayout

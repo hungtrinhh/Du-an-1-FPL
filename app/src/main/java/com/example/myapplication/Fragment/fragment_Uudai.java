@@ -45,14 +45,11 @@ public class fragment_Uudai extends Fragment {
     private RecyclerView recyclerViewGame;
     private androidx.appcompat.widget.SearchView searchView_uuDai;
     private TextView tv_showAllVoucher;
-    private TextView tv_showAllGame;
+    private TextView tv_showAllGame, tvthongBao;
     private List<Game> listGame;
     private List<Voucher> listVoucherGameName;
     private static final String TAG = "ReadVoucher";
-    private VoucherVerticalAdapter voucherVerticalAdapter;
     private GameUuDaiHorizontalAdapter gameUuDaiHorizontalAdapter;
-    private GameUuDaiVerticalAdapter gameUuDaiVerticalAdapter;
-    private String[] testList = {"Việt Nam", "Englang", "Vn", "EN"};
 
     //    scroll view dạng horizontal
     public fragment_Uudai() {
@@ -103,7 +100,10 @@ public class fragment_Uudai extends Fragment {
         tv_showAllVoucher = (TextView) view.findViewById(R.id.tv_show_all_voucher);
         recyclerViewGame = view.findViewById(R.id.recyclerview_danh_muc);
         tv_showAllGame = view.findViewById(R.id.tv_show_all_game);
+        tvthongBao = view.findViewById(R.id.tv_thong_bao);
+        tvthongBao.setVisibility(View.INVISIBLE);
     }
+
     public void showAllVoucher() {
         tv_showAllVoucher.setOnClickListener(view -> {
 //            if (tv_showAllVoucher.getText().toString().equals("Xem Tất Cả")) {
@@ -126,10 +126,10 @@ public class fragment_Uudai extends Fragment {
         Collections.sort(voucherList, new Comparator<Voucher>() {
             @Override
             public int compare(Voucher voucher, Voucher t1) {
-                if(voucher.getGiamGia() == t1.getGiamGia()){
+                if (voucher.getGiamGia() == t1.getGiamGia()) {
                     return 0;
                 }
-                if(voucher.getGiamGia() > t1.getGiamGia()){
+                if (voucher.getGiamGia() > t1.getGiamGia()) {
                     return 1;
                 }
                 return -1;
@@ -171,7 +171,8 @@ public class fragment_Uudai extends Fragment {
         recyclerViewGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewGame.setAdapter(gameUuDaiHorizontalAdapter);
     }
-    public void searchVoucher(){
+
+    public void searchVoucher() {
         searchView_uuDai.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -185,15 +186,20 @@ public class fragment_Uudai extends Fragment {
             }
         });
     }
+
     public void setListSerachVoucher(String query) {
         gameSearchList = new ArrayList<>();
         if ("".equalsIgnoreCase(query)) {
+            tvthongBao.setVisibility(View.INVISIBLE);
             gameUuDaiHorizontalAdapter.setListDanhSachGame(listGame);
             recyclerViewGame.setAdapter(gameUuDaiHorizontalAdapter);
         } else {
             for (Game game : listGame) {
                 if (game.getTenGame().toLowerCase().contains(query)) {
                     gameSearchList.add(game);
+                    tvthongBao.setVisibility(View.INVISIBLE);
+                } else {
+                    tvthongBao.setVisibility(View.VISIBLE);
                 }
             }
             gameUuDaiHorizontalAdapter.setListDanhSachGame(gameSearchList);
@@ -205,20 +211,21 @@ public class fragment_Uudai extends Fragment {
     private void animation(SliderView imageSlider) {
         imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
     }
-    public void showVocheNameGame(Game game){
+
+    public void showVocheNameGame(Game game) {
         listVoucherGameName = new ArrayList<>();
-        for (Voucher voucher : voucherList){
-            if(voucher.getLoaiGame() == game.getId() || voucher.getLoaiGame() == 0){
+        for (Voucher voucher : voucherList) {
+            if (voucher.getLoaiGame() == game.getId() || voucher.getLoaiGame() == 0) {
                 listVoucherGameName.add(voucher);
             }
         }
         Collections.sort(listVoucherGameName, new Comparator<Voucher>() {
             @Override
             public int compare(Voucher voucher, Voucher t1) {
-                if(voucher.getGiamGia() == t1.getGiamGia()){
+                if (voucher.getGiamGia() == t1.getGiamGia()) {
                     return 0;
                 }
-                if(voucher.getGiamGia() > t1.getGiamGia()){
+                if (voucher.getGiamGia() > t1.getGiamGia()) {
                     return 1;
                 }
                 return -1;
