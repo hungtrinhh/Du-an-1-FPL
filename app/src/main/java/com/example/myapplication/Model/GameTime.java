@@ -7,9 +7,9 @@ public class GameTime extends Game{
 
     }
 
-    public GameTime(int id,String tenGame,String trangThai, int turn) {
-        super(id, 10000, "Theo giờ", tenGame, trangThai);
-        this.time = turn;
+    public GameTime(int id,String tenGame,String trangThai, int time) {
+        super(id, 20000, "Theo giờ", tenGame, trangThai);
+        this.time = time;
     }
 
     public int getTime() {
