@@ -1,6 +1,6 @@
 package com.example.myapplication.Model;
 
-public class Game {
+public abstract class Game {
     private int id;
     private int gia;
     private String kieu;
@@ -57,4 +57,7 @@ public class Game {
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
+
+    //lớp tính tổng tiền
+    abstract public int tongTien(int gia);
 }
