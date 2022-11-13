@@ -96,7 +96,7 @@ public class Fragment_ListVoucherUuDai extends Fragment implements View.OnClickL
         } else {
             listSearchVoucher = new ArrayList<>();
             for (Voucher voucher : listVoucher) {
-                if (voucher.getMaVoucher().toLowerCase().contains(newText.toLowerCase(Locale.ROOT))){
+                if (voucher.getMaVoucher().toLowerCase().contains(newText.toUpperCase(Locale.ROOT))){
                     listSearchVoucher.add(voucher);
                 }
             }
