@@ -57,6 +57,7 @@ public class VoucherVerticalAdapter extends RecyclerView.Adapter<VoucherVertical
         if(voucher == null){
             return;
         }
+        holder.tv_MaVoucher.setText(voucher.getMaVoucher());
         holder.tv_TieuDeVoucher.setText("Giảm " + voucher.getGiamGia() + getTenGame(voucher.getLoaiGame()));
     }
 
@@ -75,6 +76,7 @@ public class VoucherVerticalAdapter extends RecyclerView.Adapter<VoucherVertical
             super(itemView);
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
             tv_TieuDeVoucher = (TextView) itemView.findViewById(R.id.tv_tieuDeVoucher);
+            tv_MaVoucher = itemView.findViewById(R.id.tv_maVoucher);
         }
     }
 }

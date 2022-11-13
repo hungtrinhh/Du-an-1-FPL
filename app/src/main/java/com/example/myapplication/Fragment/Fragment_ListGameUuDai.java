@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,7 +20,9 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +33,7 @@ public class Fragment_ListGameUuDai extends Fragment implements View.OnClickList
     private RecyclerView recyclerView_danhmuc_ListGame;
     private ImageView btn_BackToUuDai,btn_Search;
     private GameUuDaiVerticalAdapter gameUuDaiVerticalAdapter;
-    private List<Game> listGame;
+    private List<Game> listGame,listSearchGame;
     private androidx.appcompat.widget.SearchView searchView_listGameUuDai;
     public Fragment_ListGameUuDai() {
         // Required empty public constructor
@@ -63,6 +66,8 @@ public class Fragment_ListGameUuDai extends Fragment implements View.OnClickList
         // bắt sự kiện khi click
         btn_BackToUuDai.setOnClickListener(this::onClick);
         btn_Search.setOnClickListener(this::onClick);
+
+        searchGame();
     }
     private void AnhXa(View view){
         recyclerView_danhmuc_ListGame = view.findViewById(R.id.recyclerview_danhmuc_ListGame);
@@ -87,12 +92,49 @@ public class Fragment_ListGameUuDai extends Fragment implements View.OnClickList
                 break;
             case R.id.btn_search_fragDanhmuc:
                 if (searchView_listGameUuDai.getVisibility()==View.GONE){
+                    btn_Search.setImageResource(R.drawable.ic_baseline_close_24);
                     searchView_listGameUuDai.setVisibility(View.VISIBLE);
                     searchView_listGameUuDai.onActionViewExpanded();
                 }else {
                     searchView_listGameUuDai.setVisibility(View.GONE);
+                    btn_Search.setImageResource(R.drawable.ic_baseline_search_24);
                 }
                 break;
+        }
+    }
+    private void searchGame() {
+        searchView_listGameUuDai.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                setListSerachGame(newText);
+                return false;
+            }
+        });
+    }
+
+    private void setListSerachGame(String newText) {
+        if ("".equalsIgnoreCase(newText)) {
+//            tvthongBao.setVisibility(View.GONE);
+            gameUuDaiVerticalAdapter.setListDanhSachGame(listGame);
+            recyclerView_danhmuc_ListGame.setAdapter(gameUuDaiVerticalAdapter);
+        } else {
+            listSearchGame = new ArrayList<>();
+            for (Game game : listGame) {
+                if (game.getTenGame().toLowerCase().contains(newText.toLowerCase(Locale.ROOT))) {
+                    listSearchGame.add(game);
+                }
+            }
+//            if(listGame.isEmpty()){
+//                tvthongBao.setVisibility(View.VISIBLE);
+//            }else {
+//                tvthongBao.setVisibility(View.GONE);
+//            }
+            gameUuDaiVerticalAdapter.setListDanhSachGame(listSearchGame);
         }
     }
 }

@@ -21,6 +21,7 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment__list_game_uu_dai.xml" value="0.152" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment__list_voucher_uu_dai.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_fogot_password.xml" value="0.25416666666666665" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_list_danh_sach_game.xml" value="0.24010416666666667" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_login.xml" value="0.14166666666666666" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_main.xml" value="0.14166666666666666" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_regesiter.xml" value="0.14166666666666666" />
@@ -34,6 +35,7 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/game_item_vertical.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/slider_item.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/toolbar.xml" value="0.16799999999999998" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/voucher_item_vertical.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/menu/toolbar_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable-v24/ic_home_24px.xml" value="0.2375" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2375" />

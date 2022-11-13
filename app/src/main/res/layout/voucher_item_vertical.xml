@@ -21,13 +21,26 @@
             android:layout_height="80dp"
             android:src="@drawable/ic_jumping" />
     </LinearLayout>
-    <TextView
-        android:layout_marginLeft="20dp"
-        android:id="@+id/tv_tieuDeVoucher"
-        android:layout_gravity="center_vertical"
-        android:fontFamily="@font/poppins_medium"
-        android:textColor="@color/black"
-        android:text="Giảm 10% cho mọi máy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/tv_tieuDeVoucher"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="Giảm 10% cho mọi máy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_maVoucher"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </LinearLayout>

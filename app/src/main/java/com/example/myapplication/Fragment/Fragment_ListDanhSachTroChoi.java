@@ -30,6 +30,7 @@ import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,7 +78,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         ShowListVoucher();
 
         // khai báo mảng ảnh và gán giá trị src ảnh
-        int[] img = new int[]{R.drawable.banner11, R.drawable.banner20};
+        int[] img = new int[]{R.drawable.banner11, R.drawable.banner20,R.drawable.banner12,R.drawable.chrismas};
         SliderAdapter adapter = new SliderAdapter(img);
         // set lên slideAdapter
         imageSlider.setSliderAdapter(adapter);
@@ -165,17 +166,16 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         } else {
             gameSearchList = new ArrayList<>();
             for (Game game : listDanhSachGame) {
-                if (game.getTenGame().toLowerCase().contains(query)) {
+                if (game.getTenGame().toLowerCase().contains(query.toLowerCase(Locale.ROOT))) {
                     gameSearchList.add(game);
                 }
             }
-            if(gameSearchList.size() == 0){
+            if(gameSearchList.isEmpty()){
                 tvthongBao.setVisibility(View.VISIBLE);
             }else {
                 tvthongBao.setVisibility(View.GONE);
             }
             danhSachGameAdapter.setListGame(gameSearchList);
-            recyclerviewListGame.setAdapter(danhSachGameAdapter);
         }
     }
 }
