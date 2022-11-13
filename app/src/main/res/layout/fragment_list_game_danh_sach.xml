@@ -61,7 +61,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_danhmuc_ListGame"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="#F5F5F5"/>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>
