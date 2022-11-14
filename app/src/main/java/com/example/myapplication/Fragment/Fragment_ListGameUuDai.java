@@ -14,13 +14,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.myapplication.Adapter.GameUuDaiVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
+import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,6 +40,8 @@ public class Fragment_ListGameUuDai extends Fragment implements View.OnClickList
     private GameUuDaiVerticalAdapter gameUuDaiVerticalAdapter;
     private List<Game> listGame,listSearchGame;
     private androidx.appcompat.widget.SearchView searchView_listGameUuDai;
+    private TextView tv_title;
+    private static final String TAG = "Fragment_ListGameUuDai";
     public Fragment_ListGameUuDai() {
 
     }
@@ -76,10 +83,17 @@ public class Fragment_ListGameUuDai extends Fragment implements View.OnClickList
         btn_BackToUuDai = view.findViewById(R.id.btn_BackToUuDai_fragDanhmuc);
         searchView_listGameUuDai = view.findViewById(R.id.searchView_listGameUuDai);
         btn_Search = view.findViewById(R.id.btn_search_fragDanhmuc);
+        tv_title = view.findViewById(R.id.tv_tiltle);
+        tv_title.setText("Danh Mục Game");
     }
     private void ShowListGame(){
         listGame = FbDao.getListGame();
-        gameUuDaiVerticalAdapter = new GameUuDaiVerticalAdapter(getActivity());
+        gameUuDaiVerticalAdapter = new GameUuDaiVerticalAdapter(getActivity(), new OnclickItemGame() {
+            @Override
+            public void onclickItemGame(Game game) {
+                showVocheNameGame(game);
+            }
+        });
         gameUuDaiVerticalAdapter.setListDanhSachGame(listGame);
         recyclerView_danhmuc_ListGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView_danhmuc_ListGame.setAdapter(gameUuDaiVerticalAdapter);
@@ -138,5 +152,28 @@ public class Fragment_ListGameUuDai extends Fragment implements View.OnClickList
 //            }
             gameUuDaiVerticalAdapter.setListDanhSachGame(listSearchGame);
         }
+    }
+    public void showVocheNameGame(Game game) {
+        List<Voucher> listVoucherGameName = new ArrayList<>();
+        List<Voucher> voucherList = FbDao.getListVoucher();
+        for (Voucher voucher : voucherList) {
+            if (voucher.getLoaiGame() == game.getId() || voucher.getLoaiGame() == 0) {
+                listVoucherGameName.add(voucher);
+            }
+        }
+        Collections.sort(listVoucherGameName, new Comparator<Voucher>() {
+            @Override
+            public int compare(Voucher voucher, Voucher t1) {
+                if (voucher.getGiamGia() == t1.getGiamGia()) {
+                    return 0;
+                }
+                if (voucher.getGiamGia() > t1.getGiamGia()) {
+                    return 1;
+                }
+                return -1;
+            }
+        });
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, new Fragment_ListVoucherUuDaiTenTroChoi(listVoucherGameName)).addToBackStack(Fragment_ListGameUuDai.TAG).commit();
     }
 }

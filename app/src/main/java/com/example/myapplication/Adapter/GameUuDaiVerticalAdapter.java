@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,18 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
+import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
 
 import java.util.List;
 
 public class GameUuDaiVerticalAdapter extends RecyclerView.Adapter<GameUuDaiVerticalAdapter.VoucherViewHoler> {
     private List<Game> listGame;
     private Context context;
-
+    private OnclickItemGame onclickItemGame;
     public GameUuDaiVerticalAdapter() {
     }
 
-    public GameUuDaiVerticalAdapter(Context context) {
+    public GameUuDaiVerticalAdapter(Context context, OnclickItemGame onclickItemGame) {
         this.context = context;
+        this.onclickItemGame = onclickItemGame;
     }
 
     public void setListDanhSachGame(List<Game> listGame) {
@@ -45,6 +48,9 @@ public class GameUuDaiVerticalAdapter extends RecyclerView.Adapter<GameUuDaiVert
             return;
         }
         holder.tvTenGame.setText(game.getTenGame());
+        holder.linearLayoutItemgame.setOnClickListener(view -> {
+            onclickItemGame.onclickItemGame(game);
+        });
     }
 
     @Override
@@ -58,10 +64,12 @@ public class GameUuDaiVerticalAdapter extends RecyclerView.Adapter<GameUuDaiVert
     public class VoucherViewHoler extends RecyclerView.ViewHolder {
         private ImageView imageView2;
         private TextView tvTenGame;
+        private LinearLayout linearLayoutItemgame;
         public VoucherViewHoler(@NonNull View itemView) {
             super(itemView);
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
             tvTenGame = (TextView) itemView.findViewById(R.id.tv_tenGame);
+            linearLayoutItemgame = itemView.findViewById(R.id.linear_item_game);
         }
     }
 }

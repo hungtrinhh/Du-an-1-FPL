@@ -115,10 +115,14 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             listDanhSachGame = FbDao.getListGame();
             Log.d(TAG, "onReceive: " + listDanhSachGame.get(0).getTrangThai());
-            danhSachGameAdapter = new DanhSachGameAdapter();
+            danhSachGameAdapter = new DanhSachGameAdapter(new OnclickItemGame() {
+                @Override
+                public void onclickItemGame(Game game) {
+                    onClickItem(game);
+                }
+            });
             danhSachGameAdapter.setListGame(listDanhSachGame);
             recyclerviewListGame.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerviewListGame.setAdapter(danhSachGameAdapter);
@@ -143,12 +147,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         danhSachGameAdapter = new DanhSachGameAdapter(new OnclickItemGame() {
             @Override
             public void onclickItemGame(Game game) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                FragmentThongTinTroChoi fragmentThongTinTroChoi = new FragmentThongTinTroChoi();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("obj_game", game);
-                fragmentThongTinTroChoi.setArguments(bundle);
-                fragmentTransaction.replace(R.id.content_frame, fragmentThongTinTroChoi).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
+                onClickItem(game);
             }
         });
         danhSachGameAdapter.setListGame(listDanhSachGame);
@@ -214,5 +213,13 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
             }
             danhSachGameAdapter.setListGame(gameSearchList);
         }
+    }
+    public void onClickItem(Game game){
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentThongTinTroChoi fragmentThongTinTroChoi = new FragmentThongTinTroChoi();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("obj_game", game);
+        fragmentThongTinTroChoi.setArguments(bundle);
+        fragmentTransaction.replace(R.id.content_frame, fragmentThongTinTroChoi).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
     }
 }
