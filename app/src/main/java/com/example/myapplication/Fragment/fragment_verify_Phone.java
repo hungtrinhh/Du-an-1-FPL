@@ -359,7 +359,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
                 if (task.isSuccessful()) {
 
                     Log.d(TAG, "signInWithCredential:success");
-                    FbDao fbDao = new FbDao();
+                    FbDao fbDao = new FbDao(getActivity());
                     fbDao.AddUser(user);
                     getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, new fragment_register_success()).commit();
 

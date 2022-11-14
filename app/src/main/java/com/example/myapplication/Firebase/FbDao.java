@@ -1,6 +1,9 @@
 package com.example.myapplication.Firebase;
 
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 
@@ -8,6 +11,7 @@ import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
 
+import com.example.myapplication.Service.UpdateVoucherService;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.database.DataSnapshot;
@@ -49,20 +53,27 @@ public class FbDao {
     private static List<Game> listGame;
     private static List<User> listUser;
     private static List<Voucher> listVoucher;
-    public static List<Game> getListGame(){
+
+    public static List<Game> getListGame() {
         return listGame;
     }
-    public static List<Voucher> getListVoucher(){
+
+    public static List<Voucher> getListVoucher() {
         return listVoucher;
     }
+
     public static java.util.List<User> getList() {
         return listUser;
     }
 
-    public FbDao() {
+    public static Activity activity;
+
+    public FbDao(Activity context) {
         ReadUser();
         ReadVoucher();
         ReadGame();
+        this.activity = context;
+
     }
 
     private void ReadGame() {
@@ -72,17 +83,20 @@ public class FbDao {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                listGame.clear();
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     Game u = dt.getValue(Game.class);
                     if (u == null) {
-                        return;
+                        continue;
                     }
+
                     listGame.add(u);
-                    Log.d(TAG, "onDataChange: " + u.getId());
+                    Log.d(TAG, "ReadGame: " + u.getTrangThai());
+
                 }
+                activity.startService(new Intent(activity, UpdateVoucherService.class));
             }
 
-            int a = 0;
 
             @Override
             public void onCancelled(DatabaseError error) {
@@ -110,7 +124,6 @@ public class FbDao {
                 }
             }
 
-            int a = 0;
 
             @Override
             public void onCancelled(DatabaseError error) {

@@ -36,8 +36,10 @@ public class Fragment_ListGameUuDai extends Fragment implements View.OnClickList
     private List<Game> listGame,listSearchGame;
     private androidx.appcompat.widget.SearchView searchView_listGameUuDai;
     public Fragment_ListGameUuDai() {
-        // Required empty public constructor
+
     }
+
+
 
     public static Fragment_ListGameUuDai newInstance() {
         Fragment_ListGameUuDai fragment = new Fragment_ListGameUuDai();

@@ -66,6 +66,8 @@ public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapte
         return 0;
     }
 
+
+
     public class DanhSachGameViewHoler extends RecyclerView.ViewHolder {
         private TextView tvTenGame;
         private TextView tvTrangThai;

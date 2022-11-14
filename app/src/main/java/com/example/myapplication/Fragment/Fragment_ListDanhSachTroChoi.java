@@ -1,6 +1,11 @@
 package com.example.myapplication.Fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +21,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,13 +57,28 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     private DanhSachGameAdapter danhSachGameAdapter;
     private TextView tvthongBao;
     private static final String TAG = "FRAGMENT_TRO_CHOI";
+
     public Fragment_ListDanhSachTroChoi() {
-        // Required empty public constructor
+
     }
 
     public static Fragment_ListDanhSachTroChoi newInstance() {
         Fragment_ListDanhSachTroChoi fragment = new Fragment_ListDanhSachTroChoi();
         return fragment;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter("UpdateVoucherService"));
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(broadcastReceiver);
+
     }
 
     @Override
@@ -78,7 +100,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         ShowListVoucher();
 
         // khai báo mảng ảnh và gán giá trị src ảnh
-        int[] img = new int[]{R.drawable.banner11, R.drawable.banner20,R.drawable.banner12,R.drawable.chrismas};
+        int[] img = new int[]{R.drawable.banner11, R.drawable.banner20, R.drawable.banner12, R.drawable.chrismas};
         SliderAdapter adapter = new SliderAdapter(img);
         // set lên slideAdapter
         imageSlider.setSliderAdapter(adapter);
@@ -89,6 +111,19 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         btnSearchTroChoi.setOnClickListener(this::onClick);
         searchGame();
     }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            listDanhSachGame = FbDao.getListGame();
+            Log.d(TAG, "onReceive: " + listDanhSachGame.get(0).getTrangThai());
+            danhSachGameAdapter = new DanhSachGameAdapter();
+            danhSachGameAdapter.setListGame(listDanhSachGame);
+            recyclerviewListGame.setLayoutManager(new LinearLayoutManager(getActivity()));
+            recyclerviewListGame.setAdapter(danhSachGameAdapter);
+        }
+    };
 
     private void AnhXa(View view) {
         fragmentDanhMucListGameUuDai = (FrameLayout) view.findViewById(R.id.fragmentDanhMuc_ListGameUuDai);
@@ -103,6 +138,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     }
 
     private void ShowListVoucher() {
+        Log.d(TAG, "ShowListVoucher: ");
         listDanhSachGame = FbDao.getListGame();
         danhSachGameAdapter = new DanhSachGameAdapter(new OnclickItemGame() {
             @Override
@@ -110,13 +146,13 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 FragmentThongTinTroChoi fragmentThongTinTroChoi = new FragmentThongTinTroChoi();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("obj_game",game);
+                bundle.putSerializable("obj_game", game);
                 fragmentThongTinTroChoi.setArguments(bundle);
-                fragmentTransaction.replace(R.id.content_frame,fragmentThongTinTroChoi).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
+                fragmentTransaction.replace(R.id.content_frame, fragmentThongTinTroChoi).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
             }
         });
         danhSachGameAdapter.setListGame(listDanhSachGame);
-        recyclerviewListGame.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
+        recyclerviewListGame.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerviewListGame.setAdapter(danhSachGameAdapter);
     }
 
@@ -143,6 +179,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     private void animation(SliderView imageSlider) {
         imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
     }
+
     public void searchGame() {
         searchViewListGame.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -170,9 +207,9 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
                     gameSearchList.add(game);
                 }
             }
-            if(gameSearchList.isEmpty()){
+            if (gameSearchList.isEmpty()) {
                 tvthongBao.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 tvthongBao.setVisibility(View.GONE);
             }
             danhSachGameAdapter.setListGame(gameSearchList);
