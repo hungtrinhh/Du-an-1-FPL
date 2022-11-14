@@ -32,7 +32,7 @@ import java.util.List;
 
 public class fragment_Login extends Fragment implements View.OnClickListener {
     //  khai báo
-    private ConstraintLayout layoutLogoWhite;
+    private LinearLayout layoutLogoWhite;
     private EditText ed_Username;
     private EditText ed_Password;
     private SwitchCompat sw_RememberAccount;
@@ -101,7 +101,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
 
     // khai báo hàm animation
-    private void animation(ConstraintLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, SwitchCompat swRememberAccount, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
+    private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, SwitchCompat swRememberAccount, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
         layoutLogoWhite.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.floatin));
         edEmailLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         edPasswordLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
@@ -119,12 +119,11 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
     public void saveAccount() {
 
-        SharedPreferences s = getActivity().getSharedPreferences("acc", Context.MODE_PRIVATE);
+        SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = s.edit();
         if (!sw_RememberAccount.isChecked()) {
             editor.clear();
             editor.commit();
-
             return;
         }
 
@@ -137,7 +136,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     }
 
     private void getAccount() {
-        SharedPreferences s = getActivity().getSharedPreferences("acc", Context.MODE_PRIVATE);
+        SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
         ed_Username.setText(s.getString("name", ""));
         ed_Password.setText(s.getString("pass", ""));
         sw_RememberAccount.setChecked(s.getBoolean("save", false));
