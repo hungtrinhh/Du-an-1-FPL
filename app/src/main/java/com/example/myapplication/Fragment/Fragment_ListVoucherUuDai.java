@@ -128,8 +128,7 @@ public class Fragment_ListVoucherUuDai extends Fragment implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_BackToUuDai_fragVoucher:
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame, new fragment_Uudai()).commit();
+                getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.btn_search_fragVoucher:
                 if (searchView_listVoucherUuDai.getVisibility() == View.GONE) {

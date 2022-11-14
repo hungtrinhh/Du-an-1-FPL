@@ -103,8 +103,7 @@ public class Fragment_ListGameUuDai extends Fragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_BackToUuDai_fragDanhmuc:
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame, fragment_Uudai.newInstance()).commit();
+                getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.btn_search_fragDanhmuc:
                 if (searchView_listGameUuDai.getVisibility()==View.GONE){

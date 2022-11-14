@@ -2,7 +2,6 @@ package com.example.myapplication.Firebase;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -11,7 +10,7 @@ import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
 
-import com.example.myapplication.Service.UpdateVoucherService;
+import com.example.myapplication.Service.UpdateGameService;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class FbDao {
 //    public void Test(String string) {
@@ -94,7 +92,7 @@ public class FbDao {
                     Log.d(TAG, "ReadGame: " + u.getTrangThai());
 
                 }
-                activity.startService(new Intent(activity, UpdateVoucherService.class));
+                activity.startService(new Intent(activity, UpdateGameService.class));
             }
 
 
@@ -113,15 +111,16 @@ public class FbDao {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                listVoucher.clear();
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     Voucher u = dt.getValue(Voucher.class);
                     if (u == null) {
-                        return;
+                        continue;
                     }
                     listVoucher.add(u);
                     Log.d(TAG, "onDataChange: " + u.getLoaiGame());
-
                 }
+                activity.startService(new Intent(activity, UpdateGameService.class));
             }
 
 

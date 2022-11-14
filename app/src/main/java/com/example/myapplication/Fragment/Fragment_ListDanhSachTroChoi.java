@@ -71,7 +71,6 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     public void onStart() {
         super.onStart();
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter("UpdateVoucherService"));
-
     }
 
     @Override
@@ -214,7 +213,8 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
             danhSachGameAdapter.setListGame(gameSearchList);
         }
     }
-    public void onClickItem(Game game){
+
+    public void onClickItem(Game game) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         FragmentThongTinTroChoi fragmentThongTinTroChoi = new FragmentThongTinTroChoi();
         Bundle bundle = new Bundle();

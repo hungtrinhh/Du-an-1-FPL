@@ -2,16 +2,15 @@ package com.example.myapplication.Service;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-public class UpdateVoucherService extends IntentService {
+public class UpdateGameService extends IntentService {
 
 
-    public UpdateVoucherService() {
+    public UpdateGameService() {
         super("UpdateVoucherService");
     }
 

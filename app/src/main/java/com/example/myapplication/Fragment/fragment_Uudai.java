@@ -1,5 +1,9 @@
 package com.example.myapplication.Fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.example.myapplication.Adapter.DanhSachGameAdapter;
 import com.example.myapplication.Adapter.GameUuDaiHorizontalAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Adapter.VoucherHorizontalAdapter;
@@ -88,6 +94,18 @@ public class fragment_Uudai extends Fragment {
         SliderAdapter adapter = new SliderAdapter(img);
         // set lên slideAdapter
         imageSlider.setSliderAdapter(adapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver,new IntentFilter("UpdateVoucherService"));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(broadcastReceiver);
     }
 
     public void AnhXa(View view) {
@@ -233,4 +251,11 @@ public class fragment_Uudai extends Fragment {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, new Fragment_ListVoucherUuDaiTenTroChoi(listVoucherGameName)).addToBackStack(fragment_Uudai.TAG).commit();
     }
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            FillRecycleViewGame();
+            FillRecycleViewVoucher();
+        }
+    };
 }
