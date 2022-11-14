@@ -127,9 +127,9 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
             return;
         }
 
-        editor.putString("name", ed_Username.getText().toString());
-        editor.putString("pass", ed_Password.getText().toString());
-        editor.putBoolean("save", sw_RememberAccount.isChecked());
+        editor.putString("Username", ed_Username.getText().toString());
+        editor.putString("Password", ed_Password.getText().toString());
+        editor.putBoolean("Remember", sw_RememberAccount.isChecked());
         editor.commit();
 
 
@@ -137,9 +137,9 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
     private void getAccount() {
         SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
-        ed_Username.setText(s.getString("name", ""));
-        ed_Password.setText(s.getString("pass", ""));
-        sw_RememberAccount.setChecked(s.getBoolean("save", false));
+        ed_Username.setText(s.getString("Username", ""));
+        ed_Password.setText(s.getString("Password", ""));
+        sw_RememberAccount.setChecked(s.getBoolean("Remember", false));
 
     }
 
