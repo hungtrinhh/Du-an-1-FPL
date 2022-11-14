@@ -80,13 +80,13 @@
                 android:textSize="17dp" />
 
             <ImageView
-                android:id="@+id/iv_hidePassword"
+                android:id="@+id/img_hidePassword"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="2dp"
                 android:layout_alignEnd="@+id/ed_Password"
                 android:layout_alignParentTop="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="2dp"
                 android:src="@drawable/ic_baseline_visibility_off_24" />
         </RelativeLayout>
 

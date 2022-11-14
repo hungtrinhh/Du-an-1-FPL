@@ -11,11 +11,14 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -42,6 +45,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     private String username = "", password = "";
     private List<User> list;
     private String TAG = fragment_Login.class.toString();
+    private ImageView imgHidePassword;
 
 
     //khai báo view
@@ -63,7 +67,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         btn_Login.setOnClickListener(this::onClick);
         tv_GoToRegister.setOnClickListener(this::onClick);
         tv_FogotPassword.setOnClickListener(this::onClick);
-
+        imgHidePassword.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -82,7 +86,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 //                for (User u : list
 //                ) {
 //                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
 //                        dk = true;
 //                    }
 //                }
@@ -90,11 +94,22 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 //                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
 //                }
                 break;
+
             case R.id.tv_GoToRegister:
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Regesiter(list)).addToBackStack("").commit();
                 break;
             case R.id.tv_FogotPassword:
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Fogot_Password()).addToBackStack("").commit();
+                break;
+            case R.id.img_hidePassword:
+                if (ed_Password.getInputType() != InputType.TYPE_TEXT_VARIATION_PASSWORD) {
+                    ed_Password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    imgHidePassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24);
+                } else {
+                    ed_Password.setInputType(129);
+                    imgHidePassword.setImageResource(R.drawable.ic_baseline_visibility_off_24);
+
+                }
                 break;
         }
     }
@@ -166,6 +181,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
     }
 
+
     //    khai báo hàm Anhxa
     private void Anhxa(View view) {
         layoutLogoWhite = view.findViewById(R.id.layout_logoWhite);
@@ -175,6 +191,8 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         btn_Login = view.findViewById(R.id.btn_Login);
         tv_GoToRegister = view.findViewById(R.id.tv_GoToRegister);
         tv_FogotPassword = view.findViewById(R.id.tv_FogotPassword);
+        imgHidePassword = view.findViewById(R.id.img_hidePassword);
+
         ed_Username.setText(username);
         ed_Password.setText(password);
     }
