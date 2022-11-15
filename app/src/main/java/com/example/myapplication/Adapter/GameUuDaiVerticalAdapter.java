@@ -62,13 +62,13 @@ public class GameUuDaiVerticalAdapter extends RecyclerView.Adapter<GameUuDaiVert
     }
 
     public class VoucherViewHoler extends RecyclerView.ViewHolder {
-        private ImageView imageView2;
-        private TextView tvTenGame;
-        private LinearLayout linearLayoutItemgame;
+        private final ImageView imageView2;
+        private final TextView tvTenGame;
+        private final LinearLayout linearLayoutItemgame;
         public VoucherViewHoler(@NonNull View itemView) {
             super(itemView);
-            imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
-            tvTenGame = (TextView) itemView.findViewById(R.id.tv_tenGame);
+            imageView2 = itemView.findViewById(R.id.imageView2);
+            tvTenGame = itemView.findViewById(R.id.tv_tenGame);
             linearLayoutItemgame = itemView.findViewById(R.id.linear_item_game);
         }
     }

@@ -44,13 +44,13 @@ public class FragmentThongTinTroChoi extends Fragment {
     }
 
     public void anhXa(View view) {
-        tvTemGameFragThongTin = (TextView) view.findViewById(R.id.tv_temGame_frag_thong_tin);
-        tvMoTa = (TextView) view.findViewById(R.id.tv_mo_ta);
-        tvTrangThaiFragThongTin = (TextView) view.findViewById(R.id.tv_trang_thai_frag_thong_tin);
-        tvLoaTroChoi = (TextView) view.findViewById(R.id.tv_loa_tro_choi);
-        btnChoi = (Button) view.findViewById(R.id.btn_choi);
-        toolbarDanhSachGame = (Toolbar) view.findViewById(R.id.toolbar_DanhSachGame);
-        btnBackToDanhSachGame = (ImageView) view.findViewById(R.id.btn_backToDanhSachGame);
+        tvTemGameFragThongTin = view.findViewById(R.id.tv_temGame_frag_thong_tin);
+        tvMoTa = view.findViewById(R.id.tv_mo_ta);
+        tvTrangThaiFragThongTin = view.findViewById(R.id.tv_trang_thai_frag_thong_tin);
+        tvLoaTroChoi = view.findViewById(R.id.tv_loa_tro_choi);
+        btnChoi = view.findViewById(R.id.btn_choi);
+        toolbarDanhSachGame = view.findViewById(R.id.toolbar_DanhSachGame);
+        btnBackToDanhSachGame = view.findViewById(R.id.btn_backToDanhSachGame);
         tv_giaTien = view.findViewById(R.id.tv_giaTien);
     }
     public void backToDanhSach(){

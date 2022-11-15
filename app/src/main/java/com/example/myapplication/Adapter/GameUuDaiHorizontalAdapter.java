@@ -19,8 +19,8 @@ import java.util.List;
 
 public class GameUuDaiHorizontalAdapter extends RecyclerView.Adapter<GameUuDaiHorizontalAdapter.VoucherViewHoler> {
     private List<Game> listGame;
-    private Context context;
-    private OnclickItemGame onclickItemGame;
+    private final Context context;
+    private final OnclickItemGame onclickItemGame;
 
     public GameUuDaiHorizontalAdapter(Context context, OnclickItemGame onclickItemGame) {
         this.context = context;
@@ -59,13 +59,13 @@ public class GameUuDaiHorizontalAdapter extends RecyclerView.Adapter<GameUuDaiHo
     }
 
     public class VoucherViewHoler extends RecyclerView.ViewHolder {
-        private ImageView imageView2;
-        private TextView tvTenGame;
-        private LinearLayout linearLayoutGameUuDai;
+        private final ImageView imageView2;
+        private final TextView tvTenGame;
+        private final LinearLayout linearLayoutGameUuDai;
         public VoucherViewHoler(@NonNull View itemView) {
             super(itemView);
-            imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
-            tvTenGame = (TextView) itemView.findViewById(R.id.tv_tenGame);
+            imageView2 = itemView.findViewById(R.id.imageView2);
+            tvTenGame = itemView.findViewById(R.id.tv_tenGame);
             linearLayoutGameUuDai = itemView.findViewById(R.id.linear_game_uu_dai);
         }
     }

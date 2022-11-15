@@ -69,13 +69,13 @@ public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapte
 
 
     public class DanhSachGameViewHoler extends RecyclerView.ViewHolder {
-        private TextView tvTenGame;
-        private TextView tvTrangThai;
-        private LinearLayout linearLayoutDanhSachGame;
+        private final TextView tvTenGame;
+        private final TextView tvTrangThai;
+        private final LinearLayout linearLayoutDanhSachGame;
         public DanhSachGameViewHoler(@NonNull View itemView) {
             super(itemView);
-            tvTenGame = (TextView) itemView.findViewById(R.id.tv_ten_game);
-            tvTrangThai = (TextView) itemView.findViewById(R.id.tv_trang_thai);
+            tvTenGame = itemView.findViewById(R.id.tv_ten_game);
+            tvTrangThai = itemView.findViewById(R.id.tv_trang_thai);
             linearLayoutDanhSachGame = itemView.findViewById(R.id.linear_danh_sach_game);
         }
     }

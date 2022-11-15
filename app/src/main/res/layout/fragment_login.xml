@@ -101,15 +101,7 @@
            android:layout_marginHorizontal="15dp"
            android:weightSum="2"
            android:layout_height="wrap_content">
-           <androidx.appcompat.widget.SwitchCompat
-               android:id="@+id/sw_RememberAccount"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layoutDirection="rtl"
-               android:paddingLeft="-3dp"
-               android:switchPadding="3dp"
-               android:text="@string/rememberAccount"
-               android:textColor="@color/black"/>
+
 
            <TextView
                android:id="@+id/tv_FogotPassword"

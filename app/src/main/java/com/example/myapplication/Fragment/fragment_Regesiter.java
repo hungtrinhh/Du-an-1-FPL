@@ -58,7 +58,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     private AppCompatButton btn_Register;
     // khai báo firebase
     private FirebaseAuth mAuth;
-    private List<User> list;
+    private final List<User> list;
     private final String TAG = "fragment_Regesiter";
 
     public fragment_Regesiter(List<User> list) {

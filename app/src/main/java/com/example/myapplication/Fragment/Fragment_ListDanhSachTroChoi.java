@@ -111,7 +111,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         searchGame();
     }
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             listDanhSachGame = FbDao.getListGame();
@@ -129,13 +129,13 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     };
 
     private void AnhXa(View view) {
-        fragmentDanhMucListGameUuDai = (FrameLayout) view.findViewById(R.id.fragmentDanhMuc_ListGameUuDai);
-        toolbarDanhMuc = (Toolbar) view.findViewById(R.id.toolbar_DanhMuc);
-        btnBackToTrangChu = (ImageView) view.findViewById(R.id.btn_backToTrangChu);
-        btnSearchTroChoi = (ImageView) view.findViewById(R.id.btn_search_troChoi);
-        searchViewListGame = (SearchView) view.findViewById(R.id.searchView_listGame);
-        imageSlider = (SliderView) view.findViewById(R.id.image_slider);
-        recyclerviewListGame = (RecyclerView) view.findViewById(R.id.recyclerview_ListGame);
+        fragmentDanhMucListGameUuDai = view.findViewById(R.id.fragmentDanhMuc_ListGameUuDai);
+        toolbarDanhMuc = view.findViewById(R.id.toolbar_DanhMuc);
+        btnBackToTrangChu = view.findViewById(R.id.btn_backToTrangChu);
+        btnSearchTroChoi = view.findViewById(R.id.btn_search_troChoi);
+        searchViewListGame = view.findViewById(R.id.searchView_listGame);
+        imageSlider = view.findViewById(R.id.image_slider);
+        recyclerviewListGame = view.findViewById(R.id.recyclerview_ListGame);
         tvthongBao = view.findViewById(R.id.tv_thong_bao);
         tvthongBao.setVisibility(View.GONE);
     }

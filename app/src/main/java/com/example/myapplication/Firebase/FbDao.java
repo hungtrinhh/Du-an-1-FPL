@@ -70,7 +70,7 @@ public class FbDao {
         ReadUser();
         ReadVoucher();
         ReadGame();
-        this.activity = context;
+        activity = context;
 
     }
 
@@ -159,7 +159,7 @@ public class FbDao {
                 }
             }
 
-            int a = 0;
+            final int a = 0;
 
             @Override
             public void onCancelled(DatabaseError error) {

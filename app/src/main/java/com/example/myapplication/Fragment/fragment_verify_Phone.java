@@ -49,12 +49,12 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
     private String mPhonenumber;
     private final String TAG = "fragment_verify_Phone";
     // khai báo firebase
-    private FirebaseAuth mAuth;
+    private final FirebaseAuth mAuth;
     // khai báo biến username & password giá trị rỗng
     private String Username = "", Password = "", verificationId = "";
     // ko biet
     private PhoneAuthCredential phoneAuthCredential;
-    private PhoneAuthProvider.ForceResendingToken token;
+    private final PhoneAuthProvider.ForceResendingToken token;
     private int second = 60;
     Thread runReloadtv;
     User user;

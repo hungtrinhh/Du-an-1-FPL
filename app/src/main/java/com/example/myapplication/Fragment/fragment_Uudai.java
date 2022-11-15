@@ -109,10 +109,10 @@ public class fragment_Uudai extends Fragment {
     }
 
     public void AnhXa(View view) {
-        imageSlider = (SliderView) view.findViewById(R.id.image_slider);
-        recyclerviewVoucher = (RecyclerView) view.findViewById(R.id.recyclerview_voucher);
-        searchView_uuDai = (androidx.appcompat.widget.SearchView) view.findViewById(R.id.searchView_uuDai);
-        tv_showAllVoucher = (TextView) view.findViewById(R.id.tv_show_all_voucher);
+        imageSlider = view.findViewById(R.id.image_slider);
+        recyclerviewVoucher = view.findViewById(R.id.recyclerview_voucher);
+        searchView_uuDai = view.findViewById(R.id.searchView_uuDai);
+        tv_showAllVoucher = view.findViewById(R.id.tv_show_all_voucher);
         recyclerViewGame = view.findViewById(R.id.recyclerview_danh_muc);
         tv_showAllGame = view.findViewById(R.id.tv_show_all_game);
         tvthongBao = view.findViewById(R.id.tv_thong_bao);
@@ -251,7 +251,7 @@ public class fragment_Uudai extends Fragment {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, new Fragment_ListVoucherUuDaiTenTroChoi(listVoucherGameName)).addToBackStack(fragment_Uudai.TAG).commit();
     }
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             FillRecycleViewGame();

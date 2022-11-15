@@ -38,13 +38,13 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     private LinearLayout layoutLogoWhite;
     private EditText ed_Username;
     private EditText ed_Password;
-    private SwitchCompat sw_RememberAccount;
+
     private AppCompatButton btn_Login;
     private TextView tv_GoToRegister, tv_FogotPassword;
     //    khai báo biến username & password giá trị rỗng
     private String username = "", password = "";
     private List<User> list;
-    private String TAG = fragment_Login.class.toString();
+    private final String TAG = fragment_Login.class.toString();
     private ImageView imgHidePassword;
 
 
@@ -61,7 +61,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         Anhxa(view);
         //gọi hàm animation (truyền vào các tham số)
-        animation(layoutLogoWhite, ed_Username, ed_Password, sw_RememberAccount, btn_Login, tv_GoToRegister, tv_FogotPassword);
+        animation(layoutLogoWhite, ed_Username, ed_Password, btn_Login, tv_GoToRegister, tv_FogotPassword);
         getAccount();
         LoginWithoutbtn();
         //bắt sự kiện khi click
@@ -109,7 +109,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 for (User u : list
                 ) {
                     if (username.equals(u.getName()) && password.equals(u.getPassword())) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
                         dk = true;
                     }
                 }
@@ -139,11 +139,10 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
 
     // khai báo hàm animation
-    private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, SwitchCompat swRememberAccount, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
+    private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
         layoutLogoWhite.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.floatin));
         edEmailLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         edPasswordLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
-        swRememberAccount.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         btnLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         btnGoToRegister.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         tvFogotPassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
@@ -204,7 +203,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         layoutLogoWhite = view.findViewById(R.id.layout_logoWhite);
         ed_Username = view.findViewById(R.id.ed_Username);
         ed_Password = view.findViewById(R.id.ed_Password);
-        sw_RememberAccount = view.findViewById(R.id.sw_RememberAccount);
+
         btn_Login = view.findViewById(R.id.btn_Login);
         tv_GoToRegister = view.findViewById(R.id.tv_GoToRegister);
         tv_FogotPassword = view.findViewById(R.id.tv_FogotPassword);

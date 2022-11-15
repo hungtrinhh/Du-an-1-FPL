@@ -69,13 +69,13 @@ public class VoucherVerticalAdapter extends RecyclerView.Adapter<VoucherVertical
         return 0;
     }
 
-    public class VoucherViewHoler extends RecyclerView.ViewHolder {private ImageView imageView2;
-        private TextView tv_MaVoucher;
-        private TextView tv_TieuDeVoucher;
+    public class VoucherViewHoler extends RecyclerView.ViewHolder {private final ImageView imageView2;
+        private final TextView tv_MaVoucher;
+        private final TextView tv_TieuDeVoucher;
         public VoucherViewHoler(@NonNull View itemView) {
             super(itemView);
-            imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
-            tv_TieuDeVoucher = (TextView) itemView.findViewById(R.id.tv_tieuDeVoucher);
+            imageView2 = itemView.findViewById(R.id.imageView2);
+            tv_TieuDeVoucher = itemView.findViewById(R.id.tv_tieuDeVoucher);
             tv_MaVoucher = itemView.findViewById(R.id.tv_maVoucher);
         }
     }

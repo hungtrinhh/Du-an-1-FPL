@@ -1,5 +1,7 @@
 package com.example.myapplication.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -58,7 +60,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
     }
 
     private void Onclick() {
-
+    tvLogout.setOnClickListener(this::onClick);
     }
 
     private void Anhxa(View v) {
@@ -77,7 +79,13 @@ public class fragment_User extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
+            case R.id.tv_Logout:
+                SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = s.edit();
+                editor.clear();
+                editor.commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
+                break;
 
         }
     }
