@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.Fragment.fragmentUserchild.fragment_Editprofile;
 
 
 public class fragment_User extends Fragment implements View.OnClickListener {
@@ -61,6 +62,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
 
     private void Onclick() {
         tvLogout.setOnClickListener(this::onClick);
+        tvUserName.setOnClickListener(this::onClick);
     }
 
     private void Anhxa(View v) {
@@ -87,8 +89,8 @@ public class fragment_User extends Fragment implements View.OnClickListener {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
                 break;
             case R.id.tvUser_name:
-
-
+                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
+                        .replace(R.id.fragment_container, new fragment_Editprofile()).commit();
 
 
                 break;

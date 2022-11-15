@@ -33,6 +33,8 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
     //khai báo BottomNavigation
     private BottomNavigationView bottom_Nav;
     //khai báo view
+    String TAG = "fragment_Main";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_main, container, false);
@@ -43,6 +45,33 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
         super.onViewCreated(view, savedInstanceState);
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         Anhxa(view);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+        switch (item_selected) {
+            //trang chủ
+            case R.id.nav_Home:
+                replaceFragment(new fragment_Trangchu());
+                break;
+            //cá nhân
+            case R.id.nav_User:
+                replaceFragment(new fragment_User());
+                break;
+            //ưu đãi
+            case R.id.nav_Endow:
+                replaceFragment(new fragment_Uudai());
+                break;
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+
     }
 
     //chọn item trong bottomNavigation

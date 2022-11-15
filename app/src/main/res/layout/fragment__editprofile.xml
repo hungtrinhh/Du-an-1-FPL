@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingHorizontal="10dp"
     android:weightSum="1"
     tools:context=".Fragment.fragmentUserchild.fragment_Editprofile">
 
@@ -16,13 +17,14 @@
         android:weightSum="1">
 
         <ImageView
+            android:id="@+id/btnBackToUser"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_baseline_keyboard_backspace_24" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
 
@@ -30,9 +32,10 @@
             android:gravity="center"
             android:text="Tài khoản"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textSize="24dp" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_saveProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btnsaveuser"
@@ -50,6 +53,7 @@
 
 
         <LinearLayout
+            android:id="@+id/btn_choseAvartar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -58,33 +62,99 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="20dp"
-                android:textColor="@color/black"
                 android:fontFamily="@font/kanitmedium"
-                android:text="Ảnh đại diện" />
+                android:text="Ảnh đại diện"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
 
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/avatar"
-android:layout_gravity="center"
-                />
+                android:src="@drawable/avatar" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/black"
                 android:text="Thêm ảnh"
+                android:textColor="@color/black"
 
                 />
-
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/kanitmedium"
+            android:gravity="center"
+            android:text="Hãy chọn ảnh đẹp nhất vì mọi người có thể thấy ảnh này"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
 
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kanitmedium"
+            android:text="Tên"
+            android:textColor="@color/black"
+            android:textSize="17dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="17dp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/ed_editprofileName"
+        android:layout_width="match_parent"
+        android:layout_marginVertical="2dp"
+        android:fontFamily="@font/kanitmedium"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kanitmedium"
+            android:text="Số điện thoại"
+            android:textColor="@color/black"
+            android:textSize="17dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="17dp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/ed_editprofilePhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp"
+        android:fontFamily="@font/kanitmedium"
+
+        />
 
 </LinearLayout>
