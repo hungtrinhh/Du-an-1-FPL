@@ -39,9 +39,11 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/toolbar.xml" value="0.16799999999999998" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/voucher_item_vertical.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/menu/toolbar_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable-v24/ic_account_selected.xml" value="0.2425" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable-v24/ic_home_24px.xml" value="0.2375" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable-v24/ic_home_selected.xml" value="0.178" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2375" />
+        <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/avaterdefaut.xml" value="0.2425" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/background_button.xml" value="0.3455" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/btnlostconection.xml" value="0.1995" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/circle.xml" value="0.2375" />
@@ -59,6 +61,8 @@
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_baseline_visibility_off_48.xml" value="0.178" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_home.xml" value="0.2375" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2375" />
+        <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_notify.xml" value="0.2425" />
+        <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_pencil.xml" value="0.261" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_user.xml" value="0.2375" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_uudai.xml" value="0.2375" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/selector_home.xml" value="0.1995" />
@@ -85,10 +89,11 @@
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/layout/fragment_register_success.xml" value="0.36666666666666664" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/layout/fragment_splast_screen.xml" value="0.36666666666666664" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/layout/fragment_trangchu.xml" value="0.36666666666666664" />
-        <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/layout/fragment_user.xml" value="0.36666666666666664" />
+        <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/layout/fragment_user.xml" value="0.33" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/layout/fragment_uudai.xml" value="0.3619791666666667" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/layout/fragment_verify_phone_numbers.xml" value="0.36666666666666664" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/layout/fragment_welcome.xml" value="0.36666666666666664" />
+        <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/menu/toolbar_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
