@@ -74,7 +74,6 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     private void LoginWithoutbtn() {
         String username = ed_Username.getText().toString();
         String password = ed_Password.getText().toString();
-
         if (username.equals("") || password.equals("")) {
 
             return;
@@ -99,23 +98,23 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
             case R.id.btn_Login:
                 String username = ed_Username.getText().toString();
                 String password = ed_Password.getText().toString();
-
-                if (username.equals("") || password.equals("")) {
-                    Snackbar.make(getView(), "Không được để trống tài khoản và mật khẩu", 2000).show();
-                    break;
-                }
-
-                boolean dk = false;
-                for (User u : list
-                ) {
-                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
+//
+//                if (username.equals("") || password.equals("")) {
+//                    Snackbar.make(getView(), "Không được để trống tài khoản và mật khẩu", 2000).show();
+//                    break;
+//                }
+//
+//                boolean dk = false;
+//                for (User u : list
+//                ) {
+//                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
-                        dk = true;
-                    }
-                }
-                if (!dk) {
-                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
-                }
+//                        dk = true;
+//                    }
+//                }
+//                if (!dk) {
+//                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
+//                }
                 break;
 
             case R.id.tv_GoToRegister:

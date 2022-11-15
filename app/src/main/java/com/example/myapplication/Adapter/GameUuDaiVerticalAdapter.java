@@ -37,7 +37,7 @@ public class GameUuDaiVerticalAdapter extends RecyclerView.Adapter<GameUuDaiVert
     @NonNull
     @Override
     public VoucherViewHoler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_item_vertical,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_game_vertical,parent,false);
         return new VoucherViewHoler(view);
     }
 

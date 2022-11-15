@@ -38,7 +38,7 @@ public class VoucherHorizontalAdapter extends RecyclerView.Adapter<VoucherHorizo
     @NonNull
     @Override
     public VoucherViewHoler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.voucher_item_horizontal,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_voucher_horizontal,parent,false);
         return new VoucherViewHoler(view);
     }
 

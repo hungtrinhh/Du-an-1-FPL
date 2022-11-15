@@ -1,12 +1,10 @@
 package com.example.myapplication.Adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,7 +45,7 @@ public class VoucherVerticalAdapter extends RecyclerView.Adapter<VoucherVertical
     @NonNull
     @Override
     public VoucherViewHoler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.voucher_item_vertical,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_voucher_vertical,parent,false);
         return new VoucherViewHoler(view);
     }
 

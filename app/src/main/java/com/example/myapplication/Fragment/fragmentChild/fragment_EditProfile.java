@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragment.fragmentUserchild;
+package com.example.myapplication.Fragment.fragmentChild;
 
 import android.os.Bundle;
 
@@ -16,21 +16,21 @@ import android.widget.LinearLayout;
 
 import com.example.myapplication.R;
 
-public class fragment_Editprofile extends Fragment implements View.OnClickListener {
-    private AppCompatButton btnSaveProfile;
-    private LinearLayout btnChoseAvartar;
-    private EditText edEditprofileName;
-    private EditText edEditprofilePhoneNumber;
+public class fragment_EditProfile extends Fragment implements View.OnClickListener {
+    private AppCompatButton btn_SaveProfile;
+    private LinearLayout btn_ChangeAvatar;
+    private EditText ed_UpdateFullName;
+    private EditText ed_UpdatePhoneNumbers;
     private ImageView btnBackToUser;
 
 
-    public fragment_Editprofile() {
+    public fragment_EditProfile() {
 
     }
 
 
-    public static fragment_Editprofile newInstance(String param1, String param2) {
-        fragment_Editprofile fragment = new fragment_Editprofile();
+    public static fragment_EditProfile newInstance(String param1, String param2) {
+        fragment_EditProfile fragment = new fragment_EditProfile();
 
         return fragment;
     }
@@ -45,7 +45,7 @@ public class fragment_Editprofile extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment__editprofile, container, false);
+        return inflater.inflate(R.layout.fragment__edit_profile, container, false);
     }
 
     @Override
@@ -63,10 +63,10 @@ public class fragment_Editprofile extends Fragment implements View.OnClickListen
 
         btnBackToUser = v.findViewById(R.id.btnBackToUser);
 
-        btnSaveProfile = v.findViewById(R.id.btn_saveProfile);
-        btnChoseAvartar = v.findViewById(R.id.btn_choseAvartar);
-        edEditprofileName = v.findViewById(R.id.ed_editprofileName);
-        edEditprofilePhoneNumber = v.findViewById(R.id.ed_editprofilePhoneNumber);
+        btn_SaveProfile = v.findViewById(R.id.btn_SaveProfile);
+        btn_ChangeAvatar = v.findViewById(R.id.btn_ChangeAvatar);
+        ed_UpdateFullName = v.findViewById(R.id.ed_UpdateFullName);
+        ed_UpdatePhoneNumbers = v.findViewById(R.id.ed_UpdatePhoneNumbers);
     }
 
     @Override

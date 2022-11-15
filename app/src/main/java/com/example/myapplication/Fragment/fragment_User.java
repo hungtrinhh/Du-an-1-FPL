@@ -11,19 +11,24 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.Fragment.fragmentUserchild.fragment_Editprofile;
+import com.example.myapplication.Fragment.fragmentChild.fragment_EditProfile;
 
 
 public class fragment_User extends Fragment implements View.OnClickListener {
-
+    private TextView tv_Username,tv_UserPhoneNumbers;
+    private RelativeLayout layout_Username;
+    private LinearLayout btn_Notify,btn_CheckHistory,btn_Help,btn_Regulation,btn_PolicyAndPrivacy,btn_LogOut;
     public fragment_User() {
 
     }
 
-    // ko biết
+    // khai baos constructor
     public static fragment_User newInstance() {
         fragment_User fragment = new fragment_User();
 
@@ -35,16 +40,6 @@ public class fragment_User extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
 
     }
-
-    //khai báo view
-    private TextView tvUserName;
-    private TextView tvUserPhonenumber;
-    private TextView tvNotyfi;
-    private TextView tvHistory;
-    private TextView tvHelp;
-    private TextView tvStatiu;
-    private TextView tvPolicyandPrivacy;
-    private TextView tvLogout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,36 +56,35 @@ public class fragment_User extends Fragment implements View.OnClickListener {
     }
 
     private void Onclick() {
-        tvLogout.setOnClickListener(this::onClick);
-        tvUserName.setOnClickListener(this::onClick);
+        btn_LogOut.setOnClickListener(this::onClick);
+        tv_Username.setOnClickListener(this::onClick);
     }
 
-    private void Anhxa(View v) {
-        tvUserName = v.findViewById(R.id.tvUser_name);
-        tvUserPhonenumber = v.findViewById(R.id.tvUser_phonenumber);
-        tvNotyfi = v.findViewById(R.id.tv_Notyfi);
-        tvHistory = v.findViewById(R.id.tv_History);
-        tvHelp = v.findViewById(R.id.tv_Help);
-        tvStatiu = v.findViewById(R.id.tv_Statiu);
-        tvPolicyandPrivacy = v.findViewById(R.id.tv_PolicyandPrivacy);
-        tvLogout = v.findViewById(R.id.tv_Logout);
-
-
+    private void Anhxa(View view) {
+        tv_Username = view.findViewById(R.id.tv_Username);
+        tv_UserPhoneNumbers = view.findViewById(R.id.tv_UserPhoneNumbers);
+        btn_Notify = view.findViewById(R.id.btn_Notify);
+        btn_CheckHistory = view.findViewById(R.id.btn_CheckHistory);
+        btn_Help = view.findViewById(R.id.btn_Help);
+        btn_Regulation = view.findViewById(R.id.btn_Regulation);
+        btn_PolicyAndPrivacy = view.findViewById(R.id.btn_PolicyAndPrivacy);
+        btn_LogOut = view.findViewById(R.id.btn_LogOut);
+        layout_Username = view.findViewById(R.id.layout_Username);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_Logout:
+            case R.id.btn_LogOut:
                 SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = s.edit();
                 editor.clear();
                 editor.commit();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
                 break;
-            case R.id.tvUser_name:
+            case R.id.layout_Username:
                 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
-                        .replace(R.id.fragment_container, new fragment_Editprofile()).commit();
+                        .replace(R.id.fragment_container, new fragment_EditProfile()).commit();
 
 
                 break;
