@@ -63,11 +63,34 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         //gọi hàm animation (truyền vào các tham số)
         animation(layoutLogoWhite, ed_Username, ed_Password, sw_RememberAccount, btn_Login, tv_GoToRegister, tv_FogotPassword);
         getAccount();
+        LoginWithoutbtn();
         //bắt sự kiện khi click
         btn_Login.setOnClickListener(this::onClick);
         tv_GoToRegister.setOnClickListener(this::onClick);
         tv_FogotPassword.setOnClickListener(this::onClick);
         imgHidePassword.setOnClickListener(this::onClick);
+    }
+
+    private void LoginWithoutbtn() {
+        String username = ed_Username.getText().toString();
+        String password = ed_Password.getText().toString();
+
+        if (username.equals("") || password.equals("")) {
+
+            return;
+        }
+
+        boolean dk = false;
+        for (User u : list
+        ) {
+            if (username.equals(u.getName()) && password.equals(u.getPassword())) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+                dk = true;
+            }
+        }
+        if (!dk) {
+            Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
+        }
     }
 
     @Override
@@ -77,22 +100,22 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 String username = ed_Username.getText().toString();
                 String password = ed_Password.getText().toString();
 
-//                if (username.equals("") || password.equals("")) {
-//                    Snackbar.make(getView(), "Không được để trống tài khoản và mật khẩu", 2000).show();
-//                    break;
-//                }
-//
-//                boolean dk = false;
-//                for (User u : list
-//                ) {
-//                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
+                if (username.equals("") || password.equals("")) {
+                    Snackbar.make(getView(), "Không được để trống tài khoản và mật khẩu", 2000).show();
+                    break;
+                }
+
+                boolean dk = false;
+                for (User u : list
+                ) {
+                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
-//                        dk = true;
-//                    }
-//                }
-//                if (!dk) {
-//                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
-//                }
+                        dk = true;
+                    }
+                }
+                if (!dk) {
+                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
+                }
                 break;
 
             case R.id.tv_GoToRegister:
@@ -136,15 +159,9 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
         SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = s.edit();
-        if (!sw_RememberAccount.isChecked()) {
-            editor.clear();
-            editor.commit();
-            return;
-        }
-
         editor.putString("Username", ed_Username.getText().toString());
         editor.putString("Password", ed_Password.getText().toString());
-        editor.putBoolean("Remember", sw_RememberAccount.isChecked());
+
         editor.commit();
 
 
@@ -154,7 +171,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
         ed_Username.setText(s.getString("Username", ""));
         ed_Password.setText(s.getString("Password", ""));
-        sw_RememberAccount.setChecked(s.getBoolean("Remember", false));
+
 
     }
 
