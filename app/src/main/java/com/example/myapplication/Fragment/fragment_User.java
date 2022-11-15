@@ -60,7 +60,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
     }
 
     private void Onclick() {
-    tvLogout.setOnClickListener(this::onClick);
+        tvLogout.setOnClickListener(this::onClick);
     }
 
     private void Anhxa(View v) {
@@ -86,7 +86,12 @@ public class fragment_User extends Fragment implements View.OnClickListener {
                 editor.commit();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
                 break;
+            case R.id.tvUser_name:
 
+
+
+
+                break;
         }
     }
 }
