@@ -21,7 +21,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.Firebase.FbDao;
@@ -32,6 +34,7 @@ import com.example.myapplication.Adapter.SliderAdapter;
 import com.google.android.material.snackbar.Snackbar;
 import com.smarteist.autoimageslider.SliderView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 
@@ -40,7 +43,16 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     private SliderView image_Slider;
     private LinearLayout layout_troChoi, layout_thanhToan, layout_soDu;
     private Toolbar toolbar;
+    private ImageView avaterUserHomeFrag;
+    private TextView fragHomeTvUsername;
+    private TextView fragHomeTvSodu;
+    private ImageView hideshowSoduHomefrag;
+
     private static final String TAG = "FRAGMENT_TRANG_CHU";
+
+
+    private boolean show = false;
+
     //khai báo view
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,8 +81,17 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         image_Slider.setSliderAdapter(adapter);
         //    toolbar
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
+        SetDataForView();
         onClickLayout();
+    }
+
+    private void SetDataForView() {
+        User u = FbDao.UserLogin;
+        String pattern = "###,###,###,###,###,### Poin";
+        DecimalFormat df = new DecimalFormat(pattern);
+        fragHomeTvSodu.setText(df.format(u.getSodu()).toString());
+        fragHomeTvUsername.setText(u.getName());
+
     }
 
     // toolbar
@@ -98,6 +119,12 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         layout_soDu = view.findViewById(R.id.layout_soDu);
         toolbar = view.findViewById(R.id.toolbar);
 
+        avaterUserHomeFrag = view.findViewById(R.id.avaterUserHomeFrag);
+        fragHomeTvUsername = view.findViewById(R.id.fragHome_tvUsername);
+        fragHomeTvSodu = view.findViewById(R.id.fragHome_tvSodu);
+        hideshowSoduHomefrag = view.findViewById(R.id.hideshowSoduHomefrag);
+
+
     }
 
     // khai báo hàm animation
@@ -113,7 +140,10 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (!FbDao.Login) {
+            FbDao.Login(FbDao.UserLogin.getId());
+            FbDao.Login = true;
+        }
     }
 
     //khai báo constructor rỗng
@@ -130,17 +160,34 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.layout_troChoi:
                 replaceFragment(new Fragment_ListDanhSachTroChoi());
                 break;
+            case R.id.hideshowSoduHomefrag:
+
+                if (show) {
+                    String s = FbDao.UserLogin.getSodu() + "";
+                    String s2 = "";
+                    for (int i = 0; i < s.length(); i++) {
+                        s2 += "/*";
+                    }
+                    fragHomeTvSodu.setText(s2);
+                } else {
+                    SetDataForView();
+                }
+
+                break;
+
         }
     }
+
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment).addToBackStack(fragment_Trangchu.TAG).commit();
     }
-    public void onClickLayout(){
+
+    public void onClickLayout() {
         layout_troChoi.setOnClickListener(this::onClick);
     }
 }

@@ -16,14 +16,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.R;
 import com.example.myapplication.Fragment.fragmentChild.fragment_EditProfile;
 
 
 public class fragment_User extends Fragment implements View.OnClickListener {
-    private TextView tv_Username,tv_UserPhoneNumbers;
+    private TextView tv_Username, tv_UserPhoneNumbers;
     private RelativeLayout layout_Username;
-    private LinearLayout btn_Notify,btn_CheckHistory,btn_Help,btn_Regulation,btn_PolicyAndPrivacy,btn_LogOut;
+    private LinearLayout btn_Notify, btn_CheckHistory, btn_Help, btn_Regulation, btn_PolicyAndPrivacy, btn_LogOut;
+
     public fragment_User() {
 
     }
@@ -52,17 +54,26 @@ public class fragment_User extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
+        SetdataForView();
         Onclick();
+
+    }
+
+    private void SetdataForView() {
+        tv_Username.setText(FbDao.UserLogin.getName());
+        String s = FbDao.UserLogin.getPhonenumber();
+
+        tv_UserPhoneNumbers.setText(s);
     }
 
     private void Onclick() {
         btn_LogOut.setOnClickListener(this::onClick);
-        tv_Username.setOnClickListener(this::onClick);
+        layout_Username.setOnClickListener(this::onClick);
     }
 
     private void Anhxa(View view) {
-        tv_Username = view.findViewById(R.id.tv_Username);
-        tv_UserPhoneNumbers = view.findViewById(R.id.tv_UserPhoneNumbers);
+        tv_Username = view.findViewById(R.id.tv_UserfragName);
+        tv_UserPhoneNumbers = view.findViewById(R.id.tv_UserfragPhoneNumber);
         btn_Notify = view.findViewById(R.id.btn_Notify);
         btn_CheckHistory = view.findViewById(R.id.btn_CheckHistory);
         btn_Help = view.findViewById(R.id.btn_Help);
@@ -80,6 +91,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
                 SharedPreferences.Editor editor = s.edit();
                 editor.clear();
                 editor.commit();
+                FbDao.Login = false;
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
                 break;
             case R.id.layout_Username:

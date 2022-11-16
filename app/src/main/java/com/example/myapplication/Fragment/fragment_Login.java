@@ -87,6 +87,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
                 dk = true;
                 FbDao.UserLogin = u;
+
             }
         }
         if (!dk) {

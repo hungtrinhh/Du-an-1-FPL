@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.util.Log;
 
 
+import androidx.annotation.NonNull;
+
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
@@ -45,13 +47,13 @@ public class FbDao {
 //    }
 
 
-    public FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private final String TAG = "Firebase Dao";
+    private static final String TAG = "Firebase Dao";
     private static List<Game> listGame;
     private static List<User> listUser;
     private static List<Voucher> listVoucher;
-    public static User UserLogin = new User();
+
 
     public static List<Game> getListGame() {
         return listGame;
@@ -65,7 +67,10 @@ public class FbDao {
         return listUser;
     }
 
+
+    public static User UserLogin = new User();
     public static Activity activity;
+    public static boolean Login = false;
 
     public FbDao(Activity context) {
         ReadUser();
@@ -74,6 +79,23 @@ public class FbDao {
         activity = context;
 
     }
+
+    public static void Login(String id) {
+        DatabaseReference myRef = database.getReference("Users");
+        DatabaseReference userRef = myRef.child(id);
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UserLogin = snapshot.getValue(User.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "onCancelled: " + error.toString(), null);
+            }
+        });
+    }
+
 
     private void ReadGame() {
         Log.d(TAG, "ReadVoucher: ");

@@ -30,6 +30,7 @@
 
 
         <ImageView
+            android:id="@+id/avaterUserHomeFrag"
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:background="@drawable/circle"
@@ -42,6 +43,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/fragHome_tvUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
@@ -51,17 +53,31 @@
                 android:textSize="24dp"
                 android:textStyle="bold" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity=""
-                android:layout_marginHorizontal="10dp"
-                android:drawableEnd="@drawable/ic_baseline_remove_red_eye_24"
-                android:drawablePadding="10dp"
-                android:text="100.000 VND"
-                android:textColor="@color/white"
-                android:textSize="22dp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/fragHome_tvSodu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity=""
+                    android:layout_marginHorizontal="10dp"
+                    android:drawablePadding="10dp"
+                    android:text="100.000 VND"
+                    android:textColor="@color/white"
+                    android:textSize="22dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/hideshowSoduHomefrag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_remove_red_eye_24" />
+            </LinearLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 
@@ -97,6 +113,7 @@
             app:sliderIndicatorUnselectedColor="@color/blue"
             app:sliderScrollTimeInSec="2"
             app:sliderStartAutoCycle="true" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
