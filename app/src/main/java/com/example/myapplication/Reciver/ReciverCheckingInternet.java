@@ -32,7 +32,7 @@ public class ReciverCheckingInternet extends BroadcastReceiver implements Dialog
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        MainActivity.alertDialog.setCancelable(false);
+
 
         if (MainActivity.alertDialog == null) {
 
@@ -40,8 +40,9 @@ public class ReciverCheckingInternet extends BroadcastReceiver implements Dialog
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.dialog_lostconecttion, null);
             MainActivity.alertDialog.setView(view);
-        }
 
+        }
+        MainActivity.alertDialog.setCancelable(false);
 
         if (status) {
             MainActivity.alertDialog.cancel();
