@@ -11,14 +11,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.R;
-import com.example.myapplication.Fragment.fragmentChild.fragment_EditProfile;
+import com.example.myapplication.Fragment.fragmentUserChild.fragment_EditProfile;
 
 
 public class fragment_User extends Fragment implements View.OnClickListener {

@@ -7,13 +7,13 @@ public class User implements Serializable {
    private String name;
    private String password;
    private String phonenumber;
-   private int sodu;
+   private long sodu;
 
 
     public User() {
     }
 
-    public User(String id, String name, String password, String phonenumber, int sodu) {
+    public User(String id, String name, String password, String phonenumber, long sodu) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -21,7 +21,7 @@ public class User implements Serializable {
         this.sodu = sodu;
     }
 
-    public User(String name, String password, String phonenumber, int sodu) {
+    public User(String name, String password, String phonenumber, long sodu) {
         this.name = name;
         this.password = password;
         this.phonenumber = phonenumber;
@@ -58,11 +58,11 @@ public class User implements Serializable {
         this.phonenumber = phonenumber;
     }
 
-    public int getSodu() {
+    public long getSodu() {
         return sodu;
     }
 
-    public void setSodu(int sodu) {
+    public void setSodu(long sodu) {
         this.sodu = sodu;
     }
 

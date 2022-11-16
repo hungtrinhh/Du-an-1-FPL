@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragment.fragmentChild;
+package com.example.myapplication.Fragment.fragmentUserChild;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -9,6 +9,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,19 +23,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-
 import com.example.myapplication.R;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class fragment_EditProfile extends Fragment implements View.OnClickListener {
     private AppCompatButton btn_SaveProfile;
@@ -37,7 +35,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
     private EditText ed_UpdateFullName;
     private EditText ed_UpdatePhoneNumbers;
     private ImageView btnBackToUser;
-    private CircleImageView imageView_editProfile ;
+    private ImageView imageView_editProfile ;
     private final static int REQUEST_CODE = 123; // tạo hằng xác định chỉ số
 
 
