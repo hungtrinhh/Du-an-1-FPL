@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android_Try_Hard/myapplication/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Android_Try_Hard/myapplication/app/src/main/res/layout/dialog_conditions.xml" value="0.22826086956521738" />
+        <entry key="..\:/Android_Try_Hard/myapplication/app/src/main/res/layout/fragment__edit_profile.xml" value="0.22826086956521738" />
         <entry key="..\:/Android_Try_Hard/myapplication/app/src/main/res/layout/fragment_regesiter.xml" value="0.6477272727272727" />
+        <entry key="..\:/Android_Try_Hard/myapplication/app/src/main/res/layout/fragment_user.xml" value="0.22826086956521738" />
         <entry key="..\:/Android_Try_Hard/myapplication/app/src/main/res/layout/fragment_welcome.xml" value="0.9545454545454546" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable-v24/ic_uudai_selected.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/background_button.xml" value="0.1" />

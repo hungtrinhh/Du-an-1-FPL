@@ -40,5 +40,5 @@ dependencies {
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
 //    gif
     implementation'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
-
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
