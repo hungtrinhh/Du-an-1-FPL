@@ -32,7 +32,7 @@ public class ReciverCheckingInternet extends BroadcastReceiver implements Dialog
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
+        MainActivity.alertDialog.setCancelable(false);
 
         if (MainActivity.alertDialog == null) {
 
