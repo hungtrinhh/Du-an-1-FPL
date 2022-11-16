@@ -42,7 +42,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     private AppCompatButton btn_Login;
     private TextView tv_GoToRegister, tv_FogotPassword;
     //    khai báo biến username & password giá trị rỗng
-    private String username = "", password = "";
+    private String Usernameavali = "", passwordavali = "";
     private List<User> list;
     private final String TAG = fragment_Login.class.toString();
     private ImageView imgHidePassword;
@@ -76,23 +76,23 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
         String username = s.getString("Username", "");
         String password = s.getString("Password", "");
+
+        Log.e(TAG, "LoginWithoutbtn:" + username + " " + password, null);
         if (username.equals("") || password.equals("")) {
             return;
         }
 
-        boolean dk = false;
         for (User u : list
         ) {
             if (username.equals(u.getName()) && password.equals(u.getPassword())) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
-                dk = true;
                 FbDao.UserLogin = u;
+                saveAccount(username, password);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
 
+                break;
             }
         }
-        if (!dk) {
-            Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
-        }
+
     }
 
     @Override
@@ -114,6 +114,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
                         dk = true;
                         FbDao.UserLogin = u;
+                        saveAccount();
                     }
                 }
                 if (!dk) {
@@ -154,21 +155,27 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-        saveAccount();
+
     }
 
     public void saveAccount() {
-
         SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = s.edit();
+        editor.clear();
         editor.putString("Username", ed_Username.getText().toString());
         editor.putString("Password", ed_Password.getText().toString());
-
         editor.commit();
-
-
     }
 
+    public void saveAccount(String Username, String Password) {
+        Log.d(TAG, "saveAccounted: " + Username + " " + Password);
+        SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = s.edit();
+        editor.clear();
+        editor.putString("Username", Username);
+        editor.putString("Password", Password);
+        editor.commit();
+    }
 
     //   khai báo constructor
     public fragment_Login() {
@@ -177,8 +184,8 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
     //  Phương thức khởi tạo có tham số username & password
     public fragment_Login(String usr, String pwd) {
-        this.username = usr;
-        this.password = pwd;
+        this.Usernameavali = usr;
+        this.passwordavali = pwd;
     }
 
     public static fragment_Login newInstance() {
@@ -204,8 +211,8 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         tv_FogotPassword = view.findViewById(R.id.tv_FogotPassword);
         imgHidePassword = view.findViewById(R.id.img_hidePassword);
 
-        ed_Username.setText(username);
-        ed_Password.setText(password);
+        ed_Username.setText(Usernameavali);
+        ed_Password.setText(passwordavali);
     }
 
 

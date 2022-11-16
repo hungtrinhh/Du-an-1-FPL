@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.R;
 
 
@@ -53,20 +55,38 @@ public class fragment_SplashScreen extends Fragment {
         return inflater.inflate(R.layout.fragment_welcome, container, false);
     }
 
+    String TAG = "fragment_SplashScreen";
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                while (!FbDao.Loaded) {
 
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
+
 
             }
-        }, 3000);
+        });
+        thread.start();
+
 
     }
 

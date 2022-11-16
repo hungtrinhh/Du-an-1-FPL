@@ -72,6 +72,10 @@ public class FbDao {
     public static Activity activity;
     public static boolean Login = false;
 
+    //trả về trạng thái khi load dữ liệu xong thằng nào đụng vào đấm chết
+    public static boolean Loaded = false;
+
+
     public FbDao(Activity context) {
         ReadUser();
         ReadVoucher();
@@ -98,7 +102,7 @@ public class FbDao {
 
 
     private void ReadGame() {
-        Log.d(TAG, "ReadVoucher: ");
+
         listGame = new ArrayList<>();
         DatabaseReference myRef = database.getReference("Game");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -112,9 +116,10 @@ public class FbDao {
                     }
 
                     listGame.add(u);
-                    Log.d(TAG, "ReadGame: " + u.getTrangThai());
+
 
                 }
+                Log.d(TAG, "Đã nhận dữ liệu Game: ");
                 activity.startService(new Intent(activity, UpdateGameService.class));
             }
 
@@ -141,8 +146,9 @@ public class FbDao {
                         continue;
                     }
                     listVoucher.add(u);
-                    Log.d(TAG, "onDataChange: " + u.getLoaiGame());
                 }
+                Log.d(TAG, "Đã nhận dữ liệu voucher: ");
+
                 activity.startService(new Intent(activity, UpdateGameService.class));
             }
 
@@ -177,9 +183,11 @@ public class FbDao {
                     }
                     u.setId(dt.getKey());
                     listUser.add(u);
-                    Log.d(TAG, "onDataChange: " + u.getName());
+
 
                 }
+                Loaded = true;
+                Log.d(TAG, "Đã nhận dữ liệu User");
             }
 
             final int a = 0;
