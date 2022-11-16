@@ -71,7 +71,7 @@ public class FragmentThongTinTroChoi extends Fragment {
         tvMoTa.setText(game.getMoTa());
         tvTemGameFragThongTin.setText(game.getTenGame());
         tvTrangThaiFragThongTin.setText(game.getTrangThai());
-        if(game.getTrangThai().equalsIgnoreCase("Đang Hoặt Động")){
+        if(game.getTrangThai().equalsIgnoreCase("Đang Hoạt Động")){
             tvTrangThaiFragThongTin.setTextColor(Color.parseColor("#2FC863"));
             btnChoi.setEnabled(true);
         }else {
