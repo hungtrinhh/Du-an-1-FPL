@@ -111,7 +111,10 @@
                 android:background="@drawable/gachchan"
                 android:gravity="center"
                 android:orientation="horizontal"
+
+                android:paddingBottom="5dp"
                 android:weightSum="3">
+
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="30dp"
@@ -137,14 +140,17 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
- <!--            lịch sử giao dịch-->
+            <!--            lịch sử giao dịch-->
             <LinearLayout
                 android:id="@+id/btn_CheckHistory"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+
                 android:background="@drawable/gachchan"
                 android:gravity="center"
                 android:orientation="horizontal"
+
+                android:paddingBottom="5dp"
                 android:weightSum="3">
 
                 <ImageView
@@ -174,14 +180,16 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
- <!--            trợ giúp & yêu cầu hỗ trợ-->
+            <!--            trợ giúp & yêu cầu hỗ trợ-->
             <LinearLayout
-                android:layout_width="match_parent"
                 android:id="@+id/btn_Help"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/gachchan"
                 android:gravity="center"
                 android:orientation="horizontal"
+
+                android:paddingBottom="5dp"
                 android:weightSum="3">
 
                 <ImageView
@@ -209,7 +217,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
- <!--            Quy chế-->
+            <!--            Quy chế-->
             <LinearLayout
                 android:id="@+id/btn_Regulation"
                 android:layout_width="match_parent"
@@ -217,6 +225,8 @@
                 android:background="@drawable/gachchan"
                 android:gravity="center"
                 android:orientation="horizontal"
+                android:paddingBottom="5dp"
+
                 android:weightSum="3">
 
                 <ImageView
@@ -240,10 +250,11 @@
                     android:layout_height="30dp"
                     android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
-  <!--            chinh sách bảo mật-->
+            <!--            chinh sách bảo mật-->
             <LinearLayout
                 android:id="@+id/btn_PolicyAndPrivacy"
                 android:layout_width="match_parent"
@@ -251,6 +262,8 @@
                 android:background="@drawable/gachchan"
                 android:gravity="center"
                 android:orientation="horizontal"
+                android:paddingBottom="5dp"
+
                 android:weightSum="3">
 
                 <ImageView
@@ -276,7 +289,7 @@
                     android:layout_height="30dp"
                     android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
             </LinearLayout>
- <!--            đăng xuất-->
+            <!--            đăng xuất-->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
@@ -288,6 +301,7 @@
                 android:background="@drawable/gachchan"
                 android:gravity="center"
                 android:orientation="horizontal"
+                android:paddingBottom="5dp"
                 android:weightSum="3">
 
                 <ImageView

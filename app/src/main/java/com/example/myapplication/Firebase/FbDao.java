@@ -51,6 +51,7 @@ public class FbDao {
     private static List<Game> listGame;
     private static List<User> listUser;
     private static List<Voucher> listVoucher;
+    public static User UserLogin = new User();
 
     public static List<Game> getListGame() {
         return listGame;
