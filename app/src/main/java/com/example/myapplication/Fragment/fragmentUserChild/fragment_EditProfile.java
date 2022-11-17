@@ -9,6 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.R;
 
 import java.io.FileNotFoundException;
@@ -35,9 +39,9 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
     private EditText ed_UpdateFullName;
     private EditText ed_UpdatePhoneNumbers;
     private ImageView btnBackToUser;
-    private ImageView imageView_editProfile ;
+    private ImageView imageView_editProfile;
     private final static int REQUEST_CODE = 123; // tạo hằng xác định chỉ số
-
+    private final String TAG = "fragment_EditProfile";
 
     public fragment_EditProfile() {
 
@@ -46,7 +50,6 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
 
     public static fragment_EditProfile newInstance(String param1, String param2) {
         fragment_EditProfile fragment = new fragment_EditProfile();
-
         return fragment;
     }
 
@@ -68,7 +71,75 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
         Onclick();
+        btn_SaveProfile.setEnabled(false);
+        setDataforEdittext();
+        setFocuschangeEdittext();
+
     }
+
+    private void setDataforEdittext() {
+        ed_UpdatePhoneNumbers.setText(FbDao.UserLogin.getPhonenumber());
+        ed_UpdateFullName.setText(FbDao.UserLogin.getName());
+    }
+
+    private void setFocuschangeEdittext() {
+        ed_UpdateFullName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+                if (!s.toString().equals(FbDao.UserLogin.getName()) || !ed_UpdatePhoneNumbers.getText().toString().equals(FbDao.UserLogin.getPhonenumber())) {
+                    if (!((s.length() == 0) || (ed_UpdatePhoneNumbers.getText().toString().length() == 0))) {
+                        btn_SaveProfile.setEnabled(true);
+                    } else {
+                        btn_SaveProfile.setEnabled(false);
+
+                    }
+
+
+                } else {
+                    btn_SaveProfile.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        ed_UpdatePhoneNumbers.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+                if (!s.toString().equals(FbDao.UserLogin.getPhonenumber()) || !ed_UpdateFullName.getText().toString().equals(FbDao.UserLogin.getName())) {
+                    if (!((s.length() == 0) || (ed_UpdateFullName.getText().toString().length() == 0))) {
+                        btn_SaveProfile.setEnabled(true);
+                    } else {
+                        btn_SaveProfile.setEnabled(false);
+
+                    }
+
+
+                } else {
+                    btn_SaveProfile.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
 
     private void Onclick() {
         btn_ChangeAvatar.setOnClickListener(this::onClick);
@@ -86,27 +157,28 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
     }
 
     //hàm lấy ảnh từ thiết bị
-    private void LayAnh(){
+    private void LayAnh() {
         //cấp quyền từ người dùng
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},999);
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 999);
             //cho phép sử dụng
-        }else{
+        } else {
             Intent intent = new Intent(Intent.ACTION_PICK);//truy cập vào bộ nhớ của máy
             intent.setType("image/*");
-            startActivityForResult(intent,REQUEST_CODE);
+            startActivityForResult(intent, REQUEST_CODE);
         }
     }
 
     //lấy ảnh về
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null){
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri uri = data.getData();
             try {
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream); // lấy ảnh từ bộ nhớ
-                imageView_editProfile .setImageBitmap(bitmap);
+                imageView_editProfile.setImageBitmap(bitmap);
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

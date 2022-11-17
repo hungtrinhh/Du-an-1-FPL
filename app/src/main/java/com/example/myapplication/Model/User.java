@@ -1,13 +1,17 @@
 package com.example.myapplication.Model;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
-   private String id;
-   private String name;
-   private String password;
-   private String phonenumber;
-   private long sodu;
+    private String id;
+    private String name;
+    private String password;
+    private String phonenumber;
+    private long sodu;
+    private Bitmap avatar;
+
 
 
     public User() {
@@ -27,6 +31,7 @@ public class User implements Serializable {
         this.phonenumber = phonenumber;
         this.sodu = sodu;
     }
+
     public String getId() {
         return id;
     }
@@ -34,6 +39,7 @@ public class User implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
@@ -66,6 +72,12 @@ public class User implements Serializable {
         this.sodu = sodu;
     }
 
+    public Bitmap getAvatar() {
+        return avatar;
+    }
 
+    public void setAvatar(Bitmap avatar) {
+        this.avatar = avatar;
+    }
 }
 

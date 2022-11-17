@@ -143,6 +143,8 @@
         android:id="@+id/ed_UpdateFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Không nhập kí tự và số"
+        android:inputType="text"
         android:fontFamily="@font/poppins_medium" />
 
     <View
@@ -175,7 +177,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
-
+        android:inputType="phone"
+        android:hint="+84123456789"
         />
 
 </LinearLayout>
