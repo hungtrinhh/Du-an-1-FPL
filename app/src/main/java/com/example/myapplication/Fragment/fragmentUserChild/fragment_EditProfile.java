@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -78,7 +79,8 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
     }
 
     private void setDataforEdittext() {
-        ed_UpdatePhoneNumbers.setText(FbDao.UserLogin.getPhonenumber());
+        String numberPhone = FbDao.UserLogin.getPhonenumber();
+        ed_UpdatePhoneNumbers.setText(numberPhone);
         ed_UpdateFullName.setText(FbDao.UserLogin.getName());
     }
 

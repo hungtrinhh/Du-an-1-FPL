@@ -51,7 +51,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     private static final String TAG = "FRAGMENT_TRANG_CHU";
 
 
-    private boolean show = false;
+    private boolean show = true;
 
     //khai báo view
     @Override
@@ -123,6 +123,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         fragHomeTvUsername = view.findViewById(R.id.fragHome_tvUsername);
         fragHomeTvSodu = view.findViewById(R.id.fragHome_tvSodu);
         hideshowSoduHomefrag = view.findViewById(R.id.hideshowSoduHomefrag);
+        hideshowSoduHomefrag.setOnClickListener(this::onClick);
 
 
     }
@@ -165,24 +166,22 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
                 replaceFragment(new Fragment_ListDanhSachTroChoi());
                 break;
             case R.id.hideshowSoduHomefrag:
-
                 if (show) {
-                    String s = FbDao.UserLogin.getSodu() + "";
-                    String s2 = "";
-                    for (int i = 0; i < s.length(); i++) {
-                        s2 += "/*";
-                    }
-                    fragHomeTvSodu.setText(s2);
+//                    String s = FbDao.UserLogin.getSodu() + "";
+//                    String s2 = "";
+//                    for (int i = 0; i < s.length(); i++) {
+//                        s2 += "*";
+//                    }
+                    fragHomeTvSodu.setText("******** Poin");
+                    hideshowSoduHomefrag.setImageResource(R.drawable.ic_baseline_remove_red_eye_24px);
                 } else {
                     SetDataForView();
+                    hideshowSoduHomefrag.setImageResource(R.drawable.ic_baseline_visibility_off_24);
                 }
                 show = !show;
-
                 break;
-
         }
     }
-
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment).addToBackStack(fragment_Trangchu.TAG).commit();

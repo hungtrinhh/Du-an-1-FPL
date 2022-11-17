@@ -15,4 +15,5 @@
     <color name="blue">#545DFF</color>
     <color name="green_tea">#80DEEA</color>
     <color name="blue_disable">#636AF4</color>
+    <color name="gray_200">#EEEEEE</color>
 </resources>

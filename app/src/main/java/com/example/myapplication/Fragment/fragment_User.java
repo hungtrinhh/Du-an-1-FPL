@@ -1,5 +1,6 @@
 package com.example.myapplication.Fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -86,12 +88,24 @@ public class fragment_User extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_LogOut:
-                SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = s.edit();
-                editor.clear();
-                editor.commit();
-                FbDao.Login = false;
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
+                Dialog dialog = new Dialog(getContext(), R.style.CustomDialog);
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.dialog_logout);
+                TextView tv_cancel = dialog.findViewById(R.id.tv_cancel);
+                TextView tv_logout = dialog.findViewById(R.id.tv_logout);
+                tv_cancel.setOnClickListener(v1 -> {
+                    dialog.dismiss();
+                });
+                tv_logout.setOnClickListener(v1 -> {
+                    SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = s.edit();
+                    editor.clear();
+                    editor.commit();
+                    FbDao.Login = false;
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
+                    dialog.dismiss();
+                });
+                dialog.show();
                 break;
             case R.id.layout_Username:
                 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
