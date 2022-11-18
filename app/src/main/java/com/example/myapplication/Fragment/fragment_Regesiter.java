@@ -338,7 +338,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     public void onVerificationCompleted(PhoneAuthCredential credential) {
                         Log.d(TAG, "onVerificationCompleted:" + credential);
 
-                        signInWithPhoneAuthCredential(credential, Username, Password);
+
                     }
 
                     @Override
