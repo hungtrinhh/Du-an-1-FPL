@@ -74,7 +74,6 @@ public class fragment_SplashScreen extends Fragment {
 
                 }
 
-
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
