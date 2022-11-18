@@ -1,19 +1,6 @@
 package com.example.myapplication.Fragment;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,12 +13,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
-import com.example.myapplication.Adapter.SliderAdapter;
-import com.google.android.material.snackbar.Snackbar;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.text.DecimalFormat;
@@ -176,7 +169,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
                     hideshowSoduHomefrag.setImageResource(R.drawable.ic_baseline_remove_red_eye_24px);
                 } else {
                     SetDataForView();
-                    hideshowSoduHomefrag.setImageResource(R.drawable.ic_baseline_visibility_off_24);
+                    hideshowSoduHomefrag.setImageResource(R.drawable.ic_baseline_visibility_off_24px);
                 }
                 show = !show;
                 break;
