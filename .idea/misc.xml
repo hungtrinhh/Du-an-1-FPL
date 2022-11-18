@@ -26,6 +26,7 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout-w320dp/fragment_login.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/activity_main.xml" value="0.152" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/dialog_conditions.xml" value="0.25416666666666665" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/dialog_loading.xml" value="0.24010416666666667" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/dialog_logout.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/dialog_lostconecttion.xml" value="0.14166666666666666" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment__edit_profile.xml" value="0.2" />
@@ -70,10 +71,8 @@
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_baseline_perm_identity_24.xml" value="0.178" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_baseline_perm_identity_48.xml" value="0.178" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.2375" />
-        <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_baseline_remove_red_eye_24px.xml" value="0.215" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.178" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_baseline_visibility_off_24.xml" value="0.178" />
-        <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_baseline_visibility_off_24px.xml" value="0.215" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_baseline_visibility_off_48.xml" value="0.178" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_help.xml" value="0.2425" />
         <entry key="..\:/duan1/New folder/myapplication/app/src/main/res/drawable/ic_history.xml" value="0.2425" />

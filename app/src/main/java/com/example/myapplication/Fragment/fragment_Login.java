@@ -147,7 +147,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     }
     //test dialog loading
     private void editPhieuMuonDiaLog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.CustomDialog);
         LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
         View viewDialog = inflater.inflate(R.layout.dialog_loading, null);
 
