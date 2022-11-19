@@ -43,7 +43,6 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
     private static final String TAG = "FRAGMENT_TRANG_CHU";
 
-
     private boolean show = true;
 
     //khai báo view
@@ -56,7 +55,6 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
     public fragment_Trangchu() {
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -88,7 +86,10 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         DecimalFormat df = new DecimalFormat(pattern);
         fragHomeTvSodu.setText(df.format(u.getSodu()).toString());
         fragHomeTvUsername.setText(u.getName());
+        if (FbDao.UserLogin.getAvatar() != null) {
+            avaterUserHomeFrag.setImageBitmap(FbDao.UserLogin.getAvatar());
 
+        }
     }
 
     // toolbar
@@ -115,13 +116,11 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         layout_thanhToan = view.findViewById(R.id.layout_thanhToan);
         layout_soDu = view.findViewById(R.id.layout_soDu);
         toolbar = view.findViewById(R.id.toolbar);
-
         avaterUserHomeFrag = view.findViewById(R.id.avaterUserHomeFrag);
         fragHomeTvUsername = view.findViewById(R.id.fragHome_tvUsername);
         fragHomeTvSodu = view.findViewById(R.id.fragHome_tvSodu);
         hideshowSoduHomefrag = view.findViewById(R.id.hideshowSoduHomefrag);
         hideshowSoduHomefrag.setOnClickListener(this::onClick);
-
 
     }
 
@@ -134,7 +133,6 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,13 +143,11 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     }
 
     //khai báo constructor rỗng
-
     //ko biết
     public static fragment_Trangchu newInstance() {
         fragment_Trangchu fragment = new fragment_Trangchu();
         return fragment;
     }
-
 
     @Override
     public void onClick(View view) {
@@ -164,7 +160,11 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
                     fragHomeTvSodu.setText("******** Poin");
                     hideshowSoduHomefrag.setImageResource(R.drawable.ic_baseline_remove_red_eye_24px);
                 } else {
-                    SetDataForView();
+                    User u = FbDao.UserLogin;
+                    String pattern = "###,###,###,###,###,### Poin";
+                    DecimalFormat df = new DecimalFormat(pattern);
+                    fragHomeTvSodu.setText(df.format(u.getSodu()).toString());
+
                     hideshowSoduHomefrag.setImageResource(R.drawable.ic_baseline_visibility_off_24px);
                 }
                 show = !show;

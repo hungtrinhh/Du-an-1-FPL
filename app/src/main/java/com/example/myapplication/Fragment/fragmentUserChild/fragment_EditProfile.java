@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 
 import java.io.FileNotFoundException;
@@ -72,16 +73,11 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
         Anhxa(view);
         Onclick();
         btn_SaveProfile.setEnabled(false);
-        setDataforEdittext();
+
         setFocuschangeEdittext();
-
+        setDataForView();
     }
 
-    private void setDataforEdittext() {
-        String numberPhone = FbDao.UserLogin.getPhonenumber();
-        ed_UpdatePhoneNumbers.setText(numberPhone);
-        ed_UpdateFullName.setText(FbDao.UserLogin.getName());
-    }
 
     private void setFocuschangeEdittext() {
         ed_UpdateFullName.addTextChangedListener(new TextWatcher() {
@@ -94,7 +90,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
 
 
                 if (!s.toString().equals(FbDao.UserLogin.getName()) || !ed_UpdatePhoneNumbers.getText().toString().equals(FbDao.UserLogin.getPhonenumber())) {
-                    if (!((s.length() == 0) || (ed_UpdatePhoneNumbers.getText().toString().length() == 0))) {
+                    if (!((s.length() == 0) || (ed_UpdatePhoneNumbers.getText().toString().length() == 0)) || imgdif) {
                         btn_SaveProfile.setEnabled(true);
                     } else {
                         btn_SaveProfile.setEnabled(false);
@@ -121,7 +117,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
 
 
                 if (!s.toString().equals(FbDao.UserLogin.getPhonenumber()) || !ed_UpdateFullName.getText().toString().equals(FbDao.UserLogin.getName())) {
-                    if (!((s.length() == 0) || (ed_UpdateFullName.getText().toString().length() == 0))) {
+                    if (!((s.length() == 0) || (ed_UpdateFullName.getText().toString().length() == 0)) || imgdif) {
                         btn_SaveProfile.setEnabled(true);
                     } else {
                         btn_SaveProfile.setEnabled(false);
@@ -144,6 +140,13 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
         btn_ChangeAvatar.setOnClickListener(this::onClick);
         btnBackToUser.setOnClickListener(this::onClick);
         btn_SaveProfile.setOnClickListener(this::onClick);
+    }
+
+    private void setDataForView() {
+        imageView_editProfile.setImageBitmap(FbDao.UserLogin.getAvatar());
+        String numberPhone = FbDao.UserLogin.getPhonenumber();
+        ed_UpdatePhoneNumbers.setText(numberPhone);
+        ed_UpdateFullName.setText(FbDao.UserLogin.getName());
     }
 
     private void Anhxa(View v) {
@@ -169,6 +172,8 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
         }
     }
 
+    Bitmap imgChose = null;
+    boolean imgdif = false;
 
     //lấy ảnh về
     @Override
@@ -177,8 +182,17 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
             Uri uri = data.getData();
             try {
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream); // lấy ảnh từ bộ nhớ
-                imageView_editProfile.setImageBitmap(bitmap);
+                imgChose = BitmapFactory.decodeStream(inputStream); // lấy ảnh từ bộ nhớ
+                imageView_editProfile.setImageBitmap(imgChose);
+                if (!imgChose.sameAs(FbDao.UserLogin.getAvatar())) {
+                    imgdif = true;
+                } else {
+                    imgdif = false;
+
+
+                }
+                btn_SaveProfile.setEnabled(imgdif);
+
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -197,9 +211,28 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                 LayAnh();
                 break;
             case R.id.btn_SaveProfile:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (!FbDao.UpdatedUser) {
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        getActivity().getSupportFragmentManager().popBackStack();
+                    }
+                }).start();
                 FbDao dao = new FbDao();
-                Log.d("Firebase Dao", FbDao.UserLogin.getId()+"hehehe");
-                dao.UpLoadavatar(FbDao.UserLogin.getId(), imageView_editProfile);
+                Log.d("Firebase Dao", FbDao.UserLogin.getId() + "hehehe");
+                dao.UpLoadavatar(imageView_editProfile);
+                User u = new User();
+                u.setName(ed_UpdateFullName.getText().toString());
+                u.setPassword(ed_UpdatePhoneNumbers.getText().toString());
+                u.setId(FbDao.UserLogin.getId());
+                dao.UpdateUser(u);
+
 
                 break;
 

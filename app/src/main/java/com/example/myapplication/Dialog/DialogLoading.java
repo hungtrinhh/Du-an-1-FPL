@@ -8,10 +8,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.R;
 
 public class DialogLoading extends Dialog {
-
+    public static DialogLoading dialogLoading = new DialogLoading(FbDao.activity);
 
     public DialogLoading(@NonNull Context context) {
         super(context);

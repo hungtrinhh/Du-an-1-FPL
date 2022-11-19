@@ -17,13 +17,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingHorizontal="30dp">
-
-        <ImageView
+        <androidx.cardview.widget.CardView
             android:layout_width="85dp"
             android:layout_height="85dp"
-            android:layout_gravity="start"
-            android:background="@drawable/circle"
-            android:src="@drawable/avatar" />
+            android:layout_gravity="center"
+            app:cardCornerRadius="100dp">
+            <ImageView
+                android:id="@+id/avaterUserUserFrag"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="@drawable/circle"
+                android:src="@drawable/avatar" />
+        </androidx.cardview.widget.CardView>
+
+
 
         <View
             android:layout_width="15dp"

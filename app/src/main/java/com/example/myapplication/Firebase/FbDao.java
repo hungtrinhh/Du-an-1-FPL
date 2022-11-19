@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.myapplication.Model.*;
 
@@ -59,6 +60,8 @@ public class FbDao {
 
     //trả về trạng thái khi load dữ liệu xong thằng nào đụng vào đấm chết
     public static boolean Loaded = false;
+    public static boolean LoadedAvatar = false;
+    public static boolean UpdatedUser = false;
 
 
     public FbDao(Activity context) {
@@ -76,7 +79,8 @@ public class FbDao {
 
     }
 
-    public void UpLoadavatar(String id, ImageView imageView) {
+    public void UpLoadavatar(ImageView imageView) {
+        String id = UserLogin.getId();
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
@@ -101,7 +105,9 @@ public class FbDao {
 
     }
 
-    public void LoadAvatarFromID(String id) {
+    public static void LoadAvatarFromID() {
+        String id = UserLogin.getId();
+
         StorageReference avartar = avatatRef.child((id));
 
         final long ONE_MEGABYTE = 1024 * 1024;
@@ -110,11 +116,14 @@ public class FbDao {
             public void onSuccess(byte[] bytes) {
                 Log.e(TAG, "onSuccess: ", null);
                 Avatar = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                UserLogin.setAvatar(Avatar);
+                LoadedAvatar = true;
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Log.e(TAG, "onFailure: ", null);
+                LoadedAvatar = true;
             }
         });
 
@@ -125,11 +134,13 @@ public class FbDao {
     public static void Login(String id) {
         DatabaseReference myRef = database.getReference("Users");
         DatabaseReference userRef = myRef.child(id);
+        Bitmap avatar = UserLogin.getAvatar();
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UserLogin = snapshot.getValue(User.class);
                 UserLogin.setId(snapshot.getKey());
+                UserLogin.setAvatar(avatar);
             }
 
             @Override
@@ -199,6 +210,19 @@ public class FbDao {
         DatabaseReference myRef = database.getReference("Users");
         myRef.push().setValue(user);
 
+    }
+
+    public void UpdateUser(User user) {
+        DatabaseReference myRef = database.getReference("Users").child(user.getId());
+        HashMap<String, String> hashMap = new HashMap();
+        hashMap.put("name", user.getName());
+        hashMap.put("phonenumber", user.getPhonenumber());
+        myRef.setValue(hashMap, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                UpdatedUser = true;
+            }
+        });
     }
 
     public void ReadUser() {

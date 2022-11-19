@@ -1,28 +1,31 @@
 package com.example.myapplication.Fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.*;
-
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
-import com.example.myapplication.Model.*;
+import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.*;
+import java.util.List;
 
 
 public class fragment_Login extends Fragment implements View.OnClickListener {
@@ -36,7 +39,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     //    khai báo biến username & password giá trị rỗng
     private String Usernameavali = "", passwordavali = "";
     private List<User> list;
-    private final String TAG = fragment_Login.class.toString();
+    private final String TAG = "fragment_Login";
     private ImageView imgHidePassword;
 
 
@@ -55,7 +58,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         //gọi hàm animation (truyền vào các tham số)
         animation(layoutLogoWhite, ed_Username, ed_Password, btn_Login, tv_GoToRegister, tv_FogotPassword);
 
-        LoginWithoutbtn();
+        //     LoginWithoutbtn();
         //bắt sự kiện khi click
         btn_Login.setOnClickListener(this::onClick);
         tv_GoToRegister.setOnClickListener(this::onClick);
@@ -69,7 +72,6 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         String username = s.getString("Username", "");
         String password = s.getString("Password", "");
 
-
         if (username.equals("") || password.equals("")) {
             return;
         }
@@ -80,7 +82,6 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 FbDao.UserLogin = u;
                 saveAccount(username, password);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
-
                 break;
             }
         }
@@ -90,10 +91,8 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_Login:
-
                 String username = ed_Username.getText().toString();
                 String password = ed_Password.getText().toString();
-
                 if (username.equals("") || password.equals("")) {
                     Snackbar.make(getView(), "Không được để trống tài khoản và mật khẩu", 2000).show();
                     break;
@@ -103,14 +102,37 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 for (User u : list
                 ) {
                     if (username.equals(u.getName()) && password.equals(u.getPassword())) {
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
                         dk = true;
                         FbDao.UserLogin = u;
+                        FbDao.LoadAvatarFromID();
                         saveAccount();
+                        DialogLoading.dialogLoading.show();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                while (!FbDao.LoadedAvatar) {
+                                    try {
+                                        Thread.sleep(200);
+
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                                Log.d(TAG, "run: go to home" + FbDao.UserLogin.getAvatar());
+                                DialogLoading.dialogLoading.dismiss();
+                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+
+                            }
+                        }).start();
+
+                        break;
                     }
                 }
                 if (!dk) {
                     Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
+
                 }
 
 
@@ -135,17 +157,6 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         }
     }
 
-    //test dialog loading
-    private void editPhieuMuonDiaLog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.CustomDialog);
-        LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
-        View viewDialog = inflater.inflate(R.layout.dialog_loading, null);
-
-        builder.setView(viewDialog);
-        AlertDialog dialog = builder.create();
-
-        dialog.show();
-    }
 
     // khai báo hàm animation
     private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
@@ -181,6 +192,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         editor.putString("Username", Username);
         editor.putString("Password", Password);
         editor.commit();
+
     }
 
     //   khai báo constructor
@@ -205,18 +217,15 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
     }
 
-
     //    khai báo hàm Anhxa
     private void Anhxa(View view) {
         layoutLogoWhite = view.findViewById(R.id.layout_logoWhite);
         ed_Username = view.findViewById(R.id.ed_Username);
         ed_Password = view.findViewById(R.id.ed_Password);
-
         btn_Login = view.findViewById(R.id.btn_Login);
         tv_GoToRegister = view.findViewById(R.id.tv_GoToRegister);
         tv_FogotPassword = view.findViewById(R.id.tv_FogotPassword);
         imgHidePassword = view.findViewById(R.id.img_hidePassword);
-
         ed_Username.setText(Usernameavali);
         ed_Password.setText(passwordavali);
     }

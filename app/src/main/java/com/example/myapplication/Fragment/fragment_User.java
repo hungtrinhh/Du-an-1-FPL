@@ -4,28 +4,29 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.example.myapplication.Firebase.FbDao;
-import com.example.myapplication.R;
 import com.example.myapplication.Fragment.fragmentUserChild.fragment_EditProfile;
+import com.example.myapplication.R;
 
 
 public class fragment_User extends Fragment implements View.OnClickListener {
     private TextView tv_Username, tv_UserPhoneNumbers;
     private RelativeLayout layout_Username;
     private LinearLayout btn_Notify, btn_CheckHistory, btn_Help, btn_Regulation, btn_PolicyAndPrivacy, btn_LogOut;
+    private ImageView avaterUserUserFrag;
+
 
     public fragment_User() {
 
@@ -65,6 +66,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
         String s = FbDao.UserLogin.getPhonenumber();
 
         tv_UserPhoneNumbers.setText(s);
+        avaterUserUserFrag.setImageBitmap(FbDao.UserLogin.getAvatar());
     }
 
     private void Onclick() {
@@ -82,6 +84,8 @@ public class fragment_User extends Fragment implements View.OnClickListener {
         btn_PolicyAndPrivacy = view.findViewById(R.id.btn_PolicyAndPrivacy);
         btn_LogOut = view.findViewById(R.id.btn_LogOut);
         layout_Username = view.findViewById(R.id.layout_Username);
+        avaterUserUserFrag = view.findViewById(R.id.avaterUserUserFrag);
+
     }
 
     @Override
