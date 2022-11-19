@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.hardware.usb.UsbRequest;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,7 +25,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
-//import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,7 +36,6 @@ import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -148,7 +146,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
                         for (User u : list
                         ) {
-                            if (u.getName().equals(s.toString())){
+                            if (u.getName().equals(s.toString())) {
                                 textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                                 textInputLayout.setHelperText("Tên đã tồn tại*");
 
@@ -359,6 +357,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                         super.onCodeSent(verificationId, token);
                         Log.d(TAG, "onCodeSent:" + verificationId);
                         User user = new User(text_Username.getEditText().getText().toString(), Password, phoneNumber, 0);
+                        DialogLoading.dialogLoading.show();
                         getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, new fragment_verify_Phone(user, verificationId, token)).commit();
                     }
                 }).build();
@@ -366,5 +365,9 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
 }

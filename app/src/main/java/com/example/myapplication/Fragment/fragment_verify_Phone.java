@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
@@ -65,6 +66,9 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
         this.verificationId = verificationId;
         this.token = token;
         this.user = user;
+        if(DialogLoading.dialogLoading.isShowing()){
+            DialogLoading.dialogLoading.dismiss();
+        }
         Handler handler = new Handler();
         runReloadtv = new Thread(new Runnable() {
             @Override
