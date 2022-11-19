@@ -1,15 +1,6 @@
 package com.example.myapplication.Fragment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
@@ -22,6 +13,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.User;
@@ -58,6 +54,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
     private int second = 60;
     Thread runReloadtv;
     User user;
+    public boolean isUpdate = false;
 
     // khởi tạo constructor (truyền tham số)
     public fragment_verify_Phone(User user, String verificationId, PhoneAuthProvider.ForceResendingToken token) {
@@ -70,14 +67,10 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
         this.user = user;
         Handler handler = new Handler();
         runReloadtv = new Thread(new Runnable() {
-
-
             @Override
             public void run() {
                 Looper.prepare();
-
                 while (second >= 0) {
-
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -191,8 +184,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(PhoneAuthCredential credential) {
-                                Log.d(TAG, "onVerificationCompleted:" + credential);
-                                signInWithPhoneAuthCredential(credential);
+
                             }
 
                             @Override
@@ -353,6 +345,27 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
 
     // khai báo hàm signInWithPhoneAuthCredential
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        if (isUpdate) {
+            mAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+
+                        Log.d(TAG, "update:success");
+                        FbDao fbDao = new FbDao(getActivity());
+                        fbDao.UpdateUser(user);
+                        getActivity().getSupportFragmentManager().popBackStack();
+                    } else {
+
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+
+                        }
+                    }
+                }
+            });
+            return;
+        }
         mAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

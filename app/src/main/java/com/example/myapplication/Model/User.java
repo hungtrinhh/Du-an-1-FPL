@@ -4,14 +4,13 @@ import android.graphics.Bitmap;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class User implements Serializable, Cloneable {
     private String id;
     private String name;
     private String password;
     private String phonenumber;
     private long sodu;
     private Bitmap avatar;
-
 
 
     public User() {
@@ -30,6 +29,16 @@ public class User implements Serializable {
         this.password = password;
         this.phonenumber = phonenumber;
         this.sodu = sodu;
+    }
+
+    public User Clone() {
+        User u = null;
+        try {
+            u = (User) this.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return u;
     }
 
     public String getId() {

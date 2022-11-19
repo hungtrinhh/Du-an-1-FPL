@@ -62,7 +62,7 @@ public class FbDao {
     public static boolean Loaded = false;
     public static boolean LoadedAvatar = false;
     public static boolean UpdatedUser = false;
-
+    public static boolean UpLoadedAvatar = false;
 
     public FbDao(Activity context) {
         storageFireBase = FirebaseStorage.getInstance();
@@ -79,6 +79,11 @@ public class FbDao {
 
     }
 
+    public User getUserLogin() {
+
+        return UserLogin;
+    }
+
     public void UpLoadavatar(ImageView imageView) {
         String id = UserLogin.getId();
         imageView.setDrawingCacheEnabled(true);
@@ -93,12 +98,14 @@ public class FbDao {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Log.e(TAG, "onFailure: to upload ", null);
+                UpLoadedAvatar = true;
 
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.e(TAG, "onSuccess: to upload ", null);
+                UpLoadedAvatar = true;
 
             }
         });
@@ -117,6 +124,7 @@ public class FbDao {
                 Log.e(TAG, "onSuccess: ", null);
                 Avatar = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 UserLogin.setAvatar(Avatar);
+
                 LoadedAvatar = true;
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -197,7 +205,6 @@ public class FbDao {
                 activity.startService(new Intent(activity, UpdateGameService.class));
             }
 
-
             @Override
             public void onCancelled(DatabaseError error) {
                 Log.e(TAG, "DatabaseError: " + error.toString()
@@ -209,15 +216,16 @@ public class FbDao {
     public void AddUser(User user) {
         DatabaseReference myRef = database.getReference("Users");
         myRef.push().setValue(user);
-
     }
 
-    public void UpdateUser(User user) {
-        DatabaseReference myRef = database.getReference("Users").child(user.getId());
-        HashMap<String, String> hashMap = new HashMap();
-        hashMap.put("name", user.getName());
-        hashMap.put("phonenumber", user.getPhonenumber());
-        myRef.setValue(hashMap, new DatabaseReference.CompletionListener() {
+    public void UpdateUser(User user1) {
+        DatabaseReference myRef = database.getReference("Users").child(user1.getId());
+        User user = user1;
+        user.setAvatar(null);
+        user.setId(null);
+
+
+        myRef.setValue(user, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 UpdatedUser = true;
@@ -241,14 +249,12 @@ public class FbDao {
                     u.setId(dt.getKey());
 
                     listUser.add(u);
-
-
                 }
                 Loaded = true;
                 Log.d(TAG, "Đã nhận dữ liệu User");
             }
 
-            final int a = 0;
+
 
             @Override
             public void onCancelled(DatabaseError error) {

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
     private RelativeLayout layout_Username;
     private LinearLayout btn_Notify, btn_CheckHistory, btn_Help, btn_Regulation, btn_PolicyAndPrivacy, btn_LogOut;
     private ImageView avaterUserUserFrag;
-
+    private String TAG = "fragment_User";
 
     public fragment_User() {
 
@@ -61,12 +62,26 @@ public class fragment_User extends Fragment implements View.OnClickListener {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+    }
+
     private void SetdataForView() {
         tv_Username.setText(FbDao.UserLogin.getName());
         String s = FbDao.UserLogin.getPhonenumber();
-
         tv_UserPhoneNumbers.setText(s);
-        avaterUserUserFrag.setImageBitmap(FbDao.UserLogin.getAvatar());
+        if (FbDao.UserLogin.getAvatar() != null) {
+            avaterUserUserFrag.setImageBitmap(FbDao.UserLogin.getAvatar());
+
+        }
     }
 
     private void Onclick() {

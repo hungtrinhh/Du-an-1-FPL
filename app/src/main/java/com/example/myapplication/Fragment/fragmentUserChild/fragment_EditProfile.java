@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,12 +27,22 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragment_verify_Phone;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 
 public class fragment_EditProfile extends Fragment implements View.OnClickListener {
@@ -43,6 +54,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
     private ImageView imageView_editProfile;
     private final static int REQUEST_CODE = 123; // tạo hằng xác định chỉ số
     private final String TAG = "fragment_EditProfile";
+    private FirebaseAuth mAuth;
 
     public fragment_EditProfile() {
 
@@ -63,7 +75,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        mAuth = FirebaseAuth.getInstance();
         return inflater.inflate(R.layout.fragment__edit_profile, container, false);
     }
 
@@ -143,7 +155,10 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
     }
 
     private void setDataForView() {
-        imageView_editProfile.setImageBitmap(FbDao.UserLogin.getAvatar());
+        if (FbDao.UserLogin.getAvatar() != null) {
+            imageView_editProfile.setImageBitmap(FbDao.UserLogin.getAvatar());
+
+        }
         String numberPhone = FbDao.UserLogin.getPhonenumber();
         ed_UpdatePhoneNumbers.setText(numberPhone);
         ed_UpdateFullName.setText(FbDao.UserLogin.getName());
@@ -211,31 +226,95 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                 LayAnh();
                 break;
             case R.id.btn_SaveProfile:
-                new Thread(new Runnable() {
+
+                Thread t1 = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        while (!FbDao.UpdatedUser) {
+                        while (!FbDao.UpLoadedAvatar) {
                             try {
-                                Thread.sleep(200);
+                                Thread.sleep(300);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
+                        FbDao.LoadAvatarFromID();
+
+                        while (!FbDao.LoadedAvatar) {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        DialogLoading.dialogLoading.dismiss();
+                        FbDao.UpLoadedAvatar = false;
+                        FbDao.LoadedAvatar = false;
                         getActivity().getSupportFragmentManager().popBackStack();
                     }
-                }).start();
+                });
                 FbDao dao = new FbDao();
-                Log.d("Firebase Dao", FbDao.UserLogin.getId() + "hehehe");
-                dao.UpLoadavatar(imageView_editProfile);
-                User u = new User();
-                u.setName(ed_UpdateFullName.getText().toString());
-                u.setPassword(ed_UpdatePhoneNumbers.getText().toString());
-                u.setId(FbDao.UserLogin.getId());
-                dao.UpdateUser(u);
+                if (imgdif) {
+                    dao.UpLoadavatar(imageView_editProfile);
+                    t1.start();
+                    DialogLoading.dialogLoading.show();
+                }
 
+                User u = FbDao.UserLogin.Clone();
+                String phoneNumber = ed_UpdatePhoneNumbers.getText().toString();
+                u.setName(ed_UpdateFullName.getText().toString());
+                if (FbDao.UserLogin.getPhonenumber().equals(phoneNumber)) {
+                    dao.UpdateUser(u);
+                } else {
+                    u.setPhonenumber(phoneNumber);
+                    sendverifyCode(u);
+                }
 
                 break;
 
         }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+    }
+
+    private void sendverifyCode(User user) {
+        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth).setPhoneNumber(user.getPhonenumber())       // Phone number to verify
+                .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                .setActivity(getActivity())                 // Activity (for callback binding)
+                .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                    @Override
+                    public void onVerificationCompleted(PhoneAuthCredential credential) {
+                        Log.d(TAG, "onVerificationCompleted:" + credential);
+                    }
+
+                    @Override
+                    public void onVerificationFailed(FirebaseException e) {
+                        Log.w(TAG, "onVerificationFailed", e);
+                        Toast.makeText(getActivity(), "Gửi mã xác minh thất bại,Hãy liên hệ với quản trị viên để được giúp đỡ", Toast.LENGTH_SHORT).show();
+                        if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                        } else if (e instanceof FirebaseTooManyRequestsException) {
+                        }
+                    }
+
+                    @Override
+                    public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken token) {
+                        super.onCodeSent(verificationId, token);
+                        Log.d(TAG, "onCodeSent:" + verificationId);
+                        fragment_verify_Phone fragment = new fragment_verify_Phone(user, verificationId, token);
+                        fragment.isUpdate = true;
+                        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, fragment).commit();
+                    }
+                }).build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
     }
 }
