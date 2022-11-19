@@ -122,7 +122,6 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                                 }
                                 FbDao.LoadedAvatar = false;
                                 Log.d(TAG, "run: go to home" + FbDao.UserLogin.getAvatar());
-                                DialogLoading.dialogLoading.dismiss();
                                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
 
                             }

@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.myapplication.Adapter.SliderAdapter;
+import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
@@ -77,6 +78,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         //    toolbar
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         SetDataForView();
+        DialogLoading.dialogLoading.dismiss();
         onClickLayout();
     }
 
