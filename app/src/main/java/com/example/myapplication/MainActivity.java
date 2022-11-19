@@ -1,25 +1,21 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ActionBar;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragment_SplashScreen;
-import com.example.myapplication.Model.User;
 import com.example.myapplication.Reciver.ReciverCheckingInternet;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static AlertDialog alertDialog;
+    public static DialogLoading dialogLoading;
+
     ReciverCheckingInternet broadcastReceiver = new ReciverCheckingInternet();
 
     @Override

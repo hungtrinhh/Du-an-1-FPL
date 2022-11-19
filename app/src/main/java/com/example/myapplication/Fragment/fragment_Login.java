@@ -1,25 +1,15 @@
 package com.example.myapplication.Fragment;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,14 +18,11 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Firebase.FbDao;
-import com.example.myapplication.Model.User;
+import com.example.myapplication.Model.*;
 import com.example.myapplication.R;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class fragment_Login extends Fragment implements View.OnClickListener {
@@ -103,28 +90,30 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_Login:
-//                String username = ed_Username.getText().toString();
-//                String password = ed_Password.getText().toString();
-//
-//                if (username.equals("") || password.equals("")) {
-//                    Snackbar.make(getView(), "Không được để trống tài khoản và mật khẩu", 2000).show();
-//                    break;
-//                }
-//
-//                boolean dk = false;
-//                for (User u : list
-//                ) {
-//                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
-//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
-//                        dk = true;
-//                        FbDao.UserLogin = u;
-//                        saveAccount();
-//                    }
-//                }
-//                if (!dk) {
-//                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
-//                }
-                editPhieuMuonDiaLog();
+
+                String username = ed_Username.getText().toString();
+                String password = ed_Password.getText().toString();
+
+                if (username.equals("") || password.equals("")) {
+                    Snackbar.make(getView(), "Không được để trống tài khoản và mật khẩu", 2000).show();
+                    break;
+                }
+
+                boolean dk = false;
+                for (User u : list
+                ) {
+                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+                        dk = true;
+                        FbDao.UserLogin = u;
+                        saveAccount();
+                    }
+                }
+                if (!dk) {
+                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
+                }
+
+
                 break;
 
             case R.id.tv_GoToRegister:
@@ -145,9 +134,10 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
     //test dialog loading
     private void editPhieuMuonDiaLog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),R.style.CustomDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.CustomDialog);
         LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
         View viewDialog = inflater.inflate(R.layout.dialog_loading, null);
 
@@ -156,6 +146,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
         dialog.show();
     }
+
     // khai báo hàm animation
     private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
         layoutLogoWhite.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.floatin));
