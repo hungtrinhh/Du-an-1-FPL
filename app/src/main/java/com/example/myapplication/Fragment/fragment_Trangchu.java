@@ -54,6 +54,10 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         return inflater.inflate(R.layout.fragment_trangchu, container, false);
     }
 
+    public fragment_Trangchu() {
+    }
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -141,13 +145,10 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     }
 
     //khai báo constructor rỗng
-    public fragment_Trangchu() {
-    }
 
     //ko biết
     public static fragment_Trangchu newInstance() {
         fragment_Trangchu fragment = new fragment_Trangchu();
-
         return fragment;
     }
 
@@ -160,11 +161,6 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
                 break;
             case R.id.hideshowSoduHomefrag:
                 if (show) {
-//                    String s = FbDao.UserLogin.getSodu() + "";
-//                    String s2 = "";
-//                    for (int i = 0; i < s.length(); i++) {
-//                        s2 += "*";
-//                    }
                     fragHomeTvSodu.setText("******** Poin");
                     hideshowSoduHomefrag.setImageResource(R.drawable.ic_baseline_remove_red_eye_24px);
                 } else {
@@ -175,6 +171,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
                 break;
         }
     }
+
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment).addToBackStack(fragment_Trangchu.TAG).commit();

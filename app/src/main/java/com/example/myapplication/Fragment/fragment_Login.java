@@ -69,7 +69,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         String username = s.getString("Username", "");
         String password = s.getString("Password", "");
 
-        Log.e(TAG, "LoginWithoutbtn:" + username + " " + password, null);
+
         if (username.equals("") || password.equals("")) {
             return;
         }

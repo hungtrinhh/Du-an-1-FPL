@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -128,8 +127,6 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                         btn_SaveProfile.setEnabled(false);
 
                     }
-
-
                 } else {
                     btn_SaveProfile.setEnabled(false);
                 }
@@ -146,6 +143,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
     private void Onclick() {
         btn_ChangeAvatar.setOnClickListener(this::onClick);
         btnBackToUser.setOnClickListener(this::onClick);
+        btn_SaveProfile.setOnClickListener(this::onClick);
     }
 
     private void Anhxa(View v) {
@@ -170,6 +168,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
             startActivityForResult(intent, REQUEST_CODE);
         }
     }
+
 
     //lấy ảnh về
     @Override
@@ -196,6 +195,12 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                 break;
             case R.id.btn_ChangeAvatar:
                 LayAnh();
+                break;
+            case R.id.btn_SaveProfile:
+                FbDao dao = new FbDao();
+                Log.d("Firebase Dao", FbDao.UserLogin.getId()+"hehehe");
+                dao.UpLoadavatar(FbDao.UserLogin.getId(), imageView_editProfile);
+
                 break;
 
         }

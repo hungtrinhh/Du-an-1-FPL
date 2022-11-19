@@ -29,7 +29,6 @@ import java.util.*;
 public class FbDao {
 
 
-
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static final String TAG = "Firebase Dao";
@@ -54,7 +53,7 @@ public class FbDao {
     }
 
     public static Bitmap Avatar;
-    public static User UserLogin = new User();
+    public static User UserLogin;
     public static Activity activity;
     public static boolean Login = false;
 
@@ -72,7 +71,12 @@ public class FbDao {
 
     }
 
-    private void UpLoadavatar(String id, ImageView imageView) {
+    public FbDao() {
+
+
+    }
+
+    public void UpLoadavatar(String id, ImageView imageView) {
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
@@ -125,6 +129,7 @@ public class FbDao {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UserLogin = snapshot.getValue(User.class);
+                UserLogin.setId(snapshot.getKey());
             }
 
             @Override
@@ -210,6 +215,7 @@ public class FbDao {
                         return;
                     }
                     u.setId(dt.getKey());
+
                     listUser.add(u);
 
 
