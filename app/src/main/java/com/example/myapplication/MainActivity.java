@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 //        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_SplashScreen()).commit();
-        new FbDao(this);
+
 
     }
 
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(broadcastReceiver, filter);
+        new FbDao(this);
     }
 
     @Override
