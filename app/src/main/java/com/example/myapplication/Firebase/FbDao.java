@@ -2,7 +2,6 @@ package com.example.myapplication.Firebase;
 
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,19 +11,24 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.myapplication.Model.*;
-
-import com.example.myapplication.Service.UpdateGameService;
+import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.User;
+import com.example.myapplication.Model.Voucher;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.*;
-
-import com.google.firebase.storage.*;
-
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FbDao {
@@ -174,7 +178,7 @@ public class FbDao {
                     listGame.add(u);
                 }
                 Log.d(TAG, "Đã nhận dữ liệu Game: ");
-                activity.startService(new Intent(activity, UpdateGameService.class));
+
             }
 
             @Override
@@ -202,7 +206,7 @@ public class FbDao {
                 }
                 Log.d(TAG, "Đã nhận dữ liệu voucher: ");
 
-                activity.startService(new Intent(activity, UpdateGameService.class));
+
             }
 
             @Override
@@ -223,8 +227,6 @@ public class FbDao {
         User user = user1;
         user.setAvatar(null);
         user.setId(null);
-
-
         myRef.setValue(user, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
@@ -253,7 +255,6 @@ public class FbDao {
                 Loaded = true;
                 Log.d(TAG, "Đã nhận dữ liệu User");
             }
-
 
 
             @Override

@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -264,6 +265,17 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                 u.setName(ed_UpdateFullName.getText().toString());
                 if (FbDao.UserLogin.getPhonenumber().equals(phoneNumber)) {
                     dao.UpdateUser(u);
+                    if (!imgdif) {
+                        DialogLoading.dialogLoading.show();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                getActivity().getSupportFragmentManager().popBackStack();
+                            }
+                        },1000);
+
+                    }
                 } else {
                     u.setPhonenumber(phoneNumber);
                     sendverifyCode(u);

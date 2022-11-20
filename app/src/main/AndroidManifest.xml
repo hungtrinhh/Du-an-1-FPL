@@ -30,7 +30,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".Service.UpdateGameService" />
     </application>
 
 </manifest>
