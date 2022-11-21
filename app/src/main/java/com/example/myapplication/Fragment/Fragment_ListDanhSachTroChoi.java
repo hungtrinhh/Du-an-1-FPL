@@ -13,7 +13,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,11 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.DanhSachGameAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
-import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
-import com.example.myapplication.Fragment.fragmentUserChild.fragment_EditProfile;
 import com.example.myapplication.Model.Game;
-import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
 import com.smarteist.autoimageslider.SliderView;
@@ -40,11 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_ListDanhSachTroChoi#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnClickListener {
     private FrameLayout fragmentDanhMucListGameUuDai;
     private Toolbar toolbarDanhMuc;

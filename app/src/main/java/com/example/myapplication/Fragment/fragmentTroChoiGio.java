@@ -4,14 +4,6 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +12,12 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.ListThoiGianAdapter;
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
@@ -29,7 +26,6 @@ import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.PlayTime;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +36,15 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class fragmentTroChoiGio extends Fragment implements View.OnClickListener {
-    private TextView tv_nameGame,tv_cost,tv_detailGame;
+    private TextView tv_nameGame, tv_cost, tv_detailGame;
     private LinearLayout choose_voucher;
-    private RecyclerView recyclerView_voucher_gio,recyclerview_choose_time;
+    private RecyclerView recyclerView_voucher_gio, recyclerview_choose_time;
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private ListThoiGianAdapter listThoiGianAdapter;
     private List<PlayTime> list = new ArrayList<>();
     private List<Voucher> listVoucher;
-    private ImageView close_dialog,backToDSGame;
-    private int arr[] = {R.drawable.time5,R.drawable.time10,R.drawable.time15,R.drawable.time20,R.drawable.time25,R.drawable.time30,R.drawable.time35,R.drawable.time40,R.drawable.time45,R.drawable.time50,R.drawable.time55,R.drawable.time60};
+    private ImageView close_dialog, backToDSGame;
+    private int arr[] = {R.drawable.time5, R.drawable.time10, R.drawable.time15, R.drawable.time20, R.drawable.time25, R.drawable.time30, R.drawable.time35, R.drawable.time40, R.drawable.time45, R.drawable.time50, R.drawable.time55, R.drawable.time60};
 
 
     public static fragmentTroChoiGio newInstance() {
@@ -75,7 +71,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         AddTime();
         ShowThoiGian();
         setThongTin();
-
+        fragment_Trangchu.gochild = true;
         choose_voucher.setOnClickListener(this::onClick);
         backToDSGame.setOnClickListener(this::onClick);
 
@@ -99,12 +95,13 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         recyclerView_voucher_gio.setAdapter(voucherVerticalAdapter);
     }
 
-    private void ShowThoiGian(){
+    private void ShowThoiGian() {
         listThoiGianAdapter = new ListThoiGianAdapter(getContext());
         listThoiGianAdapter.setListThoiGian(list);
-        recyclerview_choose_time.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
+        recyclerview_choose_time.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerview_choose_time.setAdapter(listThoiGianAdapter);
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -130,16 +127,18 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 break;
         }
     }
-    private void AddTime(){
-        for (int i=0;i<arr.length;i++){
-            list.add(new PlayTime(i,arr[i]));
+
+    private void AddTime() {
+        for (int i = 0; i < arr.length; i++) {
+            list.add(new PlayTime(i, arr[i]));
         }
     }
-    private void setThongTin(){
+
+    private void setThongTin() {
         Bundle bundle = getArguments();
         Game game = (Game) bundle.get("obj_game");
         tv_nameGame.setText(game.getTenGame());
-        tv_cost.setText(game.getGia()+" / 5 phút");
+        tv_cost.setText(game.getGia() + " / 5 phút");
         tv_detailGame.setText(game.getMoTa());
     }
 }

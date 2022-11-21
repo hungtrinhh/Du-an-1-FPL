@@ -43,7 +43,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     private ImageView hideshowSoduHomefrag;
 
     private static final String TAG = "FRAGMENT_TRANG_CHU";
-
+    public static boolean gochild = false;
     private boolean show = true;
 
     //khai báo view
@@ -61,6 +61,10 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
+        if (gochild) {
+            replaceFragment(new Fragment_ListDanhSachTroChoi());
+            gochild = !gochild;
+        }
         Anhxa(view);
         // gọi hàm animation (truyền vào các tham số)
         animation(image_Slider, layout_troChoi, layout_thanhToan, layout_soDu);
@@ -80,6 +84,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         SetDataForView();
         DialogLoading.dialogLoading.dismiss();
         onClickLayout();
+
     }
 
     private void SetDataForView() {
@@ -104,6 +109,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.toolbar_search:
                 Toast.makeText(getActivity(), "Toát", Toast.LENGTH_LONG).show();
                 break;
