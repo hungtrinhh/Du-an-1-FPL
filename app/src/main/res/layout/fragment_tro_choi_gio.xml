@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.fragmentTroChoiGio"
-    android:id="@+id/fragment_troChoiGio">
+    android:id="@+id/fragment_troChoiGio"
+    android:background="#F5F5F5">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,129 +39,167 @@
                     android:textStyle="bold" />
             </androidx.appcompat.widget.Toolbar>
         </LinearLayout>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_margin="20dp"
-                    android:src="@drawable/ic_jumping" />
-
-                <TextView
-                    android:id="@+id/tv_nameGame"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_cost"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/tv_detailGame"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="25dp"
-                    android:textSize="22dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Chọn thời gian chơi"
-                    android:textSize="22dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview_choose_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp">
-
-                </androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="0dp"
+                android:layout_weight="0.9">
 
                 <LinearLayout
-                    android:id="@+id/choose_voucher"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="left"
-                        android:text="YahhHome Voucher"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="Chọn voucher"
-                        android:textSize="18sp" />
-
+                    android:layout_height="match_parent">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_baseline_navigate_next_24" />
+                        android:background="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:padding="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/ic_jumping" />
+                    <LinearLayout
+                        android:background="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:padding="8dp"
+                            android:paddingRight="20dp"
+                            android:paddingLeft="20dp"
+                            android:id="@+id/tv_nameGame"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="25dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_cost"
+                            android:padding="8dp"
+                            android:paddingRight="20dp"
+                            android:paddingLeft="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:id="@+id/tv_detailGame"
+                            android:padding="8dp"
+                            android:paddingRight="20dp"
+                            android:paddingLeft="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:textSize="22dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:background="#fff"
+                        android:padding="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
+                            android:text="Chọn thời gian chơi"
+                            android:textSize="22dp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerview_choose_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/choose_voucher"
+                        android:background="@drawable/bg_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="YahhHome Voucher"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_voucherChoose"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="Chọn voucher"
+                            android:layout_gravity="center"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_navigate_next_24" />
+                    </LinearLayout>
                 </LinearLayout>
+            </ScrollView>
+            <LinearLayout
+                android:background="#E0F7FA"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:gravity="bottom">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    android:layout_height="0dp"
+                    android:layout_weight="0.1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp">
 
                     <TextView
+                        android:textColor="#000"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="left"
+                        android:layout_gravity="center"
                         android:text="Tổng tiền:"
                         android:textSize="20dp" />
 
                     <TextView
+                        android:id="@+id/tv_totalCost"
+                        android:textStyle="bold"
+                        android:textColor="#0D47A1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
+                        android:layout_gravity="center"
                         android:text="0đ"
-                        android:textSize="20dp" />
+                        android:textSize="25dp" />
                 </LinearLayout>
-
                 <Button
+                    android:id="@+id/btn_play"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.1"
                     android:text="CHƠI"
                     android:textColor="#fff"
                     android:textSize="25dp"
                     android:textStyle="bold" />
             </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
     </LinearLayout>
-
 </FrameLayout>

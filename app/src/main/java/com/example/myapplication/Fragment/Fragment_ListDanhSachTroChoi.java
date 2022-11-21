@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -208,21 +209,20 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     }
 
     public void onClickItem(Game game) {
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+
         if (game.getKieu().equalsIgnoreCase("lượt")){
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTroChoiGio fragmentTroChoi = new fragmentTroChoiGio();
+            fragmentTroChoiGio fragmentTroChoigio = new fragmentTroChoiGio();
             Bundle bundle = new Bundle();
             bundle.putSerializable("obj_game", game);
-            fragmentTroChoi.setArguments(bundle);
-            fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoi).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
-            // thuhuhuhahfghfaf
+            fragmentTroChoigio.setArguments(bundle);
+            fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoigio).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
         }else {
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTroChoiLuot fragmentTroChoi = new fragmentTroChoiLuot();
+            fragmentTroChoiLuot fragmentTroChoiluot = new fragmentTroChoiLuot();
             Bundle bundle = new Bundle();
             bundle.putSerializable("obj_game", game);
-            fragmentTroChoi.setArguments(bundle);
-            fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoi).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
+            fragmentTroChoiluot.setArguments(bundle);
+            fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoiluot).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
         }
 
     }

@@ -12,10 +12,14 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable-v24/ic_uudai_selected.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/background_button.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/background_container.xml" value="0.1" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/bg_count.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/bg_dialog_choose_voucher.xml" value="0.1" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/bg_line.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/boder_item_voucher.xml" value="0.1" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/ic_baseline_arrow_back.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/ic_baseline_perm_identity_24.xml" value="0.1" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/ic_baseline_remove_24.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/ic_baseline_remove_red_eye_24px.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
@@ -44,7 +48,7 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_register_success.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_trangchu.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_tro_choi_gio.xml" value="0.14166666666666666" />
-        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_tro_choi_luot.xml" value="0.2" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_tro_choi_luot.xml" value="0.152" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_user.xml" value="0.14166666666666666" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_uudai.xml" value="0.2" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_verify_phone_numbers.xml" value="0.25416666666666665" />
@@ -53,6 +57,7 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/game_item_vertical.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_thoigianchoi.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_voucher_horizontal.xml" value="0.25416666666666665" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_voucher_vertical.xml" value="0.2" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/slider_item.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/toolbar.xml" value="0.16799999999999998" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/voucher_item_vertical.xml" value="0.176" />

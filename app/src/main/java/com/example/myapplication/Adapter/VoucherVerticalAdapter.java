@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
+import com.example.myapplication.SetOnClickItemIterface.OnclickItemVoucher;
 
 import java.util.List;
 
@@ -21,6 +24,12 @@ public class VoucherVerticalAdapter extends RecyclerView.Adapter<VoucherVertical
     private List<Voucher> listDanhSachVoucher;
     private List<Game> listGame;
     private Context context;
+    private OnclickItemVoucher onclickItemVoucher;
+
+    public VoucherVerticalAdapter(OnclickItemVoucher onclickItemVoucher) {
+        this.onclickItemVoucher = onclickItemVoucher;
+    }
+
     public VoucherVerticalAdapter() {
     }
     public String getTenGame(int id){
@@ -57,6 +66,10 @@ public class VoucherVerticalAdapter extends RecyclerView.Adapter<VoucherVertical
         }
         holder.tv_MaVoucher.setText(voucher.getMaVoucher());
         holder.tv_TieuDeVoucher.setText("Giảm " + voucher.getGiamGia() + getTenGame(voucher.getLoaiGame()));
+        holder.linearLayout_voucher.setOnClickListener(v -> {
+            onclickItemVoucher.onclickItemVoucher(voucher);
+        });
+
     }
 
     @Override
@@ -67,14 +80,17 @@ public class VoucherVerticalAdapter extends RecyclerView.Adapter<VoucherVertical
         return 0;
     }
 
-    public class VoucherViewHoler extends RecyclerView.ViewHolder {private final ImageView imageView2;
+    public class VoucherViewHoler extends RecyclerView.ViewHolder {
+        private final ImageView imageView2;
         private final TextView tv_MaVoucher;
         private final TextView tv_TieuDeVoucher;
+        private LinearLayout linearLayout_voucher;
         public VoucherViewHoler(@NonNull View itemView) {
             super(itemView);
             imageView2 = itemView.findViewById(R.id.imageView2);
             tv_TieuDeVoucher = itemView.findViewById(R.id.tv_tieuDeVoucher);
             tv_MaVoucher = itemView.findViewById(R.id.tv_maVoucher);
+            linearLayout_voucher = itemView.findViewById(R.id.linear_voucher);
         }
     }
 }
