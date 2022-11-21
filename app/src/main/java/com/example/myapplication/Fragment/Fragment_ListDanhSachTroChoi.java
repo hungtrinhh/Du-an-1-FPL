@@ -215,7 +215,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
             bundle.putSerializable("obj_game", game);
             fragmentTroChoi.setArguments(bundle);
             fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoi).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
-
+            // thuhuhuhahfghfaf
         }else {
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTroChoiLuot fragmentTroChoi = new fragmentTroChoiLuot();
