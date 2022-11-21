@@ -59,11 +59,11 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignEnd="@+id/tv_UserfragName"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="14dp"
                     android:padding="3dp"
                     android:src="@drawable/ic_edit_24px" />
             </RelativeLayout>

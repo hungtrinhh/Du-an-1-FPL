@@ -47,7 +47,6 @@ public class fragment_Main extends Fragment implements NavigationView.OnNavigati
         super.onViewCreated(view, savedInstanceState);
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         Anhxa(view);
-
     }
 
     @Override

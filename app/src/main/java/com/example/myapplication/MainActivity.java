@@ -11,6 +11,7 @@ import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragment_SplashScreen;
 import com.example.myapplication.Reciver.ReciverCheckingInternet;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     public static AlertDialog alertDialog;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 //        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_SplashScreen()).commit();
-
 
     }
 

@@ -39,7 +39,7 @@ public class FragmentThongTinTroChoi extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         anhXa(view);
-        thongTinGame();
+//        thongTinGame();
         backToDanhSach();
     }
 
