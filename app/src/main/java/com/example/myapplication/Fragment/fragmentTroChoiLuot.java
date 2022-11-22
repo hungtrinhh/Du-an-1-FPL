@@ -24,10 +24,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 import com.example.myapplication.SetOnClickItemIterface.OnclickItemVoucher;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,6 +43,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
     private RecyclerView recyclerView_voucher_gio;
     private Dialog dialog;
     private List<Voucher> listVoucher;
+    private List<Voucher> voucherListGameChoose = new ArrayList<>();
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private Voucher voucherChoose;
     private Game game;
@@ -70,9 +73,6 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
         AnhXa(view);
         setThongTin();
-
-        View decorView = getActivity().getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
         imgButtonadd.setOnClickListener(this::onClick);
         imgButtonremove.setOnClickListener(this::onClick);
@@ -146,13 +146,18 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
 
     private void ShowListVoucher() {
         listVoucher = FbDao.getListVoucher();
+        for (Voucher voucher : listVoucher) {
+            if (voucher.getLoaiGame() == game.getId() || voucher.getLoaiGame() == 0) {
+                voucherListGameChoose.add(voucher);
+            }
+        }
         voucherVerticalAdapter = new VoucherVerticalAdapter(new OnclickItemVoucher() {
             @Override
             public void onclickItemVoucher(Voucher voucher) {
                 onClickItemChooseVoucher(voucher);
             }
         });
-        voucherVerticalAdapter.setListDanhSachVoucher(listVoucher);
+        voucherVerticalAdapter.setListDanhSachVoucher(voucherListGameChoose);
         recyclerView_voucher_gio.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView_voucher_gio.setAdapter(voucherVerticalAdapter);
     }

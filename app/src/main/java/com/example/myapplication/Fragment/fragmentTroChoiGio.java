@@ -50,6 +50,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private ListThoiGianAdapter listThoiGianAdapter;
     private List<PlayTime> list = new ArrayList<>();
     private List<Voucher> listVoucher;
+    private List<Voucher> voucherListGameChoose= new ArrayList<>();
     private ImageView close_dialog, backToDSGame;
     private  Dialog dialog;
     private Voucher voucherChoose;
@@ -106,13 +107,18 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
 
     private void ShowListVoucher() {
         listVoucher = FbDao.getListVoucher();
+        for (Voucher voucher : listVoucher) {
+            if (voucher.getLoaiGame() == game.getId() || voucher.getLoaiGame() == 0) {
+                voucherListGameChoose.add(voucher);
+            }
+        }
         voucherVerticalAdapter = new VoucherVerticalAdapter(new OnclickItemVoucher() {
             @Override
             public void onclickItemVoucher(Voucher voucher) {
                 onClickItemChooseVoucher(voucher);
             }
         });
-        voucherVerticalAdapter.setListDanhSachVoucher(listVoucher);
+        voucherVerticalAdapter.setListDanhSachVoucher(voucherListGameChoose);
         recyclerView_voucher_gio.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView_voucher_gio.setAdapter(voucherVerticalAdapter);
     }
