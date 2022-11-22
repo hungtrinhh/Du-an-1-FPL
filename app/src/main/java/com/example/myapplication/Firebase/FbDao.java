@@ -2,6 +2,7 @@ package com.example.myapplication.Firebase;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
+import com.example.myapplication.Service.UpdateGameService;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -178,7 +180,7 @@ public class FbDao {
                     listGame.add(u);
                 }
                 Log.d(TAG, "Đã nhận dữ liệu Game: ");
-
+                activity.startService(new Intent(activity, UpdateGameService.class));
             }
 
             @Override

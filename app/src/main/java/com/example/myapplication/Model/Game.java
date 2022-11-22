@@ -3,12 +3,25 @@ package com.example.myapplication.Model;
 import java.io.Serializable;
 
 public class Game implements Serializable {
+
+    //loại 1 game nhà ma
+    //loại 2 game nhà bóng
+    //loại 3 game đua xe
+    //loại 4 game bắn súng
+    //loại 5 game nhún nhảy
+
+
     private int id;
     private int gia;
     private String kieu;
     private String tenGame;
     private String trangThai;
     private String moTa;
+    private boolean isPlaying;
+
+
+
+
     public Game() {
     }
 
@@ -18,6 +31,18 @@ public class Game implements Serializable {
         this.kieu = kieu;
         this.tenGame = tenGame;
         this.trangThai = trangThai;
+
+
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+
+
+    public void setPlaying(boolean playing) {
+        isPlaying = playing;
     }
 
     public String getMoTa() {

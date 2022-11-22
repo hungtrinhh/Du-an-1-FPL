@@ -35,6 +35,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.1.0'
     implementation 'com.google.firebase:firebase-auth:21.1.0'
     implementation 'com.google.firebase:firebase-storage:20.1.0'
+    implementation 'androidx.annotation:annotation:1.5.0'
+    implementation 'androidx.slice:slice-builders:1.0.0'
 
 
     testImplementation 'junit:junit:4.13.2'

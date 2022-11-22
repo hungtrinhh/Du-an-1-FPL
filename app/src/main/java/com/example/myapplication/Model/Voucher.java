@@ -3,6 +3,15 @@ package com.example.myapplication.Model;
 import java.io.Serializable;
 
 public class Voucher implements Serializable {
+
+
+    //loại 1 game nhà ma
+    //loại 2 game nhà bóng
+    //loại 3 game đua xe
+    //loại 4 game bắn súng
+    //loại 5 game nhún nhảy
+
+
     private int giamGia;
     private int loaiGame;
     private String maVoucher;
