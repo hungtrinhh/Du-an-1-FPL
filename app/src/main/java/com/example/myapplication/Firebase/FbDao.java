@@ -29,7 +29,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -71,12 +73,14 @@ public class FbDao {
     public static boolean UpLoadedAvatar = false;
 
     public FbDao(Activity context) {
+        activity = context;
         storageFireBase = FirebaseStorage.getInstance();
         avatatRef = storageFireBase.getReference().child("avatar");
+
+
         ReadUser();
         ReadVoucher();
         ReadGame();
-        activity = context;
 
     }
 
@@ -140,7 +144,15 @@ public class FbDao {
                 LoadedAvatar = true;
             }
         });
+    }
 
+    public static void Playgame() {
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String todayToString = dateFormat.format(today);
+        String id = UserLogin.getId();
+        DatabaseReference hoaDonref = database.getReference("Hoadonchoigame").child(todayToString);
+        DatabaseReference maychoigameRef = hoaDonref.child(id);
 
     }
 

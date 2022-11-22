@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
-import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 import com.example.myapplication.SetOnClickItemIterface.OnclickItemVoucher;
@@ -34,7 +33,7 @@ import java.util.List;
 
 
 public class fragmentTroChoiLuot extends Fragment implements View.OnClickListener {
-    private TextView tv_nameGame_Luot, tv_cost_Luot, tv_detailGame_Luot, tv_count, tv_voucherChoose,tv_totalCost;
+    private TextView tv_nameGame_Luot, tv_cost_Luot, tv_detailGame_Luot, tv_count, tv_voucherChoose, tv_totalCost;
     private ImageButton imgButtonadd, imgButtonremove;
     private ImageView close_dialog;
     private LinearLayout choose_voucher;
@@ -47,7 +46,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private Voucher voucherChoose;
     private Game game;
-    private float total=0;
+    private float total = 0;
     private float sale;
     private Button btn_play;
 
@@ -100,15 +99,20 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         switch (v.getId()) {
             case R.id.btn_add:
                 count++;
-                tv_count.setText(count + "");
                 TinhTongTien();
+
+                checkBtndis();
+                tv_count.setText(count + "");
                 break;
             case R.id.btn_remove:
+
                 if (count > 0) {
                     count--;
                 }
-                tv_count.setText(count + "");
                 TinhTongTien();
+
+                checkBtndis();
+                tv_count.setText(count + "");
                 break;
             case R.id.btn_backToDSGame:
                 getActivity().getSupportFragmentManager().popBackStack();
@@ -121,6 +125,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
                 close_dialog = dialog.findViewById(R.id.close_dialog);
                 close_dialog.setOnClickListener(v1 -> {
                     dialog.dismiss();
+                    checkBtndis();
                 });
                 ShowListVoucher();
                 dialog.show();
@@ -130,8 +135,32 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
                 dialog.getWindow().setGravity(Gravity.BOTTOM);
                 break;
             case R.id.btn_play:
+
+
+
+
+
                 break;
         }
+    }
+
+    private void checkBtndis() {
+        if (count > 0) {
+            imgButtonremove.setEnabled(true);
+        } else {
+            imgButtonremove.setEnabled(false);
+
+        }
+
+        if (total > FbDao.UserLogin.getSodu()) {
+            btn_play.setEnabled(false);
+
+        } else {
+            btn_play.setEnabled(true);
+
+        }
+
+
     }
 
     private void setThongTin() {
@@ -142,7 +171,6 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         tv_cost_Luot.setText(game.getGia() + "");
         tv_detailGame_Luot.setText(game.getMoTa());
     }
-
 
     private void ShowListVoucher() {
         listVoucher = FbDao.getListVoucher();
@@ -160,21 +188,26 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         voucherVerticalAdapter.setListDanhSachVoucher(voucherListGameChoose);
         recyclerView_voucher_gio.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView_voucher_gio.setAdapter(voucherVerticalAdapter);
+
+
     }
+
     private void onClickItemChooseVoucher(Voucher voucher) {
         voucherChoose = voucher;
         tv_voucherChoose.setText(voucher.getMaVoucher());
         TinhTongTien();
         dialog.dismiss();
+        checkBtndis();
+
     }
 
     private void TinhTongTien() {
-        if (voucherChoose==null){
-            total = game.getGia()*count;
-        }else {
+        if (voucherChoose == null) {
+            total = game.getGia() * count;
+        } else {
             sale = voucherChoose.getGiamGia();
-            total = game.getGia()*count*(1-(sale/100));
+            total = game.getGia() * count * (1 - (sale / 100));
         }
-        tv_totalCost.setText(total+"đ");
+        tv_totalCost.setText(total + "đ");
     }
 }

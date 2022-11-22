@@ -30,6 +30,7 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
 import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
+import com.google.android.material.snackbar.Snackbar;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     private DanhSachGameAdapter danhSachGameAdapter;
     private TextView tvthongBao;
     private static final String TAG = "FRAGMENT_TRO_CHOI";
+    private View viewFrag = null;
 
     public Fragment_ListDanhSachTroChoi() {
 
@@ -90,7 +92,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         super.onViewCreated(view, savedInstanceState);
         AnhXa(view);
         ShowListVoucher();
-
+        viewFrag = view;
         // khai báo mảng ảnh và gán giá trị src ảnh
         int[] img = new int[]{R.drawable.banner11, R.drawable.banner20, R.drawable.banner12, R.drawable.chrismas};
         SliderAdapter adapter = new SliderAdapter(img);
@@ -209,14 +211,17 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
 
     public void onClickItem(Game game) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-        if (game.getKieu().equalsIgnoreCase("lượt")){
+        if (game.getTrangThai().equalsIgnoreCase("Bảo trì")) {
+            Snackbar.make(viewFrag, "Hiện trò chơi đang được bảo trì ,hãy thử lại vào lần sau nhé ", 2000).show();
+            return;
+        }
+        if (game.getKieu().equalsIgnoreCase("lượt")) {
             fragmentTroChoiGio fragmentTroChoigio = new fragmentTroChoiGio();
             Bundle bundle = new Bundle();
             bundle.putSerializable("obj_game", game);
             fragmentTroChoigio.setArguments(bundle);
             fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoigio).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
-        }else {
+        } else {
             fragmentTroChoiLuot fragmentTroChoiluot = new fragmentTroChoiLuot();
             Bundle bundle = new Bundle();
             bundle.putSerializable("obj_game", game);
