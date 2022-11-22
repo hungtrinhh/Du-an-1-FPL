@@ -190,17 +190,19 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
 
 
     private void TinhTongTien(){
-        if (voucherChoose==null){
-            for (int i=0;i<12;i++){
-                if (playTime_choose.getId()==i){
-                    total = game.getGia()*(i+1);
+        if (playTime_choose!=null){
+            if (voucherChoose==null){
+                for (int i=0;i<12;i++){
+                    if (playTime_choose.getId()==i){
+                        total = game.getGia()*(i+1);
+                    }
                 }
-            }
-        }else {
-            for (int i=0;i<12;i++){
-                if (playTime_choose.getId()==i){
-                    sale = voucherChoose.getGiamGia();
-                    total = game.getGia()*(i+1)*(1-(sale/100));
+            }else {
+                for (int i=0;i<12;i++){
+                    if (playTime_choose.getId()==i){
+                        sale = voucherChoose.getGiamGia();
+                        total = game.getGia()*(i+1)*(1-(sale/100));
+                    }
                 }
             }
         }
