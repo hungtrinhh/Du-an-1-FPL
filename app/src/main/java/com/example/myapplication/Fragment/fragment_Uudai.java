@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.example.myapplication.Adapter.DanhSachGameAdapter;
 import com.example.myapplication.Adapter.GameUuDaiHorizontalAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Adapter.VoucherHorizontalAdapter;
@@ -30,7 +29,7 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
-import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
+import com.example.myapplication.Iterface.OnclickItemGame;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;

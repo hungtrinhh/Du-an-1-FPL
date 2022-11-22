@@ -146,13 +146,13 @@ public class FbDao {
         });
     }
 
-    public static void Playgame() {
+    public static void Playgame(Date startTime, int minute) {
+        long milisecond = minute * 60 * 1000;
         Date today = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String todayToString = dateFormat.format(today);
         String id = UserLogin.getId();
-        DatabaseReference hoaDonref = database.getReference("Hoadonchoigame").child(todayToString);
-        DatabaseReference maychoigameRef = hoaDonref.child(id);
+        DatabaseReference toDayReg = database.getReference("Hoadonchoigame").child(todayToString);
 
     }
 

@@ -1,13 +1,6 @@
 package com.example.myapplication.Fragment;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +8,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.R;
 
 
@@ -27,6 +25,7 @@ public class fragment_SplashScreen extends Fragment {
 
     public fragment_SplashScreen() {
 
+        Hoadonchoigame hoadonchoigame = new Hoadonchoigame();
     }
 
 

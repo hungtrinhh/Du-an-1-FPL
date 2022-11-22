@@ -16,10 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myapplication.Adapter.DanhSachGameAdapter;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
-import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
 
 public class FragmentThongTinTroChoi extends Fragment {
     private TextView tvTemGameFragThongTin;

@@ -21,7 +21,7 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
-import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
+import com.example.myapplication.Iterface.OnclickItemGame;
 
 import java.util.ArrayList;
 import java.util.Collections;

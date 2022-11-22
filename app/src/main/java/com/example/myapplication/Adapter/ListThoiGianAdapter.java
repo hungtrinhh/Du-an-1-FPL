@@ -6,15 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.PlayTime;
 import com.example.myapplication.R;
-import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
-import com.example.myapplication.SetOnClickItemIterface.OnclickItemTime;
+import com.example.myapplication.Iterface.OnclickItemTime;
 
 import java.util.List;
 

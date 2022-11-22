@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +20,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.Adapter.DanhSachGameAdapter;
 import com.example.myapplication.Adapter.ListThoiGianAdapter;
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
@@ -29,9 +27,8 @@ import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.PlayTime;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
-import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
-import com.example.myapplication.SetOnClickItemIterface.OnclickItemTime;
-import com.example.myapplication.SetOnClickItemIterface.OnclickItemVoucher;
+import com.example.myapplication.Iterface.OnclickItemTime;
+import com.example.myapplication.Iterface.OnclickItemVoucher;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;

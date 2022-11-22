@@ -29,7 +29,7 @@ import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
-import com.example.myapplication.SetOnClickItemIterface.OnclickItemGame;
+import com.example.myapplication.Iterface.OnclickItemGame;
 import com.google.android.material.snackbar.Snackbar;
 import com.smarteist.autoimageslider.SliderView;
 
