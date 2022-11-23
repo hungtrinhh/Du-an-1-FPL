@@ -28,11 +28,8 @@ import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 import com.example.myapplication.Iterface.OnclickItemVoucher;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 public class fragmentTroChoiLuot extends Fragment implements View.OnClickListener {
@@ -52,8 +49,6 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
     private float total = 0;
     private float sale;
     private Button btn_play;
-    String pattern = "###,### Poin";
-    DecimalFormat df = new DecimalFormat(pattern);
 
     public static fragmentTroChoiLuot newInstance() {
         fragmentTroChoiLuot fragment = new fragmentTroChoiLuot();
@@ -77,7 +72,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
         AnhXa(view);
         setThongTin();
-        TinhTongTien();
+
         imgButtonadd.setOnClickListener(this::onClick);
         imgButtonremove.setOnClickListener(this::onClick);
         backToDSGame.setOnClickListener(this::onClick);
@@ -173,7 +168,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         game = (Game) bundle.get("obj_game");
         tv_count.setText(count + "");
         tv_nameGame_Luot.setText(game.getTenGame());
-        tv_cost_Luot.setText(df.format(game.getGia()) + " / Lượt");
+        tv_cost_Luot.setText(game.getGia() + "");
         tv_detailGame_Luot.setText(game.getMoTa());
     }
 
@@ -213,6 +208,6 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
             sale = voucherChoose.getGiamGia();
             total = game.getGia() * count * (1 - (sale / 100));
         }
-        tv_totalCost.setText(df.format(total));
+        tv_totalCost.setText(total + "đ");
     }
 }

@@ -31,7 +31,6 @@ import com.example.myapplication.Iterface.OnclickItemTime;
 import com.example.myapplication.Iterface.OnclickItemVoucher;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,8 +57,6 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private Game game;
     private int arr[] = {R.drawable.time5, R.drawable.time10, R.drawable.time15, R.drawable.time20, R.drawable.time25, R.drawable.time30, R.drawable.time35, R.drawable.time40, R.drawable.time45, R.drawable.time50, R.drawable.time55, R.drawable.time60};
     private float sale;
-    String pattern = "###,### Poin";
-    DecimalFormat df = new DecimalFormat(pattern);
 
     public static fragmentTroChoiGio newInstance() {
         fragmentTroChoiGio fragment = new fragmentTroChoiGio();
@@ -85,7 +82,6 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         AddTime();
         ShowThoiGian();
         setThongTin();
-        TinhTongTien();
         fragment_Trangchu.gochild = true;
         choose_voucher.setOnClickListener(this::onClick);
         backToDSGame.setOnClickListener(this::onClick);
@@ -127,7 +123,6 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         voucherChoose = voucher;
         tv_voucherChoose.setText(voucherChoose.getMaVoucher());
         TinhTongTien();
-        checkBtndis();
         dialog.dismiss();
     }
 
@@ -146,7 +141,6 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private void onClickItemChooseTime(PlayTime playTime) {
         playTime_choose = playTime;
         TinhTongTien();
-        checkBtndis();
     }
 
     @Override
@@ -193,7 +187,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         Bundle bundle = getArguments();
         game = (Game) bundle.get("obj_game");
         tv_nameGame.setText(game.getTenGame());
-        tv_cost.setText(df.format(game.getGia()) + " / 5 phút");
+        tv_cost.setText(game.getGia() + " / 5 phút");
         tv_detailGame.setText(game.getMoTa());
     }
 
@@ -215,17 +209,6 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 }
             }
         }
-
-        tv_totalCost.setText(df.format(total));
-    }
-
-    private void checkBtndis() {
-        if (total > FbDao.UserLogin.getSodu()) {
-            btn_play.setEnabled(false);
-        } else {
-            btn_play.setEnabled(true);
-        }
-
-
+        tv_totalCost.setText(total + "đ");
     }
 }

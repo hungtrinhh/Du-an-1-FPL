@@ -8,7 +8,6 @@ public class Hoadonchoigame extends Hoadon {
     private String Gameid;
 
 
-
     public Hoadonchoigame(float cost, String date, String userid) {
         super(cost);
         this.dateStart = date;
