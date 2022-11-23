@@ -40,20 +40,20 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class fragmentTroChoiGio extends Fragment implements View.OnClickListener {
-    private TextView tv_nameGame, tv_cost, tv_detailGame,tv_voucherChoose,tv_totalCost;
+    private TextView tv_nameGame, tv_cost, tv_detailGame, tv_voucherChoose, tv_totalCost;
     private LinearLayout choose_voucher;
     private RecyclerView recyclerView_voucher_gio, recyclerview_choose_time;
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private ListThoiGianAdapter listThoiGianAdapter;
     private List<PlayTime> list = new ArrayList<>();
     private List<Voucher> listVoucher;
-    private List<Voucher> voucherListGameChoose= new ArrayList<>();
+    private List<Voucher> voucherListGameChoose = new ArrayList<>();
     private ImageView close_dialog, backToDSGame;
-    private  Dialog dialog;
+    private Dialog dialog;
     private Voucher voucherChoose;
     private PlayTime playTime_choose;
     private Button btn_play;
-    private float total=0;
+    private float total = 0;
     private Game game;
     private int arr[] = {R.drawable.time5, R.drawable.time10, R.drawable.time15, R.drawable.time20, R.drawable.time25, R.drawable.time30, R.drawable.time35, R.drawable.time40, R.drawable.time45, R.drawable.time50, R.drawable.time55, R.drawable.time60};
     private float sale;
@@ -100,6 +100,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         tv_totalCost = view.findViewById(R.id.tv_totalCost);
         btn_play = view.findViewById(R.id.btn_play);
     }
+
     private void ShowListVoucher() {
         listVoucher = FbDao.getListVoucher();
         for (Voucher voucher : listVoucher) {
@@ -166,10 +167,11 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 getActivity().getSupportFragmentManager().popBackStackImmediate();
                 break;
             case R.id.btn_play:
-                if (playTime_choose==null){
+                if (playTime_choose == null) {
                     Snackbar.make(getView(), "Vui lòng chọn thời gian chơi", 2000).show();
-                }else {
-                    //bla blaaaaa
+                } else {
+                    FbDao dao = new FbDao();
+                    dao.PlaygameGio(1, game.getId()+"");
                 }
                 break;
         }
@@ -190,23 +192,23 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     }
 
 
-    private void TinhTongTien(){
-        if (playTime_choose!=null){
-            if (voucherChoose==null){
-                for (int i=0;i<12;i++){
-                    if (playTime_choose.getId()==i){
-                        total = game.getGia()*(i+1);
+    private void TinhTongTien() {
+        if (playTime_choose != null) {
+            if (voucherChoose == null) {
+                for (int i = 0; i < 12; i++) {
+                    if (playTime_choose.getId() == i) {
+                        total = game.getGia() * (i + 1);
                     }
                 }
-            }else {
-                for (int i=0;i<12;i++){
-                    if (playTime_choose.getId()==i){
+            } else {
+                for (int i = 0; i < 12; i++) {
+                    if (playTime_choose.getId() == i) {
                         sale = voucherChoose.getGiamGia();
-                        total = game.getGia()*(i+1)*(1-(sale/100));
+                        total = game.getGia() * (i + 1) * (1 - (sale / 100));
                     }
                 }
             }
         }
-        tv_totalCost.setText(total+"đ");
+        tv_totalCost.setText(total + "đ");
     }
 }
