@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
-import com.example.myapplication.Iterface.OnclickItemVoucher;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 
@@ -111,12 +110,7 @@ public class Fragment_ListVoucherUuDai extends Fragment implements View.OnClickL
 
     private void ShowListVoucher() {
         listVoucher = FbDao.getListVoucher();
-        voucherVerticalAdapter = new VoucherVerticalAdapter(new OnclickItemVoucher() {
-            @Override
-            public void onclickItemVoucher(Voucher voucher) {
-
-            }
-        });
+        voucherVerticalAdapter = new VoucherVerticalAdapter(getActivity());
         voucherVerticalAdapter.setListDanhSachVoucher(listVoucher);
         recyclerView_voucher_ListGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView_voucher_ListGame.setAdapter(voucherVerticalAdapter);
