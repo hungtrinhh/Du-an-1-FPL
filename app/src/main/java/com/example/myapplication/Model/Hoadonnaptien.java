@@ -6,24 +6,29 @@ import java.util.Date;
 public class Hoadonnaptien extends Hoadon {
     String userId;
     String date;
+    boolean trangThai;
 
-    public Hoadonnaptien(float cost, String userId, String date) {
+    public Hoadonnaptien(float cost, String userId, String date, boolean trangThai) {
         super(cost);
         this.userId = userId;
         this.date = date;
+        this.trangThai = trangThai;
     }
 
     public Hoadonnaptien() {
 
     }
 
-    public String getUserId() {
-        return userId;
+    public boolean isTrangThai() {
+        return trangThai;
     }
 
-    public void setDate(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-        this.date = dateFormat.format(date);
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public void setUserId(String userId) {

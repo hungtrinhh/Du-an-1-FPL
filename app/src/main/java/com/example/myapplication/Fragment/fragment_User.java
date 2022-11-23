@@ -26,7 +26,7 @@ import com.example.myapplication.R;
 public class fragment_User extends Fragment implements View.OnClickListener {
     private TextView tv_Username, tv_UserPhoneNumbers;
     private RelativeLayout layout_Username;
-    private LinearLayout btn_Notify, btn_CheckHistory, btn_Help, btn_Regulation, btn_PolicyAndPrivacy, btn_LogOut;
+    private LinearLayout btn_Notify, btn_CheckHistory, btn_Help, btn_Regulation, btn_PolicyAndPrivacy, btn_LogOut,btn_napTien;
     private ImageView avaterUserUserFrag;
     private String TAG = "fragment_User";
 
@@ -96,6 +96,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
     private void Onclick() {
         btn_LogOut.setOnClickListener(this::onClick);
         layout_Username.setOnClickListener(this::onClick);
+        btn_napTien.setOnClickListener(this::onClick);
     }
 
     private void Anhxa(View view) {
@@ -109,7 +110,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
         btn_LogOut = view.findViewById(R.id.btn_LogOut);
         layout_Username = view.findViewById(R.id.layout_Username);
         avaterUserUserFrag = view.findViewById(R.id.avaterUserUserFrag);
-
+        btn_napTien = view.findViewById(R.id.btn_nap_tien);
     }
 
     @Override
@@ -138,8 +139,10 @@ public class fragment_User extends Fragment implements View.OnClickListener {
             case R.id.layout_Username:
                 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
                         .replace(R.id.fragment_container, new fragment_EditProfile()).commit();
-
-
+                break;
+            case R.id.btn_nap_tien:
+                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
+                        .replace(R.id.fragment_container,new FragmentNapTien()).commit();
                 break;
         }
     }

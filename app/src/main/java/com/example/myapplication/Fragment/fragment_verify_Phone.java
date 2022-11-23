@@ -409,8 +409,6 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
             case R.id.btn_CheckOTP:
                 phoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, getCodefromEdittext());
                 signInWithPhoneAuthCredential(phoneAuthCredential);
-
-
                 break;
 
         }

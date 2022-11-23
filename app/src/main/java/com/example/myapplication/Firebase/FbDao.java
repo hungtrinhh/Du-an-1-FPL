@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.Hoadonnaptien;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.Service.UpdateGameService;
@@ -116,7 +117,6 @@ public class FbDao {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.e(TAG, "onSuccess: to upload ", null);
                 UpLoadedAvatar = true;
-
             }
         });
 
@@ -134,7 +134,6 @@ public class FbDao {
                 Log.e(TAG, "onSuccess: ", null);
                 Avatar = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 UserLogin.setAvatar(Avatar);
-
                 LoadedAvatar = true;
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -235,7 +234,10 @@ public class FbDao {
         DatabaseReference myRef = database.getReference("Users");
         myRef.push().setValue(user);
     }
-
+    public static void AddHoaDonNap(Hoadonnaptien hoadonnaptien){
+        DatabaseReference myRef = database.getReference();
+        myRef.child("HoaDonNap").push().setValue(hoadonnaptien);
+    }
     public void UpdateUser(User user1) {
         DatabaseReference myRef = database.getReference("Users").child(user1.getId());
         User user = user1;

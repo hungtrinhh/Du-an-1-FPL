@@ -24,14 +24,12 @@ public class fragment_SplashScreen extends Fragment {
 
 
     public fragment_SplashScreen() {
-
         Hoadonchoigame hoadonchoigame = new Hoadonchoigame();
     }
 
 
     public static fragment_SplashScreen newInstance() {
         fragment_SplashScreen fragment = new fragment_SplashScreen();
-
         return fragment;
     }
 
