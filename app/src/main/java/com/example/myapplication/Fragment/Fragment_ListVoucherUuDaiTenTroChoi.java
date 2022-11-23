@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
+import com.example.myapplication.Iterface.OnclickItemVoucher;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 
@@ -76,7 +77,12 @@ public class Fragment_ListVoucherUuDaiTenTroChoi extends Fragment implements Vie
     }
 
     private void ShowListVoucher() {
-        voucherVerticalAdapter = new VoucherVerticalAdapter(getActivity());
+        voucherVerticalAdapter = new VoucherVerticalAdapter(new OnclickItemVoucher() {
+            @Override
+            public void onclickItemVoucher(Voucher voucher) {
+
+            }
+        });
         voucherVerticalAdapter.setListDanhSachVoucher(listVoucher);
         recyclerView_voucher_ListGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView_voucher_ListGame.setAdapter(voucherVerticalAdapter);

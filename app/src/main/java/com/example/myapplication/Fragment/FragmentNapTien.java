@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Hoadonnaptien;
 import com.example.myapplication.R;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
@@ -23,7 +22,6 @@ import java.text.SimpleDateFormat;
 public class FragmentNapTien extends Fragment {
     private TextInputEditText edTienNap;
     private Button btnNap;
-    private View viewFrag;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,9 +32,8 @@ public class FragmentNapTien extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewFrag = view;
         anhXa(view);
-        SeteventNaptien();
+        Nap();
     }
 
     public void anhXa(View view) {
@@ -44,13 +41,13 @@ public class FragmentNapTien extends Fragment {
         btnNap = (Button) view.findViewById(R.id.btn_nap);
     }
 
-    public void SeteventNaptien() {
+    public void Nap() {
         btnNap.setOnClickListener(view -> {
             Hoadonnaptien hoadonnaptien = new Hoadonnaptien();
 
             hoadonnaptien.setUserId(FbDao.UserLogin.getId());
             if (edTienNap.getText().toString().isEmpty()) {
-                Snackbar.make(viewFrag, "Bạn chưa nhập vào số tiền muốn nạp", 2000).show();
+                Toast.makeText(getActivity(), "Vui Lòng Nhập Số Tiền Muốn Nạp", Toast.LENGTH_SHORT).show();
             } else {
                 try {
                     float tienNap = Float.parseFloat(edTienNap.getText().toString());
@@ -62,7 +59,6 @@ public class FragmentNapTien extends Fragment {
                         FbDao.AddHoaDonNap(hoadonnaptien);
                         Toast.makeText(getActivity(), "Yêu Cầu Nạp Tiền Của Bạn Đang Được Xử Lí", Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager().popBackStack();
-
                     }
                 } catch (Exception exception) {
                     Toast.makeText(getActivity(), "Nhập Số Tiền Nạp Là Số", Toast.LENGTH_SHORT).show();
