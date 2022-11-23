@@ -5,6 +5,10 @@ public class Hoadonchoigame extends Hoadon {
     private String Userid;
     private boolean isSuccess = false;
 
+
+    private String Gameid;
+
+
     public Hoadonchoigame(float cost, String date, String userid) {
         super(cost);
         this.date = date;

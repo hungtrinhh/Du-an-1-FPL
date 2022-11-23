@@ -110,8 +110,6 @@ public class FbDao {
     public static void LoadAvatarFromID() {
         String id = UserLogin.getId();
         StorageReference avartar = avatatRef.child((id));
-
-
         final long ONE_MEGABYTE = 1024 * 1024;
         avartar.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override

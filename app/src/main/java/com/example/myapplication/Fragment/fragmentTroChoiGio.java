@@ -207,6 +207,8 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 }
             }
         }
-        tv_totalCost.setText(total+"đ");
+
+        tv_totalCost.setText(total + "đ");
+
     }
 }
