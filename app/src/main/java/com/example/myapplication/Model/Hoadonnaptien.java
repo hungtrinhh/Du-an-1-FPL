@@ -1,9 +1,12 @@
 package com.example.myapplication.Model;
 
 public class Hoadonnaptien extends Hoadon {
+
+
   private String userId;
   private String date;
   private boolean trangThai = false;
+
 
     public Hoadonnaptien(float cost, String userId, String date, boolean trangThai) {
         super(cost);
