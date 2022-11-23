@@ -96,6 +96,7 @@ public class FbDao {
             public void onFailure(@NonNull Exception exception) {
                 Log.e(TAG, "onFailure: to upload ", null);
                 UpLoadedAvatar = true;
+
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -109,8 +110,8 @@ public class FbDao {
 
     public static void LoadAvatarFromID() {
         String id = UserLogin.getId();
-        StorageReference avartar = avatatRef.child((id));
 
+        StorageReference avartar = avatatRef.child((id));
 
         final long ONE_MEGABYTE = 1024 * 1024;
         avartar.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
