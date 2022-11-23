@@ -1,12 +1,9 @@
 package com.example.myapplication.Model;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Hoadonnaptien extends Hoadon {
-    String userId;
-    String date;
-    boolean trangThai;
+  private String userId;
+  private String date;
+  private boolean trangThai = false;
 
     public Hoadonnaptien(float cost, String userId, String date, boolean trangThai) {
         super(cost);

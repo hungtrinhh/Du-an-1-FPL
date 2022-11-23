@@ -65,8 +65,6 @@ public class FbDao {
         activity = context;
         storageFireBase = FirebaseStorage.getInstance();
         avatatRef = storageFireBase.getReference().child("avatar");
-
-
         ReadUser();
         ReadVoucher();
         ReadGame();
@@ -133,14 +131,27 @@ public class FbDao {
         });
     }
 
-    public static void PlaygameGio(int minute, String idGame) {
+    public String getReferenceToday() {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/mm");
+        String s = dateFormat.format(date);
+
+
+        return s;
+    }
+
+    public void PlaygameGio(int minute, String idGame) {
         long milisecond = minute * 60 * 1000;
         Date today = new Date();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        getReferenceToday();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String todayToString = dateFormat.format(today);
         String id = UserLogin.getId();
-        DatabaseReference toDayReg = database.getReference("Hoadonchoigame").child(todayToString);
+        DatabaseReference toDayReg = database.getReference("Hoadonchoigame").child(getReferenceToday());
+
+
+        //toDayReg.push().setValue;
+
 
     }
 
@@ -226,7 +237,7 @@ public class FbDao {
 
     public static void AddHoaDonNap(Hoadonnaptien hoadonnaptien) {
         DatabaseReference myRef = database.getReference();
-        myRef.child("HoaDonNap").push().setValue(hoadonnaptien);
+        myRef.child("HoaDonNapTien").push().setValue(hoadonnaptien);
     }
 
     public void UpdateUser(User user1) {

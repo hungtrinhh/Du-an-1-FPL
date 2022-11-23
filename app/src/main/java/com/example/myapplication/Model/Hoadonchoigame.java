@@ -1,8 +1,10 @@
 package com.example.myapplication.Model;
 
 public class Hoadonchoigame extends Hoadon {
-    String date;
-    String Userid;
+    private String date;
+    private String Userid;
+    private boolean isSuccess = false;
+
 
     public Hoadonchoigame(float cost, String date, String userid) {
         super(cost);
@@ -27,5 +29,13 @@ public class Hoadonchoigame extends Hoadon {
 
     public void setUserid(String userid) {
         Userid = userid;
+    }
+
+    public boolean isSuccess() {
+        return isSuccess;
+    }
+
+    public void setSuccess(boolean success) {
+        isSuccess = success;
     }
 }

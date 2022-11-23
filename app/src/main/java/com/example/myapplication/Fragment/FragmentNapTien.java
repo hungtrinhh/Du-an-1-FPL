@@ -2,17 +2,15 @@ package com.example.myapplication.Fragment;
 
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Hoadonnaptien;
@@ -20,12 +18,11 @@ import com.example.myapplication.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class FragmentNapTien extends Fragment {
     private TextInputEditText edTienNap;
     private Button btnNap;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,18 +35,20 @@ public class FragmentNapTien extends Fragment {
         anhXa(view);
         Nap();
     }
-    public void anhXa(View view){
+
+    public void anhXa(View view) {
         edTienNap = (TextInputEditText) view.findViewById(R.id.ed_tien_nap);
         btnNap = (Button) view.findViewById(R.id.btn_nap);
     }
-    public void Nap(){
+
+    public void Nap() {
         btnNap.setOnClickListener(view -> {
             Hoadonnaptien hoadonnaptien = new Hoadonnaptien();
-            hoadonnaptien.setTrangThai(false);
+
             hoadonnaptien.setUserId(FbDao.UserLogin.getId());
-            if(edTienNap.getText().toString().isEmpty()){
+            if (edTienNap.getText().toString().isEmpty()) {
                 Toast.makeText(getActivity(), "Vui Lòng Nhập Số Tiền Muốn Nạp", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 try {
                     float tienNap = Float.parseFloat(edTienNap.getText().toString());
                     hoadonnaptien.setCost(tienNap);
@@ -61,7 +60,7 @@ public class FragmentNapTien extends Fragment {
                         Toast.makeText(getActivity(), "Yêu Cầu Nạp Tiền Của Bạn Đang Được Xử Lí", Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager().popBackStack();
                     }
-                }catch (Exception exception){
+                } catch (Exception exception) {
                     Toast.makeText(getActivity(), "Nhập Số Tiền Nạp Là Số", Toast.LENGTH_SHORT).show();
                 }
             }
