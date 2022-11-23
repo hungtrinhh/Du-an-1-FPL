@@ -99,9 +99,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         tv_voucherChoose = view.findViewById(R.id.tv_voucherChoose);
         tv_totalCost = view.findViewById(R.id.tv_totalCost);
         btn_play = view.findViewById(R.id.btn_play);
-
     }
-
     private void ShowListVoucher() {
         listVoucher = FbDao.getListVoucher();
         for (Voucher voucher : listVoucher) {

@@ -1,39 +1,27 @@
 package com.example.myapplication.Firebase;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
-import android.widget.ImageView;
+import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.myapplication.Model.Game;
-import com.example.myapplication.Model.Hoadonnaptien;
-import com.example.myapplication.Model.User;
-import com.example.myapplication.Model.Voucher;
+import com.example.myapplication.Model.*;
 import com.example.myapplication.Service.UpdateGameService;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.database.*;
+import com.google.firebase.storage.*;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 public class FbDao {
@@ -145,9 +133,10 @@ public class FbDao {
         });
     }
 
-    public static void Playgame(Date startTime, int minute) {
+    public static void PlaygameGio(int minute, String idGame) {
         long milisecond = minute * 60 * 1000;
         Date today = new Date();
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String todayToString = dateFormat.format(today);
         String id = UserLogin.getId();
@@ -234,10 +223,12 @@ public class FbDao {
         DatabaseReference myRef = database.getReference("Users");
         myRef.push().setValue(user);
     }
-    public static void AddHoaDonNap(Hoadonnaptien hoadonnaptien){
+
+    public static void AddHoaDonNap(Hoadonnaptien hoadonnaptien) {
         DatabaseReference myRef = database.getReference();
         myRef.child("HoaDonNap").push().setValue(hoadonnaptien);
     }
+
     public void UpdateUser(User user1) {
         DatabaseReference myRef = database.getReference("Users").child(user1.getId());
         User user = user1;
@@ -262,16 +253,14 @@ public class FbDao {
 
                     User u = dt.getValue(User.class);
                     if (u == null) {
-                        return;
+                        continue;
                     }
                     u.setId(dt.getKey());
-
                     listUser.add(u);
                 }
                 Loaded = true;
                 Log.d(TAG, "Đã nhận dữ liệu User");
             }
-
 
             @Override
             public void onCancelled(DatabaseError error) {

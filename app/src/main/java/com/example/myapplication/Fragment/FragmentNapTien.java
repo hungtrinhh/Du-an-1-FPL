@@ -54,7 +54,7 @@ public class FragmentNapTien extends Fragment {
                     float tienNap = Float.parseFloat(edTienNap.getText().toString());
                     hoadonnaptien.setCost(tienNap);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                         String date = dateFormat.format(java.util.Calendar.getInstance().getTime());
                         hoadonnaptien.setDate(date);
                         FbDao.AddHoaDonNap(hoadonnaptien);
