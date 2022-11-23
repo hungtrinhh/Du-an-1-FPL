@@ -1,36 +1,25 @@
 package com.example.myapplication.Model;
 
 public class Hoadonchoigame extends Hoadon {
-    private String dateStart;
-    private String dateEnd;
+    private String date;
     private String Userid;
     private boolean isSuccess = false;
-    private String Gameid;
-
 
     public Hoadonchoigame(float cost, String date, String userid) {
         super(cost);
-        this.dateStart = date;
+        this.date = date;
         Userid = userid;
     }
 
     public Hoadonchoigame() {
     }
 
-    public String getDateEnd() {
-        return dateEnd;
+    public String getDate() {
+        return date;
     }
 
-    public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
-    }
-
-    public String getDateStart() {
-        return dateStart;
-    }
-
-    public void setDateStart(String dateStart) {
-        this.dateStart = dateStart;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getUserid() {
@@ -47,13 +36,5 @@ public class Hoadonchoigame extends Hoadon {
 
     public void setSuccess(boolean success) {
         isSuccess = success;
-    }
-
-    public String getGameid() {
-        return Gameid;
-    }
-
-    public void setGameid(String gameid) {
-        Gameid = gameid;
     }
 }

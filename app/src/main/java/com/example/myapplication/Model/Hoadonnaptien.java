@@ -2,16 +2,7 @@ package com.example.myapplication.Model;
 
 public class Hoadonnaptien extends Hoadon {
     private String userId;
-
-
-    //thời gian hiện tại
     private String date;
-
-
-    //thời gian được lấy để biết khi nào máy tắt
-    private long durationtime;
-
-    //trạng thái xem hoá đơn đã được xử lý chưa
     private boolean trangThai = true;
 
     public Hoadonnaptien(float cost, String userId, String date, boolean trangThai) {

@@ -6,37 +6,22 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.myapplication.Model.Game;
-import com.example.myapplication.Model.Hoadonchoigame;
-import com.example.myapplication.Model.Hoadonnaptien;
-import com.example.myapplication.Model.User;
-import com.example.myapplication.Model.Voucher;
+import com.example.myapplication.Model.*;
 import com.example.myapplication.Service.UpdateGameService;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.database.*;
+import com.google.firebase.storage.*;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class FbDao {
@@ -71,12 +56,11 @@ public class FbDao {
     public static boolean Login = false;
 
     //trả về trạng thái khi load dữ liệu xong thằng nào đụng vào đấm chết
-    public static boolean LoadedUser = false;
+    public static boolean Loaded = false;
     public static boolean LoadedAvatar = false;
     public static boolean UpdatedUser = false;
     public static boolean UpLoadedAvatar = false;
 
-    //hàm khởi tạo để trả về userId
     public FbDao(Activity context) {
         activity = context;
         storageFireBase = FirebaseStorage.getInstance();
@@ -93,10 +77,10 @@ public class FbDao {
     }
 
     public User getUserLogin() {
+
         return UserLogin;
     }
 
-    //hàm update avatatar cho user
     public void UpLoadavatar(ImageView imageView) {
         String id = UserLogin.getId();
         imageView.setDrawingCacheEnabled(true);
@@ -123,10 +107,11 @@ public class FbDao {
 
     }
 
-    //hàm load avatar
     public static void LoadAvatarFromID() {
         String id = UserLogin.getId();
         StorageReference avartar = avatatRef.child((id));
+
+
         final long ONE_MEGABYTE = 1024 * 1024;
         avartar.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
@@ -145,45 +130,31 @@ public class FbDao {
         });
     }
 
-    //hàm này trả về ref của hoá đơn chơi game
     public String getReferenceToday() {
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/mm");
         String s = dateFormat.format(date);
+
+
         return s;
     }
 
-    //hàm chơi game ko hiểu đừng đọc
     public void PlaygameGio(int minute, String idGame) {
         long milisecond = minute * 60 * 1000;
-        Date curenTime = new Date();
-        Date endTime = new Date(milisecond + curenTime.getTime());
-
+        Date today = new Date();
         getReferenceToday();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String curenTimetoString = dateFormat.format(curenTime);
-        String endTimetoString = dateFormat.format(endTime);
+        String todayToString = dateFormat.format(today);
+        String id = UserLogin.getId();
+        DatabaseReference toDayReg = database.getReference("Hoadonchoigame").child(getReferenceToday());
 
-        DatabaseReference hoadonchoigameRef = database.getReference("Hoadonchoigame").child(getReferenceToday());
-        Hoadonchoigame hoadon = new Hoadonchoigame();
-        hoadon.setDateStart(curenTimetoString);
-        hoadon.setUserid(UserLogin.getId());
-        hoadon.setCost(10000);
-        hoadon.setGameid(idGame);
-        hoadon.setDateEnd(endTimetoString);
-        hoadonchoigameRef.push().setValue(hoadon);
-        Map<String, Object> map = new HashMap<>();
-        map.put("trangThai", "Đang được chơi");
 
-        database.getReference("Game").child(idGame).updateChildren(map, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                Toast.makeText(activity, "Chơi thành công", Toast.LENGTH_SHORT).show();
-            }
-        });
+        //toDayReg.push().setValue;
+
+
     }
 
-    //hàm login và bắt data cho userLogin để userLogin thay đổi data theo thời gian thực
+
     public static void Login(String id) {
         DatabaseReference myRef = database.getReference("Users");
         DatabaseReference userRef = myRef.child(id);
@@ -203,7 +174,7 @@ public class FbDao {
         });
     }
 
-    //hàm đọc về dữ liệu game
+
     private void ReadGame() {
         listGame = new ArrayList<>();
         DatabaseReference myRef = database.getReference("Game");
@@ -230,7 +201,6 @@ public class FbDao {
         });
     }
 
-    //hàm đọc về dữ liệu voutcher
     private void ReadVoucher() {
         Log.d(TAG, "ReadVoucher: ");
         listVoucher = new ArrayList<>();
@@ -259,8 +229,6 @@ public class FbDao {
         });
     }
 
-
-    //hàm thêm user khi đăng kí
     public void AddUser(User user) {
         DatabaseReference myRef = database.getReference("Users");
         myRef.push().setValue(user);
@@ -271,7 +239,6 @@ public class FbDao {
         myRef.child("HoaDonNapTien").push().setValue(hoadonnaptien);
     }
 
-    //hàm cập nhạt lại user
     public void UpdateUser(User user1) {
         DatabaseReference myRef = database.getReference("Users").child(user1.getId());
         User user = user1;
@@ -285,7 +252,6 @@ public class FbDao {
         });
     }
 
-    //hàm đọc thông tin user
     public void ReadUser() {
         Log.d(TAG, "ReadUser: ");
         listUser = new ArrayList<>();
@@ -302,7 +268,7 @@ public class FbDao {
                     u.setId(dt.getKey());
                     listUser.add(u);
                 }
-                LoadedUser = true;
+                Loaded = true;
                 Log.d(TAG, "Đã nhận dữ liệu User");
             }
 

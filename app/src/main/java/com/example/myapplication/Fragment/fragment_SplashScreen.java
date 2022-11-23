@@ -61,13 +61,16 @@ public class fragment_SplashScreen extends Fragment {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (!FbDao.LoadedUser) {
+                while (!FbDao.Loaded) {
+
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
                 }
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
