@@ -136,7 +136,10 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
                 dialog.getWindow().setGravity(Gravity.BOTTOM);
                 break;
             case R.id.btn_play:
-
+                FbDao dao = new FbDao();
+                dao.PlaygameGio(count, game.getId() + "", total);
+                getActivity().getSupportFragmentManager().popBackStack();
+                FbDao.Thanhtoantien(total);
 
                 break;
         }
