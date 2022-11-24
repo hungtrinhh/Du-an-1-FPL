@@ -1,5 +1,6 @@
 
 package com.example.myapplication.Fragment;
+
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -13,11 +14,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapplication.Adapter.ListThoiGianAdapter;
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
@@ -28,8 +32,10 @@ import com.example.myapplication.R;
 import com.example.myapplication.Iterface.OnclickItemTime;
 import com.example.myapplication.Iterface.OnclickItemVoucher;
 import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link fragmentTroChoiGio#newInstance} factory method to
@@ -53,20 +59,26 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private Game game;
     private int arr[] = {R.drawable.time5, R.drawable.time10, R.drawable.time15, R.drawable.time20, R.drawable.time25, R.drawable.time30, R.drawable.time35, R.drawable.time40, R.drawable.time45, R.drawable.time50, R.drawable.time55, R.drawable.time60};
     private float sale;
+    //Thời gian chơi
+    private int time;
+
     public static fragmentTroChoiGio newInstance() {
         fragmentTroChoiGio fragment = new fragmentTroChoiGio();
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tro_choi_gio, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -79,6 +91,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         backToDSGame.setOnClickListener(this::onClick);
         btn_play.setOnClickListener(this::onClick);
     }
+
     private void AnhXa(View view) {
         backToDSGame = view.findViewById(R.id.btn_backToDSGame);
         choose_voucher = view.findViewById(R.id.choose_voucher);
@@ -90,6 +103,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         tv_totalCost = view.findViewById(R.id.tv_totalCost);
         btn_play = view.findViewById(R.id.btn_play);
     }
+
     private void ShowListVoucher() {
         listVoucher = FbDao.getListVoucher();
         for (Voucher voucher : listVoucher) {
@@ -107,12 +121,14 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         recyclerView_voucher_gio.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView_voucher_gio.setAdapter(voucherVerticalAdapter);
     }
+
     private void onClickItemChooseVoucher(Voucher voucher) {
         voucherChoose = voucher;
         tv_voucherChoose.setText(voucherChoose.getMaVoucher());
         TinhTongTien();
         dialog.dismiss();
     }
+
     private void ShowThoiGian() {
         listThoiGianAdapter = new ListThoiGianAdapter(new OnclickItemTime() {
             @Override
@@ -124,10 +140,12 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         recyclerview_choose_time.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerview_choose_time.setAdapter(listThoiGianAdapter);
     }
+
     private void onClickItemChooseTime(PlayTime playTime) {
         playTime_choose = playTime;
         TinhTongTien();
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -155,16 +173,18 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                     Snackbar.make(getView(), "Vui lòng chọn thời gian chơi", 2000).show();
                 } else {
                     FbDao dao = new FbDao();
-                    dao.PlaygameGio(1, game.getId()+"");
+                    dao.PlaygameGio(time * 5, game.getId() + "");
                 }
                 break;
         }
     }
+
     private void AddTime() {
         for (int i = 0; i < arr.length; i++) {
             list.add(new PlayTime(i, arr[i]));
         }
     }
+
     private void setThongTin() {
         Bundle bundle = getArguments();
         game = (Game) bundle.get("obj_game");
@@ -172,19 +192,23 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         tv_cost.setText(game.getGia() + " / 5 phút");
         tv_detailGame.setText(game.getMoTa());
     }
+
     private void TinhTongTien() {
         if (playTime_choose != null) {
             if (voucherChoose == null) {
-                for (int i = 0; i < 12; i++) {
+                for (int i = 0; i < arr.length; i++) {
                     if (playTime_choose.getId() == i) {
+                        time = i + 1;
                         total = game.getGia() * (i + 1);
                     }
                 }
             } else {
-                for (int i = 0; i < 12; i++) {
+                for (int i = 0; i < arr.length; i++) {
                     if (playTime_choose.getId() == i) {
+                        time = i + 1;
                         sale = voucherChoose.getGiamGia();
                         total = game.getGia() * (i + 1) * (1 - (sale / 100));
+
                     }
                 }
             }

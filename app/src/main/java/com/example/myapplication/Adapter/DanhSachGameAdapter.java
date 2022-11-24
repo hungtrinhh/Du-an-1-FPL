@@ -47,9 +47,15 @@ public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapte
         }
         holder.tvTenGame.setText(game.getTenGame());
         holder.tvTrangThai.setText(game.getTrangThai());
-        if(game.getTrangThai().equalsIgnoreCase("Bảo Trì")){
+        if (game.getTrangThai().equalsIgnoreCase("Bảo Trì")) {
             holder.tvTrangThai.setTextColor(Color.parseColor("#E04119"));
-        }else{
+
+        } else if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
+
+            holder.tvTrangThai.setTextColor(Color.parseColor("#FFE15D"));
+
+
+        } else {
             holder.tvTrangThai.setTextColor(Color.parseColor("#2FC863"));
         }
         holder.linearLayoutDanhSachGame.setOnClickListener(view -> {
@@ -59,18 +65,18 @@ public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapte
 
     @Override
     public int getItemCount() {
-        if (listGame != null){
+        if (listGame != null) {
             return listGame.size();
         }
         return 0;
     }
 
 
-
     public class DanhSachGameViewHoler extends RecyclerView.ViewHolder {
         private final TextView tvTenGame;
         private final TextView tvTrangThai;
         private final LinearLayout linearLayoutDanhSachGame;
+
         public DanhSachGameViewHoler(@NonNull View itemView) {
             super(itemView);
             tvTenGame = itemView.findViewById(R.id.tv_ten_game);

@@ -123,7 +123,7 @@ public class FbDao {
     //hàm này trả về ref của hoá đơn chơi game
     public String getReferenceToday() {
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM");
         String s = dateFormat.format(date);
         return s;
     }

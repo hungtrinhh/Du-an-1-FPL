@@ -215,6 +215,10 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
             Snackbar.make(viewFrag, "Hiện trò chơi đang được bảo trì ,hãy thử lại vào lần sau nhé ", 2000).show();
             return;
         }
+        if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
+            Snackbar.make(viewFrag, "Hiện trò chơi đã được chơi xin ,quý khách hãy đăng kí game khác", 2000).show();
+            return;
+        }
         if (game.getKieu().equalsIgnoreCase("lượt")) {
             fragmentTroChoiGio fragmentTroChoigio = new fragmentTroChoiGio();
             Bundle bundle = new Bundle();
