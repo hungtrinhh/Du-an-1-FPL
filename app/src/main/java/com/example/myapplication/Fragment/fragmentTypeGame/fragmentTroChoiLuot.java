@@ -27,7 +27,7 @@ import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
-import com.example.myapplication.Iterface.OnclickItemVoucher;
+import com.example.myapplication.Interface.OnclickItemVoucher;
 
 import java.util.ArrayList;
 import java.util.List;

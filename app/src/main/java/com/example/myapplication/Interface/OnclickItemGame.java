@@ -1,4 +1,4 @@
-package com.example.myapplication.Iterface;
+package com.example.myapplication.Interface;
 
 import com.example.myapplication.Model.Game;
 

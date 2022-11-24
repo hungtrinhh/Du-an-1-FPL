@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
-import com.example.myapplication.Iterface.OnclickItemGame;
+import com.example.myapplication.Interface.OnclickItemGame;
 
 import java.util.List;
 

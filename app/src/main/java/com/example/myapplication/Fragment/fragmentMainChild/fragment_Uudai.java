@@ -32,7 +32,7 @@ import com.example.myapplication.Fragment.fragListgameAndVoudcher.Fragment_ListV
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
-import com.example.myapplication.Iterface.OnclickItemGame;
+import com.example.myapplication.Interface.OnclickItemGame;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;

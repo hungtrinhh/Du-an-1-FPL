@@ -29,8 +29,8 @@ import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.PlayTime;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
-import com.example.myapplication.Iterface.OnclickItemTime;
-import com.example.myapplication.Iterface.OnclickItemVoucher;
+import com.example.myapplication.Interface.OnclickItemTime;
+import com.example.myapplication.Interface.OnclickItemVoucher;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
