@@ -9,6 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
+import com.example.myapplication.Fragment.fragmentMainChild.fragment_User;
+import com.example.myapplication.Fragment.fragmentMainChild.fragment_Uudai;
 import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;

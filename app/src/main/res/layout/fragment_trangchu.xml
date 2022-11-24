@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_container"
     android:orientation="vertical"
-    tools:context=".Fragment.fragment_Trangchu">
+    tools:context=".Fragment.fragmentMainChild.fragment_Trangchu">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

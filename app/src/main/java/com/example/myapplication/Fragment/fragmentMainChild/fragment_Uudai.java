@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragment;
+package com.example.myapplication.Fragment.fragmentMainChild;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

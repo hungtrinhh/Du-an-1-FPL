@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragment;
+package com.example.myapplication.Fragment.fragmentLoginChild;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +21,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
-import com.example.myapplication.Fragment.fragmentLoginChild.fragment_register_success;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;

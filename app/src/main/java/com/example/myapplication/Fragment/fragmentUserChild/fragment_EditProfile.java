@@ -30,7 +30,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
-import com.example.myapplication.Fragment.fragment_verify_Phone;
+import com.example.myapplication.Fragment.fragmentLoginChild.fragment_verify_Phone;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.google.firebase.FirebaseException;

@@ -29,7 +29,7 @@ import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragmentTroChoiGio;
 import com.example.myapplication.Fragment.fragmentTroChoiLuot;
-import com.example.myapplication.Fragment.fragment_Trangchu;
+import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
 import com.example.myapplication.Iterface.OnclickItemGame;
