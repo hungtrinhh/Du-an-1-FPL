@@ -73,7 +73,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
         AnhXa(view);
         setThongTin();
-
+        checkBtndis();
         imgButtonadd.setOnClickListener(this::onClick);
         imgButtonremove.setOnClickListener(this::onClick);
         backToDSGame.setOnClickListener(this::onClick);
@@ -109,10 +109,11 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
 
                 if (count > 0) {
                     count--;
+
                 }
+                tv_count.setText(count + "");
                 TinhTongTien();
                 checkBtndis();
-                tv_count.setText(count + "");
                 break;
             case R.id.btn_backToDSGame:
                 getActivity().getSupportFragmentManager().popBackStack();
@@ -137,7 +138,6 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
             case R.id.btn_play:
 
 
-
                 break;
         }
     }
@@ -145,7 +145,11 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
     private void checkBtndis() {
         imgButtonremove.setEnabled(count > 0);
 
-        btn_play.setEnabled(!(total > FbDao.UserLogin.getSodu()));
+        if(total > FbDao.UserLogin.getSodu() ||count==0){
+            btn_play.setEnabled(false);
+        }else {
+            btn_play.setEnabled(true);
+        }
 
 
     }
