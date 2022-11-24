@@ -174,6 +174,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 } else {
                     FbDao dao = new FbDao();
                     dao.PlaygameGio(time * 5, game.getId() + "");
+                    getActivity().getSupportFragmentManager().popBackStack();
                 }
                 break;
         }
