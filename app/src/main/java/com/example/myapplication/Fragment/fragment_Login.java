@@ -21,6 +21,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragmentLoginChild.fragment_Fogot_Password;
+import com.example.myapplication.Fragment.fragmentLoginChild.fragment_Regesiter;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.google.android.material.snackbar.Snackbar;

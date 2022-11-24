@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragment;
+package com.example.myapplication.Fragment.fragListgameAndVoudcher;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -27,6 +27,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Adapter.DanhSachGameAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragmentTroChoiGio;
+import com.example.myapplication.Fragment.fragmentTroChoiLuot;
+import com.example.myapplication.Fragment.fragment_Trangchu;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
 import com.example.myapplication.Iterface.OnclickItemGame;

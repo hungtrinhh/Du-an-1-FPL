@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragment;
+package com.example.myapplication.Fragment.fragListgameAndVoudcher;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,39 +8,34 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
+import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_ListVoucherUuDaiTenTroChoi#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Fragment_ListVoucherUuDaiTenTroChoi extends Fragment implements View.OnClickListener {
+
+public class Fragment_ListVoucherUuDai extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView_voucher_ListGame;
     private ImageView btn_BackToUuDai_fragVoucher, btn_Search_fragVoucher;
     private VoucherVerticalAdapter voucherVerticalAdapter;
-    private List<Voucher> listVoucher;
+    private List<Voucher> listVoucher,listSearchVoucher;
     private androidx.appcompat.widget.SearchView searchView_listVoucherUuDai;
 
-    public Fragment_ListVoucherUuDaiTenTroChoi() {
+    public Fragment_ListVoucherUuDai() {
         // Required empty public constructor
     }
 
-    public Fragment_ListVoucherUuDaiTenTroChoi(List<Voucher> listVoucher) {
-        this.listVoucher = listVoucher;
-    }
-
-    public static Fragment_ListVoucherUuDaiTenTroChoi newInstance() {
-        Fragment_ListVoucherUuDaiTenTroChoi fragment = new Fragment_ListVoucherUuDaiTenTroChoi();
+    public static Fragment_ListVoucherUuDai newInstance() {
+        Fragment_ListVoucherUuDai fragment = new Fragment_ListVoucherUuDai();
         return fragment;
     }
 
@@ -66,6 +61,44 @@ public class Fragment_ListVoucherUuDaiTenTroChoi extends Fragment implements Vie
         // bắt sự kiện khi click
         btn_BackToUuDai_fragVoucher.setOnClickListener(this::onClick);
         btn_Search_fragVoucher.setOnClickListener(this::onClick);
+
+        searchVoucher();
+    }
+
+    private void searchVoucher() {
+        searchView_listVoucherUuDai.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                setListSerachVoucher(newText);
+                return false;
+            }
+        });
+    }
+
+    private void setListSerachVoucher(String newText) {
+        if ("".equalsIgnoreCase(newText)) {
+//            tvthongBao.setVisibility(View.GONE);
+            voucherVerticalAdapter.setListDanhSachVoucher(listVoucher);
+            recyclerView_voucher_ListGame.setAdapter(voucherVerticalAdapter);
+        } else {
+            listSearchVoucher = new ArrayList<>();
+            for (Voucher voucher : listVoucher) {
+                if (voucher.getMaVoucher().toLowerCase().contains(newText.toUpperCase(Locale.ROOT))){
+                    listSearchVoucher.add(voucher);
+                }
+            }
+//            if(listGame.isEmpty()){
+//                tvthongBao.setVisibility(View.VISIBLE);
+//            }else {
+//                tvthongBao.setVisibility(View.GONE);
+//            }
+            voucherVerticalAdapter.setListDanhSachVoucher(listSearchVoucher);
+        }
     }
 
     private void AnhXa(View view) {
@@ -76,6 +109,7 @@ public class Fragment_ListVoucherUuDaiTenTroChoi extends Fragment implements Vie
     }
 
     private void ShowListVoucher() {
+        listVoucher = FbDao.getListVoucher();
         voucherVerticalAdapter = new VoucherVerticalAdapter(getActivity());
         voucherVerticalAdapter.setListDanhSachVoucher(listVoucher);
         recyclerView_voucher_ListGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -87,8 +121,6 @@ public class Fragment_ListVoucherUuDaiTenTroChoi extends Fragment implements Vie
         switch (v.getId()) {
             case R.id.btn_BackToUuDai_fragVoucher:
                 getActivity().getSupportFragmentManager().popBackStack();
-//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.content_frame, new fragment_Uudai()).commit();
                 break;
             case R.id.btn_search_fragVoucher:
                 if (searchView_listVoucherUuDai.getVisibility() == View.GONE) {
