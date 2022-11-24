@@ -155,7 +155,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         game = (Game) bundle.get("obj_game");
         tv_count.setText(count + "");
         tv_nameGame_Luot.setText(game.getTenGame());
-        tv_cost_Luot.setText(game.getGia() + "");
+        tv_cost_Luot.setText(game.getGia() + "/1 lượt 1 phút");
         tv_detailGame_Luot.setText(game.getMoTa());
     }
 

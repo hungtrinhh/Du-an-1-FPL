@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         super.onResume();
-        new DialogLoading(this);
+        DialogLoading dialogLoading= new DialogLoading(this);
+        dialogLoading.Create();
         Toast.makeText(getApplicationContext(), "start", Toast.LENGTH_SHORT).show();
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(broadcastReceiver, filter);

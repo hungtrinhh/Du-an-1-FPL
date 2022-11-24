@@ -14,7 +14,7 @@ import com.example.myapplication.R;
 
 public class DialogLoading extends Dialog {
     Context context;
-    public static DialogLoading dialogLoading ;
+    public static DialogLoading dialogLoading;
 
     public DialogLoading(@NonNull Context context) {
         super(context);
@@ -22,6 +22,10 @@ public class DialogLoading extends Dialog {
         setContentView(R.layout.dialog_loading);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setCancelable(false);
+
+    }
+
+    public void Create() {
         dialogLoading = new DialogLoading(context);
     }
 
