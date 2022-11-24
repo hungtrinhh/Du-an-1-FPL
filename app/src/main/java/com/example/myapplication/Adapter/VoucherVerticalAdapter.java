@@ -83,7 +83,7 @@ public class VoucherVerticalAdapter extends RecyclerView.Adapter<VoucherVertical
         private final ImageView imageView2;
         private final TextView tv_MaVoucher;
         private final TextView tv_TieuDeVoucher;
-        private LinearLayout linearLayout_voucher;
+        private final LinearLayout linearLayout_voucher;
         public VoucherViewHoler(@NonNull View itemView) {
             super(itemView);
             imageView2 = itemView.findViewById(R.id.imageView2);

@@ -30,7 +30,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
     private RelativeLayout layout_Username;
     private LinearLayout btn_Notify, btn_CheckHistory, btn_Help, btn_Regulation, btn_PolicyAndPrivacy, btn_LogOut,btn_napTien;
     private ImageView avaterUserUserFrag;
-    private String TAG = "fragment_User";
+    private final String TAG = "fragment_User";
 
     public fragment_User() {
 

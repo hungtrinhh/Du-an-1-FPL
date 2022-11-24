@@ -75,7 +75,7 @@ public class ListThoiGianAdapter extends RecyclerView.Adapter<ListThoiGianAdapte
     }
 
     public class ThoiGianViewHoler extends RecyclerView.ViewHolder {
-        private ImageView img_thoiGian;
+        private final ImageView img_thoiGian;
         public ThoiGianViewHoler(@NonNull View itemView) {
             super(itemView);
             img_thoiGian = itemView.findViewById(R.id.img_thoiGian);

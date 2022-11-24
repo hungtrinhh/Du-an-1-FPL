@@ -108,7 +108,12 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                         FbDao.UserLogin = u;
                         FbDao.LoadAvatarFromID();
                         saveAccount();
-                        DialogLoading.dialogLoading.show();
+
+
+                            DialogLoading.dialogLoading.show();
+
+
+
                         new Thread(new Runnable() {
                             @Override
                             public void run() {

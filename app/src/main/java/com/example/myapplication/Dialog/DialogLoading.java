@@ -1,5 +1,6 @@
 package com.example.myapplication.Dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -12,14 +13,16 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.R;
 
 public class DialogLoading extends Dialog {
-    public static DialogLoading dialogLoading = new DialogLoading(FbDao.activity);
+    Context context;
+    public static DialogLoading dialogLoading ;
 
     public DialogLoading(@NonNull Context context) {
         super(context);
+        this.context = context;
         setContentView(R.layout.dialog_loading);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setCancelable(false);
-
+        dialogLoading = new DialogLoading(context);
     }
 
 
@@ -27,6 +30,5 @@ public class DialogLoading extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
 }

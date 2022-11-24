@@ -43,7 +43,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
     private RecyclerView recyclerView_voucher_gio;
     private Dialog dialog;
     private List<Voucher> listVoucher;
-    private List<Voucher> voucherListGameChoose = new ArrayList<>();
+    private final List<Voucher> voucherListGameChoose = new ArrayList<>();
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private Voucher voucherChoose;
     private Game game;
@@ -111,7 +111,6 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
                     count--;
                 }
                 TinhTongTien();
-
                 checkBtndis();
                 tv_count.setText(count + "");
                 break;
@@ -139,27 +138,14 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
 
 
 
-
-
                 break;
         }
     }
 
     private void checkBtndis() {
-        if (count > 0) {
-            imgButtonremove.setEnabled(true);
-        } else {
-            imgButtonremove.setEnabled(false);
+        imgButtonremove.setEnabled(count > 0);
 
-        }
-
-        if (total > FbDao.UserLogin.getSodu()) {
-            btn_play.setEnabled(false);
-
-        } else {
-            btn_play.setEnabled(true);
-
-        }
+        btn_play.setEnabled(!(total > FbDao.UserLogin.getSodu()));
 
 
     }

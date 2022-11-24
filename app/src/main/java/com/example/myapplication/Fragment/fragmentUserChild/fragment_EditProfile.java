@@ -103,12 +103,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
 
 
                 if (!s.toString().equals(FbDao.UserLogin.getName()) || !ed_UpdatePhoneNumbers.getText().toString().equals(FbDao.UserLogin.getPhonenumber())) {
-                    if (!((s.length() == 0) || (ed_UpdatePhoneNumbers.getText().toString().length() == 0)) || imgdif) {
-                        btn_SaveProfile.setEnabled(true);
-                    } else {
-                        btn_SaveProfile.setEnabled(false);
-
-                    }
+                    btn_SaveProfile.setEnabled(!((s.length() == 0) || (ed_UpdatePhoneNumbers.getText().toString().length() == 0)) || imgdif);
 
 
                 } else {
@@ -130,12 +125,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
 
 
                 if (!s.toString().equals(FbDao.UserLogin.getPhonenumber()) || !ed_UpdateFullName.getText().toString().equals(FbDao.UserLogin.getName())) {
-                    if (!((s.length() == 0) || (ed_UpdateFullName.getText().toString().length() == 0)) || imgdif) {
-                        btn_SaveProfile.setEnabled(true);
-                    } else {
-                        btn_SaveProfile.setEnabled(false);
-
-                    }
+                    btn_SaveProfile.setEnabled(!((s.length() == 0) || (ed_UpdateFullName.getText().toString().length() == 0)) || imgdif);
                 } else {
                     btn_SaveProfile.setEnabled(false);
                 }
@@ -200,13 +190,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
                 imgChose = BitmapFactory.decodeStream(inputStream); // lấy ảnh từ bộ nhớ
                 imageView_editProfile.setImageBitmap(imgChose);
-                if (!imgChose.sameAs(FbDao.UserLogin.getAvatar())) {
-                    imgdif = true;
-                } else {
-                    imgdif = false;
-
-
-                }
+                imgdif = !imgChose.sameAs(FbDao.UserLogin.getAvatar());
                 btn_SaveProfile.setEnabled(imgdif);
 
 

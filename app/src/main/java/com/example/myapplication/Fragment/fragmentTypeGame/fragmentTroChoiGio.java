@@ -47,9 +47,9 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private RecyclerView recyclerView_voucher_gio, recyclerview_choose_time;
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private ListThoiGianAdapter listThoiGianAdapter;
-    private List<PlayTime> list = new ArrayList<>();
+    private final List<PlayTime> list = new ArrayList<>();
     private List<Voucher> listVoucher;
-    private List<Voucher> voucherListGameChoose = new ArrayList<>();
+    private final List<Voucher> voucherListGameChoose = new ArrayList<>();
     private ImageView close_dialog, backToDSGame;
     private Dialog dialog;
     private Voucher voucherChoose;
@@ -57,7 +57,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private Button btn_play;
     private float total = 0;
     private Game game;
-    private int arr[] = {R.drawable.time5, R.drawable.time10, R.drawable.time15, R.drawable.time20, R.drawable.time25, R.drawable.time30, R.drawable.time35, R.drawable.time40, R.drawable.time45, R.drawable.time50, R.drawable.time55, R.drawable.time60};
+    private final int[] arr = {R.drawable.time5, R.drawable.time10, R.drawable.time15, R.drawable.time20, R.drawable.time25, R.drawable.time30, R.drawable.time35, R.drawable.time40, R.drawable.time45, R.drawable.time50, R.drawable.time55, R.drawable.time60};
     private float sale;
     //Thời gian chơi
     private int time;
@@ -173,8 +173,9 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                     Snackbar.make(getView(), "Vui lòng chọn thời gian chơi", 2000).show();
                 } else {
                     FbDao dao = new FbDao();
-                    dao.PlaygameGio(time * 5, game.getId() + "");
+                    dao.PlaygameGio(time, game.getId() + "", total);
                     getActivity().getSupportFragmentManager().popBackStack();
+                    FbDao.Thanhtoantien(total);
                 }
                 break;
         }

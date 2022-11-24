@@ -16,7 +16,7 @@ import com.example.myapplication.BroadcastReciver.ReciverCheckingInternet;
 public class MainActivity extends AppCompatActivity {
     public static AlertDialog alertDialog;
     public static DialogLoading dialogLoading;
-// backPressed to Exit
+    // backPressed to Exit
     private long backPressedTime;
     private Toast mToast;
     ReciverCheckingInternet broadcastReceiver = new ReciverCheckingInternet();
@@ -29,12 +29,15 @@ public class MainActivity extends AppCompatActivity {
 //        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_SplashScreen()).commit();
-
     }
 
     @Override
     protected void onResume() {
+
+
         super.onResume();
+        new DialogLoading(this);
+        Toast.makeText(getApplicationContext(), "start", Toast.LENGTH_SHORT).show();
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(broadcastReceiver, filter);
         new FbDao(this);
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         //         Toast de thoat
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
             mToast.cancel();
-             super.onBackPressed();
+            super.onBackPressed();
             return;
         } else {
             mToast = Toast.makeText(MainActivity.this, R.string.backPressed, Toast.LENGTH_SHORT);

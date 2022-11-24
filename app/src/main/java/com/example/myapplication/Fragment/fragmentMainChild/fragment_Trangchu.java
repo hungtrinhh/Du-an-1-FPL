@@ -92,7 +92,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         User u = FbDao.UserLogin;
         String pattern = "###,###,###,###,###,### Poin";
         DecimalFormat df = new DecimalFormat(pattern);
-        fragHomeTvSodu.setText(df.format(u.getSodu()).toString());
+        fragHomeTvSodu.setText(df.format(u.getSodu()));
         fragHomeTvUsername.setText(u.getName());
         if (FbDao.UserLogin.getAvatar() != null) {
             avaterUserHomeFrag.setImageBitmap(FbDao.UserLogin.getAvatar());
@@ -172,7 +172,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
                     User u = FbDao.UserLogin;
                     String pattern = "###,###,###,###,###,### Poin";
                     DecimalFormat df = new DecimalFormat(pattern);
-                    fragHomeTvSodu.setText(df.format(u.getSodu()).toString());
+                    fragHomeTvSodu.setText(df.format(u.getSodu()));
 
                     hideshowSoduHomefrag.setImageResource(R.drawable.ic_baseline_visibility_off_24px);
                 }

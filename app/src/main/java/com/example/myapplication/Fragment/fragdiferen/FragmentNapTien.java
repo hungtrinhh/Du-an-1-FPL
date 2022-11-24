@@ -40,8 +40,8 @@ public class FragmentNapTien extends Fragment {
     }
 
     public void anhXa(View view) {
-        edTienNap = (TextInputEditText) view.findViewById(R.id.ed_tien_nap);
-        btnNap = (Button) view.findViewById(R.id.btn_nap);
+        edTienNap = view.findViewById(R.id.ed_tien_nap);
+        btnNap = view.findViewById(R.id.btn_nap);
     }
 
     public void SeteventNaptien() {
