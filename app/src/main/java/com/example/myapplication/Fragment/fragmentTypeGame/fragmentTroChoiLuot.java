@@ -1,4 +1,4 @@
-package com.example.myapplication.Fragment;
+package com.example.myapplication.Fragment.fragmentTypeGame;
 
 import android.app.Dialog;
 import android.graphics.Color;

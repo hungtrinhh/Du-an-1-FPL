@@ -10,9 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
-import com.example.myapplication.Fragment.fragment_SplashScreen;
+import com.example.myapplication.Fragment.fragdiferen.fragment_SplashScreen;
 import com.example.myapplication.Reciver.ReciverCheckingInternet;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     public static AlertDialog alertDialog;
