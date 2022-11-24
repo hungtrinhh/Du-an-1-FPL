@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
     public static AlertDialog alertDialog;
     public static DialogLoading dialogLoading;
-
+// backPressed to Exit
+    private long backPressedTime;
+    private Toast mToast;
     ReciverCheckingInternet broadcastReceiver = new ReciverCheckingInternet();
 
     @Override
@@ -40,8 +43,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-//        dialog hoac Toast de thoat
+        //         Toast de thoat
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            mToast.cancel();
+             super.onBackPressed();
+            return;
+        } else {
+            mToast = Toast.makeText(MainActivity.this, R.string.backPressed, Toast.LENGTH_SHORT);
+            mToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
+
+
     }
 
     @Override

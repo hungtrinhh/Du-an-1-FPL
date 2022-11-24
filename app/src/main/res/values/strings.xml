@@ -21,5 +21,6 @@
     <string name="voucher">Voucher</string>
     <string name="thongtingame">Thông Tin Game</string>
     <string name="help">Trợ giúp &amp; yêu cầu hỗ trợ</string>
+    <string name="backPressed">Nhấn back 1 lần nữa để thoát</string>
 
 </resources>
