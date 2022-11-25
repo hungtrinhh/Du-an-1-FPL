@@ -14,6 +14,7 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/background_container.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/bg_count.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/bg_dialog_choose_voucher.xml" value="0.1" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/bg_dungngay.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/bg_line.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/boder_item_voucher.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1" />
@@ -57,7 +58,8 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/game_item_vertical.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_thoigianchoi.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_voucher_horizontal.xml" value="0.25416666666666665" />
-        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_voucher_vertical.xml" value="0.2" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_voucher_vertical.xml" value="0.176" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_voucher_vertical2.xml" value="0.136" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/slider_item.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/toolbar.xml" value="0.16799999999999998" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/voucher_item_vertical.xml" value="0.176" />

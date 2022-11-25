@@ -5,16 +5,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
+import com.example.myapplication.Adapter.VoucherVerticalAdapter2;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
+import com.example.myapplication.Fragment.fragment_Main;
+import com.example.myapplication.Interface.OnClickUseNow;
+import com.example.myapplication.Interface.OnclickItemVoucher;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 
@@ -26,9 +34,10 @@ import java.util.Locale;
 public class Fragment_ListVoucherUuDai extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView_voucher_ListGame;
     private ImageView btn_BackToUuDai_fragVoucher, btn_Search_fragVoucher;
-    private VoucherVerticalAdapter voucherVerticalAdapter;
+    private VoucherVerticalAdapter2 voucherVerticalAdapter;
     private List<Voucher> listVoucher,listSearchVoucher;
     private androidx.appcompat.widget.SearchView searchView_listVoucherUuDai;
+    private TextView tv_useNow;
 
     public Fragment_ListVoucherUuDai() {
         // Required empty public constructor
@@ -110,7 +119,14 @@ public class Fragment_ListVoucherUuDai extends Fragment implements View.OnClickL
 
     private void ShowListVoucher() {
         listVoucher = FbDao.getListVoucher();
-        voucherVerticalAdapter = new VoucherVerticalAdapter(getActivity());
+        voucherVerticalAdapter = new VoucherVerticalAdapter2(getContext());
+        voucherVerticalAdapter.setOnClickUseNow(new OnClickUseNow() {
+            @Override
+            public void onclickItemVoucher() {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame, Fragment_ListDanhSachTroChoi.newInstance()).addToBackStack("").commit();
+            }
+        });
         voucherVerticalAdapter.setListDanhSachVoucher(listVoucher);
         recyclerView_voucher_ListGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView_voucher_ListGame.setAdapter(voucherVerticalAdapter);

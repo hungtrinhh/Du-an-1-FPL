@@ -260,4 +260,8 @@ public class fragment_Uudai extends Fragment {
             FillRecycleViewVoucher();
         }
     };
+    public void ChangeFragment(){
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, Fragment_ListGameUuDai.newInstance()).addToBackStack(fragment_Uudai.TAG).commit();
+    }
 }

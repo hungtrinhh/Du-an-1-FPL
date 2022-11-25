@@ -31,6 +31,7 @@ import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 import com.example.myapplication.Interface.OnclickItemVoucher;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,8 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
     private Game game;
     private float total = 0;
     private float sale;
+    String pattern = "###,### Poin";
+    DecimalFormat df = new DecimalFormat(pattern);
     private Button btn_play;
 
     public static fragmentTroChoiLuot newInstance() {
@@ -175,7 +178,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         game = (Game) bundle.get("obj_game");
         tv_count.setText(count + "");
         tv_nameGame_Luot.setText(game.getTenGame());
-        tv_cost_Luot.setText(game.getGia() + "/1 lượt 1 phút");
+        tv_cost_Luot.setText(df.format(game.getGia()) + " / 1 lượt 1 phút");
         tv_detailGame_Luot.setText(game.getMoTa());
     }
 
@@ -215,6 +218,6 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
             sale = voucherChoose.getGiamGia();
             total = game.getGia() * count * (1 - (sale / 100));
         }
-        tv_totalCost.setText(total + "đ");
+        tv_totalCost.setText(df.format(total));
     }
 }

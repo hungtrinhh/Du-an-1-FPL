@@ -238,4 +238,5 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
         }
     }
+
 }

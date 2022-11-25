@@ -35,6 +35,7 @@ import com.example.myapplication.Interface.OnclickItemVoucher;
 import com.google.android.material.snackbar.Snackbar;
 import com.example.myapplication.Fragment.fragdiferen.*;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +62,8 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private Game game;
     private final int[] arr = {R.drawable.time5, R.drawable.time10, R.drawable.time15, R.drawable.time20, R.drawable.time25, R.drawable.time30, R.drawable.time35, R.drawable.time40, R.drawable.time45, R.drawable.time50, R.drawable.time55, R.drawable.time60};
     private float sale;
+    String pattern = "###,### Poin";
+    DecimalFormat df = new DecimalFormat(pattern);
     //Thời gian chơi
     private int time;
 
@@ -206,7 +209,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         Bundle bundle = getArguments();
         game = (Game) bundle.get("obj_game");
         tv_nameGame.setText(game.getTenGame());
-        tv_cost.setText(game.getGia() + " / 5 phút");
+        tv_cost.setText(df.format(game.getGia()) + " / 5 phút");
         tv_detailGame.setText(game.getMoTa());
     }
 
@@ -230,7 +233,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 }
             }
         }
-        tv_totalCost.setText(total + "đ");
+        tv_totalCost.setText(df.format(total));
         checkBtndis();
     }
     private void checkBtndis() {
