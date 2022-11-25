@@ -11,22 +11,29 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
 import com.google.zxing.Result;
 
+import java.util.List;
+
+import com.example.myapplication.Fragment.fragmentTypeGame.*;
 
 public class fragment_QRcode extends Fragment {
     private CodeScannerView qrcodeScaner;
-    private TextView tvResuidQRcode;
-
+    private final String TAG = "fragment_QRcode";
+    public static boolean check = false;
 
     public fragment_QRcode() {
 
@@ -55,40 +62,68 @@ public class fragment_QRcode extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         Anhxa(view);
+        setUpQrcode();
     }
 
     private void Anhxa(View v) {
         qrcodeScaner = v.findViewById(R.id.qrcodeScaner);
-        tvResuidQRcode = v.findViewById(R.id.tvResuidQRcode);
 
     }
 
     public void setUpQrcode() {
-
-
         CodeScanner codeScanner = new CodeScanner(getActivity(), qrcodeScaner);
+        codeScanner.startPreview();
+
         codeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull Result result) {
+
+                Log.d(TAG, "onDecoded: " + result.toString());
+                for (Game g : FbDao.getListGame()
+                ) {
+                    if ((g.getId() + "").equals(result.toString())) {
+                        if (g.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
+
+
+                        } else if (g.getTrangThai().equalsIgnoreCase("Bảo trì")) {
+
+
+                        } else {
+                            check = true;
+                            Bundle bundle = new Bundle();
+                            if (g.getKieu().equalsIgnoreCase("thời gian")) {
+                                bundle.putSerializable("obj_game", g);
+                                fragmentTroChoiGio fragmentTroChoiGio = new fragmentTroChoiGio();
+                                fragmentTroChoiGio.setArguments(bundle);
+                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragmentTroChoiGio).commit();
+                            } else {
+                                fragmentTroChoiLuot fragmentTroChoiLuot = new fragmentTroChoiLuot();
+                                bundle.putSerializable("obj_game", g);
+                                fragmentTroChoiLuot.setArguments(bundle);
+                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragmentTroChoiLuot).commit();
+
+                            }
+                        }
+                        break;
+                    }
+
+                }
+
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        codeScanner.startPreview();
 
                     }
                 });
+
+
+
             }
         });
 
-        qrcodeScaner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                codeScanner.startPreview();
-            }
-        });
 
     }
-
 
 }

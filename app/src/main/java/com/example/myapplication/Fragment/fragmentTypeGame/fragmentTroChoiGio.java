@@ -25,6 +25,7 @@ import com.example.myapplication.Adapter.ListThoiGianAdapter;
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
+import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.PlayTime;
 import com.example.myapplication.Model.Voucher;
@@ -32,6 +33,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.Interface.OnclickItemTime;
 import com.example.myapplication.Interface.OnclickItemVoucher;
 import com.google.android.material.snackbar.Snackbar;
+import com.example.myapplication.Fragment.fragdiferen.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -166,7 +168,12 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 dialog.getWindow().setGravity(Gravity.BOTTOM);
                 break;
             case R.id.btn_backToDSGame:
-                getActivity().getSupportFragmentManager().popBackStackImmediate();
+                if (fragment_QRcode.check) {
+                   getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
+                }else {
+                    getActivity().getSupportFragmentManager().popBackStack();
+
+                }
                 break;
             case R.id.btn_play:
                 if (playTime_choose == null) {
@@ -174,8 +181,14 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 } else {
                     FbDao dao = new FbDao();
                     dao.PlaygameGio(time, game.getId() + "", total);
-                    getActivity().getSupportFragmentManager().popBackStack();
                     FbDao.Thanhtoantien(total);
+
+                    if (fragment_QRcode.check) {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
+                    }else {
+                        getActivity().getSupportFragmentManager().popBackStack();
+
+                    }
                 }
                 break;
         }

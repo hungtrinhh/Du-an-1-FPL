@@ -23,7 +23,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragdiferen.fragment_QRcode;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
+import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
@@ -79,6 +81,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         backToDSGame.setOnClickListener(this::onClick);
         choose_voucher.setOnClickListener(this::onClick);
         btn_play.setOnClickListener(this::onClick);
+        btn_play.setEnabled(false);
     }
 
     private void AnhXa(View view) {
@@ -116,7 +119,12 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
                 checkBtndis();
                 break;
             case R.id.btn_backToDSGame:
-                getActivity().getSupportFragmentManager().popBackStack();
+                if (fragment_QRcode.check) {
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+                } else {
+                    getActivity().getSupportFragmentManager().popBackStack();
+
+                }
                 break;
             case R.id.choose_voucher:
                 dialog = new Dialog(getContext());
@@ -138,7 +146,12 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
             case R.id.btn_play:
                 FbDao dao = new FbDao();
                 dao.PlaygameGio(count, game.getId() + "", total);
-                getActivity().getSupportFragmentManager().popBackStack();
+                if (fragment_QRcode.check) {
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+                } else {
+                    getActivity().getSupportFragmentManager().popBackStack();
+
+                }
                 FbDao.Thanhtoantien(total);
 
                 break;
@@ -148,9 +161,9 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
     private void checkBtndis() {
         imgButtonremove.setEnabled(count > 0);
 
-        if(total > FbDao.UserLogin.getSodu() ||count==0){
+        if (total > FbDao.UserLogin.getSodu() || count == 0) {
             btn_play.setEnabled(false);
-        }else {
+        } else {
             btn_play.setEnabled(true);
         }
 

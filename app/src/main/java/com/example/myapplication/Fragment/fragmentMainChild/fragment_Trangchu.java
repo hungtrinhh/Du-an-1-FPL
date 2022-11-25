@@ -29,6 +29,7 @@ import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragListgameAndVoudcher.Fragment_ListDanhSachTroChoi;
+import com.example.myapplication.Fragment.fragdiferen.fragment_QRcode;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
@@ -188,6 +189,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
                 show = !show;
                 break;
             case R.id.goTofragQr:
+                Toast.makeText(getContext(),"ok",Toast.LENGTH_LONG).show();
                 phanQuyen();
 
 
@@ -210,9 +212,11 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         if (Build.VERSION.SDK_INT >= 23) {
             if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
             ) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new fragment_QRcode()).commit();
+
 
             } else {
-              requestPermissions( new String[]{Manifest.permission.CAMERA}, REQUETCODE);
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUETCODE);
             }
         }
 
@@ -220,10 +224,14 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Log.d(TAG, "onRequestPermissionsResult: " );
+        Log.d(TAG, "onRequestPermissionsResult: ");
         if (requestCode == REQUETCODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.d(TAG, "onRequestPermissionsResult: thanh cong");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new fragment_QRcode()).commit();
+
+
+
             } else {
                 Log.d(TAG, "onRequestPermissionsResult: that bai");
             }
