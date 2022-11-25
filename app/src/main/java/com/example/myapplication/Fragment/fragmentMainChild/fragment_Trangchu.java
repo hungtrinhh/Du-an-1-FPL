@@ -1,5 +1,8 @@
 package com.example.myapplication.Fragment.fragmentMainChild;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -34,6 +38,7 @@ import java.util.List;
 
 
 public class fragment_Trangchu extends Fragment implements View.OnClickListener {
+    private static final int REQUETCODE = 100;
     //  khai báo
     private SliderView image_Slider;
     private LinearLayout layout_troChoi, layout_thanhToan, layout_soDu;
@@ -42,6 +47,8 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     private TextView fragHomeTvUsername;
     private TextView fragHomeTvSodu;
     private ImageView hideshowSoduHomefrag;
+    private LinearLayout goTofragQr;
+
 
     private static final String TAG = "FRAGMENT_TRANG_CHU";
     public static boolean gochild = false;
@@ -130,6 +137,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         fragHomeTvSodu = view.findViewById(R.id.fragHome_tvSodu);
         hideshowSoduHomefrag = view.findViewById(R.id.hideshowSoduHomefrag);
         hideshowSoduHomefrag.setOnClickListener(this::onClick);
+        goTofragQr = view.findViewById(R.id.goTofragQr);
 
     }
 
@@ -178,6 +186,12 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
                 }
                 show = !show;
                 break;
+            case R.id.goTofragQr:
+                phanQuyen();
+
+
+                break;
+
         }
     }
 
@@ -188,5 +202,33 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
     public void onClickLayout() {
         layout_troChoi.setOnClickListener(this::onClick);
+        goTofragQr.setOnClickListener(this::onClick);
+    }
+
+    private void phanQuyen() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+            ) {
+            } else {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{
+                                Manifest.permission.CAMERA}, REQUETCODE);
+            }
+        } else {
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUETCODE) {
+            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext(), "Đồng ý",Toast.LENGTH_SHORT).show(); ;
+            }else {
+                Toast.makeText(getContext(), "từ chối",Toast.LENGTH_SHORT).show(); ;
+
+            }
+
+        }
     }
 }
