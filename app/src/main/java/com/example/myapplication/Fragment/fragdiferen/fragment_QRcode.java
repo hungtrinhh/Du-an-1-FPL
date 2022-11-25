@@ -1,6 +1,7 @@
 package com.example.myapplication.Fragment.fragdiferen;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,8 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
+import com.budiyev.android.codescanner.DecodeCallback;
 import com.example.myapplication.R;
+import com.google.zxing.Result;
 
 
 public class fragment_QRcode extends Fragment {
@@ -58,6 +62,31 @@ public class fragment_QRcode extends Fragment {
     private void Anhxa(View v) {
         qrcodeScaner = v.findViewById(R.id.qrcodeScaner);
         tvResuidQRcode = v.findViewById(R.id.tvResuidQRcode);
+
+    }
+
+    public void setUpQrcode() {
+
+
+        CodeScanner codeScanner = new CodeScanner(getActivity(), qrcodeScaner);
+        codeScanner.setDecodeCallback(new DecodeCallback() {
+            @Override
+            public void onDecoded(@NonNull Result result) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+            }
+        });
+
+        qrcodeScaner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                codeScanner.startPreview();
+            }
+        });
 
     }
 
