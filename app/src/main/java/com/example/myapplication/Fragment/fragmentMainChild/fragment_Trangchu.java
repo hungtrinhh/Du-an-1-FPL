@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -209,24 +210,22 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         if (Build.VERSION.SDK_INT >= 23) {
             if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
             ) {
+
             } else {
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{
-                                Manifest.permission.CAMERA}, REQUETCODE);
+              requestPermissions( new String[]{Manifest.permission.CAMERA}, REQUETCODE);
             }
-        } else {
         }
 
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.d(TAG, "onRequestPermissionsResult: " );
         if (requestCode == REQUETCODE) {
-            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext(), "Đồng ý",Toast.LENGTH_SHORT).show(); ;
-            }else {
-                Toast.makeText(getContext(), "từ chối",Toast.LENGTH_SHORT).show(); ;
-
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d(TAG, "onRequestPermissionsResult: thanh cong");
+            } else {
+                Log.d(TAG, "onRequestPermissionsResult: that bai");
             }
 
         }
