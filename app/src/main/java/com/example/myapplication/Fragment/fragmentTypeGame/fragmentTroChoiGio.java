@@ -104,6 +104,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         tv_voucherChoose = view.findViewById(R.id.tv_voucherChoose);
         tv_totalCost = view.findViewById(R.id.tv_totalCost);
         btn_play = view.findViewById(R.id.btn_play);
+        btn_play.setEnabled(false);
     }
 
     private void ShowListVoucher() {
@@ -146,6 +147,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private void onClickItemChooseTime(PlayTime playTime) {
         playTime_choose = playTime;
         TinhTongTien();
+
     }
 
     @Override
@@ -229,5 +231,15 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
             }
         }
         tv_totalCost.setText(total + "đ");
+        checkBtndis();
+    }
+    private void checkBtndis() {
+        if (total > FbDao.UserLogin.getSodu()) {
+            btn_play.setEnabled(false);
+        } else {
+            btn_play.setEnabled(true);
+        }
+
+
     }
 }
