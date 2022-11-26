@@ -7,62 +7,59 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="20dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:paddingHorizontal="10dp"
-            android:weightSum="10">
+          >
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
-                android:orientation="vertical"
-                android:paddingTop="10dp">
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="5dp"
+                    android:fontFamily="@font/poppins_semi_bold"
                     android:text="Mất kết nối mạng rồi..."
                     android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_semi_bold"
                     android:textSize="20dp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
                     android:text="Kiểm tra kết nối mạng rồi thử lại nhé."
                     android:textSize="15dp" />
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/img_lost_connection" />
 
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/img_lost_connection" />
         </LinearLayout>
 
-
         <Button
-            android:id="@+id/btnLostconnecttionRetry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:backgroundTint="@color/green_700"
+            android:fontFamily="@font/poppins_semi_bold"
             android:paddingHorizontal="30dp"
             android:text="Thử lại"
-            android:textSize="16dp"
-            android:fontFamily="@font/poppins_semi_bold"
             android:textColor="@color/white"
-             />
+            android:textSize="16dp" />
 
     </LinearLayout>
 

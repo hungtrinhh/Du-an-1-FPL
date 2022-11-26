@@ -1,29 +1,20 @@
-package com.example.myapplication.Fragment.fragdiferen;
+package com.example.myapplication.Fragment.fragDifferent;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.myapplication.Adapter.DanhSachGameAdapter;
 import com.example.myapplication.Adapter.NotifyAdapter;
 import com.example.myapplication.Firebase.FbDao;
-import com.example.myapplication.Interface.OnclickItemGame;
-import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Notify;
 import com.example.myapplication.R;
 

@@ -5,7 +5,7 @@
     xmlns:companyApp="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".Fragment.fragdiferen.FragmentThongTinTroChoi">
+    tools:context=".Fragment.fragDifferent.FragmentThongTinTroChoi">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,22 +35,26 @@
     </LinearLayout>
     <LinearLayout
         android:layout_marginTop="20dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_gravity="center"
         android:layout_height="wrap_content">
         <ImageView
             android:src="@drawable/ic_jumping"
-            android:layout_width="140dp"
+            android:layout_width="match_parent"
             android:layout_height="140dp"/>
         <TextView
             android:id="@+id/tv_temGame_frag_thong_tin"
-            android:text="Bù Các"
+            android:text="Xúc cát"
             android:textSize="30dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_semi_bold"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_marginTop="20dp"
         android:orientation="horizontal"

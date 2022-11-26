@@ -1,51 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:companyApp="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    tools:context=".Fragment.fragdiferen.FragmentNapTien">
+    android:orientation="vertical"
+    android:weightSum="10"
+    tools:context=".Fragment.fragDifferent.FragmentNapTien">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="5dp"
-        android:weightSum="3">
-        <ImageView
-            android:id="@+id/btnBackToUser"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_baseline_keyboard_backspace_24" />
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:background="@drawable/background_container"
+        android:gravity="center">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="3"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:gravity="center"
-            android:text="Nạp Tiền"
-            android:textColor="@color/black"
-            android:textSize="22dp" />
-    </LinearLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_tien_nap"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_DanhMuc"
             android:layout_width="match_parent"
-            android:hint="Nhập Số Tiền Muốn Nạp"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-    <Button
-        android:layout_marginTop="20dp"
-        android:id="@+id/btn_nap"
+            android:layout_height="?attr/actionBarSize"
+            companyApp:titleTextAppearance="@style/ActionBar.nameText">
+
+            <ImageView
+                android:id="@+id/btn_backToUser"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_baseline_arrow_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Nạp tiền"
+                android:textColor="@color/white"
+                android:textSize="23dp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="nạp"
-        android:textColor="#fff"
-        android:textSize="25dp"
-        android:textStyle="bold" />
+        android:layout_height="0dp"
+        android:layout_weight="9.2"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:weightSum="5">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_tien_nap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Nhập Số Tiền Muốn Nạp"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_nap"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
+            android:background="@drawable/background_button"
+            android:text="Nạp tiền"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="23dp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.6" />
+    </LinearLayout>
 </LinearLayout>

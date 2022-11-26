@@ -13,9 +13,10 @@
         <TextView
             android:layout_gravity="center"
             android:textSize="20dp"
-            android:textStyle="bold"
             android:text="Yahh Home Voucher"
             android:layout_width="0dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_semi_bold"
             android:layout_weight="0.9"
             android:layout_height="wrap_content"/>
         <ImageView
@@ -23,7 +24,7 @@
             android:src="@drawable/ic_baseline_close_24"
             android:layout_width="0dp"
             android:layout_weight="0.1"
-            android:layout_height="30dp"/>
+            android:layout_height="match_parent"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_voucher_gio"

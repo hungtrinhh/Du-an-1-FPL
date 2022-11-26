@@ -4,17 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_weight="10"
     android:orientation="vertical"
     android:paddingHorizontal="10dp"
     tools:context=".Fragment.fragmentUserChild.fragment_EditProfile">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingHorizontal="5dp"
         android:weightSum="3">
@@ -48,13 +47,11 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:orientation="horizontal"
         android:paddingHorizontal="10dp">
 
@@ -63,6 +60,7 @@
             android:id="@+id/btn_ChangeAvatar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -105,7 +103,7 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
@@ -114,71 +112,75 @@
             android:textSize="15dp" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
+
     <!-- Tên* -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:text="Tên"
-            android:textColor="@color/black"
-            android:textSize="17dp" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="*"
-            android:textColor="@color/red"
-            android:textSize="17dp" />
-    </LinearLayout>
-    <!-- EditText sửa tên-->
-    <EditText
-        android:id="@+id/ed_UpdateFullName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Không nhập kí tự và số"
-        android:inputType="text"
-        android:fontFamily="@font/poppins_medium" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Tên"
+                android:textColor="@color/black"
+                android:textSize="17dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="*"
+                android:textColor="@color/red"
+                android:textSize="17dp" />
+        </LinearLayout>
+        <!-- EditText sửa tên-->
+        <EditText
+            android:id="@+id/ed_UpdateFullName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="Số điện thoại"
-            android:textColor="@color/black"
-            android:textSize="17dp" />
+            android:hint="Không nhập kí tự và số"
+            android:inputType="text" />
 
-        <TextView
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="*"
-            android:textColor="@color/red"
-            android:textSize="17dp" />
+            android:layout_height="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Số điện thoại"
+                android:textColor="@color/black"
+                android:textSize="17dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="*"
+                android:textColor="@color/red"
+                android:textSize="17dp" />
+        </LinearLayout>
+        <!--Edittext sửa số điện thoại-->
+        <EditText
+            android:id="@+id/ed_UpdatePhoneNumbers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="+84123456789"
+            android:inputType="phone" />
     </LinearLayout>
-    <!--Edittext sửa số điện thoại-->
-    <EditText
-        android:id="@+id/ed_UpdatePhoneNumbers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:inputType="phone"
-        android:hint="+84123456789"
-        />
 
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,8 @@ import java.util.List;
 public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapter.DanhSachGameViewHoler> {
     private List<Game> listGame;
     private OnclickItemGame onclickItemGame;
+
+    private int[]  imageAvatarGame = new int[]{R.drawable.game_bao_nha, R.drawable.game_bounce_house, R.drawable.game_ghost_house, R.drawable.game_jumping_house, R.drawable.game_nhun_nhay, R.drawable.game_cau_truot, R.drawable.game_suc_cac, R.drawable.game_xich_du};
 
     public DanhSachGameAdapter(OnclickItemGame onclickItemGame) {
         this.onclickItemGame = onclickItemGame;
@@ -74,11 +77,13 @@ public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapte
 
     public class DanhSachGameViewHoler extends RecyclerView.ViewHolder {
         private final TextView tvTenGame;
+        private final ImageView img_AvatarGame;
         private final TextView tvTrangThai;
         private final LinearLayout linearLayoutDanhSachGame;
 
         public DanhSachGameViewHoler(@NonNull View itemView) {
             super(itemView);
+            img_AvatarGame = itemView.findViewById(R.id.img_AvatarGame);
             tvTenGame = itemView.findViewById(R.id.tv_ten_game);
             tvTrangThai = itemView.findViewById(R.id.tv_trang_thai);
             linearLayoutDanhSachGame = itemView.findViewById(R.id.linear_danh_sach_game);

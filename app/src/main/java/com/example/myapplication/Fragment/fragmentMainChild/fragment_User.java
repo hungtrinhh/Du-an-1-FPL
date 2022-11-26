@@ -19,8 +19,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
-import com.example.myapplication.Fragment.fragdiferen.FragmentNapTien;
-import com.example.myapplication.Fragment.fragdiferen.FragmentNotify;
+import com.example.myapplication.Fragment.fragDifferent.FragmentNapTien;
+import com.example.myapplication.Fragment.fragDifferent.FragmentNotify;
 import com.example.myapplication.Fragment.fragmentUserChild.fragment_EditProfile;
 import com.example.myapplication.Fragment.fragment_Login;
 import com.example.myapplication.R;
