@@ -22,5 +22,6 @@
     <string name="thongtingame">Thông tin trò chơi</string>
     <string name="help">Trợ giúp &amp; yêu cầu hỗ trợ</string>
     <string name="backPressed">Nhấn back 1 lần nữa để thoát</string>
-
+    <string name="channel_name">YahhHome1</string>
+    <string name="channel_description">YahhHome2</string>
 </resources>

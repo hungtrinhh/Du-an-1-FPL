@@ -1,6 +1,16 @@
 package com.example.myapplication.Fragment.fragmentTypeGame;
 
+import static android.content.Context.ALARM_SERVICE;
+
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,11 +27,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
+import com.example.myapplication.BroadcastReciver.ChannelTB;
+import com.example.myapplication.BroadcastReciver.ThongBao;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragDifferent.fragment_QRcode;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
@@ -33,6 +46,8 @@ import com.example.myapplication.Interface.OnclickItemVoucher;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -55,6 +70,8 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
     String pattern = "###,### Poin";
     DecimalFormat df = new DecimalFormat(pattern);
     private Button btn_play;
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
 
     public static fragmentTroChoiLuot newInstance() {
         fragmentTroChoiLuot fragment = new fragmentTroChoiLuot();
@@ -99,6 +116,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         tv_voucherChoose = view.findViewById(R.id.tv_voucherChoose);
         tv_totalCost = view.findViewById(R.id.tv_totalCost);
         btn_play = view.findViewById(R.id.btn_play);
+        alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
     }
 
     @Override
@@ -147,6 +165,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
                 dialog.getWindow().setGravity(Gravity.BOTTOM);
                 break;
             case R.id.btn_play:
+                sendNotifications();
                 FbDao dao = new FbDao();
                 dao.PlaygameGio(count, game.getId() + "", total);
                 if (fragment_QRcode.check) {
@@ -159,6 +178,30 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
 
                 break;
         }
+    }
+
+    private void sendNotifications(){
+
+
+
+        int imgGame = game.getImgGame();
+        String gameName = game.getTenGame();
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(),imgGame);
+        Bitmap imgApp = BitmapFactory.decodeResource(getActivity().getResources(),R.drawable.logo2);
+        Notification notification = new NotificationCompat.Builder(getActivity(), ChannelTB.CHANNEL_ID) // khai báo compat
+                .setLargeIcon(imgApp)
+                .setContentTitle("Bắt đầu chơi : "+gameName+"")
+                .setContentText("Số lượt chơi "+count+"")
+                .setSmallIcon(R.drawable.logo2)
+                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))
+                .build();
+        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(getTimeLocal(), notification);
+    }
+
+    private int getTimeLocal() {
+        return (int) new Date().getTime();
     }
 
     private void checkBtndis() {
