@@ -156,8 +156,9 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_backToTrangChu:
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame, new fragment_Trangchu()).commit();
+                getActivity().getSupportFragmentManager().popBackStack();
+//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.content_frame, new fragment_Trangchu()).commit();
                 break;
             case R.id.btn_search_troChoi:
                 if (searchViewListGame.getVisibility() == View.GONE) {
@@ -222,7 +223,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
             Snackbar.make(viewFrag, "Hiện trò chơi đã được chơi xin ,quý khách hãy đăng kí game khác", 2000).show();
             return;
         }
-        if (game.getKieu().equalsIgnoreCase("lượt")) {
+        if (!game.getKieu().equalsIgnoreCase("lượt")) {
             fragmentTroChoiGio fragmentTroChoigio = new fragmentTroChoiGio();
             Bundle bundle = new Bundle();
             bundle.putSerializable("obj_game", game);

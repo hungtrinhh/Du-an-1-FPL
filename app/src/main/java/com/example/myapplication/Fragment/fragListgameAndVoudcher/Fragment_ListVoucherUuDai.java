@@ -37,7 +37,6 @@ public class Fragment_ListVoucherUuDai extends Fragment implements View.OnClickL
     private VoucherVerticalAdapter2 voucherVerticalAdapter;
     private List<Voucher> listVoucher,listSearchVoucher;
     private androidx.appcompat.widget.SearchView searchView_listVoucherUuDai;
-    private TextView tv_useNow;
 
     public Fragment_ListVoucherUuDai() {
         // Required empty public constructor
