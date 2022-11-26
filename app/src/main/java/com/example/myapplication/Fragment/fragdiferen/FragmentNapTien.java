@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,7 @@ public class FragmentNapTien extends Fragment {
     private TextInputEditText edTienNap;
     private Button btnNap;
     private View viewFrag;
-
+    private ImageView img_backToUser;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,11 +38,13 @@ public class FragmentNapTien extends Fragment {
         viewFrag = view;
         anhXa(view);
         SeteventNaptien();
+        backToUser();
     }
 
     public void anhXa(View view) {
         edTienNap = view.findViewById(R.id.ed_tien_nap);
         btnNap = view.findViewById(R.id.btn_nap);
+        img_backToUser = view.findViewById(R.id.btnBackToUser);
     }
 
     public void SeteventNaptien() {
@@ -68,6 +71,12 @@ public class FragmentNapTien extends Fragment {
                     Toast.makeText(getActivity(), "Nhập Số Tiền Nạp Là Số", Toast.LENGTH_SHORT).show();
                 }
             }
+        });
+    }
+
+    public void backToUser(){
+        img_backToUser.setOnClickListener(view -> {
+            getActivity().getSupportFragmentManager().popBackStack();
         });
     }
 }

@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragdiferen.FragmentNapTien;
+import com.example.myapplication.Fragment.fragdiferen.FragmentNotify;
 import com.example.myapplication.Fragment.fragmentUserChild.fragment_EditProfile;
 import com.example.myapplication.Fragment.fragment_Login;
 import com.example.myapplication.R;
@@ -28,7 +29,7 @@ import com.example.myapplication.R;
 public class fragment_User extends Fragment implements View.OnClickListener {
     private TextView tv_Username, tv_UserPhoneNumbers;
     private RelativeLayout layout_Username;
-    private LinearLayout btn_Notify, btn_CheckHistory, btn_Help, btn_Regulation, btn_PolicyAndPrivacy, btn_LogOut,btn_napTien;
+    private LinearLayout btn_Notify, btn_CheckHistory, btn_Help, btn_Regulation, btn_PolicyAndPrivacy, btn_LogOut, btn_napTien;
     private ImageView avaterUserUserFrag;
     private final String TAG = "fragment_User";
 
@@ -99,6 +100,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
         btn_LogOut.setOnClickListener(this::onClick);
         layout_Username.setOnClickListener(this::onClick);
         btn_napTien.setOnClickListener(this::onClick);
+        btn_Notify.setOnClickListener(this::onClick);
     }
 
     private void Anhxa(View view) {
@@ -144,7 +146,11 @@ public class fragment_User extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btn_nap_tien:
                 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
-                        .replace(R.id.fragment_container,new FragmentNapTien()).commit();
+                        .replace(R.id.fragment_container, new FragmentNapTien()).commit();
+                break;
+            case R.id.btn_Notify:
+                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
+                        .replace(R.id.fragment_container, new FragmentNotify()).commit();
                 break;
         }
     }

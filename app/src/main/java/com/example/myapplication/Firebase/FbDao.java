@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.Model.Hoadonnaptien;
+import com.example.myapplication.Model.Notify;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.Service.UpdateGameService;
@@ -46,8 +47,13 @@ public class FbDao {
     private static List<Game> listGame;
     private static List<User> listUser;
     private static List<Voucher> listVoucher;
+    private static List<Notify> listNotify;
     public FirebaseStorage storageFireBase;
     public static StorageReference avatatRef;
+
+    public static List<Notify> getListNotify(){
+        return listNotify;
+    }
 
     public static List<Game> getListGame() {
         return listGame;
@@ -79,6 +85,7 @@ public class FbDao {
         ReadUser();
         ReadVoucher();
         ReadGame();
+        ReadNotify();
     }
 
     public FbDao() {
@@ -257,13 +264,40 @@ public class FbDao {
             }
         });
     }
+    private void ReadNotify() {
+        Log.d(TAG, "ReadVoucher: ");
+        listNotify = new ArrayList<>();
+        DatabaseReference myRef = database.getReference("Notify");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listNotify.clear();
+                for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                    Notify u = dt.getValue(Notify.class);
+                    if (u == null) {
+                        continue;
+                    }
+                    listNotify.add(u);
+                }
+                Log.d(TAG, "Đã nhận dữ liệu voucher: ");
+            }
 
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.e(TAG, "DatabaseError: " + error.toString()
+                );
+            }
+        });
+    }
     //hàm thêm user khi đăng kí
     public void AddUser(User user) {
         DatabaseReference myRef = database.getReference("Users");
         myRef.push().setValue(user);
     }
-
+    public static void AddNotify(Notify notify) {
+        DatabaseReference myRef = database.getReference();
+        myRef.child("Notify").push().setValue(notify);
+    }
     public static void AddHoaDonNap(Hoadonnaptien hoadonnaptien) {
         DatabaseReference myRef = database.getReference();
         myRef.child("HoaDonNapTien").push().setValue(hoadonnaptien);
