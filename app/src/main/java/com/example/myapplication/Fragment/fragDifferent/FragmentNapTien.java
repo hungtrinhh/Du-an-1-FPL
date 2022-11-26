@@ -45,7 +45,7 @@ public class FragmentNapTien extends Fragment {
     public void anhXa(View view) {
         edTienNap = view.findViewById(R.id.ed_tien_nap);
         btnNap = view.findViewById(R.id.btn_nap);
-        img_backToUser = view.findViewById(R.id.btnBackToUser);
+        img_backToUser = view.findViewById(R.id.btn_backNapTien);
     }
 
     public void SeteventNaptien() {
