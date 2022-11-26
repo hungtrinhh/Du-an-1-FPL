@@ -18,7 +18,7 @@ public class Game implements Serializable {
     private String trangThai;
     private String moTa;
     private boolean isPlaying;
-
+    private int imgGame;
 
 
 
@@ -91,5 +91,13 @@ public class Game implements Serializable {
 
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public int getImgGame() {
+        return imgGame;
+    }
+
+    public void setImgGame(int imgGame) {
+        this.imgGame = imgGame;
     }
 }

@@ -12,6 +12,10 @@ import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragDifferent.fragment_SplashScreen;
 import com.example.myapplication.BroadcastReciver.ReciverCheckingInternet;
+import com.example.myapplication.Model.Game;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static AlertDialog alertDialog;
@@ -62,4 +66,5 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         unregisterReceiver(broadcastReceiver);
     }
+
 }

@@ -21,7 +21,6 @@ public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapte
     private List<Game> listGame;
     private OnclickItemGame onclickItemGame;
 
-    private int[]  imageAvatarGame = new int[]{ R.drawable.game_ghost_house,R.drawable.game_bounce_house,R.drawable.racingcar,R.drawable.gun, R.drawable.game_nhun_nhay,R.drawable.game_bao_nha , R.drawable.game_jumping_house, R.drawable.game_cau_truot, R.drawable.game_suc_cac, R.drawable.game_xich_du};
 
     public DanhSachGameAdapter(OnclickItemGame onclickItemGame) {
         this.onclickItemGame = onclickItemGame;
@@ -50,11 +49,8 @@ public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapte
         }
         holder.tvTenGame.setText(game.getTenGame());
         holder.tvTrangThai.setText(game.getTrangThai());
-        for (int i=1;i<listGame.size()+1;i++){
-            if (game.getId()==i){
-                holder.img_AvatarGame.setImageResource(imageAvatarGame[i-1]);
-            }
-        }
+
+        holder.img_AvatarGame.setImageResource(game.getImgGame());
         if (game.getTrangThai().equalsIgnoreCase("Bảo Trì")) {
             holder.tvTrangThai.setTextColor(Color.parseColor("#E04119"));
 

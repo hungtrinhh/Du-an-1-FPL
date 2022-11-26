@@ -48,6 +48,7 @@ public class GameUuDaiHorizontalAdapter extends RecyclerView.Adapter<GameUuDaiHo
         holder.linearLayoutGameUuDai.setOnClickListener(view -> {
             onclickItemGame.onclickItemGame(game);
         });
+        holder.imageView2.setImageResource(game.getImgGame());
     }
 
     @Override
