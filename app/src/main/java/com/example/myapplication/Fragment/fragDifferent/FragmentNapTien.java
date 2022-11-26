@@ -26,6 +26,7 @@ public class FragmentNapTien extends Fragment {
     private Button btnNap;
     private View viewFrag;
     private ImageView img_backToUser;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,15 +59,12 @@ public class FragmentNapTien extends Fragment {
                 try {
                     float tienNap = Float.parseFloat(edTienNap.getText().toString());
                     hoadonnaptien.setCost(tienNap);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                        String date = dateFormat.format(java.util.Calendar.getInstance().getTime());
-                        hoadonnaptien.setDate(date);
-                        FbDao.AddHoaDonNap(hoadonnaptien);
-                        Toast.makeText(getActivity(), "Yêu Cầu Nạp Tiền Của Bạn Đang Được Xử Lí", Toast.LENGTH_SHORT).show();
-                        getActivity().getSupportFragmentManager().popBackStack();
-
-                    }
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                    String date = dateFormat.format(java.util.Calendar.getInstance().getTime());
+                    hoadonnaptien.setDate(date);
+                    FbDao.AddHoaDonNap(hoadonnaptien);
+                    Toast.makeText(getActivity(), "Yêu Cầu Nạp Tiền Của Bạn Đang Được Xử Lí", Toast.LENGTH_SHORT).show();
+                    getActivity().getSupportFragmentManager().popBackStack();
                 } catch (Exception exception) {
                     Toast.makeText(getActivity(), "Nhập Số Tiền Nạp Là Số", Toast.LENGTH_SHORT).show();
                 }
@@ -74,7 +72,7 @@ public class FragmentNapTien extends Fragment {
         });
     }
 
-    public void backToUser(){
+    public void backToUser() {
         img_backToUser.setOnClickListener(view -> {
             getActivity().getSupportFragmentManager().popBackStack();
         });
