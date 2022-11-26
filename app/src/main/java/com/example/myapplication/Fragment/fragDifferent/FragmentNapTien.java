@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FragmentNapTien extends Fragment {
     private TextInputEditText edTienNap;
@@ -60,7 +61,7 @@ public class FragmentNapTien extends Fragment {
                     float tienNap = Float.parseFloat(edTienNap.getText().toString());
                     hoadonnaptien.setCost(tienNap);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                    String date = dateFormat.format(java.util.Calendar.getInstance().getTime());
+                    String date = dateFormat.format(new Date());
                     hoadonnaptien.setDate(date);
                     FbDao.AddHoaDonNap(hoadonnaptien);
                     Toast.makeText(getActivity(), "Yêu Cầu Nạp Tiền Của Bạn Đang Được Xử Lí", Toast.LENGTH_SHORT).show();
