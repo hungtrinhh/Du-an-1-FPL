@@ -1,6 +1,6 @@
 package com.example.myapplication.Fragment.fragmentTypeGame;
 
-import static android.content.Context.ALARM_SERVICE;
+
 
 import android.app.AlarmManager;
 import android.app.Dialog;
@@ -116,7 +116,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         tv_voucherChoose = view.findViewById(R.id.tv_voucherChoose);
         tv_totalCost = view.findViewById(R.id.tv_totalCost);
         btn_play = view.findViewById(R.id.btn_play);
-        alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
+        alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
     }
 
     @Override

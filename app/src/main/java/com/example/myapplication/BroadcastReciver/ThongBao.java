@@ -24,11 +24,12 @@ public class ThongBao extends BroadcastReceiver {
         if(intent.getAction().equals("MyAction")){
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),game.getImgGame());
             Bitmap imgApp = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo2);
-            Notification notification = new NotificationCompat.Builder(context, ChannelTB.CHANNEL_ID_2) // khai báo compat
+            Notification notification = new NotificationCompat.Builder(context, ChannelTB.CHANNEL_ID) // khai báo compat
                     .setLargeIcon(imgApp)
                     .setContentTitle("Hết giờ rùi : "+time+"")
-                    .setContentText("Hy vọng bạn thích trò chơi của chúng tôi. H mời bạn chim cút !")
+                    .setContentText("Hy vọng bạn thích trò chơi của chúng tôi !")
                     .setSmallIcon(R.drawable.logo2)
+                    .setCategory(NotificationCompat.CATEGORY_ALARM)
                     .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))
                     .build();
             NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

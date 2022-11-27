@@ -1,7 +1,7 @@
 
 package com.example.myapplication.Fragment.fragmentTypeGame;
 
-import static android.content.Context.ALARM_SERVICE;
+
 
 import android.app.AlarmManager;
 import android.app.Dialog;
@@ -136,7 +136,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         tv_totalCost = view.findViewById(R.id.tv_totalCost);
         btn_play = view.findViewById(R.id.btn_play);
         btn_play.setEnabled(false);
-        alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
+        alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
     }
 
     private void ShowListVoucher() {
@@ -284,6 +284,9 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
             playingTimeHours = 0;
         }
 
+        int h = playingTimeHours;
+        int m = playingTimeMinutes;
+
         //tạo lớp lưu giờ khi người dùng chọn
         Calendar calendar1 = Calendar.getInstance();//đối tượng lưu thời gian hiện tại
         calendar1.setTimeInMillis(System.currentTimeMillis());
@@ -320,13 +323,14 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         manager.notify(getTimeLocal(), notification);
 
         //nhận thông báo gửi đến cho service
-        Intent intent = new Intent(getContext(), ThongBao.class);
+        Intent intent = new Intent(getActivity(), ThongBao.class);
         intent.setAction("MyAction");
         intent.putExtra("time",string_playingTime);
         intent.putExtra("game",game);
-        pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.set(AlarmManager.RTC_WAKEUP,calendar2.getTimeInMillis(),pendingIntent);
     }
+
     private int getTimeLocal() {
         return (int) new Date().getTime();
     }
