@@ -14,6 +14,12 @@
     <color name="yellow">#FFFF8D</color>    <color name="green_500">#57F1A4</color>
     <color name="blue">#545DFF</color>
     <color name="green_tea">#80DEEA</color>
+    <color name="blue_transparent">#92448AFF</color>
+    <color name="orange">#FF5722</color>
     <color name="blue_disable">#636AF4</color>
+    <color name="blue_900">#3F51B5</color>
     <color name="gray_200">#EEEEEE</color>
+    <color name="blue_count">#448AFF</color>
+    <color name="color_transparent">#80000000</color>
+
 </resources>

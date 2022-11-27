@@ -173,7 +173,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="0.6"
-                android:background="@drawable/background_button"
+                android:background="@drawable/background_button_corner"
                 android:enabled="false"
                 android:padding="8dp"
                 android:text="@string/Sign_up"

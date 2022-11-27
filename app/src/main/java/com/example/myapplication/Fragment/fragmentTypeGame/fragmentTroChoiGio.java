@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -72,7 +73,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private Dialog dialog;
     private Voucher voucherChoose;
     private PlayTime playTime_choose;
-    private Button btn_play;
+    private AppCompatButton btn_play;
     private float total = 0;
     private Game game;
     private final int[] arr = {R.drawable.time5, R.drawable.time10, R.drawable.time15, R.drawable.time20, R.drawable.time25, R.drawable.time30, R.drawable.time35, R.drawable.time40, R.drawable.time45, R.drawable.time50, R.drawable.time55, R.drawable.time60};

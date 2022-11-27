@@ -2,11 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <stroke
-                android:color="@color/blue_count" android:width="3dp"/>
-            <solid android:color="@color/white"
+            <gradient android:endColor="@color/green_tea" android:startColor="@color/blue" />
 
-                />
         </shape>
     </item>
+
 </selector>

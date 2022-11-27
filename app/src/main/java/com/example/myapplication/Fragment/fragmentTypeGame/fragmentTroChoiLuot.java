@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -69,7 +70,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
     private float sale;
     String pattern = "###,### Poin";
     DecimalFormat df = new DecimalFormat(pattern);
-    private Button btn_play;
+    private AppCompatButton btn_play;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
 

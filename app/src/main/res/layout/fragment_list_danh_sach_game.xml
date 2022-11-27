@@ -3,14 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:companyApp="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentDanhMuc_ListGameUuDai"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.fragListgameAndVoudcher.Fragment_ListGameUuDai"
-    android:id="@+id/fragmentDanhMuc_ListGameUuDai">
+    tools:context=".Fragment.fragListgameAndVoudcher.Fragment_ListGameUuDai">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,22 +38,25 @@
                     android:textColor="@color/white"
                     android:textSize="23dp"
                     android:textStyle="bold" />
+
                 <ImageView
                     android:id="@+id/btn_search_troChoi"
-                    android:src="@drawable/ic_baseline_search_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginRight="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@drawable/ic_baseline_search_24" />
             </androidx.appcompat.widget.Toolbar>
         </LinearLayout>
+
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView_listGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="1000dp"
             android:layout_gravity="left"
-            app:queryHint="Tìm kiếm trò chơi"/>
+            android:maxWidth="1000dp"
+            app:queryHint="Tìm kiếm trò chơi" />
+
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/image_slider"
             android:layout_width="match_parent"
@@ -71,29 +76,40 @@
             app:sliderIndicatorUnselectedColor="@color/blue"
             app:sliderScrollTimeInSec="2"
             app:sliderStartAutoCycle="true" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
+
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semi_bold"
                 android:text="Danh Sách Trò Chơi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
             <TextView
-                android:layout_marginTop="10dp"
                 android:id="@+id/tv_thong_bao"
-                android:text="Không Tìm Thấy Game"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Không Tìm Thấy Game"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_ListGame"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

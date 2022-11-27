@@ -190,7 +190,7 @@
             android:layout_height="0dp"
             android:layout_weight="0.4"
             android:layout_marginHorizontal="20dp"
-            android:background="@drawable/background_button"
+            android:background="@drawable/background_button_corner"
             android:fontFamily="@font/poppins_medium"
             android:paddingTop="3dp"
             android:text="@string/Verify"
