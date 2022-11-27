@@ -3,9 +3,8 @@
     <item>
         <shape>
             <stroke
-                android:color="@color/blue_count" android:width="3dp"/>
+                android:color="@color/blue_count" android:width="1dp"/>
             <solid android:color="@color/white"
-
                 />
         </shape>
     </item>

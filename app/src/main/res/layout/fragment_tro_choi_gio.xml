@@ -110,6 +110,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginVertical="10dp"
                         android:background="@color/white"
+                        android:paddingBottom="20dp"
                         android:orientation="vertical">
 
                         <TextView

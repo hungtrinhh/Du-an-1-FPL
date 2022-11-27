@@ -117,8 +117,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:text="Số lượng:"
                             android:fontFamily="@font/poppins_regular"
+                            android:text="Số lượt chơi:"
                             android:textColor="@color/black"
                             android:textSize="24dp" />
 
@@ -137,13 +137,13 @@
                                 android:src="@drawable/ic_baseline_remove_24" />
 
                             <TextView
-                                android:layout_marginVertical="3dp"
                                 android:id="@+id/tv_count"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
+                                android:layout_marginVertical="5dp"
                                 android:layout_weight="0.4"
-                                android:gravity="center"                            android:background="@drawable/bg_count"
-                                android:text="1"
+                                android:background="@drawable/bg_count"
+                                android:gravity="center"
                                 android:textColor="@color/black"
                                 android:textSize="24dp" />
 
@@ -166,6 +166,7 @@
                         android:paddingHorizontal="5dp"
                         android:paddingTop="20dp"
                         android:weightSum="2">
+
                         <ImageView
                             android:layout_width="35dp"
                             android:layout_height="25dp"
@@ -196,7 +197,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_baseline_navigate_next_24"/>
+                            android:src="@drawable/ic_baseline_navigate_next_24" />
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>
@@ -220,9 +221,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="0.9"
-                        android:textSize="20sp"
                         android:text="Tổng thanh toán"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/tv_totalCost"

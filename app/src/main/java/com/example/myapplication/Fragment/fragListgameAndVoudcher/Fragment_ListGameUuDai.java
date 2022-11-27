@@ -84,7 +84,7 @@ public class Fragment_ListGameUuDai extends Fragment implements View.OnClickList
         searchView_listGameUuDai = view.findViewById(R.id.searchView_listGameUuDai);
         btn_Search = view.findViewById(R.id.btn_search_fragDanhmuc);
         tv_title = view.findViewById(R.id.tv_tiltle);
-        tv_title.setText("Danh Mục Game");
+        tv_title.setText("Danh mục trò chơi");
     }
     private void ShowListGame(){
         listGame = FbDao.getListGame();

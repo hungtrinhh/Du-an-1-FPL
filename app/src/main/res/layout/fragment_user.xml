@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2.5"
+        android:layout_weight="2.6"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingHorizontal="30dp">
@@ -35,6 +35,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
             android:layout_gravity="center"
             android:orientation="vertical">
 
@@ -67,7 +68,7 @@
                 android:id="@+id/tv_UserfragPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" +84********12"
+                android:text="+84********12"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -78,7 +79,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7.5"
+        android:layout_weight="7.4"
         android:background="@drawable/content_background"
         android:orientation="vertical"
         android:paddingHorizontal="10dp"
