@@ -84,8 +84,8 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private int time;
 
     //thời gian hệ thống ( hiện tại )
-    private int presentTimeHours = new Date().getHours();
-    private int presentTimeMinutes = new Date().getMinutes();
+    private int presentTimeHours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+    private int presentTimeMinutes = Calendar.getInstance().get(Calendar.MINUTE);
 
     //thời gian hệ thống ( khi chơi )
     private int playingTimeHours = presentTimeHours;//gán trc giá trị là giờ của hệ thống
