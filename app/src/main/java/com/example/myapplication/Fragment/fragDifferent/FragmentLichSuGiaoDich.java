@@ -1,5 +1,6 @@
 package com.example.myapplication.Fragment.fragDifferent;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +19,16 @@ import android.widget.ImageView;
 import com.example.myapplication.Adapter.HistoryAdapter;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Hoadon;
+import com.example.myapplication.Model.Hoadonchoigame;
+import com.example.myapplication.Model.Hoadonnaptien;
 import com.example.myapplication.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class FragmentLichSuGiaoDich extends Fragment {
@@ -27,6 +37,9 @@ public class FragmentLichSuGiaoDich extends Fragment {
     private RecyclerView recyclerviewHistory;
     private HistoryAdapter historyAdapter;
     private List<Hoadon> list;
+    String TAG = "LichSugiadich";
+    Comparator<Hoadon> comparator;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,11 +50,38 @@ public class FragmentLichSuGiaoDich extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         anhXa(view);
+        comparator = (o2, o1) -> getDate(o1).compareTo(getDate(o2));
+
         fillRecycleView();
+
+
     }
+
+
+    private Date getDate(Hoadon hoadon) {
+        Date date = null;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try {
+            if (hoadon.getClass().toString().equals(Hoadonnaptien.class.toString())) {
+                Hoadonnaptien hoadonnaptien = (Hoadonnaptien) hoadon;
+                date = format.parse(hoadonnaptien.getDate());
+            } else {
+                Hoadonchoigame hoadonchoigame = (Hoadonchoigame) hoadon;
+                date = format.parse(hoadonchoigame.getDateStart());
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
+    }
+
+
 
     private void fillRecycleView() {
         list = FbDao.hoadonList;
+        Collections.sort(list, comparator);
         historyAdapter = new HistoryAdapter(list);
         recyclerviewHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerviewHistory.setAdapter(historyAdapter);

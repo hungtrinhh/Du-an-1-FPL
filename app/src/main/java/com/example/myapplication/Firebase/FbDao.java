@@ -53,6 +53,10 @@ public class FbDao {
     public FirebaseStorage storageFireBase;
     public static StorageReference avatatRef;
 
+    private static List<Hoadonnaptien> hoadonnaptienList;
+    private static List<Hoadonchoigame> hoadonchoigameList;
+
+
     public static List<Notify> getListNotify() {
         return listNotify;
     }
@@ -81,6 +85,7 @@ public class FbDao {
 
     //hàm khởi tạo để trả về userId
     public FbDao(Activity context) {
+        hoadonList = new ArrayList<>();
         activity = context;
         storageFireBase = FirebaseStorage.getInstance();
         avatatRef = storageFireBase.getReference().child("avatar");
@@ -89,24 +94,23 @@ public class FbDao {
         ReadGame();
         ReadNotify();
 
+
     }
 
     public FbDao() {
     }
 
-    public User getUserLogin() {
-        return UserLogin;
-    }
 
-    public static String getNameGameFromID(int id){
+    public static String getNameGameFromID(int id) {
         String tenGame = "";
-        for (Game game: listGame) {
-            if(game.getId() == id){
+        for (Game game : listGame) {
+            if (game.getId() == id) {
                 tenGame = game.getTenGame();
             }
         }
         return tenGame;
     }
+
     //hàm update avatatar cho user
     public void UpLoadavatar(ImageView imageView) {
         String id = UserLogin.getId();
@@ -253,14 +257,14 @@ public class FbDao {
     }
 
     private static void ReadHistory() {
-        hoadonList = new ArrayList<>();
+        hoadonchoigameList = new ArrayList<>();
+        hoadonnaptienList = new ArrayList<>();
+
         DatabaseReference myRef = database.getReference("Hoadonchoigame");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (hoadonList.size()>0) {
-//                    ReadHistory();
-//                }
+                hoadonchoigameList.clear();
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     for (DataSnapshot data : dt.getChildren()) {
                         for (DataSnapshot d : data.getChildren()
@@ -269,18 +273,17 @@ public class FbDao {
                             if (u == null) {
                                 continue;
                             }
-                            if (u.getUserid().equals(UserLogin.getId())){
-                                hoadonList.add(u);
-                                Log.d(TAG, "onDataChange: "+u.toString());
-
+                            if (u.getUserid().equals(UserLogin.getId())) {
+                                hoadonchoigameList.add(u);
+                                Log.d(TAG, "onDataChange: " + u.toString());
                             }
-
-
                         }
 
                     }
                 }
-                activity.startService(new Intent(activity, UpdateGameService.class));
+                hoadonList.clear();
+                hoadonList.addAll(hoadonchoigameList);
+                hoadonList.addAll(hoadonnaptienList);
             }
 
             @Override
@@ -293,20 +296,20 @@ public class FbDao {
         myRef1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (hoadonList.size()>0) {
-//                    ReadHistory();
-//                }
+                hoadonnaptienList.clear();
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     Hoadonnaptien u = dt.getValue(Hoadonnaptien.class);
                     if (u == null) {
                         continue;
                     }
                     if (u.getUserId().equals(UserLogin.getId())) {
-                        hoadonList.add(u);
+                        hoadonnaptienList.add(u);
                         Log.d(TAG, "onDataChange: " + u.toString());
                     }
                 }
-                activity.startService(new Intent(activity, UpdateGameService.class));
+                hoadonList.clear();
+                hoadonList.addAll(hoadonchoigameList);
+                hoadonList.addAll(hoadonnaptienList);
             }
 
             @Override
