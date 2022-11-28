@@ -51,7 +51,6 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     private TextView fragHomeTvSodu;
     private ImageView hideshowSoduHomefrag;
     private LinearLayout goTofragQr;
-    private int[]  imageAvatarGame = new int[]{ R.drawable.game_ghost_house,R.drawable.game_bounce_house,R.drawable.racingcar,R.drawable.gun, R.drawable.game_nhun_nhay,R.drawable.game_bao_nha , R.drawable.game_jumping_house, R.drawable.game_cau_truot, R.drawable.game_suc_cac, R.drawable.game_xich_du};
     List<Game> listGame = new ArrayList<>();
 
 
@@ -99,8 +98,6 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         onClickLayout();
 
 
-        //set image game
-        setImgGame();
     }
 
     private void SetDataForView() {
@@ -244,13 +241,5 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
         }
     }
-    private void setImgGame(){
-        listGame = FbDao.getListGame();
-        for (int i=1;i<listGame.size()+1;i++){
-            Game game = listGame.get(i-1);
-            if (game.getId()==i){
-                game.setImgGame(imageAvatarGame[i-1]);
-            }
-        }
-    }
+
 }
