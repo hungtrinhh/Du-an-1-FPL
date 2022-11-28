@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragDifferent.FragmentLichSuGiaoDich;
 import com.example.myapplication.Fragment.fragDifferent.FragmentNapTien;
 import com.example.myapplication.Fragment.fragDifferent.FragmentNotify;
 import com.example.myapplication.Fragment.fragmentUserChild.fragment_EditProfile;
@@ -101,6 +102,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
         layout_Username.setOnClickListener(this::onClick);
         btn_napTien.setOnClickListener(this::onClick);
         btn_Notify.setOnClickListener(this::onClick);
+        btn_CheckHistory.setOnClickListener(this::onClick);
     }
 
     private void Anhxa(View view) {
@@ -151,6 +153,10 @@ public class fragment_User extends Fragment implements View.OnClickListener {
             case R.id.btn_Notify:
                 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
                         .replace(R.id.fragment_container, new FragmentNotify()).commit();
+                break;
+            case R.id.btn_CheckHistory:
+                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
+                        .replace(R.id.fragment_container, new FragmentLichSuGiaoDich()).commit();
                 break;
         }
     }

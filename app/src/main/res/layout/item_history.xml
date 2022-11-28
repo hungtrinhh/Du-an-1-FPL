@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal"
+    android:padding="20dp">
+
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/img_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_add_circle_24" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_ngay_gd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày: 22/12/2022"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_loai_gd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chơi Game: Đu Quay"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_gia_tien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giá: 100.000"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+</LinearLayout>
