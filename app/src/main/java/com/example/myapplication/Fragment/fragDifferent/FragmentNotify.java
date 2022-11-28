@@ -54,7 +54,7 @@ public class FragmentNotify extends Fragment {
     }
 
     public void anhXa(View view) {
-        btnBackToUser = (ImageView) view.findViewById(R.id.btnBackToUser);
+        btnBackToUser = (ImageView) view.findViewById(R.id.btn_backNotify);
         recyclerviewNotify = (RecyclerView) view.findViewById(R.id.recyclerview_notify);
     }
 }
