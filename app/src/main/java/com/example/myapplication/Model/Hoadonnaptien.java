@@ -33,4 +33,15 @@ public class Hoadonnaptien extends Hoadon {
     public void setDate(String date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "Hoadonnaptien{" +
+                "cost=" + cost +
+                ", userId='" + userId + '\'' +
+                ", date='" + date + '\'' +
+                ", durationtime=" + durationtime +
+                ", trangThai=" + trangThai +
+                '}';
+    }
 }

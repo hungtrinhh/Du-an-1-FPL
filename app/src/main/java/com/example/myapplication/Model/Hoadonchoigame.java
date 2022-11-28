@@ -42,4 +42,16 @@ public class Hoadonchoigame extends Hoadon {
     public void setGameid(String gameid) {
         Gameid = gameid;
     }
+
+    @Override
+    public String toString() {
+        return "Hoadonchoigame{" +
+                "cost=" + cost +
+                ", dateStart='" + dateStart + '\'' +
+                ", dateEnd='" + dateEnd + '\'' +
+                ", Userid='" + Userid + '\'' +
+                ", isSuccess=" + isSuccess +
+                ", Gameid='" + Gameid + '\'' +
+                '}';
+    }
 }

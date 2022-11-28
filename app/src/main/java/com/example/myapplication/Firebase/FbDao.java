@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.Hoadon;
 import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.Model.Hoadonnaptien;
 import com.example.myapplication.Model.Notify;
@@ -44,14 +45,15 @@ public class FbDao {
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static final String TAG = "Firebase Dao";
-    private static List<Game> listGame;
-    private static List<User> listUser;
-    private static List<Voucher> listVoucher;
-    private static List<Notify> listNotify;
+    public static List<Game> listGame;
+    public static List<User> listUser;
+    public static List<Voucher> listVoucher;
+    public static List<Notify> listNotify;
+    public static List<Hoadon> hoadonList;
     public FirebaseStorage storageFireBase;
     public static StorageReference avatatRef;
 
-    public static List<Notify> getListNotify(){
+    public static List<Notify> getListNotify() {
         return listNotify;
     }
 
@@ -86,6 +88,7 @@ public class FbDao {
         ReadVoucher();
         ReadGame();
         ReadNotify();
+
     }
 
     public FbDao() {
@@ -95,6 +98,15 @@ public class FbDao {
         return UserLogin;
     }
 
+    public static String getNameGameFromID(int id){
+        String tenGame = "";
+        for (Game game: listGame) {
+            if(game.getId() == id){
+                tenGame = game.getTenGame();
+            }
+        }
+        return tenGame;
+    }
     //hàm update avatatar cho user
     public void UpLoadavatar(ImageView imageView) {
         String id = UserLogin.getId();
@@ -202,6 +214,8 @@ public class FbDao {
                 UserLogin = snapshot.getValue(User.class);
                 UserLogin.setId(snapshot.getKey());
                 UserLogin.setAvatar(avatar);
+                ReadHistory();
+
             }
 
             @Override
@@ -238,6 +252,72 @@ public class FbDao {
         });
     }
 
+    private static void ReadHistory() {
+        hoadonList = new ArrayList<>();
+        DatabaseReference myRef = database.getReference("Hoadonchoigame");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if (hoadonList.size()>0) {
+//                    ReadHistory();
+//                }
+                for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                    for (DataSnapshot data : dt.getChildren()) {
+                        for (DataSnapshot d : data.getChildren()
+                        ) {
+                            Hoadonchoigame u = d.getValue(Hoadonchoigame.class);
+                            if (u == null) {
+                                continue;
+                            }
+                            if (u.getUserid().equals(UserLogin.getId())){
+                                hoadonList.add(u);
+                                Log.d(TAG, "onDataChange: "+u.toString());
+
+                            }
+
+
+                        }
+
+                    }
+                }
+                activity.startService(new Intent(activity, UpdateGameService.class));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.e(TAG, "DatabaseError: " + error.toString()
+                );
+            }
+        });
+        DatabaseReference myRef1 = database.getReference("HoaDonNapTien");
+        myRef1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if (hoadonList.size()>0) {
+//                    ReadHistory();
+//                }
+                for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                    Hoadonnaptien u = dt.getValue(Hoadonnaptien.class);
+                    if (u == null) {
+                        continue;
+                    }
+                    if (u.getUserId().equals(UserLogin.getId())) {
+                        hoadonList.add(u);
+                        Log.d(TAG, "onDataChange: " + u.toString());
+                    }
+                }
+                activity.startService(new Intent(activity, UpdateGameService.class));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.e(TAG, "DatabaseError: " + error.toString()
+                );
+            }
+        });
+    }
+
+
     //hàm đọc về dữ liệu voutcher
     private void ReadVoucher() {
         Log.d(TAG, "ReadVoucher: ");
@@ -264,6 +344,7 @@ public class FbDao {
             }
         });
     }
+
     private void ReadNotify() {
         Log.d(TAG, "ReadVoucher: ");
         listNotify = new ArrayList<>();
@@ -289,15 +370,18 @@ public class FbDao {
             }
         });
     }
+
     //hàm thêm user khi đăng kí
     public void AddUser(User user) {
         DatabaseReference myRef = database.getReference("Users");
         myRef.push().setValue(user);
     }
+
     public static void AddNotify(Notify notify) {
         DatabaseReference myRef = database.getReference();
         myRef.child("Notify").push().setValue(notify);
     }
+
     public static void AddHoaDonNap(Hoadonnaptien hoadonnaptien) {
         DatabaseReference myRef = database.getReference();
         myRef.child("HoaDonNapTien").push().setValue(hoadonnaptien);
