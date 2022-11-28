@@ -3,7 +3,6 @@
 
     <corners android:radius="20dp"/>
     <stroke android:color="@color/gray" android:width="0.5dp"/>
-
     <solid  android:color="@color/item_game" />
 
 </shape>

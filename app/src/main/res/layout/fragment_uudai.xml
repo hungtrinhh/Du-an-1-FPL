@@ -92,7 +92,7 @@
                 android:fontFamily="@font/poppins_semi_bold"
                 android:gravity="center"
                 android:paddingVertical="5dp"
-                android:text="Không có trò chơi nào bạn đã nhập"
+                android:text="Không có danh mục nào tìm thấy"
                 android:textColor="@color/orange"
                 android:textSize="18sp" />
 

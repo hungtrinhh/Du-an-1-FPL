@@ -20,9 +20,6 @@
         app:titleTextColor="@color/white"
         companyApp:titleTextAppearance="@style/ActionBar.nameText" />
 
-    <!--    <View-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="20dp" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -211,7 +208,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:paddingLeft="10dp"
-                        android:text="Số dư"
+                        android:text="Đặt lịch"
                         android:textColor="@color/white"
                         android:textSize="25dp"
                         android:textStyle="bold" />
@@ -221,7 +218,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
 
-                        android:text="Kiểm tra số dư tài khoản"
+                        android:text="Đặt lịch chơi để không phải xếp hàng"
 
                         android:textColor="@color/white"
                         android:textSize="15dp"
