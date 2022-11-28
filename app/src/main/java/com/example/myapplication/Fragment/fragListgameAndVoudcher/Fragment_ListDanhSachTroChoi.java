@@ -1,10 +1,12 @@
 package com.example.myapplication.Fragment.fragListgameAndVoudcher;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,14 +34,19 @@ import com.example.myapplication.Fragment.fragmentTypeGame.fragmentTroChoiGio;
 import com.example.myapplication.Fragment.fragmentTypeGame.fragmentTroChoiLuot;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
 import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.Hoadon;
 import com.example.myapplication.R;
 import com.example.myapplication.Interface.OnclickItemGame;
 import com.google.android.material.snackbar.Snackbar;
 import com.smarteist.autoimageslider.SliderView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnClickListener {
@@ -55,6 +63,9 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     private TextView tvthongBao;
     private static final String TAG = "FRAGMENT_TRO_CHOI";
     private View viewFrag = null;
+    private List<Hoadon> list;
+    private int phut,giay;
+    private Dialog dialog;
 
     public Fragment_ListDanhSachTroChoi() {
 
@@ -220,6 +231,15 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
             return;
         }
         if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
+            
+//            dialog = new Dialog(getContext());
+//            dialog.setContentView(R.layout.dialog_timeup);
+//            TextView tv_phut = dialog.findViewById(R.id.phut);
+//            TextView tv_giay = dialog.findViewById(R.id.giay);
+//            
+//            dialog.show();
+//            Toast.makeText(getContext(), frag.getPhut()+" va "+frag.getGiay(), Toast.LENGTH_SHORT).show();
+
             Snackbar.make(viewFrag, "Hiện trò chơi đã được chơi xin ,quý khách hãy đăng kí game khác", 2000).show();
             return;
         }
@@ -238,4 +258,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         }
 
     }
+
+//    private fragmentTroChoiGio frag = new fragmentTroChoiGio();
+
 }

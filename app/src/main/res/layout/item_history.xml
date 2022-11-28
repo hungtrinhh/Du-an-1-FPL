@@ -5,7 +5,8 @@
     android:layout_marginTop="10dp"
     android:weightSum="5.3"
     android:padding="5dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@drawable/bg_item_giaodich">
 
     <ImageView
         android:layout_gravity="center"
@@ -19,21 +20,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:weightSum="2"
         android:orientation="vertical">
         <TextView
             android:textSize="18dp"
             android:id="@+id/tv_loai_gd"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:text="Chơi game: Đu Quay"
             android:textColor="@color/black" />
         <TextView
             android:id="@+id/tv_ngay_gd"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:textSize="15sp"
             android:text="Ngày: 22/12/2022"
             android:textColor="@color/black" />

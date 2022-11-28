@@ -14,10 +14,14 @@
         <entry key="..\:/Android_Try_Hard/myapplication/app/src/main/res/layout/fragment_welcome.xml" value="0.9545454545454546" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable-v24/ic_uudai_selected.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/background_button.xml" value="0.1" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/background_button_corner.xml" value="0.1" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/background_button_no_corner.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/background_container.xml" value="0.1" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/background_input_otp.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/bg_count.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/bg_dialog_choose_voucher.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/bg_dungngay.xml" value="0.1" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/bg_item_giaodich.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/bg_line.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/boder_item_voucher.xml" value="0.1" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1" />
@@ -39,11 +43,13 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/dialog_loading.xml" value="0.24010416666666667" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/dialog_logout.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/dialog_lostconecttion.xml" value="0.14166666666666666" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/dialog_timeup.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment__edit_profile.xml" value="0.2" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment__list_game.xml" value="0.2" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment__list_game_uu_dai.xml" value="0.152" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment__list_voucher_uu_dai.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_fogot_password.xml" value="0.25416666666666665" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_lich_su_giao_dich.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_list_danh_sach_game.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_list_game_danh_sach.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/fragment_login.xml" value="0.14166666666666666" />
@@ -61,6 +67,9 @@
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/game_item_vertical.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_danh_sach_tro_choi.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_game_horizontal.xml" value="0.25416666666666665" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_game_vertical.xml" value="0.25416666666666665" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_history.xml" value="0.176" />
+        <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_notify.xml" value="0.25416666666666665" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_thoigianchoi.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_voucher_horizontal.xml" value="0.176" />
         <entry key="..\:/DA1/myapplication/app/src/main/res/layout/item_voucher_vertical.xml" value="0.176" />

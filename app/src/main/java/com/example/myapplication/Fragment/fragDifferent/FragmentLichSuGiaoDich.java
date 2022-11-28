@@ -31,7 +31,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class FragmentLichSuGiaoDich extends Fragment {
+public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickListener {
     private Toolbar toolbarDanhMuc;
     private ImageView btnBackNotify;
     private RecyclerView recyclerviewHistory;
@@ -54,7 +54,7 @@ public class FragmentLichSuGiaoDich extends Fragment {
 
         fillRecycleView();
 
-
+        btnBackNotify.setOnClickListener(this::onClick);
     }
 
 
@@ -93,4 +93,12 @@ public class FragmentLichSuGiaoDich extends Fragment {
         recyclerviewHistory = (RecyclerView) view.findViewById(R.id.recyclerview_history);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_backNotify:
+                getActivity().getSupportFragmentManager().popBackStack();
+                break;
+        }
+    }
 }

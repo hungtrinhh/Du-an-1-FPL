@@ -58,6 +58,7 @@
                     android:paddingHorizontal="5dp">
 
                     <ImageView
+                        android:id="@+id/imgGame"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginBottom="10dp"

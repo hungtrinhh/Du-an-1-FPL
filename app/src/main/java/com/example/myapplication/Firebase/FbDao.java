@@ -86,6 +86,9 @@ public class FbDao {
     public static boolean UpdatedUser = false;
     public static boolean UpLoadedAvatar = false;
 
+    private static Date curenTime,endTime;
+
+
     //hàm khởi tạo để trả về userId
     public FbDao(Activity context) {
         hoadonList = new ArrayList<>();
@@ -97,7 +100,22 @@ public class FbDao {
         ReadGame();
         ReadNotify();
 
+    }
 
+    public static Date getCurenTime() {
+        return curenTime;
+    }
+
+    public static void setCurenTime(Date curenTime) {
+        FbDao.curenTime = curenTime;
+    }
+
+    public static Date getEndTime() {
+        return endTime;
+    }
+
+    public static void setEndTime(Date endTime) {
+        FbDao.endTime = endTime;
     }
 
     public FbDao() {
@@ -186,8 +204,8 @@ public class FbDao {
     //hàm chơi game ko hiểu đừng đọc
     public void PlaygameGio(int minute, String idGame, float cost) {
         long milisecond = minute * 60 * 1000;
-        Date curenTime = new Date();
-        Date endTime = new Date(milisecond + curenTime.getTime());
+        curenTime = new Date();
+        endTime = new Date(milisecond + curenTime.getTime());
         getReferenceToday();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String curenTimetoString = dateFormat.format(curenTime);
@@ -248,11 +266,9 @@ public class FbDao {
                     listGame.add(u);
                 }
                 setImgGame();
-
                 Log.d(TAG, "Đã nhận dữ liệu Game: ");
                 activity.startService(new Intent(activity, UpdateGameService.class));
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
                 Log.e(TAG, "DatabaseError: " + error.toString()

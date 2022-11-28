@@ -15,6 +15,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -63,6 +65,7 @@ import java.util.List;
 public class fragmentTroChoiGio extends Fragment implements View.OnClickListener {
     private TextView tv_nameGame, tv_cost, tv_detailGame, tv_voucherChoose, tv_totalCost;
     private LinearLayout choose_voucher;
+    private ImageView imgGame;
     private RecyclerView recyclerView_voucher_gio, recyclerview_choose_time;
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private ListThoiGianAdapter listThoiGianAdapter;
@@ -79,6 +82,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private final int[] arr = {R.drawable.time5, R.drawable.time10, R.drawable.time15, R.drawable.time20, R.drawable.time25, R.drawable.time30, R.drawable.time35, R.drawable.time40, R.drawable.time45, R.drawable.time50, R.drawable.time55, R.drawable.time60};
     private final int[] arrTime = {5,10,15,20,25,30,35,40,45,50,55,60};//mảng thời gian tính theo phút
     private float sale;
+    private int phut=0,giay=0;
     String pattern = "###,### Poin";
     DecimalFormat df = new DecimalFormat(pattern);
     //Thời gian chơi
@@ -120,6 +124,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         AddTime();
         ShowThoiGian();
         setThongTin();
+        TinhTongTien();
         fragment_Trangchu.gochild = true;
         choose_voucher.setOnClickListener(this::onClick);
         backToDSGame.setOnClickListener(this::onClick);
@@ -136,6 +141,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         tv_voucherChoose = view.findViewById(R.id.tv_voucherChoose);
         tv_totalCost = view.findViewById(R.id.tv_totalCost);
         btn_play = view.findViewById(R.id.btn_play);
+        imgGame = view.findViewById(R.id.imgGame);
         btn_play.setEnabled(false);
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
     }
@@ -218,6 +224,24 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                     dao.PlaygameGio(time, game.getId() + "", total);
                     FbDao.Thanhtoantien(total);
 
+
+//                    Date dateC = FbDao.getCurenTime();
+//                    Date dateE = FbDao.getEndTime();
+//                    long time = dateE.getTime()-dateC.getTime();
+//                    setPhut((int) time/1000/60);
+//                    setGiay((int) (time/1000)%60);
+//                    new CountDownTimer(time, 1000) {
+//
+//                        public void onTick(long millisUntilFinished) {
+//                            setInterval();
+//                            Toast.makeText(getContext(), "Co nhe", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        public void onFinish() {
+//
+//                        }
+//                    }.start();
+
                     if (fragment_QRcode.check) {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
                     }else {
@@ -241,6 +265,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         tv_nameGame.setText(game.getTenGame());
         tv_cost.setText(df.format(game.getGia()) + " / 5 phút");
         tv_detailGame.setText(game.getMoTa());
+        imgGame.setImageResource(game.getImgGame());
     }
 
     private void TinhTongTien() {
@@ -345,4 +370,29 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
 
 
     }
+//    private int setInterval() {
+//        if (phut == 0&&giay==1){
+//
+//        }else if(giay==0){
+//            giay=60;
+//            --phut;
+//        }
+//        return --giay;
+//    }
+//
+//    public int getPhut() {
+//        return phut;
+//    }
+//
+//    public void setPhut(int phut) {
+//        this.phut = phut;
+//    }
+//
+//    public int getGiay() {
+//        return giay;
+//    }
+//
+//    public void setGiay(int giay) {
+//        this.giay = giay;
+//    }
 }

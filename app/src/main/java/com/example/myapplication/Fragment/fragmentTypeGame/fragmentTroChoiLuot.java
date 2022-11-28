@@ -56,6 +56,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
     private TextView tv_nameGame_Luot, tv_cost_Luot, tv_detailGame_Luot, tv_count, tv_voucherChoose, tv_totalCost;
     private ImageButton imgButtonadd, imgButtonremove;
     private ImageView close_dialog;
+    private ImageView imgGame;
     private LinearLayout choose_voucher;
     private ImageView backToDSGame;
     private int count = 0;
@@ -97,6 +98,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         AnhXa(view);
         setThongTin();
         checkBtndis();
+        TinhTongTien();
         imgButtonadd.setOnClickListener(this::onClick);
         imgButtonremove.setOnClickListener(this::onClick);
         backToDSGame.setOnClickListener(this::onClick);
@@ -117,7 +119,9 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         tv_voucherChoose = view.findViewById(R.id.tv_voucherChoose);
         tv_totalCost = view.findViewById(R.id.tv_totalCost);
         btn_play = view.findViewById(R.id.btn_play);
+        imgGame = view.findViewById(R.id.imgGame);
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        btn_play.setEnabled(false);
     }
 
     @Override
@@ -224,6 +228,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         tv_nameGame_Luot.setText(game.getTenGame());
         tv_cost_Luot.setText(df.format(game.getGia()) + " / 1 lượt 1 phút");
         tv_detailGame_Luot.setText(game.getMoTa());
+        imgGame.setImageResource(game.getImgGame());
     }
 
     private void ShowListVoucher() {
