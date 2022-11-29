@@ -125,7 +125,6 @@ public class FragmentNapTien extends Fragment implements View.OnClickListener {
         if (menhGia.equals("1000000")) {
             btn1000.setBackgroundResource(R.drawable.item_background);
             btn1000.setTextColor(Color.parseColor("#FFFFFFFF"));
-            edTienNap.setText("1000000");
         } else {
             btn1000.setBackgroundResource(R.drawable.background_item_menh_gia);
             btn1000.setTextColor(Color.parseColor("#3F51B5"));
@@ -133,7 +132,6 @@ public class FragmentNapTien extends Fragment implements View.OnClickListener {
         if (menhGia.equals("2000000")) {
             btn2000.setBackgroundResource(R.drawable.item_background);
             btn2000.setTextColor(Color.parseColor("#FFFFFFFF"));
-            edTienNap.setText("2000000");
         } else {
             btn2000.setBackgroundResource(R.drawable.background_item_menh_gia);
             btn2000.setTextColor(Color.parseColor("#3F51B5"));
