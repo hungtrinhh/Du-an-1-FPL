@@ -5,12 +5,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -33,6 +36,7 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragmentTypeGame.fragmentTroChoiGio;
 import com.example.myapplication.Fragment.fragmentTypeGame.fragmentTroChoiLuot;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
+import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Hoadon;
 import com.example.myapplication.R;
@@ -65,7 +69,6 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     private View viewFrag = null;
     private List<Hoadon> list;
     private int phut,giay;
-    private Dialog dialog;
 
     public Fragment_ListDanhSachTroChoi() {
 
@@ -231,15 +234,40 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
             return;
         }
         if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
-            
-//            dialog = new Dialog(getContext());
-//            dialog.setContentView(R.layout.dialog_timeup);
-//            TextView tv_phut = dialog.findViewById(R.id.phut);
-//            TextView tv_giay = dialog.findViewById(R.id.giay);
-//            
-//            dialog.show();
-//            Toast.makeText(getContext(), frag.getPhut()+" va "+frag.getGiay(), Toast.LENGTH_SHORT).show();
+            Dialog dialog = new Dialog(getContext());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_timeup);
+            TextView tv_minutes = dialog.findViewById(R.id.phut);
+            TextView tv_seconds = dialog.findViewById(R.id.giay);
+            if (FbDao.phut<10){
 
+            }
+            String minutes = FbDao.phut<10?"0"+FbDao.phut:FbDao.phut+"";
+            String seconds = FbDao.giay<10?"0"+FbDao.giay:FbDao.giay+"";
+            tv_minutes.setText(minutes);
+            tv_seconds.setText(seconds);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    while (((FbDao.phut*60)+FbDao.giay)>=0) {
+                        try {
+                            String minutes2 = FbDao.phut<10?"0"+FbDao.phut:FbDao.phut+"";
+                            String seconds2 = FbDao.giay<10?"0"+FbDao.giay:FbDao.giay+"";
+                            tv_minutes.setText(minutes2);
+                            tv_seconds.setText(seconds2);
+                            Thread.sleep(1000);
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    dialog.dismiss();
+                }
+            }).start();
+            dialog.show();
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             Snackbar.make(viewFrag, "Hiện trò chơi đã được chơi xin ,quý khách hãy đăng kí game khác", 2000).show();
             return;
         }

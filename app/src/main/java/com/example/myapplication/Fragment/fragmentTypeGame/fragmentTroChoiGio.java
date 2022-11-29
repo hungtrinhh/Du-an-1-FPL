@@ -82,7 +82,6 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private final int[] arr = {R.drawable.time5, R.drawable.time10, R.drawable.time15, R.drawable.time20, R.drawable.time25, R.drawable.time30, R.drawable.time35, R.drawable.time40, R.drawable.time45, R.drawable.time50, R.drawable.time55, R.drawable.time60};
     private final int[] arrTime = {5,10,15,20,25,30,35,40,45,50,55,60};//mảng thời gian tính theo phút
     private float sale;
-    private int phut=0,giay=0;
     String pattern = "###,### Poin";
     DecimalFormat df = new DecimalFormat(pattern);
     //Thời gian chơi
@@ -223,31 +222,13 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                     FbDao dao = new FbDao();
                     dao.PlaygameGio(time, game.getId() + "", total);
                     FbDao.Thanhtoantien(total);
-
-
-//                    Date dateC = FbDao.getCurenTime();
-//                    Date dateE = FbDao.getEndTime();
-//                    long time = dateE.getTime()-dateC.getTime();
-//                    setPhut((int) time/1000/60);
-//                    setGiay((int) (time/1000)%60);
-//                    new CountDownTimer(time, 1000) {
-//
-//                        public void onTick(long millisUntilFinished) {
-//                            setInterval();
-//                            Toast.makeText(getContext(), "Co nhe", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        public void onFinish() {
-//
-//                        }
-//                    }.start();
-
                     if (fragment_QRcode.check) {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
                     }else {
                         getActivity().getSupportFragmentManager().popBackStack();
 
                     }
+
                 }
                 break;
         }
@@ -370,29 +351,5 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
 
 
     }
-//    private int setInterval() {
-//        if (phut == 0&&giay==1){
-//
-//        }else if(giay==0){
-//            giay=60;
-//            --phut;
-//        }
-//        return --giay;
-//    }
-//
-//    public int getPhut() {
-//        return phut;
-//    }
-//
-//    public void setPhut(int phut) {
-//        this.phut = phut;
-//    }
-//
-//    public int getGiay() {
-//        return giay;
-//    }
-//
-//    public void setGiay(int giay) {
-//        this.giay = giay;
-//    }
+
 }

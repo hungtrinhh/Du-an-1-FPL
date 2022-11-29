@@ -2,17 +2,23 @@
 package com.example.myapplication.Firebase;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.myapplication.Fragment.fragListgameAndVoudcher.Fragment_ListDanhSachTroChoi;
+import com.example.myapplication.Fragment.fragment_Main;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Hoadon;
 import com.example.myapplication.Model.Hoadonchoigame;
@@ -24,6 +30,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.Service.UpdateGameService;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,7 +60,7 @@ public class FbDao {
     public static List<Hoadon> hoadonList;
     public FirebaseStorage storageFireBase;
     public static StorageReference avatatRef;
-    private int[]  imageAvatarGame = new int[]{ R.drawable.game_ghost_house,R.drawable.game_bounce_house,R.drawable.racingcar,R.drawable.gun, R.drawable.game_nhun_nhay,R.drawable.game_bao_nha , R.drawable.game_jumping_house, R.drawable.game_cau_truot, R.drawable.game_suc_cac, R.drawable.game_xich_du};
+    private static int[]  imageAvatarGame = new int[]{ R.drawable.game_ghost_house,R.drawable.game_bounce_house,R.drawable.racingcar,R.drawable.gun, R.drawable.game_nhun_nhay,R.drawable.game_bao_nha , R.drawable.game_jumping_house, R.drawable.game_cau_truot, R.drawable.game_suc_cac, R.drawable.game_xich_du};
 
 
     private static List<Hoadonnaptien> hoadonnaptienList;
@@ -87,6 +94,9 @@ public class FbDao {
     public static boolean UpLoadedAvatar = false;
 
     private static Date curenTime,endTime;
+    public static int phut=0,giay=0;
+    private static Thread thread;
+
 
 
     //hàm khởi tạo để trả về userId
@@ -100,22 +110,6 @@ public class FbDao {
         ReadGame();
         ReadNotify();
 
-    }
-
-    public static Date getCurenTime() {
-        return curenTime;
-    }
-
-    public static void setCurenTime(Date curenTime) {
-        FbDao.curenTime = curenTime;
-    }
-
-    public static Date getEndTime() {
-        return endTime;
-    }
-
-    public static void setEndTime(Date endTime) {
-        FbDao.endTime = endTime;
     }
 
     public FbDao() {
@@ -224,8 +218,44 @@ public class FbDao {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 Toast.makeText(activity, "Chơi thành công", Toast.LENGTH_SHORT).show();
+                CountDown();
             }
         });
+    }
+
+    private void CountDown(){
+        Date dateC = curenTime;
+        Date dateE = endTime;
+        long time = dateE.getTime()-dateC.getTime();
+        phut = (int) (time/1000)/60;
+        giay = (int) (time/1000)%60;
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (phut>=0&&giay>=0) {
+                    try {
+                        setInterval();
+                        Log.d(TAG, "run: "+phut+" va "+giay);
+                        Thread.sleep(1000);
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
+        thread.start();
+
+    }
+    private int setInterval() {
+        if (phut==0&&giay==1){
+            Thread.currentThread().interrupt();
+        }if(giay==0){
+            giay=60;
+            --phut;
+        }
+        return --giay;
     }
 
     //hàm login và bắt data cho userLogin để userLogin thay đổi data theo thời gian thực
@@ -276,7 +306,7 @@ public class FbDao {
             }
         });
     }
-    private void setImgGame(){
+    public static void setImgGame(){
         listGame = FbDao.getListGame();
         for (int i=1;i<listGame.size()+1;i++){
             Game game = listGame.get(i-1);

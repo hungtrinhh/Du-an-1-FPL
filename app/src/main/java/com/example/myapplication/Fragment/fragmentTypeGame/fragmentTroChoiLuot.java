@@ -173,14 +173,13 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
                 sendNotifications();
                 FbDao dao = new FbDao();
                 dao.PlaygameGio(count, game.getId() + "", total);
+                FbDao.Thanhtoantien(total);
                 if (fragment_QRcode.check) {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
                 } else {
                     getActivity().getSupportFragmentManager().popBackStack();
 
                 }
-                FbDao.Thanhtoantien(total);
-
                 break;
         }
     }

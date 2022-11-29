@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 
 import androidx.core.app.NotificationCompat;
 
+import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
 
