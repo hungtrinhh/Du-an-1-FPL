@@ -38,7 +38,7 @@ public class VoucherHorizontalAdapter extends RecyclerView.Adapter<VoucherHorizo
     @NonNull
     @Override
     public VoucherViewHoler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.voucher_item_horizontal,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_voucher_horizontal,parent,false);
         return new VoucherViewHoler(view);
     }
 
@@ -59,14 +59,14 @@ public class VoucherHorizontalAdapter extends RecyclerView.Adapter<VoucherHorizo
         return 0;
     }
 
-    public class VoucherViewHoler extends RecyclerView.ViewHolder {private ImageView imageView2;
+    public class VoucherViewHoler extends RecyclerView.ViewHolder {private final ImageView imageView2;
         private TextView tv_MaVoucher;
-        private TextView tv_TieuDeVoucher;
+        private final TextView tv_TieuDeVoucher;
         private LinearLayout linearLayout_voucher;
         public VoucherViewHoler(@NonNull View itemView) {
             super(itemView);
-            imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
-            tv_TieuDeVoucher = (TextView) itemView.findViewById(R.id.tv_tieuDeVoucher);
+            imageView2 = itemView.findViewById(R.id.imageView2);
+            tv_TieuDeVoucher = itemView.findViewById(R.id.tv_tieuDeVoucher);
         }
     }
     public String getTenGame(int id){

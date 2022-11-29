@@ -20,7 +20,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder>{
     @Override
     public Holder onCreateViewHolder(ViewGroup parent) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.slider_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_slider,parent,false);
         return new Holder(view);
     }
 

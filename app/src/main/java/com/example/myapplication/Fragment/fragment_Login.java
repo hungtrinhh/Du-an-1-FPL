@@ -3,29 +3,30 @@ package com.example.myapplication.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.fragment.app.Fragment;
-
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
+
+import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragmentLoginChild.fragment_Fogot_Password;
+import com.example.myapplication.Fragment.fragmentLoginChild.fragment_Regesiter;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,13 +35,14 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     private LinearLayout layoutLogoWhite;
     private EditText ed_Username;
     private EditText ed_Password;
-    private SwitchCompat sw_RememberAccount;
+
     private AppCompatButton btn_Login;
     private TextView tv_GoToRegister, tv_FogotPassword;
     //    khai báo biến username & password giá trị rỗng
-    private String username = "", password = "";
+    private String Usernameavali = "", passwordavali = "";
     private List<User> list;
-    private String TAG = fragment_Login.class.toString();
+    private final String TAG = "fragment_Login";
+    private ImageView imgHidePassword;
 
 
     //khai báo view
@@ -56,14 +58,36 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         Anhxa(view);
         //gọi hàm animation (truyền vào các tham số)
-        animation(layoutLogoWhite, ed_Username, ed_Password, sw_RememberAccount, btn_Login, tv_GoToRegister, tv_FogotPassword);
-        getAccount();
+        animation(layoutLogoWhite, ed_Username, ed_Password, btn_Login, tv_GoToRegister, tv_FogotPassword);
+
+        //     LoginWithoutbtn();
         //bắt sự kiện khi click
         btn_Login.setOnClickListener(this::onClick);
         tv_GoToRegister.setOnClickListener(this::onClick);
         tv_FogotPassword.setOnClickListener(this::onClick);
-
+        imgHidePassword.setOnClickListener(this::onClick);
     }
+
+
+//    private void LoginWithoutbtn() {
+//        SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+//        String username = s.getString("Username", "");
+//        String password = s.getString("Password", "");
+//
+//        if (username.equals("") || password.equals("")) {
+//            return;
+//        }
+//
+//        for (User u : list
+//        ) {
+//            if (username.equals(u.getName()) && password.equals(u.getPassword())) {
+//                FbDao.UserLogin = u;
+//                saveAccount(username, password);
+//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+//                break;
+//            }
+//        }
+//    }
 
     @Override
     public void onClick(View v) {
@@ -71,78 +95,111 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
             case R.id.btn_Login:
                 String username = ed_Username.getText().toString();
                 String password = ed_Password.getText().toString();
+                if (username.equals("") || password.equals("")) {
+                    Snackbar.make(getView(), "Không được để trống tài khoản và mật khẩu", 2000).show();
+                    break;
+                }
 
-//                if (username.equals("") || password.equals("")) {
-//                    Snackbar.make(getView(), "Không được để trống tài khoản và mật khẩu", 2000).show();
-//                    break;
-//                }
-//
-//                boolean dk = false;
-//                for (User u : list
-//                ) {
-//                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
-//                        dk = true;
-//                    }
-//                }
-//                if (!dk) {
-//                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
-//                }
+                boolean dk = false;
+                for (User u : list
+                ) {
+                    if (username.equals(u.getName()) && password.equals(u.getPassword())) {
+                        dk = true;
+                        FbDao.UserLogin = u;
+                        FbDao.LoadAvatarFromID();
+                        saveAccount();
+
+
+                            DialogLoading.dialogLoading.show();
+
+
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                while (!FbDao.LoadedAvatar) {
+                                    try {
+                                        Thread.sleep(200);
+
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                                FbDao.LoadedAvatar = false;
+                                Log.d(TAG, "run: go to home" + FbDao.UserLogin.getAvatar());
+                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+
+                            }
+                        }).start();
+
+                        break;
+                    }
+                }
+                if (!dk) {
+                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
+                }
+
+
                 break;
+
             case R.id.tv_GoToRegister:
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Regesiter(list)).addToBackStack("").commit();
                 break;
             case R.id.tv_FogotPassword:
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Fogot_Password()).addToBackStack("").commit();
                 break;
+            case R.id.img_hidePassword:
+                if (ed_Password.getInputType() != InputType.TYPE_TEXT_VARIATION_PASSWORD) {
+                    ed_Password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    imgHidePassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24);
+                } else {
+                    ed_Password.setInputType(129);
+                    imgHidePassword.setImageResource(R.drawable.ic_baseline_visibility_off_24);
+
+                }
+                break;
         }
     }
 
 
     // khai báo hàm animation
-    private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, SwitchCompat swRememberAccount, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
+    private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {
         layoutLogoWhite.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.floatin));
         edEmailLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         edPasswordLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
-        swRememberAccount.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         btnLogin.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         btnGoToRegister.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         tvFogotPassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        imgHidePassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        saveAccount();
+
     }
 
     public void saveAccount() {
-
-        SharedPreferences s = getActivity().getSharedPreferences("acc", Context.MODE_PRIVATE);
+        SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = s.edit();
-        if (!sw_RememberAccount.isChecked()) {
-            editor.clear();
-            editor.commit();
+        editor.clear();
+        editor.putString("Username", ed_Username.getText().toString());
+        editor.putString("Password", ed_Password.getText().toString());
+        editor.commit();
+    }
 
-            return;
-        }
-
-        editor.putString("name", ed_Username.getText().toString());
-        editor.putString("pass", ed_Password.getText().toString());
-        editor.putBoolean("save", sw_RememberAccount.isChecked());
+    public void saveAccount(String Username, String Password) {
+        Log.d(TAG, "saveAccounted: " + Username + " " + Password);
+        SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = s.edit();
+        editor.clear();
+        editor.putString("Username", Username);
+        editor.putString("Password", Password);
         editor.commit();
 
-
     }
-
-    private void getAccount() {
-        SharedPreferences s = getActivity().getSharedPreferences("acc", Context.MODE_PRIVATE);
-        ed_Username.setText(s.getString("name", ""));
-        ed_Password.setText(s.getString("pass", ""));
-        sw_RememberAccount.setChecked(s.getBoolean("save", false));
-
-    }
-
 
     //   khai báo constructor
     public fragment_Login() {
@@ -151,8 +208,8 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
     //  Phương thức khởi tạo có tham số username & password
     public fragment_Login(String usr, String pwd) {
-        this.username = usr;
-        this.password = pwd;
+        this.Usernameavali = usr;
+        this.passwordavali = pwd;
     }
 
     public static fragment_Login newInstance() {
@@ -171,12 +228,12 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         layoutLogoWhite = view.findViewById(R.id.layout_logoWhite);
         ed_Username = view.findViewById(R.id.ed_Username);
         ed_Password = view.findViewById(R.id.ed_Password);
-        sw_RememberAccount = view.findViewById(R.id.sw_RememberAccount);
         btn_Login = view.findViewById(R.id.btn_Login);
         tv_GoToRegister = view.findViewById(R.id.tv_GoToRegister);
         tv_FogotPassword = view.findViewById(R.id.tv_FogotPassword);
-        ed_Username.setText(username);
-        ed_Password.setText(password);
+        imgHidePassword = view.findViewById(R.id.img_hidePassword);
+        ed_Username.setText(Usernameavali);
+        ed_Password.setText(passwordavali);
     }
 
 
