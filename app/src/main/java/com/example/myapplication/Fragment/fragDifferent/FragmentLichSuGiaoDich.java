@@ -53,7 +53,7 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
         comparator = (o2, o1) -> getDate(o1).compareTo(getDate(o2));
 
         fillRecycleView();
-
+        System.out.println("xin chao");
         btnBackNotify.setOnClickListener(this::onClick);
     }
 
