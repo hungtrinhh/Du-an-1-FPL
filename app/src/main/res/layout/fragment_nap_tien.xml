@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Nạp tiền"
+                android:text="Nạp tiền vào YAHHHOME"
                 android:textColor="@color/white"
                 android:textSize="23dp"
                 android:textStyle="bold" />
@@ -48,29 +48,10 @@
         android:orientation="vertical"
         android:paddingHorizontal="5dp"
         android:weightSum="6">
-
-        <com.smarteist.autoimageslider.SliderView
-            android:id="@+id/image_Slider"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="13dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.5"
-            app:sliderAnimationDuration="600"
-            app:sliderAutoCycleDirection="back_and_forth"
-            app:sliderAutoCycleEnabled="true"
-            app:sliderIndicatorAnimationDuration="600"
-            app:sliderIndicatorGravity="center_horizontal|bottom"
-            app:sliderIndicatorMargin="5dp"
-            app:sliderIndicatorOrientation="horizontal"
-            app:sliderIndicatorRadius="1.3dp"
-            app:sliderScrollTimeInSec="2"
-            app:sliderStartAutoCycle="true" />
-
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.3" />
+            android:layout_weight="0.8" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -120,6 +101,7 @@
 
                 <!--20.000vnd-->
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_20"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -131,6 +113,7 @@
                     android:textSize="18sp" />
                 <!--30.000-->
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_30"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="3dp"
@@ -143,6 +126,7 @@
                     android:textSize="18sp" />
                 <!--50.000-->
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_50"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -165,6 +149,7 @@
 
                 <!--100.000vnd-->
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_100"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -176,6 +161,7 @@
                     android:textSize="18sp" />
                 <!--200.000-->
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_200"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="3dp"
@@ -188,6 +174,7 @@
                     android:textSize="18sp" />
                 <!--500.000-->
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_500"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -208,6 +195,7 @@
 
                 <!--100.000vnd-->
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_1000"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -219,6 +207,7 @@
                     android:textSize="18sp" />
                 <!--200.000-->
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_2000"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="3dp"
@@ -229,7 +218,18 @@
                     android:text="2,000,000"
                     android:textColor="@color/blue_900"
                     android:textSize="18sp" />
-
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_5000"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_item_menh_gia"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:paddingTop="3dp"
+                    android:text="5,000,000"
+                    android:textColor="@color/blue_900"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <View
