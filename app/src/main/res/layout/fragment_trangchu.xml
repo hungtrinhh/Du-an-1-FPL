@@ -194,7 +194,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:src="@drawable/img_so_du" />
+                    android:src="@drawable/datlich" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

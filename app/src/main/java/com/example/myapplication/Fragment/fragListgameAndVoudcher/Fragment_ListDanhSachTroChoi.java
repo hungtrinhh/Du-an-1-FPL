@@ -33,6 +33,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Adapter.DanhSachGameAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragmentTypeGame.fragmentHenTroChoiGio;
+import com.example.myapplication.Fragment.fragmentTypeGame.fragmentHenTroChoiLuot;
 import com.example.myapplication.Fragment.fragmentTypeGame.fragmentTroChoiGio;
 import com.example.myapplication.Fragment.fragmentTypeGame.fragmentTroChoiLuot;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;

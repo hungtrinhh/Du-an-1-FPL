@@ -343,7 +343,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     }
 
     private void checkBtndis() {
-        if (total > FbDao.UserLogin.getSodu()) {
+        if (total > FbDao.UserLogin.getSodu()||total==0) {
             btn_play.setEnabled(false);
         } else {
             btn_play.setEnabled(true);
