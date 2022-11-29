@@ -20,6 +20,11 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">23dp</item>
         <item name="android:textStyle">bold</item>
-    </style>
 
+    </style>
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation" type="">@anim/anim_dialog_voucher_gio</item>
+        <item name="android:windowExitAnimation">@anim/anim_dialog_voucher_gio2</item>
+
+    </style>
 </resources>

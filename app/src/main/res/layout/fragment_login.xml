@@ -5,47 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_login"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="10">
     <!--logo-->
     <LinearLayout
         android:id="@+id/layout_logoWhite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="120dp"
-        android:orientation="vertical"
-       >
+        android:layout_weight="2"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
             android:layout_gravity="center"
             android:src="@drawable/logo2" />
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textStyle="bold" />
     </LinearLayout>
     <!--form dang nhap-->
     <LinearLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
         android:gravity="center"
-        android:orientation="vertical"
-        android:paddingTop="30dp">
-        <!--editText UserName-->
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:orientation="horizontal">
+            android:layout_marginHorizontal="15dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="10">
 
             <EditText
                 android:id="@+id/ed_Username"
@@ -55,87 +58,81 @@
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/poppins_medium"
                 android:hint="@string/app_name"
-                android:textColor="@color/black"
-                android:textSize="17dp" />
-        </LinearLayout>
-        <!--editText Password-->
+                android:textColor="@color/black" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/ed_Password"
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_lock_outline_24px"
-                android:drawableRight="@drawable/ic_baseline_visibility_off_24"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/poppins_medium"
-                android:hint="********"
-                android:inputType="textPassword"
-                android:textColor="@color/black"
-                android:textSize="17dp" />
-        </LinearLayout>
-        <!--    Button nho tai khoan va quan mat khau-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+                android:layout_marginVertical="20dp"
+                android:gravity="center">
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/sw_RememberAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                android:paddingLeft="-3dp"
-                android:switchPadding="3dp"
-                android:text="@string/rememberAccount"
-                android:textColor="@color/black"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
+                <EditText
+                    android:id="@+id/ed_Password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_lock_outline_24px"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="********"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textSize="17dp" />
 
+                <ImageView
+                    android:id="@+id/img_hidePassword"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignEnd="@+id/ed_Password"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="2dp"
+                    android:src="@drawable/ic_baseline_visibility_off_24" />
+            </RelativeLayout>
+            <!--    Button login tai khoan va quen mat khau-->
             <TextView
                 android:id="@+id/tv_FogotPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:paddingRight="10dp"
+                android:layout_weight="0.5"
+                android:gravity="center|end"
                 android:text="@string/fogotPassword"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_Login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:background="@drawable/background_button_corner"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingTop="5dp"
+                android:text="@string/Login"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </LinearLayout>
-        <!--Button dang nhap-->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_Login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/background_button"
-            android:fontFamily="@font/poppins_medium"
-            android:paddingTop="5dp"
-            android:text="@string/Login"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="18dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5.5"
+        android:orientation="vertical">
         <!--chua co tai khoan, dang ky-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="bottom|center"
-            android:orientation="horizontal"
-            android:paddingBottom="10dp">
+            android:gravity="center|bottom"
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:text="Chưa có tài khoản? " />
-
 
             <TextView
                 android:id="@+id/tv_GoToRegister"
@@ -147,6 +144,5 @@
                 android:textSize="16dp"
                 android:textStyle="bold" />
         </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>

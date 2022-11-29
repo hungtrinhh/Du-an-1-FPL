@@ -16,5 +16,13 @@
     <string name="Verify_phone_number">Xác minh số điện thoại</string>
     <string name="Verify_phone_number_notify">Nhập vào mã xác minh</string>
     <string name="Terms_and_conditions">PH27731 - Trịnh Đức Hùng\nPH27738 - Nguyễn Minh Giang\nPH28077 - Vũ Viết Khanh\nPh27525 - Nguyễn Quốc Khánh\nPH27512 - Trịnh Công Điền</string>
-
+    <string name="danhmuctrochoi">Danh mục</string>
+    <string name="danhsachgamevoucher">Danh sách trò chơi</string>
+    <string name="voucher">Chi tiết ưu đãi</string>
+    <string name="thongtingame">Thông tin trò chơi</string>
+    <string name="help">Trợ giúp &amp; yêu cầu hỗ trợ</string>
+    <string name="backPressed">Nhấn back 1 lần nữa để thoát</string>
+    <string name="channel_name">YahhHome1</string>
+    <string name="channel_description">YahhHome2</string>
+    <string name="lorem_ipsum">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat sit perferendis libero quisquam ad, blanditiis ullam, unde atque non facere iure, quod debitis nemo labore veritatis ut. Vitae, quam voluptatem?</string>
 </resources>
