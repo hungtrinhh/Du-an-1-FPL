@@ -202,79 +202,84 @@ public class FragmentNapTien extends Fragment implements View.OnClickListener {
         });
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.btn_20) {
-            btn20.setBackgroundResource(R.drawable.item_background);
-            btn20.setTextColor(Color.parseColor("#FFFFFFFF"));
-            edTienNap.setText("20000");
-        } else {
+    public void clearBackGruond(){
             btn20.setBackgroundResource(R.drawable.background_item_menh_gia);
             btn20.setTextColor(Color.parseColor("#3F51B5"));
-        }
-        if (view.getId() == R.id.btn_30) {
-            btn30.setBackgroundResource(R.drawable.item_background);
-            btn30.setTextColor(Color.parseColor("#FFFFFFFF"));
-            edTienNap.setText("30000");
-        } else {
             btn30.setBackgroundResource(R.drawable.background_item_menh_gia);
             btn30.setTextColor(Color.parseColor("#3F51B5"));
-        }
-        if (view.getId() == R.id.btn_50) {
-            btn50.setBackgroundResource(R.drawable.item_background);
-            btn50.setTextColor(Color.parseColor("#FFFFFFFF"));
-            edTienNap.setText("50000");
-        } else {
             btn50.setBackgroundResource(R.drawable.background_item_menh_gia);
             btn50.setTextColor(Color.parseColor("#3F51B5"));
-        }
-        if (view.getId() == R.id.btn_100) {
-            btn100.setBackgroundResource(R.drawable.item_background);
-            btn100.setTextColor(Color.parseColor("#FFFFFFFF"));
-            edTienNap.setText("100000");
-        } else {
             btn100.setBackgroundResource(R.drawable.background_item_menh_gia);
             btn100.setTextColor(Color.parseColor("#3F51B5"));
-        }
-        if (view.getId() == R.id.btn_200) {
-            btn200.setBackgroundResource(R.drawable.item_background);
-            btn200.setTextColor(Color.parseColor("#FFFFFFFF"));
-            edTienNap.setText("200000");
-        } else {
             btn200.setBackgroundResource(R.drawable.background_item_menh_gia);
             btn200.setTextColor(Color.parseColor("#3F51B5"));
-        }
-        if (view.getId() == R.id.btn_500) {
-            btn500.setBackgroundResource(R.drawable.item_background);
-            btn500.setTextColor(Color.parseColor("#FFFFFFFF"));
-            edTienNap.setText("500000");
-        } else {
             btn500.setBackgroundResource(R.drawable.background_item_menh_gia);
             btn500.setTextColor(Color.parseColor("#3F51B5"));
-        }
-        if (view.getId() == R.id.btn_1000) {
-            btn1000.setBackgroundResource(R.drawable.item_background);
-            btn1000.setTextColor(Color.parseColor("#FFFFFFFF"));
-            edTienNap.setText("1000000");
-        } else {
             btn1000.setBackgroundResource(R.drawable.background_item_menh_gia);
             btn1000.setTextColor(Color.parseColor("#3F51B5"));
-        }
-        if (view.getId() == R.id.btn_2000) {
-            btn2000.setBackgroundResource(R.drawable.item_background);
-            btn2000.setTextColor(Color.parseColor("#FFFFFFFF"));
-            edTienNap.setText("2000000");
-        } else {
             btn2000.setBackgroundResource(R.drawable.background_item_menh_gia);
             btn2000.setTextColor(Color.parseColor("#3F51B5"));
-        }
-        if (view.getId() == R.id.btn_5000) {
-            btn5000.setBackgroundResource(R.drawable.item_background);
-            btn5000.setTextColor(Color.parseColor("#FFFFFFFF"));
-            edTienNap.setText("5000000");
-        } else {
             btn5000.setBackgroundResource(R.drawable.background_item_menh_gia);
             btn5000.setTextColor(Color.parseColor("#3F51B5"));
-        }
+    }
+
+    @Override
+    public void onClick(View view) {
+       switch (view.getId()){
+           case R.id.btn_20:
+               clearBackGruond();
+               btn20.setBackgroundResource(R.drawable.item_background);
+               btn20.setTextColor(Color.parseColor("#FFFFFFFF"));
+               edTienNap.setText("20000");
+               break;
+           case R.id.btn_30:
+               clearBackGruond();
+               btn30.setBackgroundResource(R.drawable.item_background);
+               btn30.setTextColor(Color.parseColor("#FFFFFFFF"));
+               edTienNap.setText("30000");
+               break;
+           case R.id.btn_50:
+               clearBackGruond();
+               btn50.setBackgroundResource(R.drawable.item_background);
+               btn50.setTextColor(Color.parseColor("#FFFFFFFF"));
+               edTienNap.setText("50000");
+               break;
+           case R.id.btn_100:
+               clearBackGruond();
+               btn100.setBackgroundResource(R.drawable.item_background);
+               btn100.setTextColor(Color.parseColor("#FFFFFFFF"));
+               edTienNap.setText("100000");
+               break;
+           case R.id.btn_200:
+               clearBackGruond();
+               btn200.setBackgroundResource(R.drawable.item_background);
+               btn200.setTextColor(Color.parseColor("#FFFFFFFF"));
+               edTienNap.setText("200000");
+               break;
+           case R.id.btn_500:
+               clearBackGruond();
+               btn500.setBackgroundResource(R.drawable.item_background);
+               btn500.setTextColor(Color.parseColor("#FFFFFFFF"));
+               edTienNap.setText("500000");
+               break;
+           case R.id.btn_1000:
+               clearBackGruond();
+               btn1000.setBackgroundResource(R.drawable.item_background);
+               btn1000.setTextColor(Color.parseColor("#FFFFFFFF"));
+               edTienNap.setText("1000000");
+               break;
+           case R.id.btn_2000:
+               clearBackGruond();
+               btn2000.setBackgroundResource(R.drawable.item_background);
+               btn2000.setTextColor(Color.parseColor("#FFFFFFFF"));
+               edTienNap.setText("2000000");
+               break;
+           case R.id.btn_5000:
+               clearBackGruond();
+               btn5000.setBackgroundResource(R.drawable.item_background);
+               btn5000.setTextColor(Color.parseColor("#FFFFFFFF"));
+               edTienNap.setText("5000000");
+               break;
+       }
     }
 }
