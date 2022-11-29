@@ -35,9 +35,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="10dp">
 
             <RelativeLayout
                 android:id="@+id/layout_Username"
@@ -219,11 +219,11 @@
                 android:id="@+id/btn_Help"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginVertical="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/gachchan"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginVertical="10dp"
                 android:paddingBottom="5dp"
                 android:weightSum="3">
 
@@ -237,9 +237,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="3"
-                    android:paddingTop="3dp"
                     android:fontFamily="@font/poppins_medium"
                     android:paddingStart="10dp"
+                    android:paddingTop="3dp"
                     android:text="@string/help"
                     android:textColor="@color/black"
                     android:textSize="21sp" />
@@ -274,9 +274,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="3"
-                    android:paddingTop="3dp"
                     android:fontFamily="@font/poppins_medium"
                     android:paddingStart="10dp"
+                    android:paddingTop="3dp"
                     android:text="Quy chế"
                     android:textColor="@color/black"
                     android:textSize="21sp" />
@@ -293,12 +293,12 @@
                 android:id="@+id/btn_PolicyAndPrivacy"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginVertical="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/gachchan"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingBottom="5dp"
-android:layout_marginVertical="10dp"
                 android:weightSum="3">
 
                 <ImageView
@@ -313,9 +313,9 @@ android:layout_marginVertical="10dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="3"
-                    android:paddingTop="3dp"
                     android:fontFamily="@font/poppins_medium"
                     android:paddingStart="10dp"
+                    android:paddingTop="3dp"
                     android:text="Chính sách bảo mật"
                     android:textColor="@color/black"
                     android:textSize="21sp" />
@@ -351,9 +351,9 @@ android:layout_marginVertical="10dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="3"
-                    android:paddingTop="3dp"
                     android:fontFamily="@font/poppins_medium"
                     android:paddingStart="10dp"
+                    android:paddingTop="3dp"
                     android:text="Đăng xuất"
                     android:textColor="@color/black"
                     android:textSize="21sp" />
