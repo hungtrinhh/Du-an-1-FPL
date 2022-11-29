@@ -21,7 +21,7 @@ import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragDifferent.FragmentLichSuGiaoDich;
 import com.example.myapplication.Fragment.fragDifferent.FragmentNapTien;
-import com.example.myapplication.Fragment.fragDifferent.FragmentNotify;
+import com.example.myapplication.Fragment.fragDifferent.FragmentThongBao;
 import com.example.myapplication.Fragment.fragmentUserChild.fragment_EditProfile;
 import com.example.myapplication.Fragment.fragment_Login;
 import com.example.myapplication.R;
@@ -152,7 +152,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btn_Notify:
                 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
-                        .replace(R.id.fragment_container, new FragmentNotify()).commit();
+                        .replace(R.id.fragment_container, new FragmentThongBao()).commit();
                 break;
             case R.id.btn_CheckHistory:
                 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")

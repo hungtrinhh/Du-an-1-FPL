@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Nạp tiền vào YAHHHOME"
+                android:text="Nạp tiền"
                 android:textColor="@color/white"
                 android:textSize="23dp"
                 android:textStyle="bold" />
@@ -48,6 +48,7 @@
         android:orientation="vertical"
         android:paddingHorizontal="5dp"
         android:weightSum="6">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -82,19 +83,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.2"
+                android:layout_marginBottom="10dp"
 
+                android:layout_weight="0.2"
                 android:fontFamily="@font/poppins_semi_bold"
                 android:paddingTop="3dp"
                 android:text="Hoặc chọn mệnh giá"
-                android:layout_marginBottom="10dp"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.51"                android:background="@color/white"
+                android:layout_weight="0.51"
+                android:background="@color/white"
 
                 android:orientation="horizontal"
                 android:weightSum="3">
@@ -142,7 +144,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginVertical="5dp"
-                android:layout_weight="0.5"                android:background="@color/white"
+                android:layout_weight="0.5"
+                android:background="@color/white"
 
                 android:orientation="horizontal"
                 android:weightSum="3">
@@ -205,7 +208,7 @@
                     android:text="1,000,000"
                     android:textColor="@color/blue_900"
                     android:textSize="18sp" />
-                <!--200.000-->
+                <!--2.000.000-->
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_2000"
                     android:layout_width="0dp"
@@ -218,11 +221,11 @@
                     android:text="2,000,000"
                     android:textColor="@color/blue_900"
                     android:textSize="18sp" />
+                <!--5.000.000-->
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_5000"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginHorizontal="3dp"
                     android:layout_weight="1"
                     android:background="@drawable/background_item_menh_gia"
                     android:fontFamily="@font/poppins_semi_bold"
@@ -239,9 +242,9 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_nap"
-                android:layout_marginHorizontal="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
                 android:background="@drawable/background_button_corner"
                 android:text="Nạp tiền"
                 android:textAllCaps="false"
@@ -253,8 +256,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center"
             android:layout_weight="0.4"
+            android:gravity="center"
             android:orientation="vertical"
             android:weightSum="2">
 
@@ -264,37 +267,42 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:weightSum="3">
+
                 <ImageView
                     android:layout_width="24dp"
-                    android:src="@drawable/ic_baseline_local_phone_24"                    android:layout_marginRight="5dp"
+                    android:layout_height="24dp"
 
-                    android:layout_height="24dp"/>
+                    android:src="@drawable/ic_baseline_local_phone_24" />
+
                 <TextView
                     android:layout_width="wrap_content"
-                    android:paddingTop="3dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:paddingTop="3dp"
                     android:text="1900999877"
                     android:textColor="@color/blue_900"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:weightSum="3">
+
                 <ImageView
                     android:layout_width="24dp"
-                    android:src="@drawable/ic_baseline_mail_outline_24"
+                    android:layout_height="24dp"
                     android:layout_marginRight="5dp"
-                    android:layout_height="24dp"/>
+                    android:src="@drawable/ic_baseline_mail_outline_24" />
+
                 <TextView
                     android:layout_width="wrap_content"
-                    android:paddingTop="3dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:paddingTop="3dp"
                     android:text="nhom2@duan1.fpolyhn"
                     android:textColor="@color/blue_900"
                     android:textSize="13sp"

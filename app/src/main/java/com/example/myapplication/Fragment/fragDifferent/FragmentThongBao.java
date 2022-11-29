@@ -20,7 +20,7 @@ import com.example.myapplication.R;
 
 import java.util.List;
 
-public class FragmentNotify extends Fragment {
+public class FragmentThongBao extends Fragment {
     private List<Notify> listNotify;
     private NotifyAdapter notifyAdapter;
     private ImageView btnBackToUser;
