@@ -37,6 +37,7 @@ import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.Interface.OnclickItemTime;
 import com.example.myapplication.Interface.OnclickItemVoucher;
 import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.HoaDonHenGio;
 import com.example.myapplication.Model.PlayTime;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
@@ -88,8 +89,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
     private int presentTimeHours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
     private int presentTimeMinutes = Calendar.getInstance().get(Calendar.MINUTE);
     //thời gian hệ thống ( khi chơi )
-    private int playingTimeHours = presentTimeHours;//gán trc giá trị là giờ của hệ thống
-    private int playingTimeMinutes = presentTimeMinutes;
+    private int playingTimeMinutes = 0;
 
     public static fragmentHenTroChoiGio newInstance() {
         fragmentHenTroChoiGio fragment = new fragmentHenTroChoiGio();
@@ -197,11 +197,6 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                     if (playTime_choose.getId() == i) {
                         time = i + 1;
                         playingTimeMinutes += arrTime[i];//gán giá trị tương ứng với số phút trên dánh sách
-                        if(playingTimeMinutes >= 60){
-                            int time_temp = playingTimeMinutes - arrTime[i];
-                            playingTimeMinutes = time_temp;
-                            playingTimeHours++;
-                        }
                         total = game.getGia() * (i + 1);
                     }
                 }
@@ -209,14 +204,9 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                 for (int i = 0; i < arr.length; i++) {
                     if (playTime_choose.getId() == i) {
                         time = i + 1;
-                        if(playingTimeMinutes >= 60){
-                            int time_temp = playingTimeMinutes - arrTime[i];
-                            playingTimeMinutes = time_temp;
-                            playingTimeHours++;
-                        }
+                        playingTimeMinutes += arrTime[i];
                         sale = voucherChoose.getGiamGia();
                         total = game.getGia() * (i + 1) * (1 - (sale / 100));
-
                     }
                 }
             }
@@ -263,6 +253,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.dialog_hengiochoi);
                     ImageView imgTime = dialog.findViewById(R.id.chooseDay);
+                    AppCompatButton button = dialog.findViewById(R.id.btn_chotLich);
                     edt_day = dialog.findViewById(R.id.edt_day);
                     numberPicker_minutes = dialog.findViewById(R.id.numberpick_minutes);
                     numberPicker_seconds = dialog.findViewById(R.id.numberpick_seconds);
@@ -293,6 +284,60 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                             mDay = c.get(Calendar.DAY_OF_MONTH);
                             DatePickerDialog d = new DatePickerDialog(getActivity(),0,dateStart,mYear,mMonth,mDay);
                             d.show();
+                        }
+                    });
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String timeStart = edt_day.getText().toString()+" "+numberPicker_minutes.getValue()+":"+numberPicker_seconds.getValue();
+                            int timeM = numberPicker_seconds.getValue() + playingTimeMinutes;
+                            int timeH = numberPicker_minutes.getValue();
+                            if(timeM >= 60){
+                                timeM = timeM - 60;
+                                timeH++;
+                            }
+
+                            String timeEnd = edt_day.getText().toString()+" "+timeH+":"+timeM;
+                            int a1 = Integer.parseInt(String.valueOf(numberPicker_minutes.getValue()).concat(String.valueOf(numberPicker_seconds.getValue())));
+                            int a2 = Integer.parseInt(String.valueOf(timeH).concat(String.valueOf(timeM)));
+
+                            List<HoaDonHenGio> donHenGioList = FbDao.getListHoaDonHenGio();
+                            boolean xet = true;
+                            for(HoaDonHenGio item : donHenGioList){
+
+                                String arrTime1[] = item.getTimeStart().split(" ");
+                                String arrTime2[] = item.getTimeEnd().split(" ");
+
+                                String arrTimeH1[] = arrTime1[1].split(":");
+                                String arrTimeH2[] = arrTime2[1].split(":");
+
+                                int b1 = Integer.parseInt(arrTimeH1[0].concat(arrTimeH1[1]));
+                                int b2 = Integer.parseInt(arrTimeH2[0].concat(arrTimeH2[1]));
+
+                                if(item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false){
+                                    if(a1 >= b1 && a2 <= b2){
+                                        xet = false;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if(xet){
+                                HoaDonHenGio hoaDonHenGio = new HoaDonHenGio();
+                                hoaDonHenGio.setUserId(FbDao.UserLogin.getId());
+                                hoaDonHenGio.setCost(total);
+                                hoaDonHenGio.setGameid(String.valueOf(game.getId()));
+                                hoaDonHenGio.setTimeStart(timeStart);
+                                hoaDonHenGio.setTimeEnd(timeEnd);
+                                FbDao.AddHoaDonHenGio(hoaDonHenGio);
+                                FbDao.Thanhtoantien(total);
+                                dialog.cancel();
+                                Snackbar.make(getView(),"Đặt lịch thành công",2000).show();
+                            }else{
+                                dialog.cancel();
+                                Snackbar.make(getView(),"Khung giờ này đã có người chọn.Vui lòng chọn giờ khác",2000).show();
+                            }
+
                         }
                     });
                     dialog.show();

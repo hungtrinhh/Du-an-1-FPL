@@ -20,6 +20,7 @@ import com.example.myapplication.Fragment.fragListgameAndVoudcher.Fragment_ListD
 import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.HoaDonHenGio;
 import com.example.myapplication.Model.Hoadon;
 import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.Model.Hoadonnaptien;
@@ -65,7 +66,7 @@ public class FbDao {
 
     private static List<Hoadonnaptien> hoadonnaptienList;
     private static List<Hoadonchoigame> hoadonchoigameList;
-
+    private static List<HoaDonHenGio> hoadonhenGioList;
 
     public static List<Notify> getListNotify() {
         return listNotify;
@@ -81,6 +82,10 @@ public class FbDao {
 
     public static java.util.List<User> getList() {
         return listUser;
+    }
+
+    public static List<HoaDonHenGio> getListHoaDonHenGio(){
+        return  hoadonhenGioList;
     }
 
     public static Bitmap Avatar;
@@ -109,7 +114,7 @@ public class FbDao {
         ReadVoucher();
         ReadGame();
         ReadNotify();
-
+        ReadTimePlayGame();
     }
 
     public FbDao() {
@@ -408,6 +413,8 @@ public class FbDao {
         });
     }
 
+
+
     private void ReadNotify() {
         Log.d(TAG, "ReadVoucher: ");
         listNotify = new ArrayList<>();
@@ -434,6 +441,29 @@ public class FbDao {
         });
     }
 
+    public void ReadTimePlayGame(){
+        hoadonhenGioList = new ArrayList<>();
+        DatabaseReference myRef = database.getReference("HoaDonHenGio");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                hoadonhenGioList.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    HoaDonHenGio hd = dataSnapshot.getValue(HoaDonHenGio.class);
+                    if(hd == null){
+                        continue;
+                    }
+                    hoadonhenGioList.add(hd);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     //hàm thêm user khi đăng kí
     public void AddUser(User user) {
         DatabaseReference myRef = database.getReference("Users");
@@ -448,6 +478,11 @@ public class FbDao {
     public static void AddHoaDonNap(Hoadonnaptien hoadonnaptien) {
         DatabaseReference myRef = database.getReference();
         myRef.child("HoaDonNapTien").push().setValue(hoadonnaptien);
+    }
+
+    public static void AddHoaDonHenGio(HoaDonHenGio hoaDonHenGio) {
+        DatabaseReference myRef = database.getReference();
+        myRef.child("HoaDonHenGio").push().setValue(hoaDonHenGio);
     }
 
     //hàm cập nhạt lại user
