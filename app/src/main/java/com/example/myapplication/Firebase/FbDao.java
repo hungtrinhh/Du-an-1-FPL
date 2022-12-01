@@ -43,6 +43,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,12 +63,12 @@ public class FbDao {
     public static List<Hoadon> hoadonList;
     public FirebaseStorage storageFireBase;
     public static StorageReference avatatRef;
-    private static int[]  imageAvatarGame = new int[]{ R.drawable.game_ghost_house,R.drawable.game_bounce_house,R.drawable.racingcar,R.drawable.gun, R.drawable.game_nhun_nhay,R.drawable.game_bao_nha , R.drawable.game_jumping_house, R.drawable.game_cau_truot, R.drawable.game_suc_cac, R.drawable.game_xich_du};
+    private static int[] imageAvatarGame = new int[]{R.drawable.game_ghost_house, R.drawable.game_bounce_house, R.drawable.racingcar, R.drawable.gun, R.drawable.game_nhun_nhay, R.drawable.game_bao_nha, R.drawable.game_jumping_house, R.drawable.game_cau_truot, R.drawable.game_suc_cac, R.drawable.game_xich_du};
 
 
     private static List<Hoadonnaptien> hoadonnaptienList;
-    private static List<Hoadonchoigame> hoadonchoigameList;
     private static List<HoaDonHenGio> hoadonhenGioList;
+    private static List<Hoadonchoigame> hoadonchoigameList;
 
     public static List<Notify> getListNotify() {
         return listNotify;
@@ -84,8 +86,12 @@ public class FbDao {
         return listUser;
     }
 
-    public static List<HoaDonHenGio> getListHoaDonHenGio(){
-        return  hoadonhenGioList;
+    public static List<HoaDonHenGio> getListHoaDonHenGio() {
+        return hoadonhenGioList;
+    }
+
+    public static List<Hoadonchoigame> getHoadonchoigameList() {
+        return hoadonchoigameList;
     }
 
     public static Bitmap Avatar;
@@ -98,10 +104,9 @@ public class FbDao {
     public static boolean UpdatedUser = false;
     public static boolean UpLoadedAvatar = false;
 
-    private static Date curenTime,endTime;
-    public static int phut=0,giay=0;
+    private static Date curenTime, endTime;
+    public static int phut = 0, giay = 0;
     private static Thread thread;
-
 
 
     //hàm khởi tạo để trả về userId
@@ -223,41 +228,51 @@ public class FbDao {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 Toast.makeText(activity, "Chơi thành công", Toast.LENGTH_SHORT).show();
-                CountDown();
+
             }
         });
     }
 
-    private void CountDown(){
-        Date dateC = curenTime;
-        Date dateE = endTime;
-        long time = dateE.getTime()-dateC.getTime();
-        phut = (int) (time/1000)/60;
-        giay = (int) (time/1000)%60;
+    public static void CountDown() {
+        List<Hoadonchoigame> hoadonchoigameList = FbDao.getHoadonchoigameList();
+        Log.d(TAG, "onClickItemHAHAHA: " + hoadonchoigameList.get(hoadonchoigameList.size() - 1));
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String endT = hoadonchoigameList.get(hoadonchoigameList.size() - 1).getDateEnd();
+        Date dateC = new Date();
+        Date dateE = null;
+        try {
+            dateE = dateFormat.parse(endT);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long time = dateE.getTime() - dateC.getTime();
+        phut = (int) ((time / 1000) / 60);
+        giay = (int) ((time / 1000) % 60);
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (phut>=0&&giay>=0) {
+                while (phut >= 0 && giay >= 0) {
                     try {
                         setInterval();
-                        Log.d(TAG, "run: "+phut+" va "+giay);
+                        Log.d(TAG, "run: " + phut + " va " + giay);
                         Thread.sleep(1000);
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
         });
         thread.start();
-
     }
-    private int setInterval() {
-        if (phut==0&&giay==1){
+
+    private static int setInterval() {
+        if (phut == 0 && giay == 1) {
             Thread.currentThread().interrupt();
-        }if(giay==0){
-            giay=60;
+            Fragment_ListDanhSachTroChoi.chk = false;
+        }
+        if (giay == 0) {
+            giay = 60;
             --phut;
         }
         return --giay;
@@ -304,6 +319,7 @@ public class FbDao {
                 Log.d(TAG, "Đã nhận dữ liệu Game: ");
                 activity.startService(new Intent(activity, UpdateGameService.class));
             }
+
             @Override
             public void onCancelled(DatabaseError error) {
                 Log.e(TAG, "DatabaseError: " + error.toString()
@@ -311,12 +327,14 @@ public class FbDao {
             }
         });
     }
-    public static void setImgGame(){
+
+
+    public static void setImgGame() {
         listGame = FbDao.getListGame();
-        for (int i=1;i<listGame.size()+1;i++){
-            Game game = listGame.get(i-1);
-            if (game.getId()==i){
-                game.setImgGame(imageAvatarGame[i-1]);
+        for (int i = 1; i < listGame.size() + 1; i++) {
+            Game game = listGame.get(i - 1);
+            if (game.getId() == i) {
+                game.setImgGame(imageAvatarGame[i - 1]);
             }
         }
     }
@@ -414,7 +432,6 @@ public class FbDao {
     }
 
 
-
     private void ReadNotify() {
         Log.d(TAG, "ReadVoucher: ");
         listNotify = new ArrayList<>();
@@ -441,16 +458,16 @@ public class FbDao {
         });
     }
 
-    public void ReadTimePlayGame(){
+    public void ReadTimePlayGame() {
         hoadonhenGioList = new ArrayList<>();
         DatabaseReference myRef = database.getReference("HoaDonHenGio");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 hoadonhenGioList.clear();
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     HoaDonHenGio hd = dataSnapshot.getValue(HoaDonHenGio.class);
-                    if(hd == null){
+                    if (hd == null) {
                         continue;
                     }
                     hoadonhenGioList.add(hd);

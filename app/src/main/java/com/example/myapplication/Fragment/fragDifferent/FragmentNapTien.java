@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -161,7 +162,11 @@ public class FragmentNapTien extends Fragment implements View.OnClickListener {
 
             hoadonnaptien.setUserId(FbDao.UserLogin.getId());
             if (edTienNap.getText().toString().isEmpty()) {
-                Snackbar.make(viewFrag, "Bạn chưa nhập vào số tiền muốn nạp", 2000).show();
+                Snackbar snackbar = Snackbar.make(viewFrag,"Bạn chưa nhập vào số tiền muốn nạp",2000);
+                View snackbar_view = snackbar.getView();
+                TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.negative2,0);
+                snackbar.show();
             } else {
                 try {
                     float tienNap = Float.parseFloat(edTienNap.getText().toString());
@@ -170,7 +175,11 @@ public class FragmentNapTien extends Fragment implements View.OnClickListener {
                     String date = dateFormat.format(new Date());
                     hoadonnaptien.setDate(date);
                     FbDao.AddHoaDonNap(hoadonnaptien);
-                    Toast.makeText(getActivity(), "Yêu Cầu Nạp Tiền Của Bạn Đang Được Xử Lí", Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar = Snackbar.make(viewFrag,"Yêu cầu nạp tiền của bạn đang được xử lý",2000);
+                    View snackbar_view = snackbar.getView();
+                    TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.emoticon,0);
+                    snackbar.show();
                     getActivity().getSupportFragmentManager().popBackStack();
                 } catch (Exception exception) {
                     Toast.makeText(getActivity(), "Nhập Số Tiền Nạp Là Số", Toast.LENGTH_SHORT).show();

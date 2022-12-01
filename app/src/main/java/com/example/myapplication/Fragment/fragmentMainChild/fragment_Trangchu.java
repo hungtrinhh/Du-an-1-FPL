@@ -76,6 +76,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     private static final String TAG = "FRAGMENT_TRANG_CHU";
     public static boolean gochild = false;
     private boolean show = true;
+    private boolean chk = Fragment_ListDanhSachTroChoi.chk;
 
     //khai báo view
     @Override
@@ -248,45 +249,57 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     private void onClickItem(Game game) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         if (game.getTrangThai().equalsIgnoreCase("Bảo trì")) {
-            Snackbar.make(viewFrag, "Hiện trò chơi đang được bảo trì ,hãy thử lại vào lần sau nhé ", 2000).show();
+            Snackbar snackbar = Snackbar.make(viewFrag,"Hiện trò chơi đang được bảo trì, hãy thử lại vào lần sau nhé",2000);
+            View snackbar_view = snackbar.getView();
+            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.nervous,0);
+            snackbar.show();
             return;
         }
         if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
-            Dialog dialog = new Dialog(getContext());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_timeup);
-            TextView tv_minutes = dialog.findViewById(R.id.phut);
-            TextView tv_seconds = dialog.findViewById(R.id.giay);
-            if (FbDao.phut<10){
-
-            }
-            String minutes = FbDao.phut<10?"0"+FbDao.phut:FbDao.phut+"";
-            String seconds = FbDao.giay<10?"0"+FbDao.giay:FbDao.giay+"";
-            tv_minutes.setText(minutes);
-            tv_seconds.setText(seconds);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-
-                    while (((FbDao.phut*60)+FbDao.giay)>=0) {
-                        try {
-                            String minutes2 = FbDao.phut<10?"0"+FbDao.phut:FbDao.phut+"";
-                            String seconds2 = FbDao.giay<10?"0"+FbDao.giay:FbDao.giay+"";
-                            tv_minutes.setText(minutes2);
-                            tv_seconds.setText(seconds2);
-                            Thread.sleep(1000);
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    dialog.dismiss();
+            if (String.valueOf(game.getId()).equals(FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size()-1).getGameid())){
+                if (!chk) {
+                    FbDao.CountDown();
+                    chk = true;
                 }
-            }).start();
-            dialog.show();
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            Snackbar.make(viewFrag, "Hiện trò chơi đã được chơi xin ,quý khách hãy đăng kí game khác", 2000).show();
+                Dialog dialog = new Dialog(getContext());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_timeup);
+                TextView tv_minutes = dialog.findViewById(R.id.phut);
+                TextView tv_seconds = dialog.findViewById(R.id.giay);
+                String minutes = FbDao.phut < 10 ? "0" + FbDao.phut : FbDao.phut + "";
+                String seconds = FbDao.giay < 10 ? "0" + FbDao.giay : FbDao.giay + "";
+                tv_minutes.setText(minutes);
+                tv_seconds.setText(seconds);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (FbDao.phut >= 0 && FbDao.giay >= 0) {
+                            try {
+                                String minutes2 = FbDao.phut < 10 ? "0" + FbDao.phut : FbDao.phut + "";
+                                String seconds2 = FbDao.giay < 10 ? "0" + FbDao.giay : FbDao.giay + "";
+                                tv_minutes.setText(minutes2);
+                                tv_seconds.setText(seconds2);
+                                Thread.sleep(1000);
+
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        dialog.dismiss();
+                    }
+                }).start();
+                dialog.show();
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            }else {
+                Snackbar snackbar = Snackbar.make(viewFrag,"Hiện trò chơi đã được chơi xin, quý khách hãy đăng kí game khác",2000);
+                View snackbar_view = snackbar.getView();
+                TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
+                snackbar.show();
+            }
+
             return;
         }
         if (!game.getKieu().equalsIgnoreCase("lượt")) {

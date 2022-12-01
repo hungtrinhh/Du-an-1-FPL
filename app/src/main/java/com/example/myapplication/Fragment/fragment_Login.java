@@ -55,6 +55,9 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        viewFrag = view;
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         Anhxa(view);
         //gọi hàm animation (truyền vào các tham số)
@@ -96,7 +99,11 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 String username = ed_Username.getText().toString();
                 String password = ed_Password.getText().toString();
                 if (username.equals("") || password.equals("")) {
-                    Snackbar.make(getView(), "Không được để trống tài khoản và mật khẩu", 2000).show();
+                    Snackbar snackbar = Snackbar.make(viewFrag,"Không được để trống tài khoản và mật khẩu",2000);
+                    View snackbar_view = snackbar.getView();
+                    TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.angry,0);
+                    snackbar.show();
                     break;
                 }
 
@@ -138,10 +145,12 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                     }
                 }
                 if (!dk) {
-                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
+                    Snackbar snackbar = Snackbar.make(viewFrag,"Mật khẩu hoặc tài khoản không đúng",2000);
+                    View snackbar_view = snackbar.getView();
+                    TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.thinking,0);
+                    snackbar.show();
                 }
-
-
                 break;
 
             case R.id.tv_GoToRegister:
@@ -162,7 +171,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 break;
         }
     }
-
+    private View viewFrag = null;
 
     // khai báo hàm animation
     private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {

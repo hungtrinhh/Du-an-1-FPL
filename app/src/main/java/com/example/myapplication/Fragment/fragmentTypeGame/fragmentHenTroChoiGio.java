@@ -253,16 +253,32 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.dialog_hengiochoi);
                     ImageView imgTime = dialog.findViewById(R.id.chooseDay);
+                    ImageView close = dialog.findViewById(R.id.close);
                     AppCompatButton button = dialog.findViewById(R.id.btn_chotLich);
                     edt_day = dialog.findViewById(R.id.edt_day);
                     numberPicker_minutes = dialog.findViewById(R.id.numberpick_minutes);
                     numberPicker_seconds = dialog.findViewById(R.id.numberpick_seconds);
                     numberPicker_minutes.setMaxValue(23);
                     numberPicker_minutes.setMinValue(0);
+                    numberPicker_minutes.setFormatter(new NumberPicker.Formatter() {
+                        @Override
+                        public String format(int i) {
+                            return String.format("%02d", i);
+                        }
+                    });
                     numberPicker_minutes.setValue(9);
                     numberPicker_seconds.setMaxValue(59);
                     numberPicker_seconds.setMinValue(0);
+                    numberPicker_seconds.setFormatter(new NumberPicker.Formatter() {
+                        @Override
+                        public String format(int i) {
+                            return String.format("%02d", i);
+                        }
+                    });
                     numberPicker_seconds.setValue(0);
+                    close.setOnClickListener(v1 -> {
+                        dialog.dismiss();
+                    });
                     numberPicker_minutes.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                         @Override
                         public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -332,10 +348,18 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                 FbDao.AddHoaDonHenGio(hoaDonHenGio);
                                 FbDao.Thanhtoantien(total);
                                 dialog.cancel();
-                                Snackbar.make(getView(),"Đặt lịch thành công",2000).show();
+                                Snackbar snackbar = Snackbar.make(getView(),"Đặt lịch thành công",2000);
+                                View snackbar_view = snackbar.getView();
+                                TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.emojilike,0);
+                                snackbar.show();
                             }else{
                                 dialog.cancel();
-                                Snackbar.make(getView(),"Khung giờ này đã có người chọn.Vui lòng chọn giờ khác",2000).show();
+                                Snackbar snackbar = Snackbar.make(getView(),"Khung giờ này đã có người chọn.Vui lòng chọn giờ khác",2000);
+                                View snackbar_view = snackbar.getView();
+                                TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
+                                snackbar.show();
                             }
 
                         }

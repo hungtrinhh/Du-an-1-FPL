@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
 import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.Model.PlayTime;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
@@ -98,6 +100,8 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     //lớp gửi , nhận thông báo
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
+    private List<Hoadonchoigame> hoadonchoigameList;
+
 
     public static fragmentTroChoiGio newInstance() {
         fragmentTroChoiGio fragment = new fragmentTroChoiGio();
@@ -216,7 +220,11 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 break;
             case R.id.btn_play:
                 if (playTime_choose == null) {
-                    Snackbar.make(getView(), "Vui lòng chọn thời gian chơi", 2000).show();
+                    Snackbar snackbar = Snackbar.make(getView(),"Vui lòng chọn thời gian chơi",2000);
+                    View snackbar_view = snackbar.getView();
+                    TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
+                    snackbar.show();
                 } else {
                     sendNotifications();
                     FbDao dao = new FbDao();

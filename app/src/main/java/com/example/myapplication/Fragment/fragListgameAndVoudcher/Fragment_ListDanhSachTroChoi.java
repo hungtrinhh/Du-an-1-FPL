@@ -41,6 +41,7 @@ import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
 import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Hoadon;
+import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.R;
 import com.example.myapplication.Interface.OnclickItemGame;
 import com.google.android.material.snackbar.Snackbar;
@@ -69,8 +70,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     private TextView tvthongBao;
     private static final String TAG = "FRAGMENT_TRO_CHOI";
     private View viewFrag = null;
-    private List<Hoadon> list;
-    private int phut,giay;
+    public static boolean chk = false;
 
     public Fragment_ListDanhSachTroChoi() {
 
@@ -232,60 +232,82 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     public void onClickItem(Game game) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         if (game.getTrangThai().equalsIgnoreCase("Bảo trì")) {
-            Snackbar.make(viewFrag, "Hiện trò chơi đang được bảo trì ,hãy thử lại vào lần sau nhé ", 2000).show();
+            Snackbar snackbar = Snackbar.make(viewFrag,"Hiện trò chơi đang được bảo trì, hãy thử lại vào lần sau nhé",2000);
+            View snackbar_view = snackbar.getView();
+            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.nervous,0);
+            snackbar.show();
             return;
         }
         if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
-            Dialog dialog = new Dialog(getContext());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_timeup);
-            TextView tv_minutes = dialog.findViewById(R.id.phut);
-            TextView tv_seconds = dialog.findViewById(R.id.giay);
-            if (FbDao.phut<10){
-
-            }
-            String minutes = FbDao.phut<10?"0"+FbDao.phut:FbDao.phut+"";
-            String seconds = FbDao.giay<10?"0"+FbDao.giay:FbDao.giay+"";
-            tv_minutes.setText(minutes);
-            tv_seconds.setText(seconds);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-
-                    while (((FbDao.phut*60)+FbDao.giay)>=0) {
-                        try {
-                            String minutes2 = FbDao.phut<10?"0"+FbDao.phut:FbDao.phut+"";
-                            String seconds2 = FbDao.giay<10?"0"+FbDao.giay:FbDao.giay+"";
-                            tv_minutes.setText(minutes2);
-                            tv_seconds.setText(seconds2);
-                            Thread.sleep(1000);
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    dialog.dismiss();
+            Log.d(TAG, "onClickItem: ");
+            if (String.valueOf(game.getId()).equals(FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size()-1).getGameid())){
+                if (!chk) {
+                    FbDao.CountDown();
+                    chk = true;
                 }
-            }).start();
-            dialog.show();
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            Snackbar.make(viewFrag, "Hiện trò chơi đã được chơi xin ,quý khách hãy đăng kí game khác", 2000).show();
+                Dialog dialog = new Dialog(getContext());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_timeup);
+                TextView tv_minutes = dialog.findViewById(R.id.phut);
+                TextView tv_seconds = dialog.findViewById(R.id.giay);
+                String minutes = FbDao.phut < 10 ? "0" + FbDao.phut : FbDao.phut + "";
+                String seconds = FbDao.giay < 10 ? "0" + FbDao.giay : FbDao.giay + "";
+                tv_minutes.setText(minutes);
+                tv_seconds.setText(seconds);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (FbDao.phut >= 0 && FbDao.giay >= 0) {
+                            try {
+                                String minutes2 = FbDao.phut < 10 ? "0" + FbDao.phut : FbDao.phut + "";
+                                String seconds2 = FbDao.giay < 10 ? "0" + FbDao.giay : FbDao.giay + "";
+                                tv_minutes.setText(minutes2);
+                                tv_seconds.setText(seconds2);
+                                Thread.sleep(1000);
+
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        dialog.dismiss();
+                    }
+                }).start();
+                dialog.show();
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            }else {
+                Snackbar snackbar = Snackbar.make(viewFrag,"Hiện trò chơi đã được chơi xin, quý khách hãy đăng kí game khác",2000);
+                View snackbar_view = snackbar.getView();
+                TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
+                snackbar.show();
+            }
+
             return;
         }
-        if (!game.getKieu().equalsIgnoreCase("lượt")) {
-            fragmentTroChoiGio fragmentTroChoigio = new fragmentTroChoiGio();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("obj_game", game);
-            fragmentTroChoigio.setArguments(bundle);
-            fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoigio).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
-        } else {
-            fragmentTroChoiLuot fragmentTroChoiluot = new fragmentTroChoiLuot();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("obj_game", game);
-            fragmentTroChoiluot.setArguments(bundle);
-            fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoiluot).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
+        if (!FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size()-1).isSuccess()){
+            Snackbar snackbar = Snackbar.make(viewFrag,"Bạn đang trong trò chơi khác vui lòng thử lại sau",2000);
+            View snackbar_view = snackbar.getView();
+            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.bored,0);
+            snackbar.show();
+        }else {
+            if (!game.getKieu().equalsIgnoreCase("lượt")) {
+                fragmentTroChoiGio fragmentTroChoigio = new fragmentTroChoiGio();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("obj_game", game);
+                fragmentTroChoigio.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoigio).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
+            } else {
+                fragmentTroChoiLuot fragmentTroChoiluot = new fragmentTroChoiLuot();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("obj_game", game);
+                fragmentTroChoiluot.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoiluot).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
+            }
         }
+
 
     }
 
