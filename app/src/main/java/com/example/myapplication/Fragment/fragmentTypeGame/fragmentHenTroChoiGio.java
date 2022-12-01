@@ -44,9 +44,11 @@ import com.example.myapplication.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -291,6 +293,8 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
 
                         }
                     });
+
+
                     imgTime.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -305,7 +309,17 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            String timeStart = edt_day.getText().toString()+" "+numberPicker_minutes.getValue()+":"+numberPicker_seconds.getValue();
+                            String timeStart = edt_day.getText().toString();
+                            if(timeStart.length() <= 0){
+                                Snackbar snackbar = Snackbar.make(getView(),"Vui lòng chọn ngày",2000);
+                                View snackbar_view = snackbar.getView();
+                                TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
+                                snackbar.show();
+                                return;
+                            }
+
+
                             int timeM = numberPicker_seconds.getValue() + playingTimeMinutes;
                             int timeH = numberPicker_minutes.getValue();
                             if(timeM >= 60){
@@ -313,29 +327,60 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                 timeH++;
                             }
 
-                            String timeEnd = edt_day.getText().toString()+" "+timeH+":"+timeM;
-                            int a1 = Integer.parseInt(String.valueOf(numberPicker_minutes.getValue()).concat(String.valueOf(numberPicker_seconds.getValue())));
-                            int a2 = Integer.parseInt(String.valueOf(timeH).concat(String.valueOf(timeM)));
+                            Date a_date1 = new Date();
+                            SimpleDateFormat a_fmtDay1 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                            Calendar c1 = Calendar.getInstance();
+                            c1.setTimeInMillis(System.currentTimeMillis());
+                            c1.set(Calendar.HOUR,numberPicker_minutes.getValue());
+                            c1.set(Calendar.MINUTE,numberPicker_seconds.getValue());
+                            c1.set(Calendar.DAY_OF_MONTH,mDay);
+                            c1.set(Calendar.MONTH,mMonth);
+                            c1.set(Calendar.YEAR,mYear);
+                            a_date1.setTime(c1.getTimeInMillis());
+                            String time1 = a_fmtDay1.format(a_date1);
+
+
+                            Date a_date2 = new Date();
+                            SimpleDateFormat a_fmtDay2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                            Calendar c2 = Calendar.getInstance();
+                            c2.setTimeInMillis(System.currentTimeMillis());
+                            c2.set(Calendar.HOUR,timeH);
+                            c2.set(Calendar.MINUTE,timeM);
+                            c2.set(Calendar.DAY_OF_MONTH,mDay);
+                            c2.set(Calendar.MONTH,mMonth);
+                            c2.set(Calendar.YEAR,mYear);
+                            a_date2.setTime(c2.getTimeInMillis());
+                            String time2 = a_fmtDay2.format(a_date2);
 
                             List<HoaDonHenGio> donHenGioList = FbDao.getListHoaDonHenGio();
                             boolean xet = true;
                             for(HoaDonHenGio item : donHenGioList){
+                                SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-                                String arrTime1[] = item.getTimeStart().split(" ");
-                                String arrTime2[] = item.getTimeEnd().split(" ");
+                                try {
 
-                                String arrTimeH1[] = arrTime1[1].split(":");
-                                String arrTimeH2[] = arrTime2[1].split(":");
+                                    Date b_date1 = b_fmtDay.parse(item.getTimeStart());
+                                    Date b_date2 = b_fmtDay.parse(item.getTimeEnd());
 
-                                int b1 = Integer.parseInt(arrTimeH1[0].concat(arrTimeH1[1]));
-                                int b2 = Integer.parseInt(arrTimeH2[0].concat(arrTimeH2[1]));
+                                    if(item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false){
+                                        int ssDate_a1 = a_date1.compareTo(b_date1);
+                                        int ssDate_a2 = a_date1.compareTo(b_date2);
 
-                                if(item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false){
-                                    if(a1 >= b1 && a2 <= b2){
-                                        xet = false;
-                                        break;
+                                        int ssDate_b1 = a_date2.compareTo(b_date1);
+                                        int ssDate_b2 = a_date2.compareTo(b_date2);
+
+                                        if((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1>=0 && ssDate_b2 <=0)){
+                                            xet = false;
+                                            break;
+                                        }
+
                                     }
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
                                 }
+
+
                             }
 
                             if(xet){
@@ -343,8 +388,8 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                 hoaDonHenGio.setUserId(FbDao.UserLogin.getId());
                                 hoaDonHenGio.setCost(total);
                                 hoaDonHenGio.setGameid(String.valueOf(game.getId()));
-                                hoaDonHenGio.setTimeStart(timeStart);
-                                hoaDonHenGio.setTimeEnd(timeEnd);
+                                hoaDonHenGio.setTimeStart(time1);
+                                hoaDonHenGio.setTimeEnd(time2);
                                 FbDao.AddHoaDonHenGio(hoaDonHenGio);
                                 FbDao.Thanhtoantien(total);
                                 dialog.cancel();

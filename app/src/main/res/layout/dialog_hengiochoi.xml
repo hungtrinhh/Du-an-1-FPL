@@ -38,6 +38,7 @@
             android:textColor="#000"
             android:backgroundTint="#000"
             android:enabled="false"
+            android:editable="false"
             android:hint="dd/mm/yyyy"
             android:layout_width="0dp"
             android:layout_weight="0.6"
