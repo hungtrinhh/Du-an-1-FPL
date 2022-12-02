@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.Fragment.fragListgameAndVoudcher.Fragment_ListDanhSachTroChoi;
+import com.example.myapplication.Fragment.fragmentMainChild.fragment_Uudai;
 import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.Model.Game;
@@ -330,7 +331,6 @@ public class FbDao {
         });
     }
 
-
     public static void setImgGame() {
         listGame = FbDao.getListGame();
         for (int i = 1; i < listGame.size() + 1; i++) {
@@ -550,4 +550,6 @@ public class FbDao {
         });
     }
     ///////////////////////////////////////////////////////////////////////////
+
+
 }

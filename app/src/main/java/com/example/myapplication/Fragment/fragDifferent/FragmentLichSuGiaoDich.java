@@ -37,6 +37,7 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     private RecyclerView recyclerviewHistory;
     private HistoryAdapter historyAdapter;
     private List<Hoadon> list;
+    private static List<Hoadon> hoadonList;
     String TAG = "LichSugiadich";
     Comparator<Hoadon> comparator;
 
@@ -52,7 +53,13 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
         anhXa(view);
         comparator = (o2, o1) -> getDate(o1).compareTo(getDate(o2));
 
-        fillRecycleView();
+        if (hoadonList!=null){
+            list=hoadonList;
+            FillHoaDonAgain();
+            hoadonList=null;
+        }else {
+            fillRecycleView();
+        }
         System.out.println("xin chao");
         btnBackNotify.setOnClickListener(this::onClick);
     }
@@ -88,6 +95,13 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
         recyclerviewHistory.setAdapter(historyAdapter);
     }
 
+    private void FillHoaDonAgain(){
+        Collections.sort(list, comparator);
+        historyAdapter = new HistoryAdapter(list);
+        recyclerviewHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerviewHistory.setAdapter(historyAdapter);
+    }
+
     private void anhXa(View view) {
         toolbarDanhMuc = (Toolbar) view.findViewById(R.id.toolbar_DanhMuc);
         btnBackNotify = (ImageView) view.findViewById(R.id.btn_backNotify);
@@ -101,5 +115,11 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        hoadonList=list;
     }
 }
