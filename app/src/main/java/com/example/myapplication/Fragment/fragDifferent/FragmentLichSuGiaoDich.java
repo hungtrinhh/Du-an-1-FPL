@@ -81,6 +81,7 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
 
     private void fillRecycleView() {
         list = FbDao.hoadonList;
+        Log.e("BUG", "fillRecycleView: "+list.size(),null );
         Collections.sort(list, comparator);
         historyAdapter = new HistoryAdapter(list);
         recyclerviewHistory.setLayoutManager(new LinearLayoutManager(getActivity()));

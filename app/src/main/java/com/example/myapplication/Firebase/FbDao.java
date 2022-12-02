@@ -67,6 +67,7 @@ public class FbDao {
 
 
     private static List<Hoadonnaptien> hoadonnaptienList;
+
     private static List<HoaDonHenGio> hoadonhenGioList;
     private static List<Hoadonchoigame> hoadonchoigameList;
 
@@ -340,7 +341,7 @@ public class FbDao {
         }
     }
 
-    private static void ReadHistory() {
+    public static void ReadHistory() {
         hoadonchoigameList = new ArrayList<>();
         hoadonnaptienList = new ArrayList<>();
 
@@ -349,6 +350,8 @@ public class FbDao {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 hoadonchoigameList.clear();
+
+                Log.d(TAG, "Hoadonchoigame: loaded");
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     for (DataSnapshot data : dt.getChildren()) {
                         for (DataSnapshot d : data.getChildren()
@@ -359,7 +362,7 @@ public class FbDao {
                             }
                             if (u.getUserid().equals(UserLogin.getId())) {
                                 hoadonchoigameList.add(u);
-                                Log.d(TAG, "onDataChange: " + u.toString());
+
                             }
                         }
 
@@ -381,6 +384,8 @@ public class FbDao {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 hoadonnaptienList.clear();
+                Log.d(TAG, "HoaDonNapTien: loaded");
+
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     Hoadonnaptien u = dt.getValue(Hoadonnaptien.class);
                     if (u == null) {
@@ -388,7 +393,7 @@ public class FbDao {
                     }
                     if (u.getUserId().equals(UserLogin.getId())) {
                         hoadonnaptienList.add(u);
-                        Log.d(TAG, "onDataChange: " + u.toString());
+
                     }
                 }
                 hoadonList.clear();
