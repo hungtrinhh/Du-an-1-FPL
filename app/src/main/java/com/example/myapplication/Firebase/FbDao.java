@@ -54,7 +54,7 @@ import java.util.Map;
 
 public class FbDao {
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    public FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public static FirebaseAuth mAuth;
     private static final String TAG = "Firebase Dao";
     public static List<Game> listGame;
     public static List<User> listUser;
@@ -120,6 +120,7 @@ public class FbDao {
         ReadGame();
         ReadNotify();
         ReadTimePlayGame();
+        mAuth = FirebaseAuth.getInstance();
     }
 
     public FbDao() {

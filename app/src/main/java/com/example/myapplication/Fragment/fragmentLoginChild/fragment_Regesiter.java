@@ -26,6 +26,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Dialog.DialogLoading;
+import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragment_Login;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.R;
@@ -77,7 +78,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         Anhxa(view);
         // khởi tạo biến mAuth Firebase
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FbDao.mAuth;
         // gọi hàm animation (truyền vào các tham số)
         Animation(text_Username, text_Phonenumber, text_Password, text_rePassword, layout_Conditions, btn_Register);
         // gọi hàm OntextChange(truyền vào TextInputLayout)

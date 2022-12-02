@@ -173,8 +173,8 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         switch (v.getId()) {
             case R.id.btn_backToTrangChu:
                 getActivity().getSupportFragmentManager().popBackStack();
-//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.content_frame, new fragment_Trangchu()).commit();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame, new fragment_Trangchu()).commit();
                 break;
             case R.id.btn_search_troChoi:
                 if (searchViewListGame.getVisibility() == View.GONE) {
@@ -231,16 +231,16 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
 
     public void onClickItem(Game game) {
         if (game.getTrangThai().equalsIgnoreCase("Bảo trì")) {
-            Snackbar snackbar = Snackbar.make(viewFrag,"Hiện trò chơi đang được bảo trì, hãy thử lại vào lần sau nhé",2000);
+            Snackbar snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đang được bảo trì, hãy thử lại vào lần sau nhé", 2000);
             View snackbar_view = snackbar.getView();
             TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.nervous,0);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.nervous, 0);
             snackbar.show();
             return;
         }
         if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
             Log.d(TAG, "onClickItem: ");
-            if (String.valueOf(game.getId()).equals(FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size()-1).getGameid())){
+            if (String.valueOf(game.getId()).equals(FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size() - 1).getGameid())) {
                 if (!chk) {
                     FbDao.CountDown();
                     chk = true;
@@ -275,11 +275,11 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
                 dialog.show();
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            }else {
-                Snackbar snackbar = Snackbar.make(viewFrag,"Hiện trò chơi đã được chơi xin, quý khách hãy đăng kí game khác",2000);
+            } else {
+                Snackbar snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đã được chơi xin, quý khách hãy đăng kí game khác", 2000);
                 View snackbar_view = snackbar.getView();
                 TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
+                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.stop, 0);
                 snackbar.show();
             }
 
@@ -287,26 +287,22 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         }
 
 
-        if (FbDao.getHoadonchoigameList().size()!=0){
-            if (!FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size()-1).isSuccess()){
-                Snackbar snackbar = Snackbar.make(viewFrag,"Bạn đang trong trò chơi khác vui lòng thử lại sau",2000);
+        if (FbDao.getHoadonchoigameList().size() != 0) {
+            if (!FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size() - 1).isSuccess()) {
+                Snackbar snackbar = Snackbar.make(viewFrag, "Bạn đang trong trò chơi khác vui lòng thử lại sau", 2000);
                 View snackbar_view = snackbar.getView();
                 TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.bored,0);
+                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.bored, 0);
                 snackbar.show();
-            }else {
+            } else {
                 chonGameLuot(game);
             }
-        }else {
+        } else {
             chonGameLuot(game);
         }
-
-
-
-
     }
 
-    private void chonGameLuot(Game game){
+    private void chonGameLuot(Game game) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         if (!game.getKieu().equalsIgnoreCase("lượt")) {
             fragmentTroChoiGio fragmentTroChoigio = new fragmentTroChoiGio();
@@ -322,7 +318,4 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
             fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoiluot).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
         }
     }
-
-//    private fragmentTroChoiGio frag = new fragmentTroChoiGio();
-
 }
