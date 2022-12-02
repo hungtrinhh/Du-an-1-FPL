@@ -286,28 +286,30 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
 
             return;
         }
-        if (!FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size()-1).isSuccess()){
-            Snackbar snackbar = Snackbar.make(viewFrag,"Bạn đang trong trò chơi khác vui lòng thử lại sau",2000);
-            View snackbar_view = snackbar.getView();
-            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.bored,0);
-            snackbar.show();
-        }else {
-            if (!game.getKieu().equalsIgnoreCase("lượt")) {
-                fragmentTroChoiGio fragmentTroChoigio = new fragmentTroChoiGio();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("obj_game", game);
-                fragmentTroChoigio.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoigio).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
-            } else {
-                fragmentTroChoiLuot fragmentTroChoiluot = new fragmentTroChoiLuot();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("obj_game", game);
-                fragmentTroChoiluot.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoiluot).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
-            }
-        }
-
+//        if(!(FbDao.getHoadonchoigameList()!=null || FbDao.getHoadonchoigameList().size()==0){
+//            if ( !FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size()-1).isSuccess()){
+//                Snackbar snackbar = Snackbar.make(viewFrag,"Bạn đang trong trò chơi khác vui lòng thử lại sau",2000);
+//                View snackbar_view = snackbar.getView();
+//                TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+//                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.bored,0);
+//                snackbar.show();
+//            }else {
+                if (!game.getKieu().equalsIgnoreCase("lượt")) {
+                    fragmentTroChoiGio fragmentTroChoigio = new fragmentTroChoiGio();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("obj_game", game);
+                    fragmentTroChoigio.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoigio).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
+                } else {
+                    fragmentTroChoiLuot fragmentTroChoiluot = new fragmentTroChoiLuot();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("obj_game", game);
+                    fragmentTroChoiluot.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoiluot).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
+//                }
+//            }
+//
+    }
 
     }
 
