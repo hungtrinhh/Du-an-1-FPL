@@ -194,7 +194,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
                             @Override
                             public void onVerificationFailed(FirebaseException e) {
                                 Log.w(TAG, "onVerificationFailed", e);
-                                Toast.makeText(getActivity(), "Gửi mã xác minh thất bại,Hãy liên hệ với quản trị viên để được giúp đỡ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Gửi mã xác minh thất bại! Hãy liên hệ với quản trị viên để được giúp đỡ", Toast.LENGTH_SHORT).show();
                                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
                                 } else if (e instanceof FirebaseTooManyRequestsException) {
                                 }

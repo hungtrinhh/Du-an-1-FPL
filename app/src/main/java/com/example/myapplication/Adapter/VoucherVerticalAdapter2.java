@@ -41,11 +41,11 @@ public class VoucherVerticalAdapter2 extends RecyclerView.Adapter<VoucherVertica
     }
 
     public String getTenGame(int id) {
-        String tenGame = "% Cho Mọi Loại Game";
+        String tenGame = "% cho mọi loại Game";
         listGame = FbDao.getListGame();
         for (Game game : listGame) {
             if (game.getId() == id) {
-                tenGame = "% Cho Game " + game.getTenGame();
+                tenGame = "% cho Game " + game.getTenGame();
             }
         }
         return tenGame;

@@ -158,7 +158,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:paddingStart="10dp"
+                        android:paddingStart="5dp"
 
                         android:text="Trò chơi"
                         android:textColor="@color/white"
@@ -168,7 +168,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="10dp"
+                        android:paddingStart="5dp"
                         android:text="Kiểm tra trò chơi đang hoạt động"
                         android:textColor="@color/white"
                         android:textSize="15dp"
@@ -207,7 +207,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:paddingLeft="10dp"
+                        android:paddingLeft="5dp"
                         android:text="Đặt lịch"
                         android:textColor="@color/white"
                         android:textSize="25dp"
@@ -216,7 +216,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
+                        android:paddingLeft="5dp"
 
                         android:text="Đặt lịch chơi để không phải xếp hàng"
 
@@ -258,8 +258,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:paddingLeft="10dp"
-                        android:text="Thanh toán"
+                        android:paddingLeft="5dp"
+                        android:text="Quét mã QR"
                         android:textColor="@color/white"
                         android:textSize="25dp"
                         android:textStyle="bold" />
@@ -267,8 +267,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:text="Quét mã QR"
+                        android:paddingLeft="5dp"
+                        android:text="Quét mã để khởi động máy chơi"
                         android:textColor="@color/white"
                         android:textSize="15dp"
                         android:textStyle="bold" />

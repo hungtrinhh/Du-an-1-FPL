@@ -54,7 +54,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
     private TextInputLayout text_Password;
     private TextInputLayout text_rePassword;
     private CheckBox chk_CheckConditions;
-    private LinearLayout layout_Conditions;
+    private LinearLayout layout_Conditions,layout_contact;
     private AppCompatButton btn_Register;
     // khai báo firebase
     private FirebaseAuth mAuth;
@@ -97,13 +97,14 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
 
     // khai báo hàm animation
     private void Animation(TextInputLayout text_Username, TextInputLayout text_Phonenumber, TextInputLayout text_Password, TextInputLayout text_rePassword, LinearLayout layout_Conditions, AppCompatButton btn_Register) {
-        text_Username.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
-        text_Phonenumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
-        text_Password.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
-        text_rePassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
-        layout_Conditions.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
-        layout_Conditions.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.floatin));
+        text_Username.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        text_Phonenumber.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        text_Password.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        text_rePassword.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        layout_Conditions.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        layout_Conditions.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
         btn_Register.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
+        layout_contact.setAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.fadein));
 
     }
 
@@ -118,6 +119,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
         chk_CheckConditions = view.findViewById(R.id.chk_CheckConditions);
         tv_Conditions = view.findViewById(R.id.tv_Conditions);
         btn_Register = view.findViewById(R.id.btn_Register);
+        layout_contact = view.findViewById(R.id.layout_contact);
 
 
     }
@@ -205,7 +207,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                             textInputLayout.setHelperText("Bắt buộc");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         } else if (s.length() < 6) {
-                            textInputLayout.setHelperText("Mật khẩu không được bé hơn 6 kí tự");
+                            textInputLayout.setHelperText("Mật khẩu không được nhỏ hơn 6 kí tự");
                             textInputLayout.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         } else {
                             textInputLayout.setHelperText("✔");
@@ -344,7 +346,7 @@ public class fragment_Regesiter extends Fragment implements View.OnClickListener
                     @Override
                     public void onVerificationFailed(FirebaseException e) {
                         Log.w(TAG, "onVerificationFailed", e);
-                        Toast.makeText(getActivity(), "Gửi mã xác minh thất bại,Hãy liên hệ với quản trị viên để được giúp đỡ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Gửi mã xác minh thất bại! Hãy liên hệ với quản trị viên để được giúp đỡ", Toast.LENGTH_SHORT).show();
                         if (e instanceof FirebaseAuthInvalidCredentialsException) {
 
                         } else if (e instanceof FirebaseTooManyRequestsException) {

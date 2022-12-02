@@ -179,7 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:hint="+84123456789"
+            android:hint="+840123456789"
             android:inputType="phone" />
     </LinearLayout>
 

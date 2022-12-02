@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
@@ -23,6 +24,7 @@ import com.example.myapplication.Fragment.fragmentTypeGame.*;
 
 public class fragment_QRcode extends Fragment {
     private CodeScannerView qrcodeScaner;
+    private ImageView btn_backToHome;
     private final String TAG = "fragment_QRcode";
     public static boolean check = false;
 
@@ -55,13 +57,23 @@ public class fragment_QRcode extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
         setUpQrcode();
+        backToHome();
     }
 
     private void Anhxa(View v) {
         qrcodeScaner = v.findViewById(R.id.qrcodeScaner);
-
+        btn_backToHome = v.findViewById(R.id.btn_backToHome);
     }
+    private void backToHome()
+    {
+       btn_backToHome.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               getActivity().getSupportFragmentManager().popBackStack();
 
+           }
+       });
+    }
     public void setUpQrcode() {
         CodeScanner codeScanner = new CodeScanner(getActivity(), qrcodeScaner);
         codeScanner.startPreview();

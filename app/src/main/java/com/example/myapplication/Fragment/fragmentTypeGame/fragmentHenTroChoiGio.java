@@ -400,7 +400,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                 snackbar.show();
                             }else{
                                 dialog.cancel();
-                                Snackbar snackbar = Snackbar.make(getView(),"Khung giờ này đã có người chọn.Vui lòng chọn giờ khác",2000);
+                                Snackbar snackbar = Snackbar.make(getView(),"Khung giờ này đã có người chọn. Vui lòng chọn giờ khác",2000);
                                 View snackbar_view = snackbar.getView();
                                 TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
                                 tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);

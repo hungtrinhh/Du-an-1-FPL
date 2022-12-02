@@ -13,7 +13,7 @@
         <TextView
             android:layout_gravity="center"
             android:textSize="20dp"
-            android:text="Yahh Home Game"
+            android:text="YahhHome Game"
             android:layout_width="0dp"
             android:textColor="@color/black"
             android:fontFamily="@font/poppins_semi_bold"

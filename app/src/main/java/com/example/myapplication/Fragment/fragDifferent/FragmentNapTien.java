@@ -182,7 +182,7 @@ public class FragmentNapTien extends Fragment implements View.OnClickListener {
                     snackbar.show();
                     getActivity().getSupportFragmentManager().popBackStack();
                 } catch (Exception exception) {
-                    Toast.makeText(getActivity(), "Nhập Số Tiền Nạp Là Số", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Vui lòng nhập số", Toast.LENGTH_SHORT).show();
                 }
             }
         });

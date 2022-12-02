@@ -374,7 +374,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                             Snackbar.make(getView(),"Đặt lịch thành công",2000).show();
                         }else{
                             dialog.cancel();
-                            Snackbar.make(getView(),"Khung giờ này đã có người chọn.Vui lòng chọn giờ khác",2000).show();
+                            Snackbar.make(getView(),"Khung giờ này đã có người chọn. Vui lòng chọn giờ khác",2000).show();
                         }
 
                     }

@@ -144,7 +144,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         switch (item.getItemId()) {
 
             case R.id.toolbar_search:
-                Toast.makeText(getActivity(), "Toát", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "Toát", Toast.LENGTH_LONG).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -167,10 +167,10 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
     // khai báo hàm animation
     private void animation(SliderView image_Slider, LinearLayout layout_troChoi, LinearLayout layout_thanhToan, LinearLayout layout_soDu) {
-        image_Slider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
-        layout_soDu.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
-        layout_thanhToan.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
-        layout_troChoi.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
+        image_Slider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
+        layout_soDu.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.lefttoright));
+        layout_thanhToan.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
+        layout_troChoi.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
 
     }
 
@@ -211,7 +211,6 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
                 show = !show;
                 break;
             case R.id.goTofragQr:
-                Toast.makeText(getContext(),"ok",Toast.LENGTH_LONG).show();
                 phanQuyen();
                 break;
             case R.id.layout_soDu:
@@ -249,7 +248,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     private void onClickItem(Game game) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         if (game.getTrangThai().equalsIgnoreCase("Bảo trì")) {
-            Snackbar snackbar = Snackbar.make(viewFrag,"Hiện trò chơi đang được bảo trì, hãy thử lại vào lần sau nhé",2000);
+            Snackbar snackbar = Snackbar.make(viewFrag,"Hiện trò chơi đang bảo trì. Hãy thử lại vào lần sau nhé",2000);
             View snackbar_view = snackbar.getView();
             TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
             tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.nervous,0);
@@ -293,7 +292,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             }else {
-                Snackbar snackbar = Snackbar.make(viewFrag,"Hiện trò chơi đã được chơi xin, quý khách hãy đăng kí game khác",2000);
+                Snackbar snackbar = Snackbar.make(viewFrag,"Hiện trò chơi đã có người chơi. Quý khách hãy đăng ký chơi trò chơi khác",2000);
                 View snackbar_view = snackbar.getView();
                 TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
                 tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
@@ -335,7 +334,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         if (Build.VERSION.SDK_INT >= 23) {
             if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
             ) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new fragment_QRcode()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new fragment_QRcode()).addToBackStack("").commit();
 
 
             } else {
