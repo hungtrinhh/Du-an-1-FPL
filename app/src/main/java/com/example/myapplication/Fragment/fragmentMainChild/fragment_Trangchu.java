@@ -256,48 +256,48 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
             return;
         }
         if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
-            if (String.valueOf(game.getId()).equals(FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size()-1).getGameid())){
-                if (!chk) {
-                    FbDao.CountDown();
-                    chk = true;
-                }
-                Dialog dialog = new Dialog(getContext());
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.dialog_timeup);
-                TextView tv_minutes = dialog.findViewById(R.id.phut);
-                TextView tv_seconds = dialog.findViewById(R.id.giay);
-                String minutes = FbDao.phut < 10 ? "0" + FbDao.phut : FbDao.phut + "";
-                String seconds = FbDao.giay < 10 ? "0" + FbDao.giay : FbDao.giay + "";
-                tv_minutes.setText(minutes);
-                tv_seconds.setText(seconds);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        while (FbDao.phut >= 0 && FbDao.giay >= 0) {
-                            try {
-                                String minutes2 = FbDao.phut < 10 ? "0" + FbDao.phut : FbDao.phut + "";
-                                String seconds2 = FbDao.giay < 10 ? "0" + FbDao.giay : FbDao.giay + "";
-                                tv_minutes.setText(minutes2);
-                                tv_seconds.setText(seconds2);
-                                Thread.sleep(1000);
-
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        dialog.dismiss();
-                    }
-                }).start();
-                dialog.show();
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            }else {
+//            if (String.valueOf(game.getId()).equals(FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size()-1).getGameid())){
+//                if (!chk) {
+//                    FbDao.CountDown();
+//                    chk = true;
+//                }
+//                Dialog dialog = new Dialog(getContext());
+//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                dialog.setContentView(R.layout.dialog_timeup);
+//                TextView tv_minutes = dialog.findViewById(R.id.phut);
+//                TextView tv_seconds = dialog.findViewById(R.id.giay);
+//                String minutes = FbDao.phut < 10 ? "0" + FbDao.phut : FbDao.phut + "";
+//                String seconds = FbDao.giay < 10 ? "0" + FbDao.giay : FbDao.giay + "";
+//                tv_minutes.setText(minutes);
+//                tv_seconds.setText(seconds);
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        while (FbDao.phut >= 0 && FbDao.giay >= 0) {
+//                            try {
+//                                String minutes2 = FbDao.phut < 10 ? "0" + FbDao.phut : FbDao.phut + "";
+//                                String seconds2 = FbDao.giay < 10 ? "0" + FbDao.giay : FbDao.giay + "";
+//                                tv_minutes.setText(minutes2);
+//                                tv_seconds.setText(seconds2);
+//                                Thread.sleep(1000);
+//
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                        dialog.dismiss();
+//                    }
+//                }).start();
+//                dialog.show();
+//                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            }else {
                 Snackbar snackbar = Snackbar.make(viewFrag,"Hiện trò chơi đã có người chơi. Quý khách hãy đăng ký chơi trò chơi khác",2000);
                 View snackbar_view = snackbar.getView();
                 TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
                 tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
                 snackbar.show();
-            }
+//            }
 
             return;
         }

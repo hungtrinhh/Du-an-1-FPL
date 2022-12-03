@@ -259,7 +259,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
 //            }
 //            if (FbDao.getHoadonchoigameList().size()!=0){
 //                if (String.valueOf(game.getId()).equals(FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size() - 1).getGameid())) {
- 
+
                     Dialog dialog = new Dialog(getContext());
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.dialog_timeup);
