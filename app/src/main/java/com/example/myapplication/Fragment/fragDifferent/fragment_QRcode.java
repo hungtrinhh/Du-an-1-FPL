@@ -82,7 +82,7 @@ public class fragment_QRcode extends Fragment {
             @Override
             public void onDecoded(@NonNull Result result) {
 
-                Log.d(TAG, "onDecoded: " + result.toString());
+                Log.d(TAG, "onDecoded: " + result);
                 for (Game g : FbDao.getListGame()
                 ) {
                     if ((g.getId() + "").equals(result.toString())) {

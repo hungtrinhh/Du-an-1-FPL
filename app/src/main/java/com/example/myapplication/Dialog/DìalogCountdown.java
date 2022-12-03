@@ -19,8 +19,8 @@ public class DìalogCountdown extends Dialog {
 
     TextView tv_minutes;
     TextView tv_seconds;
-    public static DìalogCountdown dìalogCountdown;
-    private Context context;
+
+    private final Context context;
 
     public DìalogCountdown(@NonNull Context context) {
         super(context);
@@ -33,24 +33,25 @@ public class DìalogCountdown extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
-
-    }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        dìalogCountdown = new DìalogCountdown(context);
-
     }
 
-    private static int phut = 0;
-    private static int giay = 0;
+
+    private static Thread t;
+
+    public void Create() {
+
+
+    }
+
+    private int phut = 0;
+    private int giay = 0;
 
     public void setTimeout(long milisecond) {
 
         if (milisecond <= 0) {
             return;
         }
-        dìalogCountdown.show();
+        this.show();
 
         giay = (int) (milisecond / 1000);
 
@@ -61,17 +62,19 @@ public class DìalogCountdown extends Dialog {
         }
 
 
-        new Thread(new Runnable() {
+        t = new Thread(new Runnable() {
             @Override
             public void run() {
+
                 while (!(phut == 0 && giay == 0)) {
 
-                    giay--;
+                    tv_minutes.setText(phut + "");
+                    tv_seconds.setText(giay + "");
                     if (giay == 0 && phut > 0) {
                         giay = 59;
-                        phut--;
+                        phut = phut - 1;
                     }
-                    if (!dìalogCountdown.isShowing()) {
+                    if (!isShowing()) {
                         break;
                     }
 
@@ -80,15 +83,16 @@ public class DìalogCountdown extends Dialog {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    tv_minutes.setText(phut + "");
-                    tv_seconds.setText(giay + "");
+
+                    giay--;
                 }
-                if(dìalogCountdown.isShowing()){
-                    dìalogCountdown.dismiss();
+                if (isShowing()) {
+                    dismiss();
 
                 }
             }
-        }).start();
+        });
+        t.start();
 
 
     }

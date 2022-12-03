@@ -76,7 +76,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     private static final String TAG = "FRAGMENT_TRANG_CHU";
     public static boolean gochild = false;
     private boolean show = true;
-    private boolean chk = Fragment_ListDanhSachTroChoi.chk;
+    private final boolean chk = Fragment_ListDanhSachTroChoi.chk;
 
     //khai báo view
     @Override

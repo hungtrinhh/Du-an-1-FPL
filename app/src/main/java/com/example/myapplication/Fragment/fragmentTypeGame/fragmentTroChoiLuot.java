@@ -211,11 +211,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
     private void checkBtndis() {
         imgButtonremove.setEnabled(count > 0);
 
-        if (total > FbDao.UserLogin.getSodu() || count == 0) {
-            btn_play.setEnabled(false);
-        } else {
-            btn_play.setEnabled(true);
-        }
+        btn_play.setEnabled(!(total > FbDao.UserLogin.getSodu()) && count != 0);
 
 
     }

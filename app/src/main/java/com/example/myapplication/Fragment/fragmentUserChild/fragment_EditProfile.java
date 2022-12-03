@@ -65,7 +65,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
 
     }
 
-    private Thread t1 = new Thread(new Runnable() {
+    private final Thread t1 = new Thread(new Runnable() {
         @Override
         public void run() {
             while (!FbDao.UpLoadedAvatar) {

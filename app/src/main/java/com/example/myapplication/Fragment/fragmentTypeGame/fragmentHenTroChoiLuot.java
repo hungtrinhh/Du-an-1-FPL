@@ -74,7 +74,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
     private float sale;
     private int count = 0;
     private int mDay,mMonth,mYear;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String pattern = "###,### Poin";
     DecimalFormat df = new DecimalFormat(pattern);
     private NumberPicker numberPicker_minutes,numberPicker_seconds;
@@ -170,11 +170,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
     private void checkBtndis() {
         imgButtonremove.setEnabled(count > 0);
 
-        if (total > FbDao.UserLogin.getSodu() || count == 0) {
-            btn_henGio.setEnabled(false);
-        } else {
-            btn_henGio.setEnabled(true);
-        }
+        btn_henGio.setEnabled(!(total > FbDao.UserLogin.getSodu()) && count != 0);
     }
 
     private void TinhTongTien() {
@@ -302,8 +298,8 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                             String dateFM = simpleDateFormat.format(date);
 
-                            String x[] = timeStart.split("/");
-                            String y[] = dateFM.split("/");
+                            String[] x = timeStart.split("/");
+                            String[] y = dateFM.split("/");
 
                             String count1 = "";
                             String count2 = "";

@@ -77,7 +77,7 @@ public class GameUuDaiVerticalAdapter extends RecyclerView.Adapter<GameUuDaiVert
         private final ImageView imageView2;
         private final TextView tvTenGame;
         private final LinearLayout linearLayoutItemgame;
-        private TextView tv_soLuongUuDai;
+        private final TextView tv_soLuongUuDai;
         public VoucherViewHoler(@NonNull View itemView) {
             super(itemView);
             imageView2 = itemView.findViewById(R.id.imageView2);

@@ -78,7 +78,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
     private float sale;
     private Dialog dialog;
     String pattern = "###,### Poin";
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     DecimalFormat df = new DecimalFormat(pattern);
     private float total = 0;
     private int mDay,mMonth,mYear;
@@ -88,8 +88,8 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
     private int time;
 
     //thời gian hệ thống ( hiện tại )
-    private int presentTimeHours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-    private int presentTimeMinutes = Calendar.getInstance().get(Calendar.MINUTE);
+    private final int presentTimeHours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+    private final int presentTimeMinutes = Calendar.getInstance().get(Calendar.MINUTE);
     //thời gian hệ thống ( khi chơi )
     private int playingTimeMinutes = 0;
 
@@ -218,11 +218,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
     }
 
     private void checkBtndis() {
-        if (total > FbDao.UserLogin.getSodu()||total==0) {
-            btn_henGio.setEnabled(false);
-        } else {
-            btn_henGio.setEnabled(true);
-        }
+        btn_henGio.setEnabled(!(total > FbDao.UserLogin.getSodu()) && total != 0);
     }
 
     @Override
@@ -319,8 +315,8 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                 String dateFM = simpleDateFormat.format(date);
 
-                                String x[] = timeStart.split("/");
-                                String y[] = dateFM.split("/");
+                                String[] x = timeStart.split("/");
+                                String[] y = dateFM.split("/");
 
                                 String count1 = "";
                                 String count2 = "";

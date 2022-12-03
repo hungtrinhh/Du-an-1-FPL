@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(broadcastReceiver, filter);
         new FbDao(this);
-        DìalogCountdown dìalogCountdown =  new DìalogCountdown(this);
-
+        DìalogCountdown dìalogCountdown = new DìalogCountdown(this);
+      dìalogCountdown.Create();
     }
 
     @Override

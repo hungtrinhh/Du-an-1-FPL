@@ -21,7 +21,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHoler> {
-    private List<Hoadon> list;
+    private final List<Hoadon> list;
     public HistoryAdapter(List<Hoadon> list) {
         this.list = list;
         notifyDataSetChanged();
@@ -67,10 +67,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     }
 
     public class HistoryViewHoler extends RecyclerView.ViewHolder {
-        private ImageView imgHistory;
-        private TextView tvLoaiGd;
-        private TextView tvNgayGd;
-        private TextView tvGiaTien;
+        private final ImageView imgHistory;
+        private final TextView tvLoaiGd;
+        private final TextView tvNgayGd;
+        private final TextView tvGiaTien;
 
         public HistoryViewHoler(@NonNull View itemView) {
             super(itemView);

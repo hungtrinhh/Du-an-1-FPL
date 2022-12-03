@@ -90,8 +90,8 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private int time;
 
     //thời gian hệ thống ( hiện tại )
-    private int presentTimeHours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-    private int presentTimeMinutes = Calendar.getInstance().get(Calendar.MINUTE);
+    private final int presentTimeHours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+    private final int presentTimeMinutes = Calendar.getInstance().get(Calendar.MINUTE);
 
     //thời gian hệ thống ( khi chơi )
     private int playingTimeHours = presentTimeHours;//gán trc giá trị là giờ của hệ thống
@@ -313,12 +313,12 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         calendar2.set(Calendar.HOUR_OF_DAY,playingTimeHours);
         calendar2.set(Calendar.MINUTE,playingTimeMinutes);
 
-        String string_presentHours = presentTimeHours < 10 ? String.valueOf("0"+presentTimeHours) : String.valueOf(presentTimeHours);
-        String string_presentMinutes = presentTimeMinutes < 10 ? String.valueOf("0"+presentTimeMinutes) : String.valueOf(presentTimeMinutes);
+        String string_presentHours = presentTimeHours < 10 ? "0" + presentTimeHours : String.valueOf(presentTimeHours);
+        String string_presentMinutes = presentTimeMinutes < 10 ? "0" + presentTimeMinutes : String.valueOf(presentTimeMinutes);
         String string_presentTime = string_presentHours+":"+string_presentMinutes;
 
-        String string_playingHours = playingTimeHours < 10 ? String.valueOf("0"+playingTimeHours) : String.valueOf(playingTimeHours);
-        String string_playingMinutes = playingTimeMinutes < 10 ? String.valueOf("0"+playingTimeMinutes) : String.valueOf(playingTimeMinutes);
+        String string_playingHours = playingTimeHours < 10 ? "0" + playingTimeHours : String.valueOf(playingTimeHours);
+        String string_playingMinutes = playingTimeMinutes < 10 ? "0" + playingTimeMinutes : String.valueOf(playingTimeMinutes);
         String string_playingTime = string_playingHours+":"+string_playingMinutes;
 
 
@@ -351,11 +351,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     }
 
     private void checkBtndis() {
-        if (total > FbDao.UserLogin.getSodu()||total==0) {
-            btn_play.setEnabled(false);
-        } else {
-            btn_play.setEnabled(true);
-        }
+        btn_play.setEnabled(!(total > FbDao.UserLogin.getSodu()) && total != 0);
 
 
     }

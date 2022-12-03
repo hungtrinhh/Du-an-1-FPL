@@ -26,7 +26,7 @@ public class VoucherVerticalAdapter2 extends RecyclerView.Adapter<VoucherVertica
     private List<Voucher> listDanhSachVoucher;
     private List<Game> listGame;
     private Context context;
-    private fragment_Uudai fragment_uudai = new fragment_Uudai();
+    private final fragment_Uudai fragment_uudai = new fragment_Uudai();
     private OnClickUseNow onClickUseNow;
 
     public OnClickUseNow getOnClickUseNow() {
@@ -94,7 +94,7 @@ public class VoucherVerticalAdapter2 extends RecyclerView.Adapter<VoucherVertica
         private final TextView tv_MaVoucher;
         private final TextView tv_TieuDeVoucher;
         private final LinearLayout linearLayout_voucher;
-        private TextView tv_useNow;
+        private final TextView tv_useNow;
         public VoucherViewHoler2(@NonNull View itemView) {
             super(itemView);
             imageView2 = itemView.findViewById(R.id.imageView2);
