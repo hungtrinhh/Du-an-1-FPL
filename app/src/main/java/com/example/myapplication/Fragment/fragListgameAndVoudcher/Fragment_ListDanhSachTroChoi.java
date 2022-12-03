@@ -1,24 +1,18 @@
 package com.example.myapplication.Fragment.fragListgameAndVoudcher;
 
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,14 +27,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Adapter.DanhSachGameAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
 import com.example.myapplication.Firebase.FbDao;
-import com.example.myapplication.Fragment.fragmentTypeGame.fragmentHenTroChoiGio;
-import com.example.myapplication.Fragment.fragmentTypeGame.fragmentHenTroChoiLuot;
 import com.example.myapplication.Fragment.fragmentTypeGame.fragmentTroChoiGio;
 import com.example.myapplication.Fragment.fragmentTypeGame.fragmentTroChoiLuot;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
-import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.Model.Game;
-import com.example.myapplication.Model.Hoadon;
 import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.R;
 import com.example.myapplication.Interface.OnclickItemGame;
@@ -53,8 +43,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import com.example.myapplication.Dialog.*;
 
@@ -251,9 +239,9 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
                         Date dateEnd = dateFormat.parse(hd.getDateEnd());
                         Date now = new Date();
                         Log.d("vailon" + (dateEnd.getTime() - now.getTime()), "");
-                        DìalogCountdown dìalogCountdown = new DìalogCountdown(getContext());
+                        DialogCountdown dialogCountdown = new DialogCountdown(getContext());
 
-                        dìalogCountdown.setTimeout(dateEnd.getTime() - now.getTime());
+                        dialogCountdown.setTimeout(dateEnd.getTime() - now.getTime());
 
                     } catch (ParseException e) {
                         e.printStackTrace();

@@ -15,14 +15,14 @@ import androidx.annotation.NonNull;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.R;
 
-public class DìalogCountdown extends Dialog {
+public class DialogCountdown extends Dialog {
 
     TextView tv_minutes;
     TextView tv_seconds;
 
     private final Context context;
 
-    public DìalogCountdown(@NonNull Context context) {
+    public DialogCountdown(@NonNull Context context) {
         super(context);
         this.context = context;
         requestWindowFeature(Window.FEATURE_NO_TITLE);

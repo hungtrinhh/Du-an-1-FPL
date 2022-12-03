@@ -1,10 +1,8 @@
 package com.example.myapplication;
 
-import android.app.Dialog;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -14,10 +12,6 @@ import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragDifferent.fragment_SplashScreen;
 import com.example.myapplication.BroadcastReciver.ReciverCheckingInternet;
-import com.example.myapplication.Model.Game;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.example.myapplication.Dialog.*;
 
@@ -47,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(broadcastReceiver, filter);
         new FbDao(this);
-        DìalogCountdown dìalogCountdown = new DìalogCountdown(this);
-      dìalogCountdown.Create();
+        DialogCountdown dialogCountdown = new DialogCountdown(this);
+      dialogCountdown.Create();
     }
 
     @Override
