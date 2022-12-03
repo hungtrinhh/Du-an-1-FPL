@@ -23,7 +23,7 @@ public class ThongBao extends BroadcastReceiver {
         Game game = (Game) intent.getSerializableExtra("game");
         String time = intent.getStringExtra("time");
         if(intent.getAction().equals("MyAction")){
-            Bitmap bitmap = (game.getImgGame()==0)?BitmapFactory.decodeResource(context.getResources(),R.drawable.loading):BitmapFactory.decodeResource(context.getResources(),game.getImgGame());
+            Bitmap bitmap = (game==null)?BitmapFactory.decodeResource(context.getResources(),R.drawable.loading):BitmapFactory.decodeResource(context.getResources(),game.getImgGame());
             Bitmap imgApp = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo2);
             Notification notification = new NotificationCompat.Builder(context, ChannelTB.CHANNEL_ID) // khai báo compat
                     .setLargeIcon(imgApp)

@@ -71,6 +71,7 @@ public class FbDao {
 
     private static List<HoaDonHenGio> hoadonhenGioList;
     private static List<Hoadonchoigame> hoadonchoigameList;
+    private static List<Hoadonchoigame> hoadonchoigameListRecently;
 
     public static List<Notify> getListNotify() {
         return listNotify;
@@ -96,6 +97,10 @@ public class FbDao {
         return hoadonchoigameList;
     }
 
+    public static List<Hoadonchoigame> getHoadonchoigameListRecently() {
+        return hoadonchoigameListRecently;
+    }
+
     public static Bitmap Avatar;
     public static User UserLogin;
     public static Activity activity;
@@ -108,7 +113,7 @@ public class FbDao {
 
     private static Date curenTime, endTime;
     public static int phut = 0, giay = 0;
-    private static Thread thread;
+    public static Thread thread;
 
 
     //hàm khởi tạo để trả về userId
@@ -237,10 +242,10 @@ public class FbDao {
     }
 
     public static void CountDown() {
-        List<Hoadonchoigame> hoadonchoigameList = FbDao.getHoadonchoigameList();
-        Log.d(TAG, "onClickItemHAHAHA: " + hoadonchoigameList.get(hoadonchoigameList.size() - 1));
+        Log.d(TAG, "onClickItemHAHAHA: ");
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String endT = hoadonchoigameList.get(hoadonchoigameList.size() - 1).getDateEnd();
+        String endT = Fragment_ListDanhSachTroChoi.endTime;
+
         Date dateC = new Date();
         Date dateE = null;
         try {
@@ -254,10 +259,11 @@ public class FbDao {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (phut >= 0 && giay >= 0) {
+                while (phut>=0&&giay>=0) {
                     try {
                         setInterval();
                         Log.d(TAG, "run: " + phut + " va " + giay);
+
                         Thread.sleep(1000);
 
                     } catch (InterruptedException e) {
@@ -269,7 +275,7 @@ public class FbDao {
         thread.start();
     }
 
-    private static int setInterval() {
+    private static void setInterval() {
         if (phut == 0 && giay == 1) {
             Thread.currentThread().interrupt();
             Fragment_ListDanhSachTroChoi.chk = false;
@@ -278,7 +284,7 @@ public class FbDao {
             giay = 60;
             --phut;
         }
-        return --giay;
+        --giay;
     }
 
     //hàm login và bắt data cho userLogin để userLogin thay đổi data theo thời gian thực
@@ -293,7 +299,7 @@ public class FbDao {
                 UserLogin.setId(snapshot.getKey());
                 UserLogin.setAvatar(avatar);
                 ReadHistory();
-
+                ReadHoaDonGameRecently();
             }
 
             @Override
@@ -410,6 +416,32 @@ public class FbDao {
     }
 
 
+    private static void ReadHoaDonGameRecently(){
+        hoadonchoigameListRecently = new ArrayList<>();
+        DatabaseReference myRef = database.getReference("Hoadonchoigame");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                hoadonchoigameListRecently.clear();
+                for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                    for (DataSnapshot data : dt.getChildren()) {
+                        for (DataSnapshot d : data.getChildren()
+                        ) {
+                            Hoadonchoigame u = d.getValue(Hoadonchoigame.class);
+                            if (u == null) {
+                                continue;
+                            }
+                                hoadonchoigameListRecently.add(u);
+                        }
+
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+    }
     //hàm đọc về dữ liệu voutcher
     private void ReadVoucher() {
         Log.d(TAG, "ReadVoucher: ");

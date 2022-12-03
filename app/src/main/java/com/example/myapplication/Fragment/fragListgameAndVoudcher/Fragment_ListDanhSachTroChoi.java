@@ -71,6 +71,8 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     private static final String TAG = "FRAGMENT_TRO_CHOI";
     private View viewFrag = null;
     public static boolean chk = false;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    public static String endTime;
 
     public Fragment_ListDanhSachTroChoi() {
 
@@ -239,13 +241,25 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
             return;
         }
         if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
-            Log.d(TAG, "onClickItem: ");
-            if (FbDao.getHoadonchoigameList().size()!=0){
-                if (String.valueOf(game.getId()).equals(FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size() - 1).getGameid())) {
-                    if (!chk) {
-                        FbDao.CountDown();
-                        chk = true;
-                    }
+//            List<Hoadonchoigame> hdon = FbDao.getHoadonchoigameListRecently();
+//            Log.d(TAG, "onClickItem: "+hdon.size());
+//
+//            for (int i =0;i<hdon.size();i++){
+//                if (Integer.parseInt(hdon.get(i).getGameid())==game.getId()&& !hdon.get(i).isSuccess()){
+//                    endTime = hdon.get(i).getDateEnd();
+//                    chk=false;
+//                    if (!chk) {
+//                        FbDao.CountDown();
+//                        chk = true;
+//                        Log.d(TAG, "onClickItem: Thay doi roi nhe " +endTime);
+//                    }
+//                    Log.d(TAG, "onClickItemGamenaynay: "+game.getTenGame());
+//                    break;
+//                }
+//            }
+//            if (FbDao.getHoadonchoigameList().size()!=0){
+//                if (String.valueOf(game.getId()).equals(FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size() - 1).getGameid())) {
+
                     Dialog dialog = new Dialog(getContext());
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.dialog_timeup);
@@ -276,38 +290,24 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
                     dialog.show();
                     dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                } else {
-                    Snackbar snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đã được chơi xin, quý khách hãy đăng kí game khác", 2000);
-                    View snackbar_view = snackbar.getView();
-                    TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.stop, 0);
-                    snackbar.show();
-                }
-            }else {
+//                } else {
+//                    Snackbar snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đã được chơi xin, quý khách hãy đăng kí game khác", 2000);
+//                    View snackbar_view = snackbar.getView();
+//                    TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+//                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.stop, 0);
+//                    snackbar.show();
+//                }
+//            }else {
                 Snackbar snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đã được chơi xin, quý khách hãy đăng kí game khác", 2000);
                 View snackbar_view = snackbar.getView();
                 TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
                 tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.stop, 0);
                 snackbar.show();
-            }
+//            }
 
             return;
         }
-
-
-        if (FbDao.getHoadonchoigameList().size() != 0) {
-            if (!FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size() - 1).isSuccess()) {
-                Snackbar snackbar = Snackbar.make(viewFrag, "Bạn đang trong trò chơi khác vui lòng thử lại sau", 2000);
-                View snackbar_view = snackbar.getView();
-                TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.bored, 0);
-                snackbar.show();
-            } else {
-                chonGameLuot(game);
-            }
-        } else {
-            chonGameLuot(game);
-        }
+         chonGameLuot(game);
     }
 
     private void chonGameLuot(Game game) {

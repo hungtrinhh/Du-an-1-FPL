@@ -61,6 +61,7 @@ public class fragment_Uudai extends Fragment {
     private GameUuDaiHorizontalAdapter gameUuDaiHorizontalAdapter;
     public static List<Game> listGame2;
     public static List<Voucher> voucherList2;
+    private boolean again = false;
 
     //    scroll view dạng horizontal
     public fragment_Uudai() {
@@ -88,13 +89,12 @@ public class fragment_Uudai extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AnhXa(view);
-        if (voucherList2!=null&&listGame2!=null){
+        if (again){
             voucherList=voucherList2;
             listGame = listGame2;
             FillGameAgain();
             FillVoucherAgain();
-            voucherList2=null;
-            listGame2=null;
+            again=false;
         }else {
             FillRecycleViewVoucher();
             FillRecycleViewGame();
@@ -124,6 +124,7 @@ public class fragment_Uudai extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        again=true;
         listGame2=listGame;
         voucherList2=voucherList;
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(broadcastReceiver);

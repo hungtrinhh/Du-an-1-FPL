@@ -40,6 +40,7 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     private static List<Hoadon> hoadonList;
     String TAG = "LichSugiadich";
     Comparator<Hoadon> comparator;
+    private boolean again = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,10 +54,10 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
         anhXa(view);
         comparator = (o2, o1) -> getDate(o1).compareTo(getDate(o2));
 
-        if (hoadonList!=null){
+        if (again){
             list=hoadonList;
             FillHoaDonAgain();
-            hoadonList=null;
+            again=false;
         }else {
             fillRecycleView();
         }
@@ -120,6 +121,7 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     @Override
     public void onPause() {
         super.onPause();
+        again=true;
         hoadonList=list;
     }
 }
