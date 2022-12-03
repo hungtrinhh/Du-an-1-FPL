@@ -102,7 +102,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         animation(image_Slider, layout_troChoi, layout_thanhToan, layout_soDu);
 
         // khai báo mảng ảnh và gán giá trị src ảnh
-        int[] img = new int[]{R.drawable.img1, R.drawable.img2, R.drawable.img3};
+        int[] img = new int[]{R.drawable.banner_main, R.drawable.banner_main_2, R.drawable.banner_main_3};
 
         List<User> list = FbDao.getList();
         // khai báo SliderAdapter và gán giá trị bằng img
