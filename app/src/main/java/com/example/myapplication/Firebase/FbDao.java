@@ -67,7 +67,7 @@ public class FbDao {
 
     private static List<HoaDonHenGio> hoadonhenGioList;
     private static List<Hoadonchoigame> hoadonchoigameList;
-    private static List<Hoadonchoigame> hoadonchoigameListRecently;
+//    private static List<Hoadonchoigame> hoadonchoigameListRecently;     lấy hóa đơn chơi game của trò chơi đang chơi
 
     public static List<Notify> getListNotify() {
         return listNotify;
@@ -92,13 +92,13 @@ public class FbDao {
         return hoadonhenGioList;
     }
 
-    public static List<Hoadonchoigame> getHoadonchoigameList() {
-        return hoadonchoigameList;
-    }
-
-    public static List<Hoadonchoigame> getHoadonchoigameListRecently() {
-        return hoadonchoigameListRecently;
-    }
+//    public static List<Hoadonchoigame> getHoadonchoigameList() {
+//        return hoadonchoigameList;
+//    }
+//
+//    public static List<Hoadonchoigame> getHoadonchoigameListRecently() {
+//        return hoadonchoigameListRecently;
+//    }
 
     public static Bitmap Avatar;
     public static User UserLogin;
@@ -241,6 +241,7 @@ public class FbDao {
     }
 
 
+
     //hàm login và bắt data cho userLogin để userLogin thay đổi data theo thời gian thực
     public static void Login(String id) {
         DatabaseReference myRef = database.getReference("Users");
@@ -253,7 +254,7 @@ public class FbDao {
                 UserLogin.setId(snapshot.getKey());
                 UserLogin.setAvatar(avatar);
                 ReadHistory();
-                ReadHoaDonGameRecently();
+//                ReadHoaDonGameRecently();
             }
 
             @Override
@@ -374,28 +375,37 @@ public class FbDao {
         });
     }
 
+//-----------hàm lấy hóa đơn trò chơi
+//    private static void ReadHoaDonGameRecently(){
+//        hoadonchoigameListRecently = new ArrayList<>();
+//        DatabaseReference myRef = database.getReference("Hoadonchoigame");
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                hoadonchoigameListRecently.clear();
+//                for (DataSnapshot dt : dataSnapshot.getChildren()) {
+//                    for (DataSnapshot data : dt.getChildren()) {
+//                        for (DataSnapshot d : data.getChildren()
+//                        ) {
+//                            Hoadonchoigame u = d.getValue(Hoadonchoigame.class);
+//                            if (u == null) {
+//                                continue;
+//                            }
+//                                hoadonchoigameListRecently.add(u);
+//                        }
+//
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//            }
+//        });
+//    }
 
-    private static void ReadHoaDonGameRecently() {
-        hoadonchoigameListRecently = new ArrayList<>();
-        DatabaseReference myRef = database.getReference("Hoadonchoigame").child(getReferenceToday());
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                hoadonchoigameListRecently.clear();
-                for (DataSnapshot dt : dataSnapshot.getChildren()) {
-                    Hoadonchoigame hd = dt.getValue(Hoadonchoigame.class);
-                    if (!hd.isSuccess()) {
-                        hoadonchoigameListRecently.add(hd);
 
-                    }
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-            }
-        });
-    }
+
 
     //hàm đọc về dữ liệu voutcher
     private void ReadVoucher() {

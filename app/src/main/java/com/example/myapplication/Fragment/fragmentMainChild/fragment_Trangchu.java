@@ -256,6 +256,9 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
             return;
         }
         if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
+            //-----------hiện dialog countdown
+
+
 //            if (String.valueOf(game.getId()).equals(FbDao.getHoadonchoigameList().get(FbDao.getHoadonchoigameList().size()-1).getGameid())){
 //                if (!chk) {
 //                    FbDao.CountDown();
