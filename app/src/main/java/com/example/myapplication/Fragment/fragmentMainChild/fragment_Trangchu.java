@@ -44,6 +44,7 @@ import com.example.myapplication.Fragment.fragmentTypeGame.fragmentTroChoiGio;
 import com.example.myapplication.Fragment.fragmentTypeGame.fragmentTroChoiLuot;
 import com.example.myapplication.Interface.OnclickItemGame;
 import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.Hoadon;
 import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
@@ -82,6 +83,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     public static boolean gochild = false;
     private boolean show = true;
     private final boolean chk = Fragment_ListDanhSachTroChoi.chk;
+    public static List<Hoadon> listHD;
 
     //khai báo view
     @Override
@@ -97,6 +99,9 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //lấy hóa đơn từ firebase
+        listHD = FbDao.hoadonList;
+
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         if (gochild) {
             replaceFragment(new Fragment_ListDanhSachTroChoi());
@@ -203,7 +208,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
                 break;
             case R.id.hideshowSoduHomefrag:
                 if (show) {
-                    fragHomeTvSodu.setText("******** Poin");
+                    fragHomeTvSodu.setText("****** Poin");
                     hideshowSoduHomefrag.setImageResource(R.drawable.ic_baseline_remove_red_eye_24px);
                 } else {
                     User u = FbDao.UserLogin;
@@ -349,5 +354,6 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
         }
     }
+
 
 }

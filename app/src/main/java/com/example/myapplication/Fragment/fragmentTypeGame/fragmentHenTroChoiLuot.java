@@ -313,7 +313,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
 
                         }
 
-                        int timeM = numberPicker_seconds.getValue() + 10;
+                        int timeM = numberPicker_seconds.getValue() + count;
                         int timeH = numberPicker_minutes.getValue();
                         if(timeM >= 60){
                             timeM = timeM - 60;

@@ -44,6 +44,7 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
 import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.HoaDonHenGio;
 import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.Model.PlayTime;
 import com.example.myapplication.Model.Voucher;
@@ -54,6 +55,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.example.myapplication.Fragment.fragDifferent.*;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -227,9 +230,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                     snackbar.show();
                 } else {
                     sendNotifications();
-                    FbDao dao = new FbDao();
-                    dao.PlaygameGio(time, game.getId() + "", total);
-                    FbDao.Thanhtoantien(total);
+
                     if (fragment_QRcode.check) {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
                     }else {
@@ -276,6 +277,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 for (int i = 0; i < arr.length; i++) {
                     if (playTime_choose.getId() == i) {
                         time = i + 1;
+                        playingTimeMinutes += arrTime[i];
                         if(playingTimeMinutes >= 60){
                             int time_temp = playingTimeMinutes - arrTime[i];
                             playingTimeMinutes = time_temp;
@@ -307,43 +309,88 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         calendar1.setTimeInMillis(System.currentTimeMillis());
         calendar1.set(Calendar.HOUR_OF_DAY,presentTimeHours);
         calendar1.set(Calendar.MINUTE,presentTimeMinutes);
+        Date date1 = new Date();
+        date1.setTime(calendar1.getTimeInMillis());
 
         Calendar calendar2 = Calendar.getInstance();//đối tượng lưu thời gian chơi
         calendar2.setTimeInMillis(System.currentTimeMillis());
         calendar2.set(Calendar.HOUR_OF_DAY,playingTimeHours);
         calendar2.set(Calendar.MINUTE,playingTimeMinutes);
+        Date date2 = new Date();
+        date2.setTime(calendar2.getTimeInMillis());
 
-        String string_presentHours = presentTimeHours < 10 ? "0" + presentTimeHours : String.valueOf(presentTimeHours);
-        String string_presentMinutes = presentTimeMinutes < 10 ? "0" + presentTimeMinutes : String.valueOf(presentTimeMinutes);
-        String string_presentTime = string_presentHours+":"+string_presentMinutes;
+        List<HoaDonHenGio> donHenGioList = FbDao.getListHoaDonHenGio();
+        boolean xet = true;
+        for(HoaDonHenGio item : donHenGioList){
+            SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-        String string_playingHours = playingTimeHours < 10 ? "0" + playingTimeHours : String.valueOf(playingTimeHours);
-        String string_playingMinutes = playingTimeMinutes < 10 ? "0" + playingTimeMinutes : String.valueOf(playingTimeMinutes);
-        String string_playingTime = string_playingHours+":"+string_playingMinutes;
+            try {
+
+                Date b_date1 = b_fmtDay.parse(item.getTimeStart());
+                Date b_date2 = b_fmtDay.parse(item.getTimeEnd());
+
+                if(item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false){
+                    int ssDate_a1 = date1.compareTo(b_date1);
+                    int ssDate_a2 = date1.compareTo(b_date2);
+
+                    int ssDate_b1 = date2.compareTo(b_date1);
+                    int ssDate_b2 = date2.compareTo(b_date2);
+
+                    if((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1>=0 && ssDate_b2 <=0)){
+                        xet = false;
+                        break;
+                    }
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+        if(xet){
+            String string_presentHours = presentTimeHours < 10 ? "0" + presentTimeHours : String.valueOf(presentTimeHours);
+            String string_presentMinutes = presentTimeMinutes < 10 ? "0" + presentTimeMinutes : String.valueOf(presentTimeMinutes);
+            String string_presentTime = string_presentHours+":"+string_presentMinutes;
+
+            String string_playingHours = playingTimeHours < 10 ? "0" + playingTimeHours : String.valueOf(playingTimeHours);
+            String string_playingMinutes = playingTimeMinutes < 10 ? "0" + playingTimeMinutes : String.valueOf(playingTimeMinutes);
+            String string_playingTime = string_playingHours+":"+string_playingMinutes;
+
+            int imgGame = game.getImgGame();
+            String gameName = game.getTenGame();
+
+            Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(),imgGame);
+            Bitmap imgApp = BitmapFactory.decodeResource(getActivity().getResources(),R.drawable.logo2);
+            Notification notification = new NotificationCompat.Builder(getActivity(), ChannelTB.CHANNEL_ID) // khai báo compat
+                    .setLargeIcon(imgApp)
+                    .setContentTitle("Bắt đầu chơi : "+gameName+"")
+                    .setContentText("Thời gian "+string_presentTime+" đến "+string_playingTime+"")
+                    .setSmallIcon(R.drawable.logo2)
+                    .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))
+                    .build();
+            NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.notify(getTimeLocal(), notification);
+
+            //nhận thông báo gửi đến cho service
+            Intent intent = new Intent(getActivity(), ThongBao.class);
+            intent.setAction("MyAction");
+            intent.putExtra("time",string_playingTime);
+            intent.putExtra("game",game);
+            pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_IMMUTABLE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP,calendar2.getTimeInMillis(),pendingIntent);
+
+            FbDao dao = new FbDao();
+            dao.PlaygameGio(time, game.getId() + "", total);
+            FbDao.Thanhtoantien(total);
+        }else{
+            Snackbar snackbar = Snackbar.make(getView(),"Khung giờ này đã có người đặt. Vui lòng chọn game khác",2000);
+            View snackbar_view = snackbar.getView();
+            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
+            snackbar.show();
+        }
 
 
-        int imgGame = game.getImgGame();
-        String gameName = game.getTenGame();
-
-        Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(),imgGame);
-        Bitmap imgApp = BitmapFactory.decodeResource(getActivity().getResources(),R.drawable.logo2);
-        Notification notification = new NotificationCompat.Builder(getActivity(), ChannelTB.CHANNEL_ID) // khai báo compat
-                .setLargeIcon(imgApp)
-                .setContentTitle("Bắt đầu chơi : "+gameName+"")
-                .setContentText("Thời gian "+string_presentTime+" đến "+string_playingTime+"")
-                .setSmallIcon(R.drawable.logo2)
-                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))
-                .build();
-        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(getTimeLocal(), notification);
-
-        //nhận thông báo gửi đến cho service
-        Intent intent = new Intent(getActivity(), ThongBao.class);
-        intent.setAction("MyAction");
-        intent.putExtra("time",string_playingTime);
-        intent.putExtra("game",game);
-        pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar2.getTimeInMillis(),pendingIntent);
     }
 
     private int getTimeLocal() {

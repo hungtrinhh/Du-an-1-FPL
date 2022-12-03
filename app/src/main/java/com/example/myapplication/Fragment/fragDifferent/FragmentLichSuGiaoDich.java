@@ -18,6 +18,7 @@ import android.widget.ImageView;
 
 import com.example.myapplication.Adapter.HistoryAdapter;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
 import com.example.myapplication.Model.Hoadon;
 import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.Model.Hoadonnaptien;
@@ -40,7 +41,6 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     private static List<Hoadon> hoadonList;
     String TAG = "LichSugiadich";
     Comparator<Hoadon> comparator;
-    private boolean again = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,11 +53,13 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         anhXa(view);
         comparator = (o2, o1) -> getDate(o1).compareTo(getDate(o2));
-
-        if (again){
-            list=hoadonList;
+        if (FbDao.hoadonList.size()==0){
+            if (hoadonList==null){
+                list = fragment_Trangchu.listHD;
+            }else {
+                list=hoadonList;
+            }
             FillHoaDonAgain();
-            again=false;
         }else {
             fillRecycleView();
         }
@@ -119,9 +121,8 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        again=true;
+    public void onStop() {
+        super.onStop();
         hoadonList=list;
     }
 }
