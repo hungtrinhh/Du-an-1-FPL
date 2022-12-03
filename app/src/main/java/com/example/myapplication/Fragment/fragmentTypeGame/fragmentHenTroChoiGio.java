@@ -256,6 +256,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                     dialog.setContentView(R.layout.dialog_hengiochoi);
                     ImageView imgTime = dialog.findViewById(R.id.chooseDay);
                     ImageView close = dialog.findViewById(R.id.close);
+                    TextView textErr = dialog.findViewById(R.id.text_error);
                     AppCompatButton button = dialog.findViewById(R.id.btn_chotLich);
                     edt_day = dialog.findViewById(R.id.edt_day);
                     numberPicker_minutes = dialog.findViewById(R.id.numberpick_minutes);
@@ -268,7 +269,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                             return String.format("%02d", i);
                         }
                     });
-                    numberPicker_minutes.setValue(9);
+                    numberPicker_minutes.setValue(new Date().getHours());
                     numberPicker_seconds.setMaxValue(59);
                     numberPicker_seconds.setMinValue(0);
                     numberPicker_seconds.setFormatter(new NumberPicker.Formatter() {
@@ -277,7 +278,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                             return String.format("%02d", i);
                         }
                     });
-                    numberPicker_seconds.setValue(0);
+                    numberPicker_seconds.setValue(new Date().getMinutes());
                     close.setOnClickListener(v1 -> {
                         dialog.dismiss();
                     });
@@ -311,14 +312,26 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                         public void onClick(View view) {
                             String timeStart = edt_day.getText().toString();
                             if(timeStart.length() <= 0){
-                                Snackbar snackbar = Snackbar.make(getView(),"Vui lòng chọn ngày",2000);
-                                View snackbar_view = snackbar.getView();
-                                TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-                                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
-                                snackbar.show();
+                                textErr.setText("Vui lòng chọn ngày !");
                                 return;
-                            }
+                            }else{
+                                Date date = new Date();
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                String dateFM = simpleDateFormat.format(date);
 
+                                String x[] = timeStart.split("/");
+                                String y[] = dateFM.split("/");
+
+                                String count1 = "";
+                                String count2 = "";
+                                int NgayChon = Integer.valueOf(count1.concat(x[2]).concat(x[1]).concat(x[0]));
+                                int NgayHienTai = Integer.valueOf(count2.concat(y[2]).concat(y[1]).concat(y[0]));
+
+                                if(NgayChon < NgayHienTai){
+                                    textErr.setText("Vui lòng chọn lại ngày !");
+                                    return;
+                                }
+                            }
 
                             int timeM = numberPicker_seconds.getValue() + playingTimeMinutes;
                             int timeH = numberPicker_minutes.getValue();
@@ -327,11 +340,21 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                 timeH++;
                             }
 
+                            Date date = new Date();
+                            Date dateSS = new Date();
+                            dateSS.setHours(numberPicker_minutes.getValue());
+                            dateSS.setMinutes(numberPicker_seconds.getValue());
+
+                            if(dateSS.getTime() < date.getTime()){
+                                textErr.setText("Vui lòng chọn lại giờ !");
+                                return;
+                            }
+
                             Date a_date1 = new Date();
                             SimpleDateFormat a_fmtDay1 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                             Calendar c1 = Calendar.getInstance();
                             c1.setTimeInMillis(System.currentTimeMillis());
-                            c1.set(Calendar.HOUR,numberPicker_minutes.getValue());
+                            c1.set(Calendar.HOUR_OF_DAY,numberPicker_minutes.getValue());
                             c1.set(Calendar.MINUTE,numberPicker_seconds.getValue());
                             c1.set(Calendar.DAY_OF_MONTH,mDay);
                             c1.set(Calendar.MONTH,mMonth);
@@ -339,12 +362,11 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                             a_date1.setTime(c1.getTimeInMillis());
                             String time1 = a_fmtDay1.format(a_date1);
 
-
                             Date a_date2 = new Date();
                             SimpleDateFormat a_fmtDay2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                             Calendar c2 = Calendar.getInstance();
                             c2.setTimeInMillis(System.currentTimeMillis());
-                            c2.set(Calendar.HOUR,timeH);
+                            c2.set(Calendar.HOUR_OF_DAY,timeH);
                             c2.set(Calendar.MINUTE,timeM);
                             c2.set(Calendar.DAY_OF_MONTH,mDay);
                             c2.set(Calendar.MONTH,mMonth);
