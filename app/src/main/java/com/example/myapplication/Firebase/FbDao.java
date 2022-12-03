@@ -71,7 +71,7 @@ public class FbDao {
 
     private static List<HoaDonHenGio> hoadonhenGioList;
     private static List<Hoadonchoigame> hoadonchoigameList;
-    private static List<Hoadonchoigame> hoadonchoigameListRecently;
+//    private static List<Hoadonchoigame> hoadonchoigameListRecently;     lấy hóa đơn chơi game của trò chơi đang chơi
 
     public static List<Notify> getListNotify() {
         return listNotify;
@@ -93,13 +93,13 @@ public class FbDao {
         return hoadonhenGioList;
     }
 
-    public static List<Hoadonchoigame> getHoadonchoigameList() {
-        return hoadonchoigameList;
-    }
-
-    public static List<Hoadonchoigame> getHoadonchoigameListRecently() {
-        return hoadonchoigameListRecently;
-    }
+//    public static List<Hoadonchoigame> getHoadonchoigameList() {
+//        return hoadonchoigameList;
+//    }
+//
+//    public static List<Hoadonchoigame> getHoadonchoigameListRecently() {
+//        return hoadonchoigameListRecently;
+//    }
 
     public static Bitmap Avatar;
     public static User UserLogin;
@@ -241,51 +241,56 @@ public class FbDao {
         });
     }
 
-    public static void CountDown() {
-        Log.d(TAG, "onClickItemHAHAHA: ");
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String endT = Fragment_ListDanhSachTroChoi.endTime;
 
-        Date dateC = new Date();
-        Date dateE = null;
-        try {
-            dateE = dateFormat.parse(endT);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        long time = dateE.getTime() - dateC.getTime();
-        phut = (int) ((time / 1000) / 60);
-        giay = (int) ((time / 1000) % 60);
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (phut>=0&&giay>=0) {
-                    try {
-                        setInterval();
-                        Log.d(TAG, "run: " + phut + " va " + giay);
 
-                        Thread.sleep(1000);
+    //-----------hiện dialog countdown
 
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        thread.start();
-    }
-
-    private static void setInterval() {
-        if (phut == 0 && giay == 1) {
-            Thread.currentThread().interrupt();
-            Fragment_ListDanhSachTroChoi.chk = false;
-        }
-        if (giay == 0) {
-            giay = 60;
-            --phut;
-        }
-        --giay;
-    }
+//    public static void CountDown() {
+//        Log.d(TAG, "onClickItemHAHAHA: ");
+//        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//        String endT = Fragment_ListDanhSachTroChoi.endTime;
+//
+//        Date dateC = new Date();
+//        Date dateE = null;
+//        try {
+//            dateE = dateFormat.parse(endT);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        long time = dateE.getTime() - dateC.getTime();
+//        phut = (int) ((time / 1000) / 60);
+//        giay = (int) ((time / 1000) % 60);
+//        thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (phut>=0&&giay>=0) {
+//                    try {
+//                        setInterval();
+//                        Log.d(TAG, "run: " + phut + " va " + giay);
+//
+//                        Thread.sleep(1000);
+//
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
+//        thread.start();
+//    }
+//
+//    private static void setInterval() {
+//        if (phut == 0 && giay == 1) {
+//            Thread.currentThread().interrupt();
+//            Fragment_ListDanhSachTroChoi.chk = false;
+//        }
+//        if (giay == 0) {
+//            giay = 60;
+//            --phut;
+//        }
+//        --giay;
+//    }
+    //-------------------------------------------------------
 
     //hàm login và bắt data cho userLogin để userLogin thay đổi data theo thời gian thực
     public static void Login(String id) {
@@ -299,7 +304,7 @@ public class FbDao {
                 UserLogin.setId(snapshot.getKey());
                 UserLogin.setAvatar(avatar);
                 ReadHistory();
-                ReadHoaDonGameRecently();
+//                ReadHoaDonGameRecently();
             }
 
             @Override
@@ -415,33 +420,36 @@ public class FbDao {
         });
     }
 
+//-----------hàm lấy hóa đơn trò chơi
+//    private static void ReadHoaDonGameRecently(){
+//        hoadonchoigameListRecently = new ArrayList<>();
+//        DatabaseReference myRef = database.getReference("Hoadonchoigame");
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                hoadonchoigameListRecently.clear();
+//                for (DataSnapshot dt : dataSnapshot.getChildren()) {
+//                    for (DataSnapshot data : dt.getChildren()) {
+//                        for (DataSnapshot d : data.getChildren()
+//                        ) {
+//                            Hoadonchoigame u = d.getValue(Hoadonchoigame.class);
+//                            if (u == null) {
+//                                continue;
+//                            }
+//                                hoadonchoigameListRecently.add(u);
+//                        }
+//
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//            }
+//        });
+//    }
 
-    private static void ReadHoaDonGameRecently(){
-        hoadonchoigameListRecently = new ArrayList<>();
-        DatabaseReference myRef = database.getReference("Hoadonchoigame");
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                hoadonchoigameListRecently.clear();
-                for (DataSnapshot dt : dataSnapshot.getChildren()) {
-                    for (DataSnapshot data : dt.getChildren()) {
-                        for (DataSnapshot d : data.getChildren()
-                        ) {
-                            Hoadonchoigame u = d.getValue(Hoadonchoigame.class);
-                            if (u == null) {
-                                continue;
-                            }
-                                hoadonchoigameListRecently.add(u);
-                        }
 
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {
-            }
-        });
-    }
+    //-------------------------------------------------------
     //hàm đọc về dữ liệu voutcher
     private void ReadVoucher() {
         Log.d(TAG, "ReadVoucher: ");
