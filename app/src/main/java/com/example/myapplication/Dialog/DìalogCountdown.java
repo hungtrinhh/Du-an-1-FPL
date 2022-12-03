@@ -34,8 +34,7 @@ public class DìalogCountdown extends Dialog {
 
 
     }
-
-
+    
     private static Thread t;
 
     public void Create() {
