@@ -69,6 +69,74 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         tv_GoToRegister.setOnClickListener(this::onClick);
         tv_FogotPassword.setOnClickListener(this::onClick);
         imgHidePassword.setOnClickListener(this::onClick);
+        Login();
+    }
+
+    private void Login() {
+        SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+   
+
+        ed_Username.setText(s.getString("Username", ""));
+        ed_Password.setText(s.getString("Password", ""));
+        String username = ed_Username.getText().toString();
+        String password = ed_Password.getText().toString();
+        if (username.equals("") || password.equals("")) {
+            Snackbar snackbar = Snackbar.make(viewFrag, "Không được để trống tài khoản và mật khẩu", 2000);
+            View snackbar_view = snackbar.getView();
+            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.angry, 0);
+            snackbar.show();
+            return;
+        }
+
+        boolean dk = false;
+        for (User u : list
+        ) {
+            if (username.equals(u.getName()) && password.equals(u.getPassword())) {
+                dk = true;
+                DialogLoading.dialogLoading.show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        saveAccount();
+
+                        FbDao.Login(u.getId());
+                        while (!FbDao.Login) {
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        FbDao.LoadAvatarFromID();
+
+                        while (!FbDao.LoadedAvatar) {
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+
+                    }
+                }).start();
+
+                return;
+            }
+        }
+        if (!dk) {
+            Snackbar snackbar = Snackbar.make(viewFrag, "Mật khẩu hoặc tài khoản không đúng", 2000);
+            View snackbar_view = snackbar.getView();
+            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.thinking, 0);
+            snackbar.show();
+        }
+
+
     }
 
 
@@ -96,6 +164,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_Login:
+
                 String username = ed_Username.getText().toString();
                 String password = ed_Password.getText().toString();
                 if (username.equals("") || password.equals("")) {
@@ -111,11 +180,12 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 for (User u : list
                 ) {
                     if (username.equals(u.getName()) && password.equals(u.getPassword())) {
-                        dk = true;  DialogLoading.dialogLoading.show();
+                        dk = true;
+                        DialogLoading.dialogLoading.show();
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-
+                                saveAccount();
 
                                 FbDao.Login(u.getId());
                                 while (!FbDao.Login) {
@@ -135,7 +205,6 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                                         e.printStackTrace();
                                     }
                                 }
-
 
 
                                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
