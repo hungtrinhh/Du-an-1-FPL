@@ -75,8 +75,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private ListThoiGianAdapter listThoiGianAdapter;
     private final List<PlayTime> list = new ArrayList<>();
-    private List<Voucher> listVoucher;
-    private final List<Voucher> voucherListGameChoose = new ArrayList<>();
+    private List<Voucher> voucherListGameChoose;
     private ImageView close_dialog, backToDSGame;
     private Dialog dialog;
     private Voucher voucherChoose;
@@ -151,14 +150,17 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         btn_play.setEnabled(false);
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
     }
-
-    private void ShowListVoucher() {
-        listVoucher = FbDao.getListVoucher();
-        for (Voucher voucher : listVoucher) {
+    private void FillVoucher(){
+        voucherListGameChoose = new ArrayList<>();
+        for (Voucher voucher : FbDao.getListVoucher()) {
             if (voucher.getLoaiGame() == game.getId() || voucher.getLoaiGame() == 0) {
                 voucherListGameChoose.add(voucher);
             }
         }
+    }
+
+    private void ShowListVoucher() {
+        FillVoucher();
         voucherVerticalAdapter = new VoucherVerticalAdapter(new OnclickItemVoucher() {
             @Override
             public void onclickItemVoucher(Voucher voucher) {
@@ -215,7 +217,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 break;
             case R.id.btn_backToDSGame:
                 if (fragment_QRcode.check) {
-                   getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
                 }else {
                     getActivity().getSupportFragmentManager().popBackStack();
 
