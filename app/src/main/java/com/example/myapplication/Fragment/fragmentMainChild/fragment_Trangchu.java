@@ -357,10 +357,10 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         switch (fragment_QRcode.trangThai) {
 
             case "Đang được chơi":
-                snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đang được bảo trì, hãy thử lại vào lần sau nhé", 2000);
+                snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đang được người khác chơi, hãy thử lại vào lần sau nhé", 2000);
                 snackbar_view = snackbar.getView();
                 tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.nervous, 0);
+                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.stop, 0);
                 snackbar.show();
 
                 break;
