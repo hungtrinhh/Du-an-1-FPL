@@ -67,7 +67,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
     private RecyclerView recyclerView_voucher_gio, recyclerview_choose_time;
     private AppCompatButton btn_henGio;
     private List<Voucher> listVoucher;
-    private final List<Voucher> voucherListGameChoose = new ArrayList<>();
+    private List<Voucher> voucherListGameChoose;
     private final List<PlayTime> list = new ArrayList<>();
     private Game game;
     private PlayTime playTime_choose;
@@ -136,13 +136,18 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
         imgGame = view.findViewById(R.id.imgGame);
         btn_henGio.setEnabled(false);
     }
-    private void ShowListVoucher() {
-        listVoucher = FbDao.getListVoucher();
-        for (Voucher voucher : listVoucher) {
+
+    private void FillVoucher(){
+        voucherListGameChoose = new ArrayList<>();
+        for (Voucher voucher : FbDao.getListVoucher()) {
             if (voucher.getLoaiGame() == game.getId() || voucher.getLoaiGame() == 0) {
                 voucherListGameChoose.add(voucher);
             }
         }
+    }
+
+    private void ShowListVoucher() {
+        FillVoucher();
         voucherVerticalAdapter = new VoucherVerticalAdapter(new OnclickItemVoucher() {
             @Override
             public void onclickItemVoucher(Voucher voucher) {

@@ -66,7 +66,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
     private Game game;
     private Voucher voucherChoose;
     private List<Voucher> listVoucher;
-    private final List<Voucher> voucherListGameChoose = new ArrayList<>();
+    private List<Voucher> voucherListGameChoose;
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private RecyclerView recyclerView_voucher_gio;
     private Dialog dialog;
@@ -137,13 +137,17 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
         imgGame.setImageResource(game.getImgGame());
     }
 
-    private void ShowListVoucher() {
-        listVoucher = FbDao.getListVoucher();
-        for (Voucher voucher : listVoucher) {
+    private void FillVoucher() {
+        voucherListGameChoose = new ArrayList<>();
+        for (Voucher voucher : FbDao.getListVoucher()) {
             if (voucher.getLoaiGame() == game.getId() || voucher.getLoaiGame() == 0) {
                 voucherListGameChoose.add(voucher);
             }
         }
+    }
+
+    private void ShowListVoucher() {
+        FillVoucher();
         voucherVerticalAdapter = new VoucherVerticalAdapter(new OnclickItemVoucher() {
             @Override
             public void onclickItemVoucher(Voucher voucher) {
