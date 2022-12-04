@@ -289,7 +289,12 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                     @Override
                     public void onClick(View view) {
                         String timeStart = edt_day.getText().toString();
-
+                        int timeM = numberPicker_seconds.getValue() + count;
+                        int timeH = numberPicker_minutes.getValue();
+                        if(timeM >= 60){
+                            timeM = timeM - 60;
+                            timeH++;
+                        }
                         if(timeStart.length() <= 0){
                             textErr.setText("Vui lòng chọn ngày !");
                             return;
@@ -309,25 +314,21 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                             if(NgayChon < NgayHienTai){
                                 textErr.setText("Vui lòng chọn lại ngày !");
                                 return;
+                            }else{
+                                try {
+                                    Date date2 = simpleDateFormat.parse(timeStart);
+                                    date2.setHours(numberPicker_minutes.getValue());
+                                    date2.setMinutes(numberPicker_seconds.getValue());
+                                    int ss = date.compareTo(date2);
+                                    if(ss > 0){
+                                        textErr.setText("Vui lòng chọn lại giờ !");
+                                        return;
+                                    }
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                             }
 
-                        }
-
-                        int timeM = numberPicker_seconds.getValue() + count;
-                        int timeH = numberPicker_minutes.getValue();
-                        if(timeM >= 60){
-                            timeM = timeM - 60;
-                            timeH++;
-                        }
-
-                        Date date = new Date();
-                        Date dateSS = new Date();
-                        dateSS.setHours(numberPicker_minutes.getValue());
-                        dateSS.setMinutes(numberPicker_seconds.getValue());
-
-                        if(dateSS.getTime() < date.getTime()){
-                            textErr.setText("Vui lòng chọn lại giờ !");
-                            return;
                         }
 
                         Date a_date1 = new Date();
