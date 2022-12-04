@@ -133,15 +133,15 @@ public class FragmentNapTien extends Fragment implements View.OnClickListener {
         edTienNap = view.findViewById(R.id.ed_tien_nap);
         btnNap = view.findViewById(R.id.btn_nap);
         img_backToUser = view.findViewById(R.id.btn_backNapTien);
-        btn20 = (AppCompatButton) view.findViewById(R.id.btn_20);
-        btn30 = (AppCompatButton) view.findViewById(R.id.btn_30);
-        btn50 = (AppCompatButton) view.findViewById(R.id.btn_50);
-        btn100 = (AppCompatButton) view.findViewById(R.id.btn_100);
-        btn200 = (AppCompatButton) view.findViewById(R.id.btn_200);
-        btn500 = (AppCompatButton) view.findViewById(R.id.btn_500);
-        btn1000 = (AppCompatButton) view.findViewById(R.id.btn_1000);
-        btn2000 = (AppCompatButton) view.findViewById(R.id.btn_2000);
-        btn5000 = (AppCompatButton) view.findViewById(R.id.btn_5000);
+        btn20 = view.findViewById(R.id.btn_20);
+        btn30 = view.findViewById(R.id.btn_30);
+        btn50 = view.findViewById(R.id.btn_50);
+        btn100 = view.findViewById(R.id.btn_100);
+        btn200 = view.findViewById(R.id.btn_200);
+        btn500 = view.findViewById(R.id.btn_500);
+        btn1000 = view.findViewById(R.id.btn_1000);
+        btn2000 = view.findViewById(R.id.btn_2000);
+        btn5000 = view.findViewById(R.id.btn_5000);
     }
 
     public void btnOnclick() {

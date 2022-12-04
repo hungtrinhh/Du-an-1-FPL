@@ -74,10 +74,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
         public HistoryViewHoler(@NonNull View itemView) {
             super(itemView);
-            imgHistory = (ImageView) itemView.findViewById(R.id.img_history);
-            tvLoaiGd = (TextView) itemView.findViewById(R.id.tv_loai_gd);
-            tvNgayGd = (TextView) itemView.findViewById(R.id.tv_ngay_gd);
-            tvGiaTien = (TextView) itemView.findViewById(R.id.tv_gia_tien);
+            imgHistory = itemView.findViewById(R.id.img_history);
+            tvLoaiGd = itemView.findViewById(R.id.tv_loai_gd);
+            tvNgayGd = itemView.findViewById(R.id.tv_ngay_gd);
+            tvGiaTien = itemView.findViewById(R.id.tv_gia_tien);
 
         }
     }

@@ -36,9 +36,9 @@ public class FragmentRegulation extends Fragment {
     }
 
     private void anhXa(View view) {
-        toolbarDanhMuc = (Toolbar) view.findViewById(R.id.toolbar_DanhMuc);
-        btnBackRegulation = (ImageView) view.findViewById(R.id.btn_backRegulation);
-        webViewRegulation = (WebView) view.findViewById(R.id.webView_Regulation);
+        toolbarDanhMuc = view.findViewById(R.id.toolbar_DanhMuc);
+        btnBackRegulation = view.findViewById(R.id.btn_backRegulation);
+        webViewRegulation = view.findViewById(R.id.webView_Regulation);
     }
     public void fillWebViewHelp(){
         webViewRegulation.getSettings().setSupportZoom(true);

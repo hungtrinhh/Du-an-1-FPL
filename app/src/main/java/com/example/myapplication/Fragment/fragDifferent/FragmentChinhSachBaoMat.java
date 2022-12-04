@@ -37,9 +37,9 @@ public class FragmentChinhSachBaoMat extends Fragment {
     }
 
     private void anhXa(View view) {
-        toolbarDanhMuc = (Toolbar) view.findViewById(R.id.toolbar_DanhMuc);
-        btnBackBaoMat = (ImageView) view.findViewById(R.id.btn_backBaoMat);
-        webViewBaoMat = (WebView) view.findViewById(R.id.webView_baoMat);
+        toolbarDanhMuc = view.findViewById(R.id.toolbar_DanhMuc);
+        btnBackBaoMat = view.findViewById(R.id.btn_backBaoMat);
+        webViewBaoMat = view.findViewById(R.id.webView_baoMat);
 
     }
     public void fillWebViewHelp(){

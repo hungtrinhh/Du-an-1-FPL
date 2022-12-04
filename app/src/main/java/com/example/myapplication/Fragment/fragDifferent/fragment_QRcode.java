@@ -27,6 +27,7 @@ public class fragment_QRcode extends Fragment {
     private ImageView btn_backToHome;
     private final String TAG = "fragment_QRcode";
     public static boolean check = false;
+    public static String trangThai = null;
 
     public fragment_QRcode() {
 
@@ -64,18 +65,21 @@ public class fragment_QRcode extends Fragment {
         qrcodeScaner = v.findViewById(R.id.qrcodeScaner);
         btn_backToHome = v.findViewById(R.id.btn_backToHome);
     }
-    private void backToHome()
-    {
-       btn_backToHome.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               getActivity().getSupportFragmentManager().popBackStack();
 
-           }
-       });
+    private void backToHome() {
+        btn_backToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().popBackStack();
+
+            }
+        });
     }
+
+    private CodeScanner codeScanner;
+
     public void setUpQrcode() {
-        CodeScanner codeScanner = new CodeScanner(getActivity(), qrcodeScaner);
+        codeScanner = new CodeScanner(getActivity(), qrcodeScaner);
         codeScanner.startPreview();
 
         codeScanner.setDecodeCallback(new DecodeCallback() {
@@ -88,10 +92,14 @@ public class fragment_QRcode extends Fragment {
                     if ((g.getId() + "").equals(result.toString())) {
                         if (g.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
 
+                            trangThai = "Đang được chơi";
+                            getActivity().getSupportFragmentManager().popBackStack();
+                            return;
 
                         } else if (g.getTrangThai().equalsIgnoreCase("Bảo trì")) {
-
-
+                            trangThai = "Bảo trì";
+                            getActivity().getSupportFragmentManager().popBackStack();
+                            return;
                         } else {
                             check = true;
                             Bundle bundle = new Bundle();
@@ -100,27 +108,23 @@ public class fragment_QRcode extends Fragment {
                                 fragmentTroChoiGio fragmentTroChoiGio = new fragmentTroChoiGio();
                                 fragmentTroChoiGio.setArguments(bundle);
                                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragmentTroChoiGio).commit();
+                                return;
+
                             } else {
                                 fragmentTroChoiLuot fragmentTroChoiLuot = new fragmentTroChoiLuot();
                                 bundle.putSerializable("obj_game", g);
                                 fragmentTroChoiLuot.setArguments(bundle);
                                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragmentTroChoiLuot).commit();
+                                return;
 
                             }
                         }
-                        break;
+
                     }
 
                 }
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        codeScanner.startPreview();
-
-                    }
-                });
-
+                trangThai = "Không đúng qr code";
+                getActivity().getSupportFragmentManager().popBackStack();
 
 
             }

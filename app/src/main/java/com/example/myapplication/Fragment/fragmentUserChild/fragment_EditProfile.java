@@ -85,7 +85,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                 }
             }
             FbDao.ReadHistory();
-            while (!(FbDao.hoadonList.size() != 0)) {
+            while ((FbDao.hoadonList.size() != 0)) {
                 try {
                     Thread.sleep(1000);
 

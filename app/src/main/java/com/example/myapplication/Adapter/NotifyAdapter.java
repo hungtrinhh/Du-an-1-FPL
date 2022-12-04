@@ -51,8 +51,8 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NotifyView
 
         public NotifyViewHoler(@NonNull View itemView) {
             super(itemView);
-            linearDanhSachGame = (LinearLayout) itemView.findViewById(R.id.linear_danh_sach_game);
-            tvTiltle = (TextView) itemView.findViewById(R.id.tv_tiltle);
+            linearDanhSachGame = itemView.findViewById(R.id.linear_danh_sach_game);
+            tvTiltle = itemView.findViewById(R.id.tv_tiltle);
         }
     }
 }

@@ -106,9 +106,9 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     }
 
     private void anhXa(View view) {
-        toolbarDanhMuc = (Toolbar) view.findViewById(R.id.toolbar_DanhMuc);
-        btnBackNotify = (ImageView) view.findViewById(R.id.btn_backNotify);
-        recyclerviewHistory = (RecyclerView) view.findViewById(R.id.recyclerview_history);
+        toolbarDanhMuc = view.findViewById(R.id.toolbar_DanhMuc);
+        btnBackNotify = view.findViewById(R.id.btn_backNotify);
+        recyclerviewHistory = view.findViewById(R.id.recyclerview_history);
     }
 
     @Override

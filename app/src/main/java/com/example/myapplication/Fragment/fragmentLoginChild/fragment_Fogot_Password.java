@@ -132,6 +132,6 @@ public class fragment_Fogot_Password extends Fragment {
         viewFrag = view;
         btn_BackToLogin = view.findViewById(R.id.btn_BackToLogin);
         btn_ResetPassword = view.findViewById(R.id.btn_ResetPassword);
-        edUserName = (EditText) view.findViewById(R.id.ed_userName);
+        edUserName = view.findViewById(R.id.ed_userName);
     }
 }

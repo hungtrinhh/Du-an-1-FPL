@@ -90,8 +90,12 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+
+
         return inflater.inflate(R.layout.fragment_trangchu, container, false);
     }
+
+    private View viewContainer;
 
     public fragment_Trangchu() {
     }
@@ -100,9 +104,9 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //lấy hóa đơn từ firebase
-        if (FbDao.hoadonList.size()!=0){
-            listHD =FbDao.hoadonList;
-            Log.d(TAG, "onViewCreatedMAIN: "+listHD.size());
+        if (FbDao.hoadonList.size() != 0) {
+            listHD = FbDao.hoadonList;
+            Log.d(TAG, "onViewCreatedMAIN: " + listHD.size());
         }
 
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
@@ -332,7 +336,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         if (Build.VERSION.SDK_INT >= 23) {
             if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
             ) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new fragment_QRcode()).addToBackStack("").commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_QRcode()).addToBackStack("").commit();
 
 
             } else {
@@ -340,6 +344,41 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
             }
         }
 
+    }
+
+    private void checkQrcode() {
+
+        Snackbar snackbar;
+        View snackbar_view;
+        TextView tv_bar;
+        switch (fragment_QRcode.trangThai) {
+
+            case "Đang được chơi":
+                snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đang được bảo trì, hãy thử lại vào lần sau nhé", 2000);
+                snackbar_view = snackbar.getView();
+                tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.nervous, 0);
+                snackbar.show();
+
+                break;
+            case "Bảo trì":
+                snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đang được bảo trì, hãy thử lại vào lần sau nhé", 2000);
+                snackbar_view = snackbar.getView();
+                tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.nervous, 0);
+                snackbar.show();
+                break;
+
+
+        }
+        fragment_QRcode.trangThai = null;
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkQrcode();
     }
 
     @Override
@@ -357,6 +396,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
         }
     }
+
     @Override
     public void onStop() {
         super.onStop();

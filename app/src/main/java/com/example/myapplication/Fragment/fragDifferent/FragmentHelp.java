@@ -39,9 +39,9 @@ public class FragmentHelp extends Fragment {
     }
 
     private void anhXa(View view) {
-        toolbarDanhMuc = (Toolbar) view.findViewById(R.id.toolbar_DanhMuc);
-        btnBackHelp = (ImageView) view.findViewById(R.id.btn_backHelp);
-        webViewHelp = (WebView) view.findViewById(R.id.webView_help);
+        toolbarDanhMuc = view.findViewById(R.id.toolbar_DanhMuc);
+        btnBackHelp = view.findViewById(R.id.btn_backHelp);
+        webViewHelp = view.findViewById(R.id.webView_help);
     }
     public void fillWebViewHelp(){
         webViewHelp.getSettings().setSupportZoom(true);

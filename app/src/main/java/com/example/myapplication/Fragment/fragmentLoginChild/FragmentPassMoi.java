@@ -48,11 +48,11 @@ public class FragmentPassMoi extends Fragment implements OnClickListener {
     }
 
     private void anhXa(View view) {
-        textPassword = (TextInputLayout) view.findViewById(R.id.text_Password);
-        btnBackToLogin = (ImageView) view.findViewById(R.id.btn_BackToLogin);
-        textRePassword = (TextInputLayout) view.findViewById(R.id.text_rePassword);
-        btnResetPassword = (AppCompatButton) view.findViewById(R.id.btn_ResetPassword);
-        layoutContact = (LinearLayout) view.findViewById(R.id.layout_contact);
+        textPassword = view.findViewById(R.id.text_Password);
+        btnBackToLogin = view.findViewById(R.id.btn_BackToLogin);
+        textRePassword = view.findViewById(R.id.text_rePassword);
+        btnResetPassword = view.findViewById(R.id.btn_ResetPassword);
+        layoutContact = view.findViewById(R.id.layout_contact);
 
     }
 
@@ -129,10 +129,7 @@ public class FragmentPassMoi extends Fragment implements OnClickListener {
         if (textPassword.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
             return false;
         }
-        if (textRePassword.getHelperTextCurrentTextColor() == getResources().getColor(R.color.red)) {
-            return false;
-        }
-        return true;
+        return textRePassword.getHelperTextCurrentTextColor() != getResources().getColor(R.color.red);
     }
     @Override
     public void onClick(View view) {
