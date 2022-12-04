@@ -513,6 +513,7 @@ public class FbDao {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                listUser.clear();
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     User u = dt.getValue(User.class);
                     if (u == null) {
