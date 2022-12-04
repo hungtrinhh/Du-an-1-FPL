@@ -60,6 +60,9 @@ import java.util.Date;
 import java.util.List;
 
 
+
+
+
 public class fragment_Trangchu extends Fragment implements View.OnClickListener {
     private static final int REQUETCODE = 100;
     //  khai báo
@@ -347,7 +350,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     }
 
     private void checkQrcode() {
-        if(fragment_QRcode.trangThai==null){
+        if (fragment_QRcode.trangThai == null) {
             return;
         }
         Snackbar snackbar;
@@ -382,6 +385,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     public void onResume() {
         super.onResume();
         checkQrcode();
+        avaterUserHomeFrag.setImageBitmap(FbDao.UserLogin.getAvatar());
     }
 
     @Override
