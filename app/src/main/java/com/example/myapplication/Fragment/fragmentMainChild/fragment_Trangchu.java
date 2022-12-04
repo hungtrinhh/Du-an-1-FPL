@@ -347,10 +347,13 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     }
 
     private void checkQrcode() {
-
+        if(fragment_QRcode.trangThai==null){
+            return;
+        }
         Snackbar snackbar;
         View snackbar_view;
         TextView tv_bar;
+
         switch (fragment_QRcode.trangThai) {
 
             case "Đang được chơi":
