@@ -99,10 +99,10 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 String username = ed_Username.getText().toString();
                 String password = ed_Password.getText().toString();
                 if (username.equals("") || password.equals("")) {
-                    Snackbar snackbar = Snackbar.make(viewFrag,"Không được để trống tài khoản và mật khẩu",2000);
+                    Snackbar snackbar = Snackbar.make(viewFrag, "Không được để trống tài khoản và mật khẩu", 2000);
                     View snackbar_view = snackbar.getView();
                     TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.angry,0);
+                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.angry, 0);
                     snackbar.show();
                     break;
                 }
@@ -111,31 +111,33 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 for (User u : list
                 ) {
                     if (username.equals(u.getName()) && password.equals(u.getPassword())) {
-                        dk = true;
-                        FbDao.UserLogin = u;
-                        FbDao.LoadAvatarFromID();
-                        saveAccount();
-
-
-                            DialogLoading.dialogLoading.show();
-
-
-
+                        dk = true;  DialogLoading.dialogLoading.show();
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
 
-                                while (!FbDao.LoadedAvatar) {
-                                    try {
-                                        Thread.sleep(200);
 
+                                FbDao.Login(u.getId());
+                                while (!FbDao.Login) {
+                                    try {
+                                        Thread.sleep(300);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
-
                                 }
-                                FbDao.LoadedAvatar = false;
-                                Log.d(TAG, "run: go to home" + FbDao.UserLogin.getAvatar());
+
+                                FbDao.LoadAvatarFromID();
+
+                                while (!FbDao.LoadedAvatar) {
+                                    try {
+                                        Thread.sleep(300);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+
+
                                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
 
                             }
@@ -145,10 +147,10 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                     }
                 }
                 if (!dk) {
-                    Snackbar snackbar = Snackbar.make(viewFrag,"Mật khẩu hoặc tài khoản không đúng",2000);
+                    Snackbar snackbar = Snackbar.make(viewFrag, "Mật khẩu hoặc tài khoản không đúng", 2000);
                     View snackbar_view = snackbar.getView();
                     TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.thinking,0);
+                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.thinking, 0);
                     snackbar.show();
                 }
                 break;
@@ -171,6 +173,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
     private View viewFrag = null;
 
     // khai báo hàm animation

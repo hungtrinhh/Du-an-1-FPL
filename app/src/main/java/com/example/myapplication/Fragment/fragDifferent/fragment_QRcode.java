@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
@@ -85,7 +86,6 @@ public class fragment_QRcode extends Fragment {
         codeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull Result result) {
-
                 Log.d(TAG, "onDecoded: " + result);
                 for (Game g : FbDao.getListGame()
                 ) {

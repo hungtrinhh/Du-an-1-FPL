@@ -194,13 +194,13 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                setListSerachGame(newText);
+                setListSearchGame(newText);
                 return false;
             }
         });
     }
 
-    private void setListSerachGame(String query) {
+    private void setListSearchGame(String query) {
         if ("".equalsIgnoreCase(query)) {
             tvthongBao.setVisibility(View.GONE);
             danhSachGameAdapter.setListGame(listDanhSachGame);

@@ -60,9 +60,6 @@ import java.util.Date;
 import java.util.List;
 
 
-
-
-
 public class fragment_Trangchu extends Fragment implements View.OnClickListener {
     private static final int REQUETCODE = 100;
     //  khai báo
@@ -134,7 +131,9 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         //    toolbar
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         SetDataForView();
-        DialogLoading.dialogLoading.dismiss();
+        if (DialogLoading.dialogLoading.isShowing() && FbDao.LoadedAvatar) {
+            DialogLoading.dialogLoading.dismiss();
+        }
         onClickLayout();
         viewFrag = view;
 
@@ -197,10 +196,8 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!FbDao.Login) {
-            FbDao.Login(FbDao.UserLogin.getId());
-            FbDao.Login = true;
-        }
+
+
     }
 
     //khai báo constructor rỗng

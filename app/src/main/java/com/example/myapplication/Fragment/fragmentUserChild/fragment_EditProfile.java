@@ -77,7 +77,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
             }
             FbDao.LoadAvatarFromID();
 
-            while (!FbDao.UserLogin.getAvatar().sameAs(imgChose)) {
+            while (!FbDao.LoadedAvatar) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -85,7 +85,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                 }
             }
             FbDao.ReadHistory();
-            while ((FbDao.hoadonList.size() != 0)) {
+            while ((FbDao.hoadonList.size() == 0)) {
                 try {
                     Thread.sleep(1000);
 
