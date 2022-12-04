@@ -77,7 +77,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
             }
             FbDao.LoadAvatarFromID();
 
-            while (!FbDao.LoadedAvatar) {
+            while (!FbDao.UserLogin.getAvatar().sameAs(imgChose)) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
