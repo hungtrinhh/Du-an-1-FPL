@@ -166,7 +166,17 @@ public class FbDao {
         userRef.updateChildren(map, (error, ref) -> Log.d(TAG, "Thanh toán thành công"));
 
     }
-
+    public static void updatePass(String id, String pass){
+        Map<String,Object> map = new HashMap<>();
+        map.put("password",pass);
+        DatabaseReference userRef = database.getReference("Users").child(id);
+        userRef.updateChildren(map, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                Log.d(TAG, "Update thành công");
+            }
+        });
+    }
     public static void LoadAvatarFromID() {
         String id = UserLogin.getId();
         StorageReference avartar = avatatRef.child((id));

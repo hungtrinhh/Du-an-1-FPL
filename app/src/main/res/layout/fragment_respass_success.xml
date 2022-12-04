@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:fontFamily="@font/poppins_regular"
-            android:text="Bạn đã đăng ký thành công"
+            android:text="Bạn đã đặt lại mật khẩu thành công"
             android:textColor="@color/black"
             />
     </LinearLayout>

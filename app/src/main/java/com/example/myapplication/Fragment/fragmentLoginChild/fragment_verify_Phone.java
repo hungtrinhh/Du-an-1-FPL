@@ -56,7 +56,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
     Thread runReloadtv;
     User user;
     public boolean isUpdate = false;
-
+    public boolean resetPass = false;
     // khởi tạo constructor (truyền tham số)
     public fragment_verify_Phone(User user, String verificationId, PhoneAuthProvider.ForceResendingToken token) {
         this.mPhonenumber = mPhonenumber;
@@ -370,6 +370,24 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
             });
             return;
         }
+        if (resetPass) {
+            mAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "reset:success");
+                        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_container, new FragmentPassMoi()).commit();
+                    } else {
+
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+
+                        }
+                    }
+                }
+            });
+            return;
+        }
         mAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -389,7 +407,7 @@ public class fragment_verify_Phone extends Fragment implements View.OnClickListe
                 }
             }
         });
-
+        
     }
 
     /// hàm bắt sự kiện nút bấm trong fragment Regesiter
