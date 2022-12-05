@@ -3,7 +3,9 @@ package com.example.myapplication.Fragment.fragmentTypeGame;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.Adapter.ListThoiGianAdapter;
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
+import com.example.myapplication.BroadcastReciver.ThongBao;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragDifferent.fragment_QRcode;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
@@ -83,6 +86,8 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
     private float total = 0;
     private int mDay,mMonth,mYear;
     private NumberPicker numberPicker_minutes,numberPicker_seconds;
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
 
     //Thời gian chơi
     private int time;
@@ -135,6 +140,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
         btn_henGio = view.findViewById(R.id.btn_henGio);
         imgGame = view.findViewById(R.id.imgGame);
         btn_henGio.setEnabled(false);
+        alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
     }
 
     private void FillVoucher(){
@@ -313,7 +319,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                         public void onClick(View view) {
                             String timeStart = edt_day.getText().toString();
 
-                            int timeM = numberPicker_seconds.getValue() + playingTimeMinutes;
+                            int timeM = numberPicker_seconds.getValue() + time;
                             int timeH = numberPicker_minutes.getValue();
                             if(timeM >= 60){
                                 timeM = timeM - 60;
@@ -419,12 +425,26 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                 hoaDonHenGio.setTimeEnd(time2);
                                 FbDao.AddHoaDonHenGio(hoaDonHenGio);
                                 FbDao.Thanhtoantien(total);
+
+
                                 dialog.cancel();
                                 Snackbar snackbar = Snackbar.make(getView(),"Đặt lịch thành công",2000);
                                 View snackbar_view = snackbar.getView();
                                 TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
                                 tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.emojilike,0);
                                 snackbar.show();
+
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("GameTime",game);
+                                bundle.putInt("time2",time);
+                                bundle.putFloat("total2",total);
+
+                                Intent intent = new Intent(getActivity(), ThongBao.class);
+                                intent.setAction("MyAction3");
+                                intent.putExtras(bundle);
+
+                                pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_IMMUTABLE);
+                                alarmManager.set(AlarmManager.RTC_WAKEUP,c1.getTimeInMillis(),pendingIntent);
                             }else{
                                 dialog.cancel();
                                 Snackbar snackbar = Snackbar.make(getView(),"Khung giờ này đã có người chọn. Vui lòng chọn giờ khác",2000);

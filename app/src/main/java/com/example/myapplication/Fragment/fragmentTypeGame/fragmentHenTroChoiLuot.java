@@ -3,7 +3,9 @@ package com.example.myapplication.Fragment.fragmentTypeGame;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
+import com.example.myapplication.BroadcastReciver.ThongBao;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragDifferent.fragment_QRcode;
 import com.example.myapplication.Fragment.fragment_Main;
@@ -78,6 +81,8 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
     String pattern = "###,### Poin";
     DecimalFormat df = new DecimalFormat(pattern);
     private NumberPicker numberPicker_minutes,numberPicker_seconds;
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
 
     public static fragmentHenTroChoiLuot newInstance() {
         fragmentHenTroChoiLuot fragment = new fragmentHenTroChoiLuot();
@@ -125,6 +130,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
         btn_henGio = view.findViewById(R.id.btn_henGio);
         imgGame = view.findViewById(R.id.imgGame);
         btn_henGio.setEnabled(false);
+        alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
     }
 
     private void setThongTin() {
@@ -398,6 +404,18 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                             hoaDonHenGio.setTimeEnd(time2);
                             FbDao.AddHoaDonHenGio(hoaDonHenGio);
                             FbDao.Thanhtoantien(total);
+
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("GameTurn",game);
+                            bundle.putInt("turn",count);
+                            bundle.putFloat("total",total);
+
+                            Intent intent = new Intent(getActivity(), ThongBao.class);
+                            intent.setAction("MyAction2");
+                            intent.putExtras(bundle);
+
+                            pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_IMMUTABLE);
+                            alarmManager.set(AlarmManager.RTC_WAKEUP,c1.getTimeInMillis(),pendingIntent);
                             dialog.cancel();
                             Snackbar.make(getView(),"Đặt lịch thành công",2000).show();
                         }else{
