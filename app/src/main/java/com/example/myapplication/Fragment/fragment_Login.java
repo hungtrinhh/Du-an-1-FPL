@@ -74,12 +74,13 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
 
     private void Login() {
         SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
-   
-
         ed_Username.setText(s.getString("Username", ""));
         ed_Password.setText(s.getString("Password", ""));
         String username = ed_Username.getText().toString();
         String password = ed_Password.getText().toString();
+        if (username.equals("") || password.equals("")) {
+            return;
+        }
         if (username.equals("") || password.equals("")) {
             Snackbar snackbar = Snackbar.make(viewFrag, "Không được để trống tài khoản và mật khẩu", 2000);
             View snackbar_view = snackbar.getView();

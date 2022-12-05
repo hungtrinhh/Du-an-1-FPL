@@ -78,11 +78,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
             FbDao.LoadAvatarFromID();
 
             while (!FbDao.LoadedAvatar) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
             }
             FbDao.ReadHistory();
             while ((FbDao.hoadonList.size() == 0)) {
@@ -221,6 +217,8 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
     //lấy ảnh về
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri uri = data.getData();
             try {
@@ -235,7 +233,6 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                 e.printStackTrace();
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

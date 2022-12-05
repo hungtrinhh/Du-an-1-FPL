@@ -57,7 +57,7 @@ public class FbDao {
     public static List<Voucher> listVoucher;
     public static List<Notify> listNotify;
     public static List<Hoadon> hoadonList;
-    public FirebaseStorage storageFireBase;
+    public static FirebaseStorage storageFireBase;
     public static StorageReference avatatRef;
     private static final int[] imageAvatarGame = new int[]{R.drawable.game_ghost_house, R.drawable.game_bounce_house, R.drawable.racingcar, R.drawable.gun, R.drawable.game_nhun_nhay, R.drawable.game_bao_nha, R.drawable.game_jumping_house, R.drawable.game_cau_truot, R.drawable.game_suc_cac, R.drawable.game_xich_du};
 
@@ -125,6 +125,7 @@ public class FbDao {
     }
 
     public FbDao() {
+
     }
 
 
@@ -188,7 +189,7 @@ public class FbDao {
             Log.e(TAG, "onSuccess:Loadavatar ", null);
             Bitmap avatar = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
-            if (UserLogin.getAvatar()==null||  !UserLogin.getAvatar().sameAs(avatar)) {
+            if (UserLogin.getAvatar() == null || !UserLogin.getAvatar().sameAs(avatar)) {
                 UserLogin.setAvatar(avatar);
             } else {
                 LoadAvatarFromID();
@@ -251,6 +252,8 @@ public class FbDao {
                 UserLogin = snapshot.getValue(User.class);
                 UserLogin.setId(snapshot.getKey());
                 Login = true;
+                Log.d(TAG, "onDataChange: " + "Login");
+                LoadAvatarFromID();
 
             }
 

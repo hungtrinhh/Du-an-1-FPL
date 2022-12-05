@@ -140,7 +140,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     }
 
     private void SetDataForView() {
-        User u = FbDao.UserLogin;
+        User u = FbDao.UserLogin.Clone();
         String pattern = "###,###,###,###,###,### Poin";
         DecimalFormat df = new DecimalFormat(pattern);
         fragHomeTvSodu.setText(df.format(u.getSodu()));
@@ -382,7 +382,8 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     public void onResume() {
         super.onResume();
         checkQrcode();
-        avaterUserHomeFrag.setImageBitmap(FbDao.UserLogin.getAvatar());
+        Log.d(TAG, "onResume: avatar" + FbDao.UserLogin.getAvatar());
+        SetDataForView();
     }
 
     @Override

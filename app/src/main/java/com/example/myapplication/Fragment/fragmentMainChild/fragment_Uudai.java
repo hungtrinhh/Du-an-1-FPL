@@ -111,6 +111,7 @@ public class fragment_Uudai extends Fragment {
         SliderAdapter adapter = new SliderAdapter(img);
         // set lên slideAdapter
         imageSlider.setSliderAdapter(adapter);
+
     }
 
     @Override
