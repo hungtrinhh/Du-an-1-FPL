@@ -122,7 +122,7 @@ public class FragmentNapTien extends Fragment implements View.OnClickListener {
                 break;
         }
         if(btnchecked!=null){
-            btnchecked.setBackgroundResource(R.drawable.item_background);
+            btnchecked.setBackgroundResource(R.drawable.background_choose_item_menh_gia);
             btnchecked.setTextColor(Color.parseColor("#FFFFFFFF"));
         }
 

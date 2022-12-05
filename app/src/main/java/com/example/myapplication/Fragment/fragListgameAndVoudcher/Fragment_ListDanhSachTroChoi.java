@@ -182,7 +182,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     }
 
     private void animation(SliderView imageSlider) {
-        imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
+        imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
     }
 
     public void searchGame() {

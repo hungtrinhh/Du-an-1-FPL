@@ -26,7 +26,7 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="3"
             android:fontFamily="@font/poppins_semi_bold"
@@ -53,7 +53,7 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:orientation="horizontal"
-        android:paddingHorizontal="10dp">
+>
 
 
         <LinearLayout
@@ -179,7 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:hint="+840123456789"
+            android:hint="+84123456789"
             android:inputType="phone" />
     </LinearLayout>
 

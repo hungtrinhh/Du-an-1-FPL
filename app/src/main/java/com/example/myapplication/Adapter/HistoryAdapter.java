@@ -4,7 +4,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +48,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
                 DecimalFormat df = new DecimalFormat(pattern);
                 holder.tvGiaTien.setText(df.format(hoadonnaptien.getCost()));
                 holder.tvNgayGd.setText(hoadonnaptien.getDate());
+                holder.item_history.startAnimation(AnimationUtils.loadAnimation(holder.item_history.getContext(),R.anim.anim_item_history));
             }
         }else {
             Hoadonchoigame hoadonchoigame = (Hoadonchoigame) list.get(position);
@@ -55,6 +58,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             DecimalFormat df = new DecimalFormat(pattern);
             holder.tvGiaTien.setText(df.format(hoadonchoigame.getCost()));
             holder.tvNgayGd.setText(hoadonchoigame.getDateStart());
+            holder.item_history.startAnimation(AnimationUtils.loadAnimation(holder.item_history.getContext(),R.anim.anim_item_history));
+
         }
     }
 
@@ -71,9 +76,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         private final TextView tvLoaiGd;
         private final TextView tvNgayGd;
         private final TextView tvGiaTien;
-
+        private final LinearLayout item_history;
         public HistoryViewHoler(@NonNull View itemView) {
             super(itemView);
+            item_history = itemView.findViewById(R.id.item_history);
             imgHistory = itemView.findViewById(R.id.img_history);
             tvLoaiGd = itemView.findViewById(R.id.tv_loai_gd);
             tvNgayGd = itemView.findViewById(R.id.tv_ngay_gd);

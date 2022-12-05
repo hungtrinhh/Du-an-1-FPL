@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_weight="0.01"
-        app:menu="@menu/toolbar_menu"
         app:title="@string/app_name"
         app:titleTextColor="@color/white"
         companyApp:titleTextAppearance="@style/ActionBar.nameText" />

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -62,6 +63,7 @@ public class GameUuDaiVerticalAdapter extends RecyclerView.Adapter<GameUuDaiVert
                 listVoucherGameName.add(voucher);
             }
         }
+        holder.linearLayoutItemgame.startAnimation(AnimationUtils.loadAnimation(holder.linearLayoutItemgame.getContext(),R.anim.anim_item_game_vertical));
         holder.tv_soLuongUuDai.setText(listVoucherGameName.size()+" ưu đãi");
     }
 

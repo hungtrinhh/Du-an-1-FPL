@@ -13,7 +13,7 @@
         <TextView
             android:layout_gravity="center"
             android:textSize="20sp"
-            android:text="YahhHome Voucher"
+            android:text="@string/yahhhome_voucher"
             android:layout_width="0dp"
             android:textColor="@color/black"
             android:fontFamily="@font/poppins_semi_bold"

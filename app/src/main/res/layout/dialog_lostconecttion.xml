@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semi_bold"
-                    android:text="Mất kết nối mạng rồi..."
+                    android:text="@string/m_t_k_t_n_i_m_ng_r_i"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Kiểm tra kết nối mạng rồi thử lại nhé."
+                    android:text="@string/ki_m_tra_k_t_n_i_m_ng_r_i_th_l_i_nh"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -52,13 +52,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="@color/green_700"
             android:fontFamily="@font/poppins_semi_bold"
             android:paddingHorizontal="30dp"
-            android:text="Thử lại"
+            android:text="@string/th_l_i"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
