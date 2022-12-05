@@ -130,6 +130,8 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         image_Slider.setSliderAdapter(adapter);
         //    toolbar
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+
         SetDataForView();
         if (DialogLoading.dialogLoading.isShowing() && FbDao.LoadedAvatar) {
             DialogLoading.dialogLoading.dismiss();
@@ -152,22 +154,22 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     }
 
     // toolbar
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.toolbar_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-
-            case R.id.toolbar_search:
-//                Toast.makeText(getActivity(), "Toát", Toast.LENGTH_LONG).show();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+////        inflater.inflate(R.menu.toolbar_menu, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+////        switch (item.getItemId()) {
+////
+////            case R.id.toolbar_search:
+////                Toast.makeText(getActivity(), "Toát", Toast.LENGTH_LONG).show();
+////                break;
+////        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     //    khai báo hàm Anhxa
     private void Anhxa(View view) {
