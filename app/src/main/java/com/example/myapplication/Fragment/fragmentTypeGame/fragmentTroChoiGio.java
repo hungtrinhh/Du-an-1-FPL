@@ -15,18 +15,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -69,7 +65,7 @@ import java.util.List;
  */
 public class fragmentTroChoiGio extends Fragment implements View.OnClickListener {
     private TextView tv_nameGame, tv_cost, tv_detailGame, tv_voucherChoose, tv_totalCost;
-    private LinearLayout choose_voucher;
+    private LinearLayout choose_voucher,layout_historyBook;
     private ImageView imgGame;
     private RecyclerView recyclerView_voucher_gio, recyclerview_choose_time;
     private VoucherVerticalAdapter voucherVerticalAdapter;
@@ -134,6 +130,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         choose_voucher.setOnClickListener(this::onClick);
         backToDSGame.setOnClickListener(this::onClick);
         btn_play.setOnClickListener(this::onClick);
+        layout_historyBook.setOnClickListener(this::onClick);
     }
 
     private void AnhXa(View view) {
@@ -148,6 +145,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         btn_play = view.findViewById(R.id.btn_play);
         imgGame = view.findViewById(R.id.imgGame);
         btn_play.setEnabled(false);
+        layout_historyBook = view.findViewById(R.id.layout_historyBook);
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
     }
     private void FillVoucher(){
@@ -251,6 +249,11 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                     }
 
                 }
+                break;
+            case R.id.layout_historyBook:
+                //                add a fragment BookingHistory
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragmentBookingHistory()).addToBackStack("").commit();
+
                 break;
         }
     }
