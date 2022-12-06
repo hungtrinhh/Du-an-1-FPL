@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +35,7 @@ import android.widget.Toast;
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.BroadcastReciver.ThongBao;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragDifferent.fragmentBookingHistory;
 import com.example.myapplication.Fragment.fragDifferent.fragment_QRcode;
 import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.Interface.OnclickItemVoucher;
@@ -64,7 +66,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
     private ImageView backToDSGame;
     private ImageView close_dialog;
     private EditText edt_day;
-    private LinearLayout choose_voucher;
+    private LinearLayout choose_voucher,layout_historyBook;
     private AppCompatButton btn_henGio;
     private ImageView imgGame;
     private Game game;
@@ -113,6 +115,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
         imgButtonremove.setOnClickListener(this::onClick);
         backToDSGame.setOnClickListener(this::onClick);
         choose_voucher.setOnClickListener(this::onClick);
+        layout_historyBook.setOnClickListener(this::onClick);
         btn_henGio.setOnClickListener(this::onClick);
         btn_henGio.setEnabled(false);
     }
@@ -128,6 +131,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
         choose_voucher = view.findViewById(R.id.choose_voucher);
         tv_voucherChoose = view.findViewById(R.id.tv_voucherChoose);
         tv_totalCost = view.findViewById(R.id.tv_totalCost);
+        layout_historyBook = view.findViewById(R.id.layout_historyBook);
         btn_henGio = view.findViewById(R.id.btn_henGio);
         imgGame = view.findViewById(R.id.imgGame);
         btn_henGio.setEnabled(false);
@@ -238,6 +242,15 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
                 dialog.getWindow().setGravity(Gravity.BOTTOM);
+                break;
+            case R.id.layout_historyBook:
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentBookingHistory fragmentBookingHistory = new fragmentBookingHistory();
+                Bundle bundle2 = new Bundle();
+                Game game2 = game;
+                bundle2.putSerializable("obj_game", game2);
+                fragmentBookingHistory.setArguments(bundle2);
+                fragmentTransaction.replace(R.id.fragment_container,fragmentBookingHistory).addToBackStack("").commit();
                 break;
             case R.id.btn_henGio:
                 Dialog dialog = new Dialog(getContext());

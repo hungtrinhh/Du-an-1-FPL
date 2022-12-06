@@ -141,6 +141,17 @@ public class FbDao {
         return tenGame;
     }
 
+    public static String getNameUserFromID(String id) {
+        String userName = "";
+        for (User item : listUser) {
+            if (item.getId().equals(id)) {
+                userName = item.getName();
+                break;
+            }
+        }
+        return userName;
+    }
+
     //hàm update avatatar cho user
     public void UpLoadavatar(ImageView imageView) {
         UpLoadedAvatar = false;

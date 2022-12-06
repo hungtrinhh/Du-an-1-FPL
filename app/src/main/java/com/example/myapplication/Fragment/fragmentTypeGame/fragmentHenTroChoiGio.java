@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +35,7 @@ import com.example.myapplication.Adapter.ListThoiGianAdapter;
 import com.example.myapplication.Adapter.VoucherVerticalAdapter;
 import com.example.myapplication.BroadcastReciver.ThongBao;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragDifferent.fragmentBookingHistory;
 import com.example.myapplication.Fragment.fragDifferent.fragment_QRcode;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
 import com.example.myapplication.Fragment.fragment_Main;
@@ -66,7 +68,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
     private ImageView close_dialog, backToDSGame;
     private ImageView imgGame;
     private EditText edt_day;
-    private LinearLayout choose_voucher;
+    private LinearLayout choose_voucher,layout_historyBook;
     private Voucher voucherChoose;
     private RecyclerView recyclerView_voucher_gio, recyclerview_choose_time;
     private AppCompatButton btn_henGio;
@@ -127,6 +129,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
         choose_voucher.setOnClickListener(this::onClick);
         backToDSGame.setOnClickListener(this::onClick);
         btn_henGio.setOnClickListener(this::onClick);
+        layout_historyBook.setOnClickListener(this::onClick);
     }
 
     private void AnhXa(View view) {
@@ -140,6 +143,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
         tv_totalCost = view.findViewById(R.id.tv_totalCost);
         btn_henGio = view.findViewById(R.id.btn_henGio);
         imgGame = view.findViewById(R.id.imgGame);
+        layout_historyBook = view.findViewById(R.id.layout_historyBook);
         btn_henGio.setEnabled(false);
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
     }
@@ -256,6 +260,16 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                 break;
             case R.id.btn_backToDSGame:
                 getActivity().getSupportFragmentManager().popBackStack();
+                break;
+            case R.id.layout_historyBook:
+                //                add a fragment BookingHistory
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentBookingHistory fragmentBookingHistory = new fragmentBookingHistory();
+                Bundle bundle2 = new Bundle();
+                Game game2 = game;
+                bundle2.putSerializable("obj_game", game2);
+                fragmentBookingHistory.setArguments(bundle2);
+                fragmentTransaction.replace(R.id.fragment_container,fragmentBookingHistory).addToBackStack("").commit();
                 break;
             case R.id.btn_henGio:
                 if (playTime_choose == null) {

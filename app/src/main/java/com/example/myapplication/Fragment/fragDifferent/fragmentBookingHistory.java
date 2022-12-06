@@ -5,14 +5,24 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.example.myapplication.Adapter.BookingHistoryAdapter;
+import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.HoaDonHenGio;
 import com.example.myapplication.R;
 import com.github.vipulasri.timelineview.TimelineView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +31,9 @@ import com.github.vipulasri.timelineview.TimelineView;
  */
 public class fragmentBookingHistory extends Fragment {
     private ImageView btn_backDetailGame;
+    private RecyclerView recyclerView;
+    private Game game;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -73,11 +86,37 @@ public class fragmentBookingHistory extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         anhXa(view);
         onClick();
+        showList();
     }
     private void anhXa(View view)
     {
         btn_backDetailGame = view.findViewById(R.id.btn_backDetailGame);
+        recyclerView = view.findViewById(R.id.list_game_da_dat);
+        Bundle bundle = getArguments();
+        game = (Game) bundle.get("obj_game");
     }
+
+    private void showList(){
+        List<HoaDonHenGio> list = getList(FbDao.getListHoaDonHenGio());
+        BookingHistoryAdapter adapter = new BookingHistoryAdapter(getActivity());
+        adapter.setList(list);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private List<HoaDonHenGio> getList(List<HoaDonHenGio> listTemp){
+        List<HoaDonHenGio> list = new ArrayList<>();
+        for(HoaDonHenGio item : listTemp){
+            if(item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess()==false){
+                list.add(item);
+            }
+        }
+
+        return list;
+    }
+
     private void onClick(){
         btn_backDetailGame.setOnClickListener(view1 -> {
             getActivity().getSupportFragmentManager().popBackStack();

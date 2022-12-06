@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:weightSum="5.3"
+    android:id="@+id/item_history"
+    android:padding="5dp"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_item_giaodich">
+
+    <LinearLayout
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+        <TextView
+            android:textSize="18dp"
+            android:id="@+id/tv_name_user_booking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Người chơi: Giang"
+            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/tv_date_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Từ : 22/12/2022"
+            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/tv_date_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Đến : 22/12/2022"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/img_history"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_baseline_history_24" />
+
+
+</LinearLayout>

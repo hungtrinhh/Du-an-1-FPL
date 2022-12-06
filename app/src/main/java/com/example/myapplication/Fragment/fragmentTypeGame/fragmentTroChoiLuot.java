@@ -61,7 +61,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
     private ImageButton imgButtonadd, imgButtonremove;
     private ImageView close_dialog;
     private ImageView imgGame;
-    private LinearLayout choose_voucher,layout_historyBook;
+    private LinearLayout choose_voucher;
     private ImageView backToDSGame;
     private int count = 0;
     private RecyclerView recyclerView_voucher_gio;
@@ -112,7 +112,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         choose_voucher.setOnClickListener(this::onClick);
         btn_play.setOnClickListener(this::onClick);
         btn_play.setEnabled(false);
-        layout_historyBook.setOnClickListener(this::onClick);
+
     }
 
     private void AnhXa(View view) {
@@ -127,7 +127,6 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         tv_voucherChoose = view.findViewById(R.id.tv_voucherChoose);
         tv_totalCost = view.findViewById(R.id.tv_totalCost);
         btn_play = view.findViewById(R.id.btn_play);
-        layout_historyBook = view.findViewById(R.id.layout_historyBook);
         imgGame = view.findViewById(R.id.imgGame);
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         btn_play.setEnabled(false);
@@ -188,9 +187,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
 
                 }
                 break;
-            case R.id.layout_historyBook:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragmentBookingHistory()).addToBackStack("").commit();
-                break;
+
         }
     }
 

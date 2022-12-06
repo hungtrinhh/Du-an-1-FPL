@@ -42,6 +42,7 @@
            </androidx.appcompat.widget.Toolbar>
        </LinearLayout>
       <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/list_game_da_dat"
           android:layout_width="match_parent"
           android:layout_weight="9.2"
           android:layout_height="0dp"/>
