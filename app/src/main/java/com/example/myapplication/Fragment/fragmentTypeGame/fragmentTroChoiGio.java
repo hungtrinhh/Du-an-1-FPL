@@ -388,7 +388,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
             intent.setAction("MyAction");
             intent.putExtra("time",string_playingTime);
             intent.putExtra("game",game);
-            pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_IMMUTABLE);
             alarmManager.set(AlarmManager.RTC_WAKEUP,calendar2.getTimeInMillis(),pendingIntent);
 
             FbDao dao = new FbDao();

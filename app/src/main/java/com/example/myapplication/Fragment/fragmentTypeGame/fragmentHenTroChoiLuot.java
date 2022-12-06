@@ -446,7 +446,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                             intent.setAction("MyAction2");
                             intent.putExtras(bundle);
 
-                            pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                            pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_IMMUTABLE);
                             alarmManager.set(AlarmManager.RTC_WAKEUP,c1.getTimeInMillis(),pendingIntent);
                             dialog.cancel();
                             if(voucherChoose!=null){

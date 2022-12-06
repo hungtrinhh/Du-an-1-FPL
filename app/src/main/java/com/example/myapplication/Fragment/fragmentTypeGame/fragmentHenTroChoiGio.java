@@ -486,7 +486,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                 intent.setAction("MyAction3");
                                 intent.putExtras(bundle);
 
-                                pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
                                 alarmManager.set(AlarmManager.RTC_WAKEUP, c1.getTimeInMillis(), pendingIntent);
                             } else {
                                 dialog.cancel();
