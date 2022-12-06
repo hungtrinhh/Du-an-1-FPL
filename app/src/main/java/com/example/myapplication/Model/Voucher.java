@@ -1,6 +1,7 @@
 package com.example.myapplication.Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Voucher implements Serializable {
 
@@ -11,18 +12,22 @@ public class Voucher implements Serializable {
     //loại 4 game bắn súng
     //loại 5 game nhún nhảy
 
-
+    private String id;
     private int giamGia;
     private int loaiGame;
     private String maVoucher;
+    private Object IDUser;
+    private ArrayList ListUserId = new ArrayList();
 
-    public Voucher() {
+    public String getId() {
+        return id;
     }
 
-    public Voucher(int giamGia, int loaiGame, String maVoucher) {
-        this.giamGia = giamGia;
-        this.loaiGame = loaiGame;
-        this.maVoucher = maVoucher;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Voucher() {
     }
 
     public int getGiamGia() {
@@ -47,5 +52,21 @@ public class Voucher implements Serializable {
 
     public void setMaVoucher(String maVoucher) {
         this.maVoucher = maVoucher;
+    }
+
+    public Object getIDUser() {
+        return IDUser;
+    }
+
+    public void setIDUser(Object IDUser) {
+        this.IDUser = IDUser;
+    }
+
+    public ArrayList getListUserId() {
+        return ListUserId;
+    }
+
+    public void setListUserId(Object ob) {
+        this.ListUserId = ((ArrayList) ob);
     }
 }

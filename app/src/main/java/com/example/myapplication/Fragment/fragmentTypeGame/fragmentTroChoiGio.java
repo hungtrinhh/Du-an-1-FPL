@@ -231,8 +231,16 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                     tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
                     snackbar.show();
                 } else {
-                    sendNotifications();
 
+                    sendNotifications();
+                    for (Object idUser : voucherChoose.getListUserId()
+                    ) {
+                        if (idUser.equals(FbDao.UserLogin.getId())) {
+                            voucherChoose.getListUserId().remove(idUser);
+                            FbDao.UpdateVoucher(voucherChoose);
+                            break;
+                        }
+                    }
                     if (fragment_QRcode.check) {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
                     }else {

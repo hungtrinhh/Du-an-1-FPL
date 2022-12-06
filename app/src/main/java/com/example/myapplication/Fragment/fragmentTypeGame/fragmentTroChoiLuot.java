@@ -1,7 +1,6 @@
 package com.example.myapplication.Fragment.fragmentTypeGame;
 
 
-
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.Notification;
@@ -189,31 +188,31 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         }
     }
 
-    private void sendNotifications(){
+    private void sendNotifications() {
         Date date1 = new Date();
 
 
         int t = playingTimeMinutes + count;
-        if(t >=60){
-            int x = t/60;
-            playingTimeHours = playingTimeHours+x;
+        if (t >= 60) {
+            int x = t / 60;
+            playingTimeHours = playingTimeHours + x;
             int y = t % 60;
             playingTimeMinutes = y;
-        }else{
+        } else {
             playingTimeMinutes = t;
         }
 
         Calendar calendar2 = Calendar.getInstance();
         calendar2.setTimeInMillis(System.currentTimeMillis());
-        calendar2.set(Calendar.HOUR_OF_DAY,playingTimeHours);
-        calendar2.set(Calendar.MINUTE,playingTimeMinutes);
+        calendar2.set(Calendar.HOUR_OF_DAY, playingTimeHours);
+        calendar2.set(Calendar.MINUTE, playingTimeMinutes);
         Date date2 = new Date();
         date2.setTime(calendar2.getTimeInMillis());
 
 
         List<HoaDonHenGio> donHenGioList = FbDao.getListHoaDonHenGio();
         boolean xet = true;
-        for(HoaDonHenGio item : donHenGioList){
+        for (HoaDonHenGio item : donHenGioList) {
 
             SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
@@ -222,14 +221,14 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
                 Date b_date1 = b_fmtDay.parse(item.getTimeStart());
                 Date b_date2 = b_fmtDay.parse(item.getTimeEnd());
 
-                if(item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false){
+                if (item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false) {
                     int ssDate_a1 = date1.compareTo(b_date1);
                     int ssDate_a2 = date1.compareTo(b_date2);
 
                     int ssDate_b1 = date2.compareTo(b_date1);
                     int ssDate_b2 = date2.compareTo(b_date2);
 
-                    if((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1>=0 && ssDate_b2 <=0)){
+                    if ((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1 >= 0 && ssDate_b2 <= 0)) {
                         xet = false;
                         break;
                     }
@@ -240,16 +239,16 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
                 e.printStackTrace();
             }
         }
-        if(xet){
+        if (xet) {
             int imgGame = game.getImgGame();
             String gameName = game.getTenGame();
 
-            Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(),imgGame);
-            Bitmap imgApp = BitmapFactory.decodeResource(getActivity().getResources(),R.drawable.logo2);
+            Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(), imgGame);
+            Bitmap imgApp = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.logo2);
             Notification notification = new NotificationCompat.Builder(getActivity(), ChannelTB.CHANNEL_ID) // khai báo compat
                     .setLargeIcon(imgApp)
-                    .setContentTitle("Bắt đầu chơi : "+gameName+"")
-                    .setContentText("Số lượt chơi "+count+"")
+                    .setContentTitle("Bắt đầu chơi : " + gameName + "")
+                    .setContentText("Số lượt chơi " + count + "")
                     .setSmallIcon(R.drawable.logo2)
                     .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))
                     .build();
@@ -259,11 +258,19 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
             FbDao dao = new FbDao();
             dao.PlaygameGio(count, game.getId() + "", total);
             FbDao.Thanhtoantien(total);
-        }else{
-            Snackbar snackbar = Snackbar.make(getView(),"Khung giờ này đã có người đặt. Vui lòng chọn game khác",2000);
+            for (Object idUser : voucherChoose.getListUserId()
+            ) {
+                if (idUser.equals(FbDao.UserLogin.getId())) {
+                    voucherChoose.getListUserId().remove(idUser);
+                    FbDao.UpdateVoucher(voucherChoose);
+                    break;
+                }
+            }
+        } else {
+            Snackbar snackbar = Snackbar.make(getView(), "Khung giờ này đã có người đặt. Vui lòng chọn game khác", 2000);
             View snackbar_view = snackbar.getView();
             TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.stop, 0);
             snackbar.show();
         }
 
