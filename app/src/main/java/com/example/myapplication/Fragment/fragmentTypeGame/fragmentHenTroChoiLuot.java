@@ -417,12 +417,14 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                             pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_IMMUTABLE);
                             alarmManager.set(AlarmManager.RTC_WAKEUP,c1.getTimeInMillis(),pendingIntent);
                             dialog.cancel();
-                            for (Object idUser : voucherChoose.getListUserId()
-                            ) {
-                                if (idUser.equals(FbDao.UserLogin.getId())) {
-                                    voucherChoose.getListUserId().remove(idUser);
-                                    FbDao.UpdateVoucher(voucherChoose);
-                                    break;
+                            if(voucherChoose!=null){
+                                for (Object idUser : voucherChoose.getListUserId()
+                                ) {
+                                    if (idUser.equals(FbDao.UserLogin.getId())) {
+                                        voucherChoose.getListUserId().remove(idUser);
+                                        FbDao.UpdateVoucher(voucherChoose);
+                                        break;
+                                    }
                                 }
                             }
                             Snackbar.make(getView(),"Đặt lịch thành công",2000).show();

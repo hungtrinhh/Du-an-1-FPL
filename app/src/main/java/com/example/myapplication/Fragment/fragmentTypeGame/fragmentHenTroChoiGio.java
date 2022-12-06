@@ -303,12 +303,14 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
 
                         }
                     });
-                    for (Object idUser : voucherChoose.getListUserId()
-                    ) {
-                        if (idUser.equals(FbDao.UserLogin.getId())) {
-                            voucherChoose.getListUserId().remove(idUser);
-                            FbDao.UpdateVoucher(voucherChoose);
-                            break;
+                    if(voucherChoose!=null){
+                        for (Object idUser : voucherChoose.getListUserId()
+                        ) {
+                            if (idUser.equals(FbDao.UserLogin.getId())) {
+                                voucherChoose.getListUserId().remove(idUser);
+                                FbDao.UpdateVoucher(voucherChoose);
+                                break;
+                            }
                         }
                     }
 

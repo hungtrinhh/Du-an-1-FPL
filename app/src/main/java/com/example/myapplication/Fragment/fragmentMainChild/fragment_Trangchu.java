@@ -275,25 +275,25 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
             return;
         }
         if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
-            for (Hoadonchoigame hd : FbDao.ListgamePlaying
-            ) {
-                if (hd.getGameid().equals(game.getId() + "")) {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                    try {
-                        Date dateEnd = dateFormat.parse(hd.getDateEnd());
-                        Date now = new Date();
-                        Log.d("vailon" + (dateEnd.getTime() - now.getTime()), "");
-                        DialogCountdown dialogCountdown = new DialogCountdown(getContext());
-
-                        dialogCountdown.setTimeout(dateEnd.getTime() - now.getTime());
-
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-            }
+//            for (Hoadonchoigame hd : FbDao.ListgamePlaying
+//            ) {
+//                if (hd.getGameid().equals(game.getId() + "")) {
+//                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//                    try {
+//                        Date dateEnd = dateFormat.parse(hd.getDateEnd());
+//                        Date now = new Date();
+//                        Log.d("vailon" + (dateEnd.getTime() - now.getTime()), "");
+//                        DialogCountdown dialogCountdown = new DialogCountdown(getContext());
+//
+//                        dialogCountdown.setTimeout(dateEnd.getTime() - now.getTime());
+//
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//
+//            }
 
 
             Snackbar snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đã có người chơi. Quý khách hãy đăng ký chơi trò chơi khác", 2000);

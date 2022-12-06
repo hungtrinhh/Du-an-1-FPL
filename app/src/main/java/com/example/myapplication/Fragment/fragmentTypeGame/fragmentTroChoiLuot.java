@@ -258,14 +258,18 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
             FbDao dao = new FbDao();
             dao.PlaygameGio(count, game.getId() + "", total);
             FbDao.Thanhtoantien(total);
-            for (Object idUser : voucherChoose.getListUserId()
-            ) {
-                if (idUser.equals(FbDao.UserLogin.getId())) {
-                    voucherChoose.getListUserId().remove(idUser);
-                    FbDao.UpdateVoucher(voucherChoose);
-                    break;
+
+            if(voucherChoose!=null){
+                for (Object idUser : voucherChoose.getListUserId()
+                ) {
+                    if (idUser.equals(FbDao.UserLogin.getId())) {
+                        voucherChoose.getListUserId().remove(idUser);
+                        FbDao.UpdateVoucher(voucherChoose);
+                        break;
+                    }
                 }
             }
+
         } else {
             Snackbar snackbar = Snackbar.make(getView(), "Khung giờ này đã có người đặt. Vui lòng chọn game khác", 2000);
             View snackbar_view = snackbar.getView();

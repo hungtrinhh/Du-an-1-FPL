@@ -233,12 +233,14 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 } else {
 
                     sendNotifications();
-                    for (Object idUser : voucherChoose.getListUserId()
-                    ) {
-                        if (idUser.equals(FbDao.UserLogin.getId())) {
-                            voucherChoose.getListUserId().remove(idUser);
-                            FbDao.UpdateVoucher(voucherChoose);
-                            break;
+                    if(voucherChoose!=null){
+                        for (Object idUser : voucherChoose.getListUserId()
+                        ) {
+                            if (idUser.equals(FbDao.UserLogin.getId())) {
+                                voucherChoose.getListUserId().remove(idUser);
+                                FbDao.UpdateVoucher(voucherChoose);
+                                break;
+                            }
                         }
                     }
                     if (fragment_QRcode.check) {
