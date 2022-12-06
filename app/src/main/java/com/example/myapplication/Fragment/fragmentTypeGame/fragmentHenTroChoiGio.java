@@ -130,6 +130,8 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
         backToDSGame.setOnClickListener(this::onClick);
         btn_henGio.setOnClickListener(this::onClick);
         layout_historyBook.setOnClickListener(this::onClick);
+        total = 0;
+        checkBtndis();
     }
 
     private void AnhXa(View view) {
@@ -144,7 +146,6 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
         btn_henGio = view.findViewById(R.id.btn_henGio);
         imgGame = view.findViewById(R.id.imgGame);
         layout_historyBook = view.findViewById(R.id.layout_historyBook);
-        btn_henGio.setEnabled(false);
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
     }
 
@@ -262,14 +263,14 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.layout_historyBook:
-                //                add a fragment BookingHistory
+                //           add a fragment BookingHistory
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentBookingHistory fragmentBookingHistory = new fragmentBookingHistory();
                 Bundle bundle2 = new Bundle();
                 Game game2 = game;
                 bundle2.putSerializable("obj_game", game2);
                 fragmentBookingHistory.setArguments(bundle2);
-                fragmentTransaction.replace(R.id.fragment_container,fragmentBookingHistory).addToBackStack("").commit();
+                fragmentTransaction.replace(R.id.fragment_container,fragmentBookingHistory).addToBackStack(fragmentHenTroChoiGio.newInstance().getTag()).commit();
                 break;
             case R.id.btn_henGio:
                 if (playTime_choose == null) {

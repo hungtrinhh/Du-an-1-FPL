@@ -117,7 +117,13 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
         choose_voucher.setOnClickListener(this::onClick);
         layout_historyBook.setOnClickListener(this::onClick);
         btn_henGio.setOnClickListener(this::onClick);
-        btn_henGio.setEnabled(false);
+
+        if(count == 0){
+            btn_henGio.setEnabled(false);
+        }else{
+            btn_henGio.setEnabled(true);
+        }
+
     }
 
     private void AnhXa(View view) {
@@ -184,7 +190,6 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
 
     private void checkBtndis() {
         imgButtonremove.setEnabled(count > 0);
-
         btn_henGio.setEnabled(!(total > FbDao.UserLogin.getSodu()) && count != 0);
     }
 
@@ -250,7 +255,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                 Game game2 = game;
                 bundle2.putSerializable("obj_game", game2);
                 fragmentBookingHistory.setArguments(bundle2);
-                fragmentTransaction.replace(R.id.fragment_container,fragmentBookingHistory).addToBackStack("").commit();
+                fragmentTransaction.replace(R.id.fragment_container,fragmentBookingHistory).addToBackStack(fragmentHenTroChoiLuot.newInstance().getTag()).commit();
                 break;
             case R.id.btn_henGio:
                 Dialog dialog = new Dialog(getContext());
