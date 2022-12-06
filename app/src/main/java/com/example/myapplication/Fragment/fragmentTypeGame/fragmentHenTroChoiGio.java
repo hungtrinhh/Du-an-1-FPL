@@ -41,6 +41,7 @@ import com.example.myapplication.Interface.OnclickItemTime;
 import com.example.myapplication.Interface.OnclickItemVoucher;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.HoaDonHenGio;
+import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.Model.PlayTime;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
@@ -366,6 +367,37 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                             textErr.setText("Vui lòng chọn lại giờ !");
                                             return;
                                         }
+
+                                        List<Hoadonchoigame> hoadonchoigameList = FbDao.ListgamePlaying;
+                                        boolean xet = false;
+                                        for(Hoadonchoigame item : hoadonchoigameList){
+
+                                            SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
+                                            try {
+
+                                                Date b_date1 = b_fmtDay.parse(item.getDateStart());
+                                                Date b_date2 = b_fmtDay.parse(item.getDateEnd());
+
+                                                if(item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false){
+                                                    int ssDate_a1 = date2.compareTo(b_date1);
+                                                    int ssDate_a2 = date2.compareTo(b_date2);
+
+                                                    if((ssDate_a1 >= 0 && ssDate_a2 <= 0)){
+                                                        xet = true;
+                                                        break;
+                                                    }
+                                                }
+
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                        if(xet){
+                                            textErr.setText("Khung giờ này đang được chơi !");
+                                            return;
+                                        }
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
@@ -454,7 +486,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                 intent.setAction("MyAction3");
                                 intent.putExtras(bundle);
 
-                                pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+                                pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                                 alarmManager.set(AlarmManager.RTC_WAKEUP, c1.getTimeInMillis(), pendingIntent);
                             } else {
                                 dialog.cancel();

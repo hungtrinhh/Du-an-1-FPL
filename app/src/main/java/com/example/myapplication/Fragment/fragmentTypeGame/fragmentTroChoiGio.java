@@ -84,7 +84,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private float total = 0;
     private Game game;
     private final int[] arr = {R.drawable.time5, R.drawable.time10, R.drawable.time15, R.drawable.time20, R.drawable.time25, R.drawable.time30, R.drawable.time35, R.drawable.time40, R.drawable.time45, R.drawable.time50, R.drawable.time55, R.drawable.time60};
-    private final int[] arrTime = {5,10,15,20,25,30,35,40,45,50,55,60};//mảng thời gian tính theo phút
+    //private final int[] arrTime = {5,10,15,20,25,30,35,40,45,50,55,60};//mảng thời gian tính theo phút
     private float sale;
     String pattern = "###,### Poin";
     DecimalFormat df = new DecimalFormat(pattern);
@@ -276,9 +276,9 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 for (int i = 0; i < arr.length; i++) {
                     if (playTime_choose.getId() == i) {
                         time = i + 1;
-                        playingTimeMinutes += arrTime[i];//gán giá trị tương ứng với số phút trên dánh sách
+                        playingTimeMinutes += time;//gán giá trị tương ứng với số phút trên dánh sách
                         if(playingTimeMinutes >= 60){
-                            int time_temp = playingTimeMinutes - arrTime[i];
+                            int time_temp = playingTimeMinutes - 60;
                             playingTimeMinutes = time_temp;
                             playingTimeHours++;
                         }
@@ -289,9 +289,9 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 for (int i = 0; i < arr.length; i++) {
                     if (playTime_choose.getId() == i) {
                         time = i + 1;
-                        playingTimeMinutes += arrTime[i];
+                        playingTimeMinutes += time;
                         if(playingTimeMinutes >= 60){
-                            int time_temp = playingTimeMinutes - arrTime[i];
+                            int time_temp = playingTimeMinutes - 60;
                             playingTimeMinutes = time_temp;
                             playingTimeHours++;
                         }
@@ -388,7 +388,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
             intent.setAction("MyAction");
             intent.putExtra("time",string_playingTime);
             intent.putExtra("game",game);
-            pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_IMMUTABLE);
+            pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.set(AlarmManager.RTC_WAKEUP,calendar2.getTimeInMillis(),pendingIntent);
 
             FbDao dao = new FbDao();

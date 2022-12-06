@@ -264,6 +264,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         recyclerView_game.setAdapter(danhSachGameAdapter);
     }
 
+
     private void onClickItem(Game game) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         if (game.getTrangThai().equalsIgnoreCase("Bảo trì")) {
@@ -274,37 +275,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
             snackbar.show();
             return;
         }
-        if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
-//            for (Hoadonchoigame hd : FbDao.ListgamePlaying
-//            ) {
-//                if (hd.getGameid().equals(game.getId() + "")) {
-//                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//                    try {
-//                        Date dateEnd = dateFormat.parse(hd.getDateEnd());
-//                        Date now = new Date();
-//                        Log.d("vailon" + (dateEnd.getTime() - now.getTime()), "");
-//                        DialogCountdown dialogCountdown = new DialogCountdown(getContext());
-//
-//                        dialogCountdown.setTimeout(dateEnd.getTime() - now.getTime());
-//
-//                    } catch (ParseException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//
-//            }
 
-
-            Snackbar snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đã có người chơi. Quý khách hãy đăng ký chơi trò chơi khác", 2000);
-            View snackbar_view = snackbar.getView();
-            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.stop, 0);
-            snackbar.show();
-//            }
-
-            return;
-        }
         if (!game.getKieu().equalsIgnoreCase("lượt")) {
             fragmentHenTroChoiGio fragTroChoigio = new fragmentHenTroChoiGio();
             Bundle bundle = new Bundle();
@@ -321,6 +292,8 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
             dialog.dismiss();
         }
     }
+
+
 
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
