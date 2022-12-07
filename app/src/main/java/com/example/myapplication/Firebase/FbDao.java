@@ -110,6 +110,7 @@ public class FbDao {
     public static boolean LoadedAvatar = false;
     public static boolean UpdatedUser = false;
     public static boolean UpLoadedAvatar = false;
+    public static boolean LoadedVoucher = false;
 
 
     //hàm khởi tạo để trả về userId
@@ -424,6 +425,7 @@ public class FbDao {
 
                     }
                 }
+                LoadedVoucher = true;
                 Log.d(TAG, "Đã nhận dữ liệu voucher: ");
             }
 

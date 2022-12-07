@@ -119,7 +119,13 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                                 e.printStackTrace();
                             }
                         }
-
+                        while (!FbDao.LoadedVoucher) {
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
 
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
 
@@ -206,7 +212,13 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                                         e.printStackTrace();
                                     }
                                 }
-
+                                while (!FbDao.LoadedVoucher) {
+                                    try {
+                                        Thread.sleep(300);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
 
                                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
 
