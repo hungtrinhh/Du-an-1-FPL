@@ -126,7 +126,8 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                                 e.printStackTrace();
                             }
                         }
-
+                        FbDao.LoadedVoucher = false;
+                        FbDao.LoadedAvatar = false;
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
 
                     }
