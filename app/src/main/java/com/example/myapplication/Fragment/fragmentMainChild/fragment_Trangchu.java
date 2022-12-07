@@ -133,7 +133,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
 
         SetDataForView();
-        if (DialogLoading.dialogLoading.isShowing() && FbDao.LoadedAvatar) {
+        if (DialogLoading.dialogLoading.isShowing()) {
             DialogLoading.dialogLoading.dismiss();
         }
         onClickLayout();
