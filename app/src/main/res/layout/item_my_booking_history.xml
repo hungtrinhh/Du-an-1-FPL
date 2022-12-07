@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:dragEdge="right"
+    app:mode="same_level">
 
     <!-- Your secondary layout here -->
+    <LinearLayout
+        android:id="@+id/btnDelete_myHis"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Huỷ lịch"
+            android:paddingHorizontal="5dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:background="@color/red"
+
+            />
+    </LinearLayout>
 
     <!-- Your main layout here -->
     <LinearLayout
@@ -15,7 +36,7 @@
         android:weightSum="3">
 
         <ImageView
-            android:id="@+id/img_AvatarOfGame"
+            android:id="@+id/img_AvatarofGame"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.8"
@@ -30,7 +51,7 @@
             android:paddingStart="5dp">
 
             <TextView
-                android:id="@+id/tv_nameOfGame"
+                android:id="@+id/tv_nameOfGameCancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nhà ma"
@@ -39,7 +60,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_dateStart"
+                android:id="@+id/tv_dateStartCancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
@@ -49,7 +70,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_dateEnd"
+                android:id="@+id/tv_dateEndCancle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Đến: 33/44/5555"
@@ -57,17 +78,5 @@
                 android:textSize="17sp"
                 android:textStyle="bold" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="match_parent"
-                android:background="@color/red"
-                android:src="@drawable/ic_baseline_delete_24" />
-        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</com.chauthai.swipereveallayout.SwipeRevealLayout>

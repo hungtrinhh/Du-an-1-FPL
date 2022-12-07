@@ -142,6 +142,16 @@ public class FbDao {
         return tenGame;
     }
 
+    public static Game getGameFromID(int id) {
+
+        for (Game game : listGame) {
+            if (game.getId() == id) {
+                return game;
+            }
+        }
+        return null;
+    }
+
     public static String getNameUserFromID(String id) {
         String userName = "";
         for (User item : listUser) {
