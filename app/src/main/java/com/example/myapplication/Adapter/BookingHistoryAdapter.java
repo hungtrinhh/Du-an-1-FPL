@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,9 +47,9 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
             return;
         }
         String ten =  FbDao.getNameUserFromID(game.getUserId());
-        holder.name.setText("Tên khách hàng : " + ten);
-        holder.dateStart.setText("Từ : "+game.getTimeStart());
-        holder.dateEnd.setText("Đến : "+game.getTimeEnd());
+        holder.name.setText("Tên khách hàng: " + ten);
+        holder.dateStart.setText("Từ: "+game.getTimeStart());
+        holder.dateEnd.setText("Đến: "+game.getTimeEnd());
     }
 
     @Override
@@ -60,11 +61,13 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
     }
 
     public  class ViewBookingHoler extends RecyclerView.ViewHolder {
-        TextView name,dateStart,dateEnd;
+        private TextView name,dateStart,dateEnd;
+        private ImageView img_AvatarUser;
         public ViewBookingHoler(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_name_user_booking);
             dateStart = itemView.findViewById(R.id.tv_date_start);
+            img_AvatarUser= itemView.findViewById(R.id.img_AvatarUser);
             dateEnd = itemView.findViewById(R.id.tv_date_end);
         }
     }
