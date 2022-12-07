@@ -1,24 +1,18 @@
 package com.example.myapplication.Fragment.fragListgameAndVoudcher;
 
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,22 +30,21 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragmentTypeGame.fragmentTroChoiGio;
 import com.example.myapplication.Fragment.fragmentTypeGame.fragmentTroChoiLuot;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
-import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.Model.Game;
-import com.example.myapplication.Model.Hoadon;
+import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.R;
 import com.example.myapplication.Interface.OnclickItemGame;
 import com.google.android.material.snackbar.Snackbar;
 import com.smarteist.autoimageslider.SliderView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
+import com.example.myapplication.Dialog.*;
 
 public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnClickListener {
     private FrameLayout fragmentDanhMucListGameUuDai;
@@ -67,8 +60,9 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     private TextView tvthongBao;
     private static final String TAG = "FRAGMENT_TRO_CHOI";
     private View viewFrag = null;
-    private List<Hoadon> list;
-    private int phut,giay;
+    public static boolean chk = false;
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    public static String endTime;
 
     public Fragment_ListDanhSachTroChoi() {
 
@@ -171,8 +165,8 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
         switch (v.getId()) {
             case R.id.btn_backToTrangChu:
                 getActivity().getSupportFragmentManager().popBackStack();
-//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.content_frame, new fragment_Trangchu()).commit();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame, new fragment_Trangchu()).commit();
                 break;
             case R.id.btn_search_troChoi:
                 if (searchViewListGame.getVisibility() == View.GONE) {
@@ -188,7 +182,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     }
 
     private void animation(SliderView imageSlider) {
-        imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.conten_appear));
+        imageSlider.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.fadein));
     }
 
     public void searchGame() {
@@ -200,13 +194,13 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                setListSerachGame(newText);
+                setListSearchGame(newText);
                 return false;
             }
         });
     }
 
-    private void setListSerachGame(String query) {
+    private void setListSearchGame(String query) {
         if ("".equalsIgnoreCase(query)) {
             tvthongBao.setVisibility(View.GONE);
             danhSachGameAdapter.setListGame(listDanhSachGame);
@@ -228,49 +222,49 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     }
 
     public void onClickItem(Game game) {
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         if (game.getTrangThai().equalsIgnoreCase("Bảo trì")) {
-            Snackbar.make(viewFrag, "Hiện trò chơi đang được bảo trì ,hãy thử lại vào lần sau nhé ", 2000).show();
+            Snackbar snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đang được bảo trì, hãy thử lại vào lần sau nhé", 2000);
+            View snackbar_view = snackbar.getView();
+            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.nervous, 0);
+            snackbar.show();
             return;
         }
         if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
-            Dialog dialog = new Dialog(getContext());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_timeup);
-            TextView tv_minutes = dialog.findViewById(R.id.phut);
-            TextView tv_seconds = dialog.findViewById(R.id.giay);
-            if (FbDao.phut<10){
+            for (Hoadonchoigame hd : FbDao.ListgamePlaying
+            ) {
+                if (hd.getGameid().equals(game.getId() + "")) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                    try {
+                        Date dateEnd = dateFormat.parse(hd.getDateEnd());
+                        Date now = new Date();
+                        Log.d("vailon" + (dateEnd.getTime() - now.getTime()), "");
+                        DialogCountdown dialogCountdown = new DialogCountdown(getContext());
+
+                        dialogCountdown.setTimeout(dateEnd.getTime() - now.getTime());
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                }
 
             }
-            String minutes = FbDao.phut<10?"0"+FbDao.phut:FbDao.phut+"";
-            String seconds = FbDao.giay<10?"0"+FbDao.giay:FbDao.giay+"";
-            tv_minutes.setText(minutes);
-            tv_seconds.setText(seconds);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
 
-                    while (((FbDao.phut*60)+FbDao.giay)>=0) {
-                        try {
-                            String minutes2 = FbDao.phut<10?"0"+FbDao.phut:FbDao.phut+"";
-                            String seconds2 = FbDao.giay<10?"0"+FbDao.giay:FbDao.giay+"";
-                            tv_minutes.setText(minutes2);
-                            tv_seconds.setText(seconds2);
-                            Thread.sleep(1000);
+//            Snackbar snackbar = Snackbar.make(viewFrag, "Hiện trò chơi đã được chơi xin, quý khách hãy đăng kí game khác", 2000);
+//            View snackbar_view = snackbar.getView();
+//            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+//            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.stop, 0);
+//            snackbar.show();
 
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    dialog.dismiss();
-                }
-            }).start();
-            dialog.show();
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            Snackbar.make(viewFrag, "Hiện trò chơi đã được chơi xin ,quý khách hãy đăng kí game khác", 2000).show();
+
             return;
         }
+        chonGameLuot(game);
+    }
+
+    private void chonGameLuot(Game game) {
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         if (!game.getKieu().equalsIgnoreCase("lượt")) {
             fragmentTroChoiGio fragmentTroChoigio = new fragmentTroChoiGio();
             Bundle bundle = new Bundle();
@@ -284,9 +278,5 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
             fragmentTroChoiluot.setArguments(bundle);
             fragmentTransaction.replace(R.id.fragment_container, fragmentTroChoiluot).addToBackStack(Fragment_ListDanhSachTroChoi.TAG).commit();
         }
-
     }
-
-//    private fragmentTroChoiGio frag = new fragmentTroChoiGio();
-
 }

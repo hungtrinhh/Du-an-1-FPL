@@ -19,8 +19,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragDifferent.FragmentChinhSachBaoMat;
+import com.example.myapplication.Fragment.fragDifferent.FragmentHelp;
 import com.example.myapplication.Fragment.fragDifferent.FragmentLichSuGiaoDich;
 import com.example.myapplication.Fragment.fragDifferent.FragmentNapTien;
+import com.example.myapplication.Fragment.fragDifferent.FragmentRegulation;
 import com.example.myapplication.Fragment.fragDifferent.FragmentThongBao;
 import com.example.myapplication.Fragment.fragmentUserChild.fragment_EditProfile;
 import com.example.myapplication.Fragment.fragment_Login;
@@ -103,6 +106,9 @@ public class fragment_User extends Fragment implements View.OnClickListener {
         btn_napTien.setOnClickListener(this::onClick);
         btn_Notify.setOnClickListener(this::onClick);
         btn_CheckHistory.setOnClickListener(this::onClick);
+        btn_Help.setOnClickListener(this::onClick);
+        btn_PolicyAndPrivacy.setOnClickListener(this::onClick);
+        btn_Regulation.setOnClickListener(this::onClick);
     }
 
     private void Anhxa(View view) {
@@ -157,6 +163,18 @@ public class fragment_User extends Fragment implements View.OnClickListener {
             case R.id.btn_CheckHistory:
                 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
                         .replace(R.id.fragment_container, new FragmentLichSuGiaoDich()).commit();
+                break;
+            case R.id.btn_Help:
+                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
+                        .replace(R.id.fragment_container, new FragmentHelp()).commit();
+                break;
+            case R.id.btn_PolicyAndPrivacy:
+                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
+                        .replace(R.id.fragment_container, new FragmentChinhSachBaoMat()).commit();
+                break;
+            case R.id.btn_Regulation:
+                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
+                        .replace(R.id.fragment_container, new FragmentRegulation()).commit();
                 break;
         }
     }

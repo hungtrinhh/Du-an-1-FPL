@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.example.myapplication.Interface.OnclickItemVoucher;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +32,7 @@ public class Fragment_ListVoucherUuDaiTenTroChoi extends Fragment implements Vie
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private List<Voucher> listVoucher;
     private androidx.appcompat.widget.SearchView searchView_listVoucherUuDai;
-
+    private ArrayList<Voucher> listSearchVoucher;
     public Fragment_ListVoucherUuDaiTenTroChoi() {
         // Required empty public constructor
     }
@@ -61,7 +63,7 @@ public class Fragment_ListVoucherUuDaiTenTroChoi extends Fragment implements Vie
         super.onViewCreated(view, savedInstanceState);
         AnhXa(view);
         ShowListVoucher();
-
+        searchVoucher();
         searchView_listVoucherUuDai.setVisibility(View.GONE);
         // bắt sự kiện khi click
         btn_BackToUuDai_fragVoucher.setOnClickListener(this::onClick);
@@ -103,6 +105,41 @@ public class Fragment_ListVoucherUuDaiTenTroChoi extends Fragment implements Vie
                     searchView_listVoucherUuDai.setVisibility(View.GONE);
                 }
                 break;
+        }
+    }
+    private void searchVoucher() {
+        searchView_listVoucherUuDai.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                setListSerachVoucher(newText);
+                return false;
+            }
+        });
+    }
+
+    private void setListSerachVoucher(String newText) {
+        if ("".equalsIgnoreCase(newText)) {
+//            tvthongBao.setVisibility(View.GONE);
+            voucherVerticalAdapter.setListDanhSachVoucher(listVoucher);
+            recyclerView_voucher_ListGame.setAdapter(voucherVerticalAdapter);
+        } else {
+            listSearchVoucher = new ArrayList<>();
+            for (Voucher voucher : listVoucher) {
+                if (voucher.getMaVoucher().toLowerCase().contains(newText.toLowerCase())){
+                    listSearchVoucher.add(voucher);
+                }
+            }
+//            if(listGame.isEmpty()){
+//                tvthongBao.setVisibility(View.VISIBLE);
+//            }else {
+//                tvthongBao.setVisibility(View.GONE);
+//            }
+            voucherVerticalAdapter.setListDanhSachVoucher(listSearchVoucher);
         }
     }
 }

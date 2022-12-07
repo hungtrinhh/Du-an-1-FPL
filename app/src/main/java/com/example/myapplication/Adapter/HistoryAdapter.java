@@ -4,7 +4,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +23,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHoler> {
-    private List<Hoadon> list;
+    private final List<Hoadon> list;
     public HistoryAdapter(List<Hoadon> list) {
         this.list = list;
         notifyDataSetChanged();
@@ -46,6 +48,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
                 DecimalFormat df = new DecimalFormat(pattern);
                 holder.tvGiaTien.setText(df.format(hoadonnaptien.getCost()));
                 holder.tvNgayGd.setText(hoadonnaptien.getDate());
+                holder.item_history.startAnimation(AnimationUtils.loadAnimation(holder.item_history.getContext(),R.anim.anim_item_history));
             }
         }else {
             Hoadonchoigame hoadonchoigame = (Hoadonchoigame) list.get(position);
@@ -55,6 +58,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             DecimalFormat df = new DecimalFormat(pattern);
             holder.tvGiaTien.setText(df.format(hoadonchoigame.getCost()));
             holder.tvNgayGd.setText(hoadonchoigame.getDateStart());
+            holder.item_history.startAnimation(AnimationUtils.loadAnimation(holder.item_history.getContext(),R.anim.anim_item_history));
+
         }
     }
 
@@ -67,17 +72,18 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     }
 
     public class HistoryViewHoler extends RecyclerView.ViewHolder {
-        private ImageView imgHistory;
-        private TextView tvLoaiGd;
-        private TextView tvNgayGd;
-        private TextView tvGiaTien;
-
+        private final ImageView imgHistory;
+        private final TextView tvLoaiGd;
+        private final TextView tvNgayGd;
+        private final TextView tvGiaTien;
+        private final LinearLayout item_history;
         public HistoryViewHoler(@NonNull View itemView) {
             super(itemView);
-            imgHistory = (ImageView) itemView.findViewById(R.id.img_history);
-            tvLoaiGd = (TextView) itemView.findViewById(R.id.tv_loai_gd);
-            tvNgayGd = (TextView) itemView.findViewById(R.id.tv_ngay_gd);
-            tvGiaTien = (TextView) itemView.findViewById(R.id.tv_gia_tien);
+            item_history = itemView.findViewById(R.id.item_history);
+            imgHistory = itemView.findViewById(R.id.img_history);
+            tvLoaiGd = itemView.findViewById(R.id.tv_loai_gd);
+            tvNgayGd = itemView.findViewById(R.id.tv_ngay_gd);
+            tvGiaTien = itemView.findViewById(R.id.tv_gia_tien);
 
         }
     }

@@ -15,7 +15,7 @@ import com.example.myapplication.R;
 import java.util.List;
 
 public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NotifyViewHoler> {
-    private List<Notify> list;
+    private final List<Notify> list;
 
     public NotifyAdapter(List<Notify> list) {
         this.list = list;
@@ -46,13 +46,13 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NotifyView
     }
 
     public class NotifyViewHoler extends RecyclerView.ViewHolder {
-        private LinearLayout linearDanhSachGame;
-        private TextView tvTiltle;
+        private final LinearLayout linearDanhSachGame;
+        private final TextView tvTiltle;
 
         public NotifyViewHoler(@NonNull View itemView) {
             super(itemView);
-            linearDanhSachGame = (LinearLayout) itemView.findViewById(R.id.linear_danh_sach_game);
-            tvTiltle = (TextView) itemView.findViewById(R.id.tv_tiltle);
+            linearDanhSachGame = itemView.findViewById(R.id.linear_danh_sach_game);
+            tvTiltle = itemView.findViewById(R.id.tv_tiltle);
         }
     }
 }

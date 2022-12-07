@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Thanh toán"
+                android:text="Quét mã Qr"
                 android:textColor="@color/white"
                 android:textSize="23dp"
                 android:textStyle="bold" />
@@ -40,7 +40,6 @@
 
     <com.budiyev.android.codescanner.CodeScannerView
         android:id="@+id/qrcodeScaner"
-        android:layout_marginTop="4dp"
         companyApp:frameCornersSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="0dp"

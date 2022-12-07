@@ -5,7 +5,7 @@
     android:layout_width="260dp"
     android:layout_height="wrap_content"
     android:layout_marginRight="5dp"
-    android:background="@drawable/boder_item_voucher"
+    android:background="@drawable/boder_item_voucher_horizontal"
     android:orientation="horizontal"
     android:weightSum="2">
 
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.7"
         android:gravity="start"
+        android:paddingLeft="-5dp"
         android:orientation="vertical">
 
         <ImageView

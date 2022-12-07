@@ -7,6 +7,8 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.example.myapplication.Fragment.fragmentMainChild.fragment_Uudai;
+
 public class UpdateGameService extends IntentService {
     String TAG = "UpdateGameService";
 

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxWidth="100000dp"
-        app:queryHint="Tìm kiếm ưu đãi" />
+        app:queryHint="Tìm kiếm danh mục" />
 
     <com.smarteist.autoimageslider.SliderView
         android:id="@+id/image_slider"
@@ -41,6 +41,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/white"
         android:layout_weight="8"
         android:orientation="vertical">
 

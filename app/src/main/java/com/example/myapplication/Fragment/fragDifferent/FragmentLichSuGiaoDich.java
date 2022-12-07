@@ -18,6 +18,7 @@ import android.widget.ImageView;
 
 import com.example.myapplication.Adapter.HistoryAdapter;
 import com.example.myapplication.Firebase.FbDao;
+import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
 import com.example.myapplication.Model.Hoadon;
 import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.Model.Hoadonnaptien;
@@ -37,6 +38,7 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     private RecyclerView recyclerviewHistory;
     private HistoryAdapter historyAdapter;
     private List<Hoadon> list;
+    private static List<Hoadon> hoadonList;
     String TAG = "LichSugiadich";
     Comparator<Hoadon> comparator;
 
@@ -51,9 +53,17 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         anhXa(view);
         comparator = (o2, o1) -> getDate(o1).compareTo(getDate(o2));
-
-        fillRecycleView();
-
+        if (FbDao.hoadonList.size()==0){
+            if (hoadonList==null){
+                list = fragment_Trangchu.listHD;
+            }else {
+                list=hoadonList;
+            }
+            FillHoaDonAgain();
+        }else {
+            fillRecycleView();
+        }
+        System.out.println("xin chao");
         btnBackNotify.setOnClickListener(this::onClick);
     }
 
@@ -81,6 +91,14 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
 
     private void fillRecycleView() {
         list = FbDao.hoadonList;
+        Log.e("BUG", "fillRecycleView: "+list.size(),null );
+        Collections.sort(list, comparator);
+        historyAdapter = new HistoryAdapter(list);
+        recyclerviewHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerviewHistory.setAdapter(historyAdapter);
+    }
+
+    private void FillHoaDonAgain(){
         Collections.sort(list, comparator);
         historyAdapter = new HistoryAdapter(list);
         recyclerviewHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -88,9 +106,9 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     }
 
     private void anhXa(View view) {
-        toolbarDanhMuc = (Toolbar) view.findViewById(R.id.toolbar_DanhMuc);
-        btnBackNotify = (ImageView) view.findViewById(R.id.btn_backNotify);
-        recyclerviewHistory = (RecyclerView) view.findViewById(R.id.recyclerview_history);
+        toolbarDanhMuc = view.findViewById(R.id.toolbar_DanhMuc);
+        btnBackNotify = view.findViewById(R.id.btn_backNotify);
+        recyclerviewHistory = view.findViewById(R.id.recyclerview_history);
     }
 
     @Override
@@ -100,5 +118,11 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        hoadonList=list;
     }
 }

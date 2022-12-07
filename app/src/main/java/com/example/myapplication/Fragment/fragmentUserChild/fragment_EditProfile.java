@@ -57,10 +57,44 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
     private final String TAG = "fragment_EditProfile";
     private FirebaseAuth mAuth;
 
+    private Bitmap imgChose = null;
+    private boolean imgdif = false;
+
+
     public fragment_EditProfile() {
 
     }
 
+    private final Thread t1 = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            while (!FbDao.UpLoadedAvatar) {
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            FbDao.LoadAvatarFromID();
+
+            while (!FbDao.LoadedAvatar) {
+
+            }
+            FbDao.ReadHistory();
+            while ((FbDao.hoadonList.size() == 0)) {
+                try {
+                    Thread.sleep(1000);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            DialogLoading.dialogLoading.dismiss();
+            FbDao.UpLoadedAvatar = false;
+            FbDao.LoadedAvatar = false;
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
+    });
 
     public static fragment_EditProfile newInstance(String param1, String param2) {
         fragment_EditProfile fragment = new fragment_EditProfile();
@@ -93,6 +127,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
 
 
     private void setFocuschangeEdittext() {
+        User u = FbDao.UserLogin.Clone();
         ed_UpdateFullName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -102,7 +137,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 
-                if (!s.toString().equals(FbDao.UserLogin.getName()) || !ed_UpdatePhoneNumbers.getText().toString().equals(FbDao.UserLogin.getPhonenumber())) {
+                if (!s.toString().equals(u.getName()) || !ed_UpdatePhoneNumbers.getText().toString().equals(u.getPhonenumber())) {
                     btn_SaveProfile.setEnabled(!((s.length() == 0) || (ed_UpdatePhoneNumbers.getText().toString().length() == 0)) || imgdif);
 
 
@@ -124,7 +159,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 
-                if (!s.toString().equals(FbDao.UserLogin.getPhonenumber()) || !ed_UpdateFullName.getText().toString().equals(FbDao.UserLogin.getName())) {
+                if (!s.toString().equals(u.getPhonenumber()) || !ed_UpdateFullName.getText().toString().equals(u.getName())) {
                     btn_SaveProfile.setEnabled(!((s.length() == 0) || (ed_UpdateFullName.getText().toString().length() == 0)) || imgdif);
                 } else {
                     btn_SaveProfile.setEnabled(false);
@@ -178,12 +213,12 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
         }
     }
 
-    Bitmap imgChose = null;
-    boolean imgdif = false;
 
     //lấy ảnh về
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri uri = data.getData();
             try {
@@ -198,7 +233,6 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                 e.printStackTrace();
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -212,31 +246,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                 break;
             case R.id.btn_SaveProfile:
 
-                Thread t1 = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        while (!FbDao.UpLoadedAvatar) {
-                            try {
-                                Thread.sleep(300);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        FbDao.LoadAvatarFromID();
 
-                        while (!FbDao.LoadedAvatar) {
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        DialogLoading.dialogLoading.dismiss();
-                        FbDao.UpLoadedAvatar = false;
-                        FbDao.LoadedAvatar = false;
-                        getActivity().getSupportFragmentManager().popBackStack();
-                    }
-                });
                 FbDao dao = new FbDao();
                 if (imgdif) {
                     dao.UpLoadavatar(imageView_editProfile);
@@ -257,7 +267,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                             public void run() {
                                 getActivity().getSupportFragmentManager().popBackStack();
                             }
-                        },1000);
+                        }, 1000);
 
                     }
                 } else {
@@ -296,7 +306,7 @@ public class fragment_EditProfile extends Fragment implements View.OnClickListen
                     @Override
                     public void onVerificationFailed(FirebaseException e) {
                         Log.w(TAG, "onVerificationFailed", e);
-                        Toast.makeText(getActivity(), "Gửi mã xác minh thất bại,Hãy liên hệ với quản trị viên để được giúp đỡ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Gửi mã xác minh thất bại! Hãy liên hệ với quản trị viên để được giúp đỡ", Toast.LENGTH_SHORT).show();
                         if (e instanceof FirebaseAuthInvalidCredentialsException) {
                         } else if (e instanceof FirebaseTooManyRequestsException) {
                         }

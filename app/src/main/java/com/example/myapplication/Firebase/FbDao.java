@@ -2,24 +2,25 @@
 package com.example.myapplication.Firebase;
 
 import android.app.Activity;
-import android.app.Dialog;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.CountDownTimer;
+
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.myapplication.Fragment.fragListgameAndVoudcher.Fragment_ListDanhSachTroChoi;
-import com.example.myapplication.Fragment.fragment_Main;
-import com.example.myapplication.MainActivity;
+
 import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.HoaDonHenGio;
 import com.example.myapplication.Model.Hoadon;
 import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.Model.Hoadonnaptien;
@@ -28,9 +29,8 @@ import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 import com.example.myapplication.Service.UpdateGameService;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
+
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,6 +42,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,21 +52,23 @@ import java.util.Map;
 
 public class FbDao {
     public static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    public FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public static FirebaseAuth mAuth;
     private static final String TAG = "Firebase Dao";
     public static List<Game> listGame;
     public static List<User> listUser;
     public static List<Voucher> listVoucher;
     public static List<Notify> listNotify;
     public static List<Hoadon> hoadonList;
-    public FirebaseStorage storageFireBase;
+    public static FirebaseStorage storageFireBase;
     public static StorageReference avatatRef;
-    private static int[]  imageAvatarGame = new int[]{ R.drawable.game_ghost_house,R.drawable.game_bounce_house,R.drawable.racingcar,R.drawable.gun, R.drawable.game_nhun_nhay,R.drawable.game_bao_nha , R.drawable.game_jumping_house, R.drawable.game_cau_truot, R.drawable.game_suc_cac, R.drawable.game_xich_du};
+    private static final int[] imageAvatarGame = new int[]{R.drawable.game_ghost_house, R.drawable.game_bounce_house, R.drawable.racingcar, R.drawable.gun, R.drawable.game_nhun_nhay, R.drawable.game_bao_nha, R.drawable.game_jumping_house, R.drawable.game_cau_truot, R.drawable.game_suc_cac, R.drawable.game_xich_du};
 
 
     private static List<Hoadonnaptien> hoadonnaptienList;
-    private static List<Hoadonchoigame> hoadonchoigameList;
 
+    private static List<HoaDonHenGio> hoadonhenGioList;
+    private static List<Hoadonchoigame> hoadonchoigameList;
+//    private static List<Hoadonchoigame> hoadonchoigameListRecently;     lấy hóa đơn chơi game của trò chơi đang chơi
 
     public static List<Notify> getListNotify() {
         return listNotify;
@@ -75,6 +78,9 @@ public class FbDao {
         return listGame;
     }
 
+    public static List<Hoadonchoigame> ListgamePlaying;
+
+
     public static List<Voucher> getListVoucher() {
         return listVoucher;
     }
@@ -83,7 +89,19 @@ public class FbDao {
         return listUser;
     }
 
-    public static Bitmap Avatar;
+    public static List<HoaDonHenGio> getListHoaDonHenGio() {
+        return hoadonhenGioList;
+    }
+
+//    public static List<Hoadonchoigame> getHoadonchoigameList() {
+//        return hoadonchoigameList;
+//    }
+//
+//    public static List<Hoadonchoigame> getHoadonchoigameListRecently() {
+//        return hoadonchoigameListRecently;
+//    }
+
+
     public static User UserLogin;
     public static Activity activity;
     public static boolean Login = false;
@@ -92,11 +110,7 @@ public class FbDao {
     public static boolean LoadedAvatar = false;
     public static boolean UpdatedUser = false;
     public static boolean UpLoadedAvatar = false;
-
-    private static Date curenTime,endTime;
-    public static int phut=0,giay=0;
-    private static Thread thread;
-
+    public static boolean LoadedVoucher = false;
 
 
     //hàm khởi tạo để trả về userId
@@ -106,13 +120,15 @@ public class FbDao {
         storageFireBase = FirebaseStorage.getInstance();
         avatatRef = storageFireBase.getReference().child("avatar");
         ReadUser();
-        ReadVoucher();
+
         ReadGame();
         ReadNotify();
-
+        ReadTimePlayGame();
+        mAuth = FirebaseAuth.getInstance();
     }
 
     public FbDao() {
+
     }
 
 
@@ -126,8 +142,20 @@ public class FbDao {
         return tenGame;
     }
 
+    public static String getNameUserFromID(String id) {
+        String userName = "";
+        for (User item : listUser) {
+            if (item.getId().equals(id)) {
+                userName = item.getName();
+                break;
+            }
+        }
+        return userName;
+    }
+
     //hàm update avatatar cho user
     public void UpLoadavatar(ImageView imageView) {
+        UpLoadedAvatar = false;
         String id = UserLogin.getId();
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
@@ -136,18 +164,12 @@ public class FbDao {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] data = baos.toByteArray();
         UploadTask uploadTask = avatatRef.child(id).putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.e(TAG, "onFailure: to upload ", null);
-                UpLoadedAvatar = true;
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.e(TAG, "onSuccess: to upload ", null);
-                UpLoadedAvatar = true;
-            }
+        uploadTask.addOnFailureListener(exception -> {
+            Log.e(TAG, "onFailure: to upload ", null);
+            UpLoadedAvatar = true;
+        }).addOnSuccessListener(taskSnapshot -> {
+            Log.e(TAG, "onSuccess: to upload ", null);
+            UpLoadedAvatar = true;
         });
     }
     //hàm load avatar
@@ -157,38 +179,52 @@ public class FbDao {
         Map<String, Object> map = new HashMap<>();
         map.put("sodu", money);
         DatabaseReference userRef = database.getReference("Users").child(UserLogin.getId());
-        userRef.updateChildren(map, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                Log.d(TAG, "Thanh toán thành công");
-            }
-        });
+        userRef.updateChildren(map, (error, ref) -> Log.d(TAG, "Thanh toán thành công"));
 
     }
 
+    public static void updatePass(String id, String pass) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("password", pass);
+        DatabaseReference userRef = database.getReference("Users").child(id);
+        userRef.updateChildren(map, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                Log.d(TAG, "Update thành công");
+            }
+        });
+    }
+
     public static void LoadAvatarFromID() {
-        String id = UserLogin.getId();
-        StorageReference avartar = avatatRef.child((id));
-        final long ONE_MEGABYTE = 1024 * 1024;
-        avartar.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Log.e(TAG, "onSuccess: ", null);
-                Avatar = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                UserLogin.setAvatar(Avatar);
-                LoadedAvatar = true;
+        LoadedAvatar = false;
+        StorageReference avartarRef = avatatRef.child((UserLogin.getId()));
+        final long FIRE_MEGABYTE = 1024 * 1024 * 5;
+        avartarRef.getBytes(FIRE_MEGABYTE).addOnSuccessListener(bytes -> {
+            Log.e(TAG, "onSuccess:Loadavatar ", null);
+            Bitmap avatar = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+            if (UserLogin.getAvatar() == null || !UserLogin.getAvatar().sameAs(avatar)) {
+                UserLogin.setAvatar(avatar);
+            } else {
+
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        LoadAvatarFromID();
+                    }
+                }, 1000);
+                return;
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.e(TAG, "onFailure: ", null);
-                LoadedAvatar = true;
-            }
+            LoadedAvatar = true;
+        }).addOnFailureListener(exception -> {
+            Log.e(TAG, "onFailure:Loadavatar ", null);
+            LoadedAvatar = true;
         });
     }
 
     //hàm này trả về ref của hoá đơn chơi game
-    public String getReferenceToday() {
+    private static String getReferenceToday() {
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM");
         String s = dateFormat.format(date);
@@ -198,8 +234,8 @@ public class FbDao {
     //hàm chơi game ko hiểu đừng đọc
     public void PlaygameGio(int minute, String idGame, float cost) {
         long milisecond = minute * 60 * 1000;
-        curenTime = new Date();
-        endTime = new Date(milisecond + curenTime.getTime());
+        Date curenTime = new Date();
+        Date endTime = new Date(milisecond + curenTime.getTime());
         getReferenceToday();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String curenTimetoString = dateFormat.format(curenTime);
@@ -218,58 +254,27 @@ public class FbDao {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 Toast.makeText(activity, "Chơi thành công", Toast.LENGTH_SHORT).show();
-                CountDown();
+
             }
         });
     }
 
-    private void CountDown(){
-        Date dateC = curenTime;
-        Date dateE = endTime;
-        long time = dateE.getTime()-dateC.getTime();
-        phut = (int) (time/1000)/60;
-        giay = (int) (time/1000)%60;
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (phut>=0&&giay>=0) {
-                    try {
-                        setInterval();
-                        Log.d(TAG, "run: "+phut+" va "+giay);
-                        Thread.sleep(1000);
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-        });
-        thread.start();
-
-    }
-    private int setInterval() {
-        if (phut==0&&giay==1){
-            Thread.currentThread().interrupt();
-        }if(giay==0){
-            giay=60;
-            --phut;
-        }
-        return --giay;
-    }
 
     //hàm login và bắt data cho userLogin để userLogin thay đổi data theo thời gian thực
     public static void Login(String id) {
+
         DatabaseReference myRef = database.getReference("Users");
         DatabaseReference userRef = myRef.child(id);
-        Bitmap avatar = UserLogin.getAvatar();
+        ReadHistory();
+        ReadVoucher(id);
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UserLogin = snapshot.getValue(User.class);
                 UserLogin.setId(snapshot.getKey());
-                UserLogin.setAvatar(avatar);
-                ReadHistory();
+                Login = true;
+                Log.d(TAG, "onDataChange: " + "Login");
+                LoadAvatarFromID();
 
             }
 
@@ -283,22 +288,26 @@ public class FbDao {
     //hàm đọc về dữ liệu game
     private void ReadGame() {
         listGame = new ArrayList<>();
+
         DatabaseReference myRef = database.getReference("Game");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listGame.clear();
+
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     Game u = dt.getValue(Game.class);
                     if (u == null) {
                         continue;
                     }
                     listGame.add(u);
+
                 }
                 setImgGame();
                 Log.d(TAG, "Đã nhận dữ liệu Game: ");
                 activity.startService(new Intent(activity, UpdateGameService.class));
             }
+
             @Override
             public void onCancelled(DatabaseError error) {
                 Log.e(TAG, "DatabaseError: " + error.toString()
@@ -306,17 +315,18 @@ public class FbDao {
             }
         });
     }
-    public static void setImgGame(){
+
+    public static void setImgGame() {
         listGame = FbDao.getListGame();
-        for (int i=1;i<listGame.size()+1;i++){
-            Game game = listGame.get(i-1);
-            if (game.getId()==i){
-                game.setImgGame(imageAvatarGame[i-1]);
+        for (int i = 1; i < listGame.size() + 1; i++) {
+            Game game = listGame.get(i - 1);
+            if (game.getId() == i) {
+                game.setImgGame(imageAvatarGame[i - 1]);
             }
         }
     }
 
-    private static void ReadHistory() {
+    public static void ReadHistory() {
         hoadonchoigameList = new ArrayList<>();
         hoadonnaptienList = new ArrayList<>();
 
@@ -325,6 +335,8 @@ public class FbDao {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 hoadonchoigameList.clear();
+                ListgamePlaying = new ArrayList<>();
+                Log.d(TAG, "Hoadonchoigame: loaded");
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     for (DataSnapshot data : dt.getChildren()) {
                         for (DataSnapshot d : data.getChildren()
@@ -335,7 +347,11 @@ public class FbDao {
                             }
                             if (u.getUserid().equals(UserLogin.getId())) {
                                 hoadonchoigameList.add(u);
-                                Log.d(TAG, "onDataChange: " + u.toString());
+
+                            }
+                            if (!u.isSuccess()) {
+                                ListgamePlaying.add(u);
+
                             }
                         }
 
@@ -357,6 +373,8 @@ public class FbDao {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 hoadonnaptienList.clear();
+                Log.d(TAG, "HoaDonNapTien: loaded");
+
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     Hoadonnaptien u = dt.getValue(Hoadonnaptien.class);
                     if (u == null) {
@@ -364,8 +382,8 @@ public class FbDao {
                     }
                     if (u.getUserId().equals(UserLogin.getId())) {
                         hoadonnaptienList.add(u);
-                        Log.d(TAG, "onDataChange: " + u.toString());
                     }
+
                 }
                 hoadonList.clear();
                 hoadonList.addAll(hoadonchoigameList);
@@ -382,7 +400,7 @@ public class FbDao {
 
 
     //hàm đọc về dữ liệu voutcher
-    private void ReadVoucher() {
+    private static void ReadVoucher(String id) {
         Log.d(TAG, "ReadVoucher: ");
         listVoucher = new ArrayList<>();
         DatabaseReference myRef = database.getReference("Voucher");
@@ -395,8 +413,19 @@ public class FbDao {
                     if (u == null) {
                         continue;
                     }
-                    listVoucher.add(u);
+                    u.setId(dt.getKey());
+                    u.setListUserId(u.getIDUser());
+                    for (Object idvc : u.getListUserId()
+                    ) {
+
+                        if (idvc.equals(id)) {
+                            listVoucher.add(u);
+                            break;
+                        }
+
+                    }
                 }
+                LoadedVoucher = true;
                 Log.d(TAG, "Đã nhận dữ liệu voucher: ");
             }
 
@@ -407,6 +436,7 @@ public class FbDao {
             }
         });
     }
+
 
     private void ReadNotify() {
         Log.d(TAG, "ReadVoucher: ");
@@ -432,6 +462,39 @@ public class FbDao {
                 );
             }
         });
+
+    }
+
+    public static void UpdateVoucher(Voucher voucher) {
+        Log.d(TAG, "ReadVoucher: ");
+        listVoucher = new ArrayList<>();
+        DatabaseReference myRef = database.getReference("Voucher").child(voucher.getId()).child("IDUser");
+        myRef.setValue(voucher.getListUserId());
+        ReadVoucher(UserLogin.getId());
+
+    }
+
+    public void ReadTimePlayGame() {
+        hoadonhenGioList = new ArrayList<>();
+        DatabaseReference myRef = database.getReference("HoaDonHenGio");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                hoadonhenGioList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    HoaDonHenGio hd = dataSnapshot.getValue(HoaDonHenGio.class);
+                    if (hd == null) {
+                        continue;
+                    }
+                    hoadonhenGioList.add(hd);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     //hàm thêm user khi đăng kí
@@ -450,6 +513,11 @@ public class FbDao {
         myRef.child("HoaDonNapTien").push().setValue(hoadonnaptien);
     }
 
+    public static void AddHoaDonHenGio(HoaDonHenGio hoaDonHenGio) {
+        DatabaseReference myRef = database.getReference();
+        myRef.child("HoaDonHenGio").push().setValue(hoaDonHenGio);
+    }
+
     //hàm cập nhạt lại user
     public void UpdateUser(User user1) {
         DatabaseReference myRef = database.getReference("Users").child(user1.getId());
@@ -460,6 +528,7 @@ public class FbDao {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 UpdatedUser = true;
+                LoadAvatarFromID();
             }
         });
     }
@@ -472,6 +541,7 @@ public class FbDao {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                listUser.clear();
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     User u = dt.getValue(User.class);
                     if (u == null) {
@@ -492,4 +562,6 @@ public class FbDao {
         });
     }
     ///////////////////////////////////////////////////////////////////////////
+
+
 }
