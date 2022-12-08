@@ -120,7 +120,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
             listHD = FbDao.hoadonList;
             Log.d(TAG, "onViewCreatedMAIN: " + listHD.size());
         }
-
+        FbDao.HuyDatGio();
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         if (gochild) {
             replaceFragment(new Fragment_ListDanhSachTroChoi());
@@ -378,7 +378,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         checkQrcode();
         Log.d(TAG, "onResume: avatar" + FbDao.UserLogin.getAvatar());
         SetDataForView();
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver,new IntentFilter("UpdateGameService"));
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, new IntentFilter("UpdateService"));
     }
 
     @Override

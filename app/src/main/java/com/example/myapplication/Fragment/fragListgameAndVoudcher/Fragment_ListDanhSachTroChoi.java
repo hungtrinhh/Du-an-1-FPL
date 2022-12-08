@@ -76,7 +76,7 @@ public class Fragment_ListDanhSachTroChoi extends Fragment implements View.OnCli
     @Override
     public void onStart() {
         super.onStart();
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter("UpdateGameService"));
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter("UpdateService"));
     }
 
     @Override

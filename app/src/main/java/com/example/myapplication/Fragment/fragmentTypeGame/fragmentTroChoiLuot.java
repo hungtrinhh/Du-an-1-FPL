@@ -217,7 +217,7 @@ public class fragmentTroChoiLuot extends Fragment implements View.OnClickListene
         boolean xet = true;
         for (HoaDonHenGio item : donHenGioList) {
 
-            SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+            SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
             try {
 

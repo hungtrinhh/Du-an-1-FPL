@@ -9,18 +9,18 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Uudai;
 
-public class UpdateGameService extends IntentService {
-    String TAG = "UpdateGameService";
+public class UpdateService extends IntentService {
+    String TAG = "UpdateService";
 
-    public UpdateGameService() {
-        super("UpdateGameService");
+    public UpdateService() {
+        super("UpdateService");
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 
         Log.d(TAG, "loaded: ");
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("UpdateGameService"));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("UpdateService"));
         this.stopSelf();
     }
 }

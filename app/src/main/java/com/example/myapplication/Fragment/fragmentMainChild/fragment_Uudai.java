@@ -15,14 +15,12 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapplication.Adapter.GameUuDaiHorizontalAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
@@ -35,8 +33,6 @@ import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 import com.example.myapplication.Interface.OnclickItemGame;
-import com.example.myapplication.Service.UpdateGameService;
-import com.google.firebase.database.FirebaseDatabase;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;

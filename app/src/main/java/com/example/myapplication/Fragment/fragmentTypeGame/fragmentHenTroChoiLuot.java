@@ -419,7 +419,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                         boolean xet = true;
                         for(HoaDonHenGio item : donHenGioList){
 
-                            SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+                            SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
                             try {
 
@@ -433,7 +433,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                                     int ssDate_b1 = a_date2.compareTo(b_date1);
                                     int ssDate_b2 = a_date2.compareTo(b_date2);
 
-                                    if((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1>=0 && ssDate_b2 <=0)){
+                                    if((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1>=0 && ssDate_b2 <=0) || (a_date1.before(b_date1) && a_date2.after(b_date2))){
                                         xet = false;
                                         break;
                                     }

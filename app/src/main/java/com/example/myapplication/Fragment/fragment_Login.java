@@ -110,7 +110,6 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                             }
                         }
 
-                        FbDao.LoadAvatarFromID();
 
                         while (!FbDao.LoadedAvatar) {
                             try {
@@ -148,25 +147,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     }
 
 
-//    private void LoginWithoutbtn() {
-//        SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
-//        String username = s.getString("Username", "");
-//        String password = s.getString("Password", "");
-//
-//        if (username.equals("") || password.equals("")) {
-//            return;
-//        }
-//
-//        for (User u : list
-//        ) {
-//            if (username.equals(u.getName()) && password.equals(u.getPassword())) {
-//                FbDao.UserLogin = u;
-//                saveAccount(username, password);
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
-//                break;
-//            }
-//        }
-//    }
+
 
     @Override
     public void onClick(View v) {
@@ -204,7 +185,6 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                                     }
                                 }
 
-                                FbDao.LoadAvatarFromID();
 
                                 while (!FbDao.LoadedAvatar) {
                                     try {
