@@ -238,7 +238,7 @@ android:layout_marginVertical="10dp"
                     android:paddingTop="3dp"
                     android:text="Lịch sử giao dịch"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:layout_width="40dp"
