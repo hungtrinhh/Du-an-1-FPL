@@ -5,6 +5,7 @@ public class HoaDonHenGio extends Hoadon{
     private String timeStart;
     private String timeEnd;
     private boolean isSuccess = false;
+    private boolean isCancel = false;
     private String Gameid;
 
     public HoaDonHenGio() {
@@ -20,6 +21,14 @@ public class HoaDonHenGio extends Hoadon{
 
     public String getUserId() {
         return userId;
+    }
+
+    public boolean isCancel() {
+        return isCancel;
+    }
+
+    public void setCancel(boolean cancel) {
+        isCancel = cancel;
     }
 
     public void setUserId(String userId) {
@@ -61,12 +70,13 @@ public class HoaDonHenGio extends Hoadon{
     @Override
     public String toString() {
         return "HoaDonHenGio{" +
-                "cost=" + cost +
                 "userId='" + userId + '\'' +
                 ", timeStart='" + timeStart + '\'' +
                 ", timeEnd='" + timeEnd + '\'' +
                 ", isSuccess=" + isSuccess +
+                ", isCancel=" + isCancel +
                 ", Gameid='" + Gameid + '\'' +
+                ", cost=" + cost +
                 '}';
     }
 }

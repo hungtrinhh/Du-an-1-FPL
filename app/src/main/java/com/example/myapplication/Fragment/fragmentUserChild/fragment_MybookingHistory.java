@@ -53,7 +53,6 @@ public class fragment_MybookingHistory extends Fragment {
         AdapterMyBookingHistory adapter = new AdapterMyBookingHistory(FbDao.getListHoaDonHenGio());
         recyclerviewMyBookinghis.setAdapter(adapter);
         recyclerviewMyBookinghis.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-
     }
 
     @Override

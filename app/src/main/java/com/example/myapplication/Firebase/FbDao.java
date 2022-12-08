@@ -298,7 +298,6 @@ public class FbDao {
     //hàm đọc về dữ liệu game
     private void ReadGame() {
         listGame = new ArrayList<>();
-
         DatabaseReference myRef = database.getReference("Game");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -527,6 +526,10 @@ public class FbDao {
         DatabaseReference myRef = database.getReference();
         myRef.child("HoaDonHenGio").push().setValue(hoaDonHenGio);
     }
+    public static void HuyDatGio(String id  ) {
+        DatabaseReference myRef = database.getReference();
+
+    }
 
     //hàm cập nhạt lại user
     public void UpdateUser(User user1) {
@@ -572,6 +575,7 @@ public class FbDao {
         });
     }
     ///////////////////////////////////////////////////////////////////////////
+
 
 
 }

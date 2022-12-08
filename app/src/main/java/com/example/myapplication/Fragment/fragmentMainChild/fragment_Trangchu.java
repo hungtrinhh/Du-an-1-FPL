@@ -2,6 +2,10 @@ package com.example.myapplication.Fragment.fragmentMainChild;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -28,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -93,6 +98,13 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
 
         return inflater.inflate(R.layout.fragment_trangchu, container, false);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
     }
 
     private View viewContainer;
@@ -195,6 +207,14 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
     }
 
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            ShowListGame();
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -294,7 +314,6 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     }
 
 
-
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment).addToBackStack(fragment_Trangchu.TAG).commit();
@@ -359,6 +378,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         checkQrcode();
         Log.d(TAG, "onResume: avatar" + FbDao.UserLogin.getAvatar());
         SetDataForView();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver,new IntentFilter("UpdateGameService"));
     }
 
     @Override
