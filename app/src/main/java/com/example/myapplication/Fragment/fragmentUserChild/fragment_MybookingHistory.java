@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.myapplication.Adapter.AdapterMyBookingHistory;
 import com.example.myapplication.Firebase.FbDao;
@@ -20,6 +21,8 @@ import com.example.myapplication.R;
 public class fragment_MybookingHistory extends Fragment {
 
     private RecyclerView recyclerviewMyBookinghis;
+    private ImageView btnBackFromMybooking;
+
 
 
     public fragment_MybookingHistory() {
@@ -47,6 +50,8 @@ public class fragment_MybookingHistory extends Fragment {
 
     private void Anhxa(View view) {
         recyclerviewMyBookinghis = view.findViewById(R.id.recyclerview_myBookinghis);
+        btnBackFromMybooking = view.findViewById(R.id.btnBack_fromMybooking);
+
     }
 
     private void FildataForView() {

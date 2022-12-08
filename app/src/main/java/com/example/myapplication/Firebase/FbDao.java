@@ -539,7 +539,6 @@ public class FbDao {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "HAHAAAAAAAAAA: " + dataSnapshot.toString());
 
             }
 

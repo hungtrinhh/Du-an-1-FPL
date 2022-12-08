@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAdapter.ViewBookingHoler> {
-    private Context context;
+    private final Context context;
     private List<HoaDonHenGio> list = new ArrayList<>();
 
     public BookingHistoryAdapter(Context context) {
@@ -61,8 +61,10 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
     }
 
     public  class ViewBookingHoler extends RecyclerView.ViewHolder {
-        private TextView name,dateStart,dateEnd;
-        private ImageView img_AvatarUser;
+        private final TextView name;
+        private final TextView dateStart;
+        private final TextView dateEnd;
+        private final ImageView img_AvatarUser;
         public ViewBookingHoler(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_name_user_booking);

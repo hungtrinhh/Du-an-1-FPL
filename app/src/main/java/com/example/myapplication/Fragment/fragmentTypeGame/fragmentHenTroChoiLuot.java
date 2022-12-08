@@ -118,11 +118,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
         layout_historyBook.setOnClickListener(this::onClick);
         btn_henGio.setOnClickListener(this::onClick);
 
-        if(count == 0){
-            btn_henGio.setEnabled(false);
-        }else{
-            btn_henGio.setEnabled(true);
-        }
+        btn_henGio.setEnabled(count != 0);
 
     }
 
@@ -420,12 +416,9 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                         for(HoaDonHenGio item : donHenGioList){
 
                             SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
                             try {
-
                                 Date b_date1 = b_fmtDay.parse(item.getTimeStart());
                                 Date b_date2 = b_fmtDay.parse(item.getTimeEnd());
-
                                 if(item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false){
                                     int ssDate_a1 = a_date1.compareTo(b_date1);
                                     int ssDate_a2 = a_date1.compareTo(b_date2);
