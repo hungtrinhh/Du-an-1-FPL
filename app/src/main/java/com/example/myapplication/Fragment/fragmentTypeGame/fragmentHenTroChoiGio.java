@@ -68,7 +68,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
     private ImageView close_dialog, backToDSGame;
     private ImageView imgGame;
     private EditText edt_day;
-    private LinearLayout choose_voucher,layout_historyBook;
+    private LinearLayout choose_voucher, layout_historyBook;
     private Voucher voucherChoose;
     private RecyclerView recyclerView_voucher_gio, recyclerview_choose_time;
     private AppCompatButton btn_henGio;
@@ -270,7 +270,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                 Game game2 = game;
                 bundle2.putSerializable("obj_game", game2);
                 fragmentBookingHistory.setArguments(bundle2);
-                fragmentTransaction.replace(R.id.fragment_container,fragmentBookingHistory).addToBackStack(fragmentHenTroChoiGio.newInstance().getTag()).commit();
+                fragmentTransaction.replace(R.id.fragment_container, fragmentBookingHistory).addToBackStack(fragmentHenTroChoiGio.newInstance().getTag()).commit();
                 break;
             case R.id.btn_henGio:
                 if (playTime_choose == null) {
@@ -319,7 +319,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
 
                         }
                     });
-                    if(voucherChoose!=null){
+                    if (voucherChoose != null) {
                         for (Object idUser : voucherChoose.getListUserId()
                         ) {
                             if (idUser.equals(FbDao.UserLogin.getId())) {
@@ -385,20 +385,20 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
 
                                         List<Hoadonchoigame> hoadonchoigameList = FbDao.ListgamePlaying;
                                         boolean xet = false;
-                                        for(Hoadonchoigame item : hoadonchoigameList){
+                                        for (Hoadonchoigame item : hoadonchoigameList) {
 
-                                            SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+                                            SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
                                             try {
 
                                                 Date b_date1 = b_fmtDay.parse(item.getDateStart());
                                                 Date b_date2 = b_fmtDay.parse(item.getDateEnd());
 
-                                                if(item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false){
+                                                if (item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false) {
                                                     int ssDate_a1 = date2.compareTo(b_date1);
                                                     int ssDate_a2 = date2.compareTo(b_date2);
 
-                                                    if((ssDate_a1 >= 0 && ssDate_a2 <= 0)){
+                                                    if ((ssDate_a1 >= 0 && ssDate_a2 <= 0)) {
                                                         xet = true;
                                                         break;
                                                     }
@@ -409,7 +409,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                             }
                                         }
 
-                                        if(xet){
+                                        if (xet) {
                                             textErr.setText("Khung giờ này đang được chơi !");
                                             return;
                                         }
@@ -460,7 +460,8 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                         int ssDate_b1 = a_date2.compareTo(b_date1);
                                         int ssDate_b2 = a_date2.compareTo(b_date2);
 
-                                        if ((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1 >= 0 && ssDate_b2 <= 0)) {
+                                        if ((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1 >= 0 && ssDate_b2 <= 0)
+                                                || (a_date1.before(b_date1) && a_date2.after(b_date2))) {
                                             xet = false;
                                             break;
                                         }

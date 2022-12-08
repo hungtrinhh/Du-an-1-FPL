@@ -53,17 +53,12 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         anhXa(view);
         comparator = (o2, o1) -> getDate(o1).compareTo(getDate(o2));
-        if (FbDao.hoadonList.size()==0){
-            if (hoadonList==null){
-                list = fragment_Trangchu.listHD;
-            }else {
-                list=hoadonList;
-            }
-            FillHoaDonAgain();
-        }else {
+        if (FbDao.hoadonList == null) {
+        } else {
+            list = FbDao.hoadonList;
             fillRecycleView();
         }
-        System.out.println("xin chao");
+
         btnBackNotify.setOnClickListener(this::onClick);
     }
 
@@ -88,22 +83,15 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     }
 
 
-
     private void fillRecycleView() {
         list = FbDao.hoadonList;
-        Log.e("BUG", "fillRecycleView: "+list.size(),null );
+        Log.e("BUG", "fillRecycleView: " + list.size(), null);
         Collections.sort(list, comparator);
         historyAdapter = new HistoryAdapter(list);
         recyclerviewHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerviewHistory.setAdapter(historyAdapter);
     }
 
-    private void FillHoaDonAgain(){
-        Collections.sort(list, comparator);
-        historyAdapter = new HistoryAdapter(list);
-        recyclerviewHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerviewHistory.setAdapter(historyAdapter);
-    }
 
     private void anhXa(View view) {
         toolbarDanhMuc = view.findViewById(R.id.toolbar_DanhMuc);
@@ -113,7 +101,7 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_backNotify:
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
@@ -123,6 +111,6 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     @Override
     public void onStop() {
         super.onStop();
-        hoadonList=list;
+        hoadonList = list;
     }
 }

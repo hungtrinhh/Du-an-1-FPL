@@ -28,7 +28,7 @@ import com.example.myapplication.Fragment.fragDifferent.FragmentThongBao;
 import com.example.myapplication.Fragment.fragmentUserChild.fragment_EditProfile;
 import com.example.myapplication.Fragment.fragment_Login;
 import com.example.myapplication.R;
-
+import com.example.myapplication.Fragment.fragmentUserChild.*;
 
 public class fragment_User extends Fragment implements View.OnClickListener {
     private TextView tv_Username, tv_UserPhoneNumbers;
@@ -36,6 +36,8 @@ public class fragment_User extends Fragment implements View.OnClickListener {
     private LinearLayout btn_Notify, btn_CheckHistory, btn_Help, btn_Regulation, btn_PolicyAndPrivacy, btn_LogOut, btn_napTien;
     private ImageView avaterUserUserFrag;
     private final String TAG = "fragment_User";
+    private LinearLayout btnMyBookingHis;
+
 
     public fragment_User() {
 
@@ -109,6 +111,7 @@ public class fragment_User extends Fragment implements View.OnClickListener {
         btn_Help.setOnClickListener(this::onClick);
         btn_PolicyAndPrivacy.setOnClickListener(this::onClick);
         btn_Regulation.setOnClickListener(this::onClick);
+        btnMyBookingHis.setOnClickListener(this::onClick);
     }
 
     private void Anhxa(View view) {
@@ -123,6 +126,8 @@ public class fragment_User extends Fragment implements View.OnClickListener {
         layout_Username = view.findViewById(R.id.layout_Username);
         avaterUserUserFrag = view.findViewById(R.id.avaterUserUserFrag);
         btn_napTien = view.findViewById(R.id.btn_nap_tien);
+        btnMyBookingHis = view.findViewById(R.id.btn_MyBookingHis);
+
     }
 
     @Override
@@ -149,33 +154,37 @@ public class fragment_User extends Fragment implements View.OnClickListener {
                 dialog.show();
                 break;
             case R.id.layout_Username:
-                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
-                        .replace(R.id.fragment_container, new fragment_EditProfile()).commit();
+                Replace(new fragment_EditProfile());
                 break;
             case R.id.btn_nap_tien:
-                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
-                        .replace(R.id.fragment_container, new FragmentNapTien()).commit();
+                Replace(new FragmentNapTien());
                 break;
             case R.id.btn_Notify:
-                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
-                        .replace(R.id.fragment_container, new FragmentThongBao()).commit();
+                Replace(new FragmentThongBao());
                 break;
             case R.id.btn_CheckHistory:
-                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
-                        .replace(R.id.fragment_container, new FragmentLichSuGiaoDich()).commit();
+
+                Replace(new FragmentLichSuGiaoDich());
                 break;
             case R.id.btn_Help:
-                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
-                        .replace(R.id.fragment_container, new FragmentHelp()).commit();
+                Replace(new FragmentHelp());
                 break;
             case R.id.btn_PolicyAndPrivacy:
-                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
-                        .replace(R.id.fragment_container, new FragmentChinhSachBaoMat()).commit();
+                Replace(new FragmentChinhSachBaoMat());
                 break;
             case R.id.btn_Regulation:
-                getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
-                        .replace(R.id.fragment_container, new FragmentRegulation()).commit();
+                Replace(new FragmentRegulation());
                 break;
+            case R.id.btn_MyBookingHis:
+                Replace(new fragment_MybookingHistory());
+                break;
+
         }
+    }
+
+
+    private void Replace(Fragment fragment) {
+        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("")
+                .replace(R.id.fragment_container, fragment).commit();
     }
 }

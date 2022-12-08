@@ -118,11 +118,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
         layout_historyBook.setOnClickListener(this::onClick);
         btn_henGio.setOnClickListener(this::onClick);
 
-        if(count == 0){
-            btn_henGio.setEnabled(false);
-        }else{
-            btn_henGio.setEnabled(true);
-        }
+        btn_henGio.setEnabled(count != 0);
 
     }
 
@@ -419,13 +415,10 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                         boolean xet = true;
                         for(HoaDonHenGio item : donHenGioList){
 
-                            SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-
+                            SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                             try {
-
                                 Date b_date1 = b_fmtDay.parse(item.getTimeStart());
                                 Date b_date2 = b_fmtDay.parse(item.getTimeEnd());
-
                                 if(item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false){
                                     int ssDate_a1 = a_date1.compareTo(b_date1);
                                     int ssDate_a2 = a_date1.compareTo(b_date2);
@@ -433,7 +426,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                                     int ssDate_b1 = a_date2.compareTo(b_date1);
                                     int ssDate_b2 = a_date2.compareTo(b_date2);
 
-                                    if((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1>=0 && ssDate_b2 <=0)){
+                                    if((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1>=0 && ssDate_b2 <=0) || (a_date1.before(b_date1) && a_date2.after(b_date2))){
                                         xet = false;
                                         break;
                                     }

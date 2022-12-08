@@ -24,6 +24,7 @@ import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHoler> {
     private final List<Hoadon> list;
+
     public HistoryAdapter(List<Hoadon> list) {
         this.list = list;
         notifyDataSetChanged();
@@ -38,28 +39,31 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     @Override
     public void onBindViewHolder(@NonNull HistoryViewHoler holder, int position) {
-
+        if (list.get(position) == null) {
+            return;
+        }
         if (list.get(position).getClass().toString().equals(Hoadonnaptien.class.toString())) {
             Hoadonnaptien hoadonnaptien = (Hoadonnaptien) list.get(position);
-            if(hoadonnaptien.isTrangThai()){
+            if (hoadonnaptien.isTrangThai()) {
                 holder.imgHistory.setImageResource(R.drawable.ic_baseline_add_circle_24);
                 holder.tvLoaiGd.setText("Nạp tiền");
                 String pattern = "+ ###,###,### p";
                 DecimalFormat df = new DecimalFormat(pattern);
                 holder.tvGiaTien.setText(df.format(hoadonnaptien.getCost()));
                 holder.tvNgayGd.setText(hoadonnaptien.getDate());
-                holder.item_history.startAnimation(AnimationUtils.loadAnimation(holder.item_history.getContext(),R.anim.anim_item_history));
+                holder.item_history.startAnimation(AnimationUtils.loadAnimation(holder.item_history.getContext(), R.anim.anim_item_history));
             }
-        }else {
+        } else if (list.get(position).getClass().toString().equals(Hoadonchoigame.class.toString())) {
             Hoadonchoigame hoadonchoigame = (Hoadonchoigame) list.get(position);
             holder.imgHistory.setImageResource(R.drawable.ic_baseline_remove_circle_24);
             holder.tvLoaiGd.setText("Chơi game: " + FbDao.getNameGameFromID(Integer.parseInt(hoadonchoigame.getGameid())));
-            String pattern = "- ###,###,### p";
+            String pattern = "- ###,###,###,### p";
             DecimalFormat df = new DecimalFormat(pattern);
             holder.tvGiaTien.setText(df.format(hoadonchoigame.getCost()));
             holder.tvNgayGd.setText(hoadonchoigame.getDateStart());
-            holder.item_history.startAnimation(AnimationUtils.loadAnimation(holder.item_history.getContext(),R.anim.anim_item_history));
-
+            holder.item_history.startAnimation(AnimationUtils.loadAnimation(holder.item_history.getContext(), R.anim.anim_item_history));
+        } else {
+            return;
         }
     }
 
@@ -77,6 +81,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         private final TextView tvNgayGd;
         private final TextView tvGiaTien;
         private final LinearLayout item_history;
+
         public HistoryViewHoler(@NonNull View itemView) {
             super(itemView);
             item_history = itemView.findViewById(R.id.item_history);

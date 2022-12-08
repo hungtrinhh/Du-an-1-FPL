@@ -28,7 +28,7 @@ import com.example.myapplication.Model.Notify;
 import com.example.myapplication.Model.User;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
-import com.example.myapplication.Service.UpdateGameService;
+import com.example.myapplication.Service.UpdateService;
 
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +36,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -61,6 +62,7 @@ public class FbDao {
     public static List<Hoadon> hoadonList;
     public static FirebaseStorage storageFireBase;
     public static StorageReference avatatRef;
+
     private static final int[] imageAvatarGame = new int[]{R.drawable.game_ghost_house, R.drawable.game_bounce_house, R.drawable.racingcar, R.drawable.gun, R.drawable.game_nhun_nhay, R.drawable.game_bao_nha, R.drawable.game_jumping_house, R.drawable.game_cau_truot, R.drawable.game_suc_cac, R.drawable.game_xich_du};
 
 
@@ -68,8 +70,8 @@ public class FbDao {
 
     private static List<HoaDonHenGio> hoadonhenGioList;
     private static List<Hoadonchoigame> hoadonchoigameList;
-//    private static List<Hoadonchoigame> hoadonchoigameListRecently;     lấy hóa đơn chơi game của trò chơi đang chơi
 
+    //    private static List<Hoadonchoigame> hoadonchoigameListRecently;     lấy hóa đơn chơi game của trò chơi đang chơi
     public static List<Notify> getListNotify() {
         return listNotify;
     }
@@ -79,7 +81,6 @@ public class FbDao {
     }
 
     public static List<Hoadonchoigame> ListgamePlaying;
-
 
     public static List<Voucher> getListVoucher() {
         return listVoucher;
@@ -142,6 +143,16 @@ public class FbDao {
         return tenGame;
     }
 
+    public static Game getGameFromID(int id) {
+
+        for (Game game : listGame) {
+            if (game.getId() == id) {
+                return game;
+            }
+        }
+        return null;
+    }
+
     public static String getNameUserFromID(String id) {
         String userName = "";
         for (User item : listUser) {
@@ -200,12 +211,16 @@ public class FbDao {
         StorageReference avartarRef = avatatRef.child((UserLogin.getId()));
         final long FIRE_MEGABYTE = 1024 * 1024 * 5;
         avartarRef.getBytes(FIRE_MEGABYTE).addOnSuccessListener(bytes -> {
-            Log.e(TAG, "onSuccess:Loadavatar ", null);
-            Bitmap avatar = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
+            Bitmap avatar = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            Log.d(TAG, "LoadAvatarFromID: loaded");
             if (UserLogin.getAvatar() == null || !UserLogin.getAvatar().sameAs(avatar)) {
                 UserLogin.setAvatar(avatar);
+                LoadedAvatar = true;
+
+
             } else {
+
 
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.postDelayed(new Runnable() {
@@ -214,9 +229,8 @@ public class FbDao {
                         LoadAvatarFromID();
                     }
                 }, 1000);
-                return;
+
             }
-            LoadedAvatar = true;
         }).addOnFailureListener(exception -> {
             Log.e(TAG, "onFailure:Loadavatar ", null);
             LoadedAvatar = true;
@@ -288,7 +302,6 @@ public class FbDao {
     //hàm đọc về dữ liệu game
     private void ReadGame() {
         listGame = new ArrayList<>();
-
         DatabaseReference myRef = database.getReference("Game");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -305,7 +318,7 @@ public class FbDao {
                 }
                 setImgGame();
                 Log.d(TAG, "Đã nhận dữ liệu Game: ");
-                activity.startService(new Intent(activity, UpdateGameService.class));
+                activity.startService(new Intent(activity, UpdateService.class));
             }
 
             @Override
@@ -476,8 +489,11 @@ public class FbDao {
 
     public void ReadTimePlayGame() {
         hoadonhenGioList = new ArrayList<>();
-        DatabaseReference myRef = database.getReference("HoaDonHenGio");
-        myRef.addValueEventListener(new ValueEventListener() {
+        DatabaseReference myRef = database.getReference();
+
+        Query query = myRef.child("HoaDonHenGio").orderByChild("cancel").equalTo(false);
+
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 hoadonhenGioList.clear();
@@ -486,7 +502,9 @@ public class FbDao {
                     if (hd == null) {
                         continue;
                     }
+                    hd.setId(dataSnapshot.getKey());
                     hoadonhenGioList.add(hd);
+                    activity.startService(new Intent(activity, UpdateService.class));
                 }
             }
 
@@ -516,6 +534,25 @@ public class FbDao {
     public static void AddHoaDonHenGio(HoaDonHenGio hoaDonHenGio) {
         DatabaseReference myRef = database.getReference();
         myRef.child("HoaDonHenGio").push().setValue(hoaDonHenGio);
+    }
+
+    public static void HuyDatGio(HoaDonHenGio hoadon) {
+
+        DatabaseReference hoadonRef = database.getReference().child("HoaDonHenGio").child(hoadon.getId());
+        Map<String, Object> mapUpdateHoadon = new HashMap<>();
+        mapUpdateHoadon.put("cancel", true);
+
+        hoadonRef.updateChildren(mapUpdateHoadon, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+            }
+        });
+        DatabaseReference userRef = database.getReference().child("Users").child(UserLogin.getId());
+        Map<String, Object> mapUpdateUser = new HashMap<>();
+        mapUpdateUser.put("sodu", UserLogin.getSodu() + hoadon.getCost());
+        userRef.updateChildren(mapUpdateUser);
+
     }
 
     //hàm cập nhạt lại user

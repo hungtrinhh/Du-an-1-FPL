@@ -2,6 +2,10 @@ package com.example.myapplication.Fragment.fragmentMainChild;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -28,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -83,7 +88,6 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     public static boolean gochild = false;
     private boolean show = true;
     private final boolean chk = Fragment_ListDanhSachTroChoi.chk;
-    public static List<Hoadon> listHD;
 
     //khai báo view
     @Override
@@ -95,6 +99,13 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         return inflater.inflate(R.layout.fragment_trangchu, container, false);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
+    }
+
     private View viewContainer;
 
     public fragment_Trangchu() {
@@ -104,10 +115,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //lấy hóa đơn từ firebase
-        if (FbDao.hoadonList.size() != 0) {
-            listHD = FbDao.hoadonList;
-            Log.d(TAG, "onViewCreatedMAIN: " + listHD.size());
-        }
+
 
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         if (gochild) {
@@ -195,6 +203,14 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
 
     }
 
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            ShowListGame();
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -252,6 +268,9 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     }
 
     private void ShowListGame() {
+        if (recyclerView_game == null) {
+            return;
+        }
         listDanhSachGame = FbDao.getListGame();
         danhSachGameAdapter = new DanhSachGameAdapter(new OnclickItemGame() {
             @Override
@@ -292,7 +311,6 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
             dialog.dismiss();
         }
     }
-
 
 
     private void replaceFragment(Fragment fragment) {
@@ -359,6 +377,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
         checkQrcode();
         Log.d(TAG, "onResume: avatar" + FbDao.UserLogin.getAvatar());
         SetDataForView();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, new IntentFilter("UpdateService"));
     }
 
     @Override

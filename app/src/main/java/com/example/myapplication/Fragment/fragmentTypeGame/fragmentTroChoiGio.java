@@ -2,7 +2,6 @@
 package com.example.myapplication.Fragment.fragmentTypeGame;
 
 
-
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.Notification;
@@ -148,7 +147,8 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
 
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
     }
-    private void FillVoucher(){
+
+    private void FillVoucher() {
         voucherListGameChoose = new ArrayList<>();
         for (Voucher voucher : FbDao.getListVoucher()) {
             if (voucher.getLoaiGame() == game.getId() || voucher.getLoaiGame() == 0) {
@@ -215,23 +215,23 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 break;
             case R.id.btn_backToDSGame:
                 if (fragment_QRcode.check) {
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
-                }else {
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+                } else {
                     getActivity().getSupportFragmentManager().popBackStack();
 
                 }
                 break;
             case R.id.btn_play:
                 if (playTime_choose == null) {
-                    Snackbar snackbar = Snackbar.make(getView(),"Vui lòng chọn thời gian chơi",2000);
+                    Snackbar snackbar = Snackbar.make(getView(), "Vui lòng chọn thời gian chơi", 2000);
                     View snackbar_view = snackbar.getView();
                     TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
+                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.stop, 0);
                     snackbar.show();
                 } else {
 
                     sendNotifications();
-                    if(voucherChoose!=null){
+                    if (voucherChoose != null) {
                         for (Object idUser : voucherChoose.getListUserId()
                         ) {
                             if (idUser.equals(FbDao.UserLogin.getId())) {
@@ -242,8 +242,8 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                         }
                     }
                     if (fragment_QRcode.check) {
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
-                    }else {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+                    } else {
                         getActivity().getSupportFragmentManager().popBackStack();
 
                     }
@@ -276,7 +276,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                     if (playTime_choose.getId() == i) {
                         time = i + 1;
                         playingTimeMinutes += time;//gán giá trị tương ứng với số phút trên dánh sách
-                        if(playingTimeMinutes >= 60){
+                        if (playingTimeMinutes >= 60) {
                             int time_temp = playingTimeMinutes - 60;
                             playingTimeMinutes = time_temp;
                             playingTimeHours++;
@@ -289,7 +289,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                     if (playTime_choose.getId() == i) {
                         time = i + 1;
                         playingTimeMinutes += time;
-                        if(playingTimeMinutes >= 60){
+                        if (playingTimeMinutes >= 60) {
                             int time_temp = playingTimeMinutes - 60;
                             playingTimeMinutes = time_temp;
                             playingTimeHours++;
@@ -306,9 +306,9 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     }
 
     //hàm nhận và gửi thông báo
-    private void sendNotifications(){
+    private void sendNotifications() {
 
-        if(playingTimeHours == 24){
+        if (playingTimeHours == 24) {
             playingTimeHours = 0;
         }
 
@@ -318,36 +318,38 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         //tạo lớp lưu giờ khi người dùng chọn
         Calendar calendar1 = Calendar.getInstance();//đối tượng lưu thời gian hiện tại
         calendar1.setTimeInMillis(System.currentTimeMillis());
-        calendar1.set(Calendar.HOUR_OF_DAY,presentTimeHours);
-        calendar1.set(Calendar.MINUTE,presentTimeMinutes);
-        Date date1 = new Date();
-        date1.setTime(calendar1.getTimeInMillis());
+        calendar1.set(Calendar.HOUR_OF_DAY, presentTimeHours);
+        calendar1.set(Calendar.MINUTE, presentTimeMinutes);
+        Date timeStart = new Date();
+        timeStart.setTime(calendar1.getTimeInMillis());
 
         Calendar calendar2 = Calendar.getInstance();//đối tượng lưu thời gian chơi
         calendar2.setTimeInMillis(System.currentTimeMillis());
-        calendar2.set(Calendar.HOUR_OF_DAY,playingTimeHours);
-        calendar2.set(Calendar.MINUTE,playingTimeMinutes);
-        Date date2 = new Date();
-        date2.setTime(calendar2.getTimeInMillis());
+        calendar2.set(Calendar.HOUR_OF_DAY, playingTimeHours);
+        calendar2.set(Calendar.MINUTE, playingTimeMinutes);
+        Date timeEnd = new Date();
+        timeEnd.setTime(calendar2.getTimeInMillis());
 
         List<HoaDonHenGio> donHenGioList = FbDao.getListHoaDonHenGio();
         boolean xet = true;
-        for(HoaDonHenGio item : donHenGioList){
+        for (HoaDonHenGio item : donHenGioList) {
             SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
             try {
 
                 Date b_date1 = b_fmtDay.parse(item.getTimeStart());
                 Date b_date2 = b_fmtDay.parse(item.getTimeEnd());
 
-                if(item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false){
-                    int ssDate_a1 = date1.compareTo(b_date1);
-                    int ssDate_a2 = date1.compareTo(b_date2);
+                if (item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false) {
+                    int ssDate_a1 = timeStart.compareTo(b_date1);
+                    int ssDate_a2 = timeStart.compareTo(b_date2);
 
-                    int ssDate_b1 = date2.compareTo(b_date1);
-                    int ssDate_b2 = date2.compareTo(b_date2);
+                    int ssDate_b1 = timeEnd.compareTo(b_date1);
+                    int ssDate_b2 = timeEnd.compareTo(b_date2);
 
-                    if((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1>=0 && ssDate_b2 <=0)){
+
+                    if ((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1 >= 0 && ssDate_b2 <= 0) || (timeStart.before(b_date1) && timeEnd.after(b_date2))) {
+
+
                         xet = false;
                         break;
                     }
@@ -358,24 +360,24 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
             }
 
         }
-        if(xet){
+        if (xet) {
             String string_presentHours = presentTimeHours < 10 ? "0" + presentTimeHours : String.valueOf(presentTimeHours);
             String string_presentMinutes = presentTimeMinutes < 10 ? "0" + presentTimeMinutes : String.valueOf(presentTimeMinutes);
-            String string_presentTime = string_presentHours+":"+string_presentMinutes;
+            String string_presentTime = string_presentHours + ":" + string_presentMinutes;
 
             String string_playingHours = playingTimeHours < 10 ? "0" + playingTimeHours : String.valueOf(playingTimeHours);
             String string_playingMinutes = playingTimeMinutes < 10 ? "0" + playingTimeMinutes : String.valueOf(playingTimeMinutes);
-            String string_playingTime = string_playingHours+":"+string_playingMinutes;
+            String string_playingTime = string_playingHours + ":" + string_playingMinutes;
 
             int imgGame = game.getImgGame();
             String gameName = game.getTenGame();
 
-            Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(),imgGame);
-            Bitmap imgApp = BitmapFactory.decodeResource(getActivity().getResources(),R.drawable.logo2);
+            Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(), imgGame);
+            Bitmap imgApp = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.logo2);
             Notification notification = new NotificationCompat.Builder(getActivity(), ChannelTB.CHANNEL_ID) // khai báo compat
                     .setLargeIcon(imgApp)
-                    .setContentTitle("Bắt đầu chơi : "+gameName+"")
-                    .setContentText("Thời gian "+string_presentTime+" đến "+string_playingTime+"")
+                    .setContentTitle("Bắt đầu chơi : " + gameName + "")
+                    .setContentText("Thời gian " + string_presentTime + " đến " + string_playingTime + "")
                     .setSmallIcon(R.drawable.logo2)
                     .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))
                     .build();
@@ -385,19 +387,19 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
             //nhận thông báo gửi đến cho service
             Intent intent = new Intent(getActivity(), ThongBao.class);
             intent.setAction("MyAction");
-            intent.putExtra("time",string_playingTime);
-            intent.putExtra("game",game);
-            pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_IMMUTABLE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP,calendar2.getTimeInMillis(),pendingIntent);
+            intent.putExtra("time", string_playingTime);
+            intent.putExtra("game", game);
+            pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), pendingIntent);
 
             FbDao dao = new FbDao();
             dao.PlaygameGio(time, game.getId() + "", total);
             FbDao.Thanhtoantien(total);
-        }else{
-            Snackbar snackbar = Snackbar.make(getView(),"Khung giờ này đã có người đặt. Vui lòng chọn game khác",2000);
+        } else {
+            Snackbar snackbar = Snackbar.make(getView(), "Khung giờ này đã có người đặt. Vui lòng chọn game khác", 2000);
             View snackbar_view = snackbar.getView();
             TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
-            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.stop, 0);
             snackbar.show();
         }
 
