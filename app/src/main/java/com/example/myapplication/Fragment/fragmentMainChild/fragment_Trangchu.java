@@ -88,7 +88,6 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     public static boolean gochild = false;
     private boolean show = true;
     private final boolean chk = Fragment_ListDanhSachTroChoi.chk;
-    public static List<Hoadon> listHD;
 
     //khai báo view
     @Override
@@ -116,10 +115,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //lấy hóa đơn từ firebase
-        if (FbDao.hoadonList.size() != 0) {
-            listHD = FbDao.hoadonList;
-            Log.d(TAG, "onViewCreatedMAIN: " + listHD.size());
-        }
+
 
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         if (gochild) {
@@ -272,6 +268,9 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
     }
 
     private void ShowListGame() {
+        if (recyclerView_game == null) {
+            return;
+        }
         listDanhSachGame = FbDao.getListGame();
         danhSachGameAdapter = new DanhSachGameAdapter(new OnclickItemGame() {
             @Override
