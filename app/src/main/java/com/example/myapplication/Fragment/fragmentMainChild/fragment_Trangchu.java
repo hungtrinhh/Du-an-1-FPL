@@ -120,7 +120,7 @@ public class fragment_Trangchu extends Fragment implements View.OnClickListener 
             listHD = FbDao.hoadonList;
             Log.d(TAG, "onViewCreatedMAIN: " + listHD.size());
         }
-        FbDao.HuyDatGio();
+
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         if (gochild) {
             replaceFragment(new Fragment_ListDanhSachTroChoi());

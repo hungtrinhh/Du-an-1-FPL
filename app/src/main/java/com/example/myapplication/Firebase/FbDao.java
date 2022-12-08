@@ -70,20 +70,26 @@ public class FbDao {
 
     private static List<HoaDonHenGio> hoadonhenGioList;
     private static List<Hoadonchoigame> hoadonchoigameList;
-//    private static List<Hoadonchoigame> hoadonchoigameListRecently;     lấy hóa đơn chơi game của trò chơi đang chơi
+
+    //    private static List<Hoadonchoigame> hoadonchoigameListRecently;     lấy hóa đơn chơi game của trò chơi đang chơi
     public static List<Notify> getListNotify() {
         return listNotify;
     }
+
     public static List<Game> getListGame() {
         return listGame;
     }
+
     public static List<Hoadonchoigame> ListgamePlaying;
+
     public static List<Voucher> getListVoucher() {
         return listVoucher;
     }
+
     public static java.util.List<User> getList() {
         return listUser;
     }
+
     public static List<HoaDonHenGio> getListHoaDonHenGio() {
         return hoadonhenGioList;
     }
@@ -207,11 +213,10 @@ public class FbDao {
         avartarRef.getBytes(FIRE_MEGABYTE).addOnSuccessListener(bytes -> {
 
             Bitmap avatar = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
+            Log.d(TAG, "LoadAvatarFromID: loaded");
             if (UserLogin.getAvatar() == null || !UserLogin.getAvatar().sameAs(avatar)) {
                 UserLogin.setAvatar(avatar);
                 LoadedAvatar = true;
-
 
 
             } else {
@@ -497,6 +502,7 @@ public class FbDao {
                     if (hd == null) {
                         continue;
                     }
+                    hd.setId(dataSnapshot.getKey());
                     hoadonhenGioList.add(hd);
                     activity.startService(new Intent(activity, UpdateService.class));
                 }
@@ -530,24 +536,22 @@ public class FbDao {
         myRef.child("HoaDonHenGio").push().setValue(hoaDonHenGio);
     }
 
-    public static void HuyDatGio() {
-        DatabaseReference myRef = database.getReference();
-        Map<String, Object> map = new HashMap<>();
-        map.put("cancel", false);
-        Query query = myRef.child("HoaDonHenGio").orderByChild("cancel").equalTo(false);
+    public static void HuyDatGio(HoaDonHenGio hoadon) {
 
-        query.addValueEventListener(new ValueEventListener() {
+        DatabaseReference hoadonRef = database.getReference().child("HoaDonHenGio").child(hoadon.getId());
+        Map<String, Object> mapUpdateHoadon = new HashMap<>();
+        mapUpdateHoadon.put("cancel", true);
+
+        hoadonRef.updateChildren(mapUpdateHoadon, new DatabaseReference.CompletionListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
 
             }
         });
-
+        DatabaseReference userRef = database.getReference().child("Users").child(UserLogin.getId());
+        Map<String, Object> mapUpdateUser = new HashMap<>();
+        mapUpdateUser.put("sodu", UserLogin.getSodu() + hoadon.getCost());
+        userRef.updateChildren(mapUpdateUser);
 
     }
 

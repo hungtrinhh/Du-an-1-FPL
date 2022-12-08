@@ -1,23 +1,33 @@
 package com.example.myapplication.Model;
 
-public class HoaDonHenGio extends Hoadon{
+public class HoaDonHenGio extends Hoadon {
     private String userId;
     private String timeStart;
     private String timeEnd;
     private boolean isSuccess = false;
     private boolean isCancel = false;
     private String Gameid;
+    private String id;
 
     public HoaDonHenGio() {
     }
 
-    public HoaDonHenGio(float cost, String userId, String timeStart, String timeEnd,String gameid) {
+    public HoaDonHenGio(float cost, String userId, String timeStart, String timeEnd, String gameid) {
         super(cost);
         this.userId = userId;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.Gameid = gameid;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     public String getUserId() {
         return userId;

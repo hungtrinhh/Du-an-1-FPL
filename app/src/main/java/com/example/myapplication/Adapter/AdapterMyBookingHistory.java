@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chauthai.swipereveallayout.SwipeRevealLayout;
+import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.HoaDonHenGio;
@@ -26,6 +28,7 @@ public class AdapterMyBookingHistory extends RecyclerView.Adapter<AdapterMyBooki
 
 
     List<HoaDonHenGio> donHenGioList;
+    ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
     public AdapterMyBookingHistory(List<HoaDonHenGio> HenGioList) {
         Date date = new Date();
@@ -57,10 +60,9 @@ public class AdapterMyBookingHistory extends RecyclerView.Adapter<AdapterMyBooki
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         HoaDonHenGio donHenGio = donHenGioList.get(position);
 
-
-
         Game game = FbDao.getGameFromID(Integer.parseInt(donHenGio.getGameid()));
-
+        viewBinderHelper.bind(holder.swipeRevealLayout, donHenGio.getId());
+        viewBinderHelper.setOpenOnlyOne(true);
 
         holder.imgAvatarofGame.setImageResource(game.getImgGame());
         holder.tvDateStartCancel.setText("Từ: " + donHenGio.getTimeStart());
@@ -68,7 +70,9 @@ public class AdapterMyBookingHistory extends RecyclerView.Adapter<AdapterMyBooki
         holder.tvNameOfGameCancel.setText("Trò chơi: " + game.getTenGame());
 
         holder.btnDeleteMyHis.setOnClickListener(v -> {
-            Toast.makeText(holder.btnDeleteMyHis.getContext(), game.getTenGame(), Toast.LENGTH_SHORT).show();
+            FbDao.HuyDatGio(donHenGio);
+            donHenGioList.remove(donHenGio);
+            notifyItemRemoved(position);
 
         });
     }
@@ -78,7 +82,6 @@ public class AdapterMyBookingHistory extends RecyclerView.Adapter<AdapterMyBooki
         if (donHenGioList != null) {
             return donHenGioList.size();
         }
-
         return 0;
     }
 
@@ -88,7 +91,7 @@ public class AdapterMyBookingHistory extends RecyclerView.Adapter<AdapterMyBooki
         private final TextView tvNameOfGameCancel;
         private final TextView tvDateStartCancel;
         private final TextView tvDateEndCancle;
-
+        private final SwipeRevealLayout swipeRevealLayout;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
@@ -98,7 +101,7 @@ public class AdapterMyBookingHistory extends RecyclerView.Adapter<AdapterMyBooki
             tvNameOfGameCancel = itemView.findViewById(R.id.tv_nameOfGameCancel);
             tvDateStartCancel = itemView.findViewById(R.id.tv_dateStartCancel);
             tvDateEndCancle = itemView.findViewById(R.id.tv_dateEndCancle);
-
+            swipeRevealLayout = itemView.findViewById(R.id.lauoutchauthai);
 
         }
     }

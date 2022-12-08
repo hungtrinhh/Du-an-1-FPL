@@ -13,16 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.myapplication.Adapter.AdapterMyBookingHistory;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.R;
 
 
-public class fragment_MybookingHistory extends Fragment {
+public class fragment_MybookingHistory extends Fragment implements View.OnClickListener {
 
     private RecyclerView recyclerviewMyBookinghis;
     private ImageView btnBackFromMybooking;
-
 
 
     public fragment_MybookingHistory() {
@@ -44,20 +44,22 @@ public class fragment_MybookingHistory extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment__mybooking_history, container, false);
     }
 
     private void Anhxa(View view) {
         recyclerviewMyBookinghis = view.findViewById(R.id.recyclerview_myBookinghis);
         btnBackFromMybooking = view.findViewById(R.id.btnBack_fromMybooking);
-
+        btnBackFromMybooking.setOnClickListener(this::onClick);
     }
 
     private void FildataForView() {
         AdapterMyBookingHistory adapter = new AdapterMyBookingHistory(FbDao.getListHoaDonHenGio());
         recyclerviewMyBookinghis.setAdapter(adapter);
-        recyclerviewMyBookinghis.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        recyclerviewMyBookinghis.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+
     }
 
     @Override
@@ -65,6 +67,19 @@ public class fragment_MybookingHistory extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
         FildataForView();
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnBack_fromMybooking:
+                getActivity().getSupportFragmentManager().popBackStack();
+                break;
+
+
+        }
+
 
     }
 }
