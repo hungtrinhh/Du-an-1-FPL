@@ -117,9 +117,8 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
         choose_voucher.setOnClickListener(this::onClick);
         layout_historyBook.setOnClickListener(this::onClick);
         btn_henGio.setOnClickListener(this::onClick);
-
         btn_henGio.setEnabled(count != 0);
-
+        checkBtndis();
     }
 
     private void AnhXa(View view) {
