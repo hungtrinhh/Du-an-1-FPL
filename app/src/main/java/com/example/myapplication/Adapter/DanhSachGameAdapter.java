@@ -51,7 +51,7 @@ public class DanhSachGameAdapter extends RecyclerView.Adapter<DanhSachGameAdapte
         holder.tvTrangThai.setText(game.getTrangThai());
 
         holder.img_AvatarGame.setImageResource(game.getImgGame());
-        if (game.getTrangThai().equalsIgnoreCase("Bảo Trì")) {
+        if (game.getTrangThai().equalsIgnoreCase("Bảo trì")) {
             holder.tvTrangThai.setTextColor(Color.parseColor("#E04119"));
 
         } else if (game.getTrangThai().equalsIgnoreCase("Đang được chơi")) {

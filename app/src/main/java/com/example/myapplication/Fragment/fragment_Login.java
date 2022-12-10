@@ -55,6 +55,9 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        viewFrag = view;
         //gọi hàm ánh xạ(truyền view để tìm id trong view đó)
         Anhxa(view);
         //gọi hàm animation (truyền vào các tham số)
@@ -66,6 +69,82 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         tv_GoToRegister.setOnClickListener(this::onClick);
         tv_FogotPassword.setOnClickListener(this::onClick);
         imgHidePassword.setOnClickListener(this::onClick);
+        Login();
+    }
+
+    private void Login() {
+        SharedPreferences s = getActivity().getSharedPreferences("account", Context.MODE_PRIVATE);
+        ed_Username.setText(s.getString("Username", ""));
+        ed_Password.setText(s.getString("Password", ""));
+        String username = ed_Username.getText().toString();
+        String password = ed_Password.getText().toString();
+        if (username.equals("") || password.equals("")) {
+            return;
+        }
+        if (username.equals("") || password.equals("")) {
+            Snackbar snackbar = Snackbar.make(viewFrag, "Không được để trống tài khoản và mật khẩu", 2000);
+            View snackbar_view = snackbar.getView();
+            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.angry, 0);
+            snackbar.show();
+            return;
+        }
+
+        boolean dk = false;
+        for (User u : list
+        ) {
+            if (username.equals(u.getName()) && password.equals(u.getPassword())) {
+                dk = true;
+                DialogLoading.dialogLoading.show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        saveAccount();
+
+                        FbDao.Login(u.getId());
+                        while (!FbDao.Login) {
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        FbDao.LoadAvatarFromID();
+
+                        while (!FbDao.LoadedAvatar) {
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        while (!FbDao.LoadedVoucher) {
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        FbDao.LoadedVoucher = false;
+                        FbDao.LoadedAvatar = false;
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
+
+                    }
+                }).start();
+
+                return;
+            }
+        }
+        if (!dk) {
+            Snackbar snackbar = Snackbar.make(viewFrag, "Mật khẩu hoặc tài khoản không đúng", 2000);
+            View snackbar_view = snackbar.getView();
+            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.thinking, 0);
+            snackbar.show();
+        }
+
+
     }
 
 
@@ -93,10 +172,15 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_Login:
+
                 String username = ed_Username.getText().toString();
                 String password = ed_Password.getText().toString();
                 if (username.equals("") || password.equals("")) {
-                    Snackbar.make(getView(), "Không được để trống tài khoản và mật khẩu", 2000).show();
+                    Snackbar snackbar = Snackbar.make(viewFrag, "Không được để trống tài khoản và mật khẩu", 2000);
+                    View snackbar_view = snackbar.getView();
+                    TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.angry, 0);
+                    snackbar.show();
                     break;
                 }
 
@@ -105,30 +189,38 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                 ) {
                     if (username.equals(u.getName()) && password.equals(u.getPassword())) {
                         dk = true;
-                        FbDao.UserLogin = u;
-                        FbDao.LoadAvatarFromID();
-                        saveAccount();
-
-
-                            DialogLoading.dialogLoading.show();
-
-
-
+                        DialogLoading.dialogLoading.show();
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
+                                saveAccount();
 
-                                while (!FbDao.LoadedAvatar) {
+                                FbDao.Login(u.getId());
+                                while (!FbDao.Login) {
                                     try {
-                                        Thread.sleep(200);
-
+                                        Thread.sleep(300);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
-
                                 }
-                                FbDao.LoadedAvatar = false;
-                                Log.d(TAG, "run: go to home" + FbDao.UserLogin.getAvatar());
+
+                                FbDao.LoadAvatarFromID();
+
+                                while (!FbDao.LoadedAvatar) {
+                                    try {
+                                        Thread.sleep(300);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                while (!FbDao.LoadedVoucher) {
+                                    try {
+                                        Thread.sleep(300);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
                                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Main()).commit();
 
                             }
@@ -138,10 +230,12 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
                     }
                 }
                 if (!dk) {
-                    Snackbar.make(getView(), "Mật khẩu hoặc tài khoản không đúng", 2000).show();
+                    Snackbar snackbar = Snackbar.make(viewFrag, "Mật khẩu hoặc tài khoản không đúng", 2000);
+                    View snackbar_view = snackbar.getView();
+                    TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.thinking, 0);
+                    snackbar.show();
                 }
-
-
                 break;
 
             case R.id.tv_GoToRegister:
@@ -163,6 +257,7 @@ public class fragment_Login extends Fragment implements View.OnClickListener {
         }
     }
 
+    private View viewFrag = null;
 
     // khai báo hàm animation
     private void animation(LinearLayout layoutLogoWhite, EditText edEmailLogin, EditText edPasswordLogin, AppCompatButton btnLogin, TextView btnGoToRegister, TextView tvFogotPassword) {

@@ -15,12 +15,14 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.Adapter.GameUuDaiHorizontalAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
@@ -33,6 +35,8 @@ import com.example.myapplication.Model.Game;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
 import com.example.myapplication.Interface.OnclickItemGame;
+import com.example.myapplication.Service.UpdateGameService;
+import com.google.firebase.database.FirebaseDatabase;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
@@ -55,6 +59,8 @@ public class fragment_Uudai extends Fragment {
     private List<Voucher> listVoucherGameName;
     private static final String TAG = "ReadVoucher";
     private GameUuDaiHorizontalAdapter gameUuDaiHorizontalAdapter;
+    public static List<Game> listGame2;
+    public static List<Voucher> voucherList2;
 
     //    scroll view dạng horizontal
     public fragment_Uudai() {
@@ -82,12 +88,21 @@ public class fragment_Uudai extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AnhXa(view);
-        FillRecycleViewVoucher();
-        FillRecycleViewGame();
+        if (FbDao.getListGame().size()==0&&FbDao.getListVoucher().size()==0){
+            voucherList=voucherList2;
+            listGame = listGame2;
+            FillGameAgain();
+            FillVoucherAgain();
+        }else {
+            FillRecycleViewVoucher();
+            FillRecycleViewGame();
+        }
+
         showAllVoucher();
         showAllGame();
         searchVoucher();
         Log.d(TAG, "onViewCreated: " + voucherList.size());
+
 
         animation(imageSlider);
 
@@ -96,6 +111,7 @@ public class fragment_Uudai extends Fragment {
         SliderAdapter adapter = new SliderAdapter(img);
         // set lên slideAdapter
         imageSlider.setSliderAdapter(adapter);
+
     }
 
     @Override
@@ -107,6 +123,8 @@ public class fragment_Uudai extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        listGame2=listGame;
+        voucherList2=voucherList;
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(broadcastReceiver);
     }
 
@@ -157,6 +175,25 @@ public class fragment_Uudai extends Fragment {
         recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerviewVoucher.setAdapter(voucherHorizontalAdapter);
     }
+
+    public void FillVoucherAgain(){
+        Collections.sort(voucherList, new Comparator<Voucher>() {
+            @Override
+            public int compare(Voucher voucher, Voucher t1) {
+                if (voucher.getGiamGia() == t1.getGiamGia()) {
+                    return 0;
+                }
+                if (voucher.getGiamGia() > t1.getGiamGia()) {
+                    return 1;
+                }
+                return -1;
+            }
+        });
+        voucherHorizontalAdapter = new VoucherHorizontalAdapter(getActivity());
+        voucherHorizontalAdapter.setListDanhSachVoucher(voucherList);
+        recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerviewVoucher.setAdapter(voucherHorizontalAdapter);
+    }
     /////////////
 
     public void showAllGame() {
@@ -178,6 +215,18 @@ public class fragment_Uudai extends Fragment {
 
     public void FillRecycleViewGame() {
         listGame = FbDao.getListGame();
+        gameUuDaiHorizontalAdapter = new GameUuDaiHorizontalAdapter(getActivity(), new OnclickItemGame() {
+            @Override
+            public void onclickItemGame(Game game) {
+                showVocheNameGame(game);
+            }
+        });
+        gameUuDaiHorizontalAdapter.setListDanhSachGame(listGame);
+        recyclerViewGame.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewGame.setAdapter(gameUuDaiHorizontalAdapter);
+    }
+
+    public void FillGameAgain(){
         gameUuDaiHorizontalAdapter = new GameUuDaiHorizontalAdapter(getActivity(), new OnclickItemGame() {
             @Override
             public void onclickItemGame(Game game) {
@@ -264,4 +313,5 @@ public class fragment_Uudai extends Fragment {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, Fragment_ListGameUuDai.newInstance()).addToBackStack(fragment_Uudai.TAG).commit();
     }
+
 }

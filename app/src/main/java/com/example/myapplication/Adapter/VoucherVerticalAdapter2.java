@@ -26,7 +26,7 @@ public class VoucherVerticalAdapter2 extends RecyclerView.Adapter<VoucherVertica
     private List<Voucher> listDanhSachVoucher;
     private List<Game> listGame;
     private Context context;
-    private fragment_Uudai fragment_uudai = new fragment_Uudai();
+    private final fragment_Uudai fragment_uudai = new fragment_Uudai();
     private OnClickUseNow onClickUseNow;
 
     public OnClickUseNow getOnClickUseNow() {
@@ -41,11 +41,11 @@ public class VoucherVerticalAdapter2 extends RecyclerView.Adapter<VoucherVertica
     }
 
     public String getTenGame(int id) {
-        String tenGame = "% Cho Mọi Loại Game";
+        String tenGame = "% cho mọi loại Game";
         listGame = FbDao.getListGame();
         for (Game game : listGame) {
             if (game.getId() == id) {
-                tenGame = "% Cho Game " + game.getTenGame();
+                tenGame = "% cho Game " + game.getTenGame();
             }
         }
         return tenGame;
@@ -94,7 +94,7 @@ public class VoucherVerticalAdapter2 extends RecyclerView.Adapter<VoucherVertica
         private final TextView tv_MaVoucher;
         private final TextView tv_TieuDeVoucher;
         private final LinearLayout linearLayout_voucher;
-        private TextView tv_useNow;
+        private final TextView tv_useNow;
         public VoucherViewHoler2(@NonNull View itemView) {
             super(itemView);
             imageView2 = itemView.findViewById(R.id.imageView2);

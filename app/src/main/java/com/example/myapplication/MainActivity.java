@@ -12,10 +12,8 @@ import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragDifferent.fragment_SplashScreen;
 import com.example.myapplication.BroadcastReciver.ReciverCheckingInternet;
-import com.example.myapplication.Model.Game;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.myapplication.Dialog.*;
 
 public class MainActivity extends AppCompatActivity {
     public static AlertDialog alertDialog;
@@ -38,11 +36,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        DialogLoading dialogLoading= new DialogLoading(this);
+        DialogLoading dialogLoading = new DialogLoading(this);
         dialogLoading.Create();
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(broadcastReceiver, filter);
         new FbDao(this);
+        DialogCountdown dialogCountdown = new DialogCountdown(this);
+      dialogCountdown.Create();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         //         Toast de thoat
 //        if (backPressedTime + 2000 > System.currentTimeMillis()) {
 //            mToast.cancel();
-          super.onBackPressed();
+        super.onBackPressed();
 //            return;
 //        } else {
 //            mToast = Toast.makeText(MainActivity.this, R.string.backPressed, Toast.LENGTH_SHORT);
@@ -66,5 +66,4 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         unregisterReceiver(broadcastReceiver);
     }
-
 }

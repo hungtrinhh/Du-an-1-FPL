@@ -15,17 +15,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +40,8 @@ import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Fragment.fragmentMainChild.fragment_Trangchu;
 import com.example.myapplication.Fragment.fragment_Main;
 import com.example.myapplication.Model.Game;
+import com.example.myapplication.Model.HoaDonHenGio;
+import com.example.myapplication.Model.Hoadonchoigame;
 import com.example.myapplication.Model.PlayTime;
 import com.example.myapplication.Model.Voucher;
 import com.example.myapplication.R;
@@ -52,6 +51,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.example.myapplication.Fragment.fragDifferent.*;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -70,8 +71,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private VoucherVerticalAdapter voucherVerticalAdapter;
     private ListThoiGianAdapter listThoiGianAdapter;
     private final List<PlayTime> list = new ArrayList<>();
-    private List<Voucher> listVoucher;
-    private final List<Voucher> voucherListGameChoose = new ArrayList<>();
+    private List<Voucher> voucherListGameChoose;
     private ImageView close_dialog, backToDSGame;
     private Dialog dialog;
     private Voucher voucherChoose;
@@ -80,7 +80,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private float total = 0;
     private Game game;
     private final int[] arr = {R.drawable.time5, R.drawable.time10, R.drawable.time15, R.drawable.time20, R.drawable.time25, R.drawable.time30, R.drawable.time35, R.drawable.time40, R.drawable.time45, R.drawable.time50, R.drawable.time55, R.drawable.time60};
-    private final int[] arrTime = {5,10,15,20,25,30,35,40,45,50,55,60};//mảng thời gian tính theo phút
+    //private final int[] arrTime = {5,10,15,20,25,30,35,40,45,50,55,60};//mảng thời gian tính theo phút
     private float sale;
     String pattern = "###,### Poin";
     DecimalFormat df = new DecimalFormat(pattern);
@@ -88,8 +88,8 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     private int time;
 
     //thời gian hệ thống ( hiện tại )
-    private int presentTimeHours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-    private int presentTimeMinutes = Calendar.getInstance().get(Calendar.MINUTE);
+    private final int presentTimeHours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+    private final int presentTimeMinutes = Calendar.getInstance().get(Calendar.MINUTE);
 
     //thời gian hệ thống ( khi chơi )
     private int playingTimeHours = presentTimeHours;//gán trc giá trị là giờ của hệ thống
@@ -98,6 +98,8 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     //lớp gửi , nhận thông báo
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
+    private List<Hoadonchoigame> hoadonchoigameList;
+
 
     public static fragmentTroChoiGio newInstance() {
         fragmentTroChoiGio fragment = new fragmentTroChoiGio();
@@ -128,6 +130,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         choose_voucher.setOnClickListener(this::onClick);
         backToDSGame.setOnClickListener(this::onClick);
         btn_play.setOnClickListener(this::onClick);
+
     }
 
     private void AnhXa(View view) {
@@ -142,16 +145,20 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         btn_play = view.findViewById(R.id.btn_play);
         imgGame = view.findViewById(R.id.imgGame);
         btn_play.setEnabled(false);
+
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
     }
-
-    private void ShowListVoucher() {
-        listVoucher = FbDao.getListVoucher();
-        for (Voucher voucher : listVoucher) {
+    private void FillVoucher(){
+        voucherListGameChoose = new ArrayList<>();
+        for (Voucher voucher : FbDao.getListVoucher()) {
             if (voucher.getLoaiGame() == game.getId() || voucher.getLoaiGame() == 0) {
                 voucherListGameChoose.add(voucher);
             }
         }
+    }
+
+    private void ShowListVoucher() {
+        FillVoucher();
         voucherVerticalAdapter = new VoucherVerticalAdapter(new OnclickItemVoucher() {
             @Override
             public void onclickItemVoucher(Voucher voucher) {
@@ -208,7 +215,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 break;
             case R.id.btn_backToDSGame:
                 if (fragment_QRcode.check) {
-                   getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
                 }else {
                     getActivity().getSupportFragmentManager().popBackStack();
 
@@ -216,12 +223,24 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 break;
             case R.id.btn_play:
                 if (playTime_choose == null) {
-                    Snackbar.make(getView(), "Vui lòng chọn thời gian chơi", 2000).show();
+                    Snackbar snackbar = Snackbar.make(getView(),"Vui lòng chọn thời gian chơi",2000);
+                    View snackbar_view = snackbar.getView();
+                    TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+                    tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
+                    snackbar.show();
                 } else {
+
                     sendNotifications();
-                    FbDao dao = new FbDao();
-                    dao.PlaygameGio(time, game.getId() + "", total);
-                    FbDao.Thanhtoantien(total);
+                    if(voucherChoose!=null){
+                        for (Object idUser : voucherChoose.getListUserId()
+                        ) {
+                            if (idUser.equals(FbDao.UserLogin.getId())) {
+                                voucherChoose.getListUserId().remove(idUser);
+                                FbDao.UpdateVoucher(voucherChoose);
+                                break;
+                            }
+                        }
+                    }
                     if (fragment_QRcode.check) {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_Main()).commit();
                     }else {
@@ -231,6 +250,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
 
                 }
                 break;
+
         }
     }
 
@@ -255,9 +275,9 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 for (int i = 0; i < arr.length; i++) {
                     if (playTime_choose.getId() == i) {
                         time = i + 1;
-                        playingTimeMinutes += arrTime[i];//gán giá trị tương ứng với số phút trên dánh sách
+                        playingTimeMinutes += time;//gán giá trị tương ứng với số phút trên dánh sách
                         if(playingTimeMinutes >= 60){
-                            int time_temp = playingTimeMinutes - arrTime[i];
+                            int time_temp = playingTimeMinutes - 60;
                             playingTimeMinutes = time_temp;
                             playingTimeHours++;
                         }
@@ -268,8 +288,9 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                 for (int i = 0; i < arr.length; i++) {
                     if (playTime_choose.getId() == i) {
                         time = i + 1;
+                        playingTimeMinutes += time;
                         if(playingTimeMinutes >= 60){
-                            int time_temp = playingTimeMinutes - arrTime[i];
+                            int time_temp = playingTimeMinutes - 60;
                             playingTimeMinutes = time_temp;
                             playingTimeHours++;
                         }
@@ -299,43 +320,88 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
         calendar1.setTimeInMillis(System.currentTimeMillis());
         calendar1.set(Calendar.HOUR_OF_DAY,presentTimeHours);
         calendar1.set(Calendar.MINUTE,presentTimeMinutes);
+        Date date1 = new Date();
+        date1.setTime(calendar1.getTimeInMillis());
 
         Calendar calendar2 = Calendar.getInstance();//đối tượng lưu thời gian chơi
         calendar2.setTimeInMillis(System.currentTimeMillis());
         calendar2.set(Calendar.HOUR_OF_DAY,playingTimeHours);
         calendar2.set(Calendar.MINUTE,playingTimeMinutes);
+        Date date2 = new Date();
+        date2.setTime(calendar2.getTimeInMillis());
 
-        String string_presentHours = presentTimeHours < 10 ? String.valueOf("0"+presentTimeHours) : String.valueOf(presentTimeHours);
-        String string_presentMinutes = presentTimeMinutes < 10 ? String.valueOf("0"+presentTimeMinutes) : String.valueOf(presentTimeMinutes);
-        String string_presentTime = string_presentHours+":"+string_presentMinutes;
+        List<HoaDonHenGio> donHenGioList = FbDao.getListHoaDonHenGio();
+        boolean xet = true;
+        for(HoaDonHenGio item : donHenGioList){
+            SimpleDateFormat b_fmtDay = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-        String string_playingHours = playingTimeHours < 10 ? String.valueOf("0"+playingTimeHours) : String.valueOf(playingTimeHours);
-        String string_playingMinutes = playingTimeMinutes < 10 ? String.valueOf("0"+playingTimeMinutes) : String.valueOf(playingTimeMinutes);
-        String string_playingTime = string_playingHours+":"+string_playingMinutes;
+            try {
+
+                Date b_date1 = b_fmtDay.parse(item.getTimeStart());
+                Date b_date2 = b_fmtDay.parse(item.getTimeEnd());
+
+                if(item.getGameid().equals(String.valueOf(game.getId())) && item.isSuccess() == false){
+                    int ssDate_a1 = date1.compareTo(b_date1);
+                    int ssDate_a2 = date1.compareTo(b_date2);
+
+                    int ssDate_b1 = date2.compareTo(b_date1);
+                    int ssDate_b2 = date2.compareTo(b_date2);
+
+                    if((ssDate_a1 >= 0 && ssDate_a2 <= 0) || (ssDate_b1>=0 && ssDate_b2 <=0)){
+                        xet = false;
+                        break;
+                    }
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+        if(xet){
+            String string_presentHours = presentTimeHours < 10 ? "0" + presentTimeHours : String.valueOf(presentTimeHours);
+            String string_presentMinutes = presentTimeMinutes < 10 ? "0" + presentTimeMinutes : String.valueOf(presentTimeMinutes);
+            String string_presentTime = string_presentHours+":"+string_presentMinutes;
+
+            String string_playingHours = playingTimeHours < 10 ? "0" + playingTimeHours : String.valueOf(playingTimeHours);
+            String string_playingMinutes = playingTimeMinutes < 10 ? "0" + playingTimeMinutes : String.valueOf(playingTimeMinutes);
+            String string_playingTime = string_playingHours+":"+string_playingMinutes;
+
+            int imgGame = game.getImgGame();
+            String gameName = game.getTenGame();
+
+            Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(),imgGame);
+            Bitmap imgApp = BitmapFactory.decodeResource(getActivity().getResources(),R.drawable.logo2);
+            Notification notification = new NotificationCompat.Builder(getActivity(), ChannelTB.CHANNEL_ID) // khai báo compat
+                    .setLargeIcon(imgApp)
+                    .setContentTitle("Bắt đầu chơi : "+gameName+"")
+                    .setContentText("Thời gian "+string_presentTime+" đến "+string_playingTime+"")
+                    .setSmallIcon(R.drawable.logo2)
+                    .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))
+                    .build();
+            NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.notify(getTimeLocal(), notification);
+
+            //nhận thông báo gửi đến cho service
+            Intent intent = new Intent(getActivity(), ThongBao.class);
+            intent.setAction("MyAction");
+            intent.putExtra("time",string_playingTime);
+            intent.putExtra("game",game);
+            pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_IMMUTABLE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP,calendar2.getTimeInMillis(),pendingIntent);
+
+            FbDao dao = new FbDao();
+            dao.PlaygameGio(time, game.getId() + "", total);
+            FbDao.Thanhtoantien(total);
+        }else{
+            Snackbar snackbar = Snackbar.make(getView(),"Khung giờ này đã có người đặt. Vui lòng chọn game khác",2000);
+            View snackbar_view = snackbar.getView();
+            TextView tv_bar = snackbar_view.findViewById(com.google.android.material.R.id.snackbar_text);
+            tv_bar.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.stop,0);
+            snackbar.show();
+        }
 
 
-        int imgGame = game.getImgGame();
-        String gameName = game.getTenGame();
-
-        Bitmap bitmap = BitmapFactory.decodeResource(getActivity().getResources(),imgGame);
-        Bitmap imgApp = BitmapFactory.decodeResource(getActivity().getResources(),R.drawable.logo2);
-        Notification notification = new NotificationCompat.Builder(getActivity(), ChannelTB.CHANNEL_ID) // khai báo compat
-                .setLargeIcon(imgApp)
-                .setContentTitle("Bắt đầu chơi : "+gameName+"")
-                .setContentText("Thời gian "+string_presentTime+" đến "+string_playingTime+"")
-                .setSmallIcon(R.drawable.logo2)
-                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))
-                .build();
-        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(getTimeLocal(), notification);
-
-        //nhận thông báo gửi đến cho service
-        Intent intent = new Intent(getActivity(), ThongBao.class);
-        intent.setAction("MyAction");
-        intent.putExtra("time",string_playingTime);
-        intent.putExtra("game",game);
-        pendingIntent = PendingIntent.getBroadcast(getActivity(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar2.getTimeInMillis(),pendingIntent);
     }
 
     private int getTimeLocal() {
@@ -343,11 +409,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
     }
 
     private void checkBtndis() {
-        if (total > FbDao.UserLogin.getSodu()) {
-            btn_play.setEnabled(false);
-        } else {
-            btn_play.setEnabled(true);
-        }
+        btn_play.setEnabled(!(total > FbDao.UserLogin.getSodu()) && total != 0);
 
 
     }

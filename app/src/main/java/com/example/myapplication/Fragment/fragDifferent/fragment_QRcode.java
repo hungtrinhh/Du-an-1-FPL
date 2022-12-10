@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.example.myapplication.Dialog.DialogLoading;
 import com.example.myapplication.Firebase.FbDao;
 import com.example.myapplication.Model.Game;
 import com.example.myapplication.R;
@@ -23,8 +25,10 @@ import com.example.myapplication.Fragment.fragmentTypeGame.*;
 
 public class fragment_QRcode extends Fragment {
     private CodeScannerView qrcodeScaner;
+    private ImageView btn_backToHome;
     private final String TAG = "fragment_QRcode";
     public static boolean check = false;
+    public static String trangThai = null;
 
     public fragment_QRcode() {
 
@@ -55,31 +59,47 @@ public class fragment_QRcode extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Anhxa(view);
         setUpQrcode();
+        backToHome();
     }
 
     private void Anhxa(View v) {
         qrcodeScaner = v.findViewById(R.id.qrcodeScaner);
-
+        btn_backToHome = v.findViewById(R.id.btn_backToHome);
     }
 
+    private void backToHome() {
+        btn_backToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().popBackStack();
+
+            }
+        });
+    }
+
+    private CodeScanner codeScanner;
+
     public void setUpQrcode() {
-        CodeScanner codeScanner = new CodeScanner(getActivity(), qrcodeScaner);
+        codeScanner = new CodeScanner(getActivity(), qrcodeScaner);
         codeScanner.startPreview();
 
         codeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull Result result) {
-
-                Log.d(TAG, "onDecoded: " + result.toString());
+                Log.d(TAG, "onDecoded: " + result);
                 for (Game g : FbDao.getListGame()
                 ) {
                     if ((g.getId() + "").equals(result.toString())) {
                         if (g.getTrangThai().equalsIgnoreCase("Đang được chơi")) {
 
+                            trangThai = "Đang được chơi";
+                            getActivity().getSupportFragmentManager().popBackStack();
+                            return;
 
                         } else if (g.getTrangThai().equalsIgnoreCase("Bảo trì")) {
-
-
+                            trangThai = "Bảo trì";
+                            getActivity().getSupportFragmentManager().popBackStack();
+                            return;
                         } else {
                             check = true;
                             Bundle bundle = new Bundle();
@@ -88,27 +108,23 @@ public class fragment_QRcode extends Fragment {
                                 fragmentTroChoiGio fragmentTroChoiGio = new fragmentTroChoiGio();
                                 fragmentTroChoiGio.setArguments(bundle);
                                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragmentTroChoiGio).commit();
+                                return;
+
                             } else {
                                 fragmentTroChoiLuot fragmentTroChoiLuot = new fragmentTroChoiLuot();
                                 bundle.putSerializable("obj_game", g);
                                 fragmentTroChoiLuot.setArguments(bundle);
                                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragmentTroChoiLuot).commit();
+                                return;
 
                             }
                         }
-                        break;
+
                     }
 
                 }
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        codeScanner.startPreview();
-
-                    }
-                });
-
+                trangThai = "Không đúng qr code";
+                getActivity().getSupportFragmentManager().popBackStack();
 
 
             }

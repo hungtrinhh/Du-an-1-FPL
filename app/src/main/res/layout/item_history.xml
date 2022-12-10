@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:weightSum="5.3"
+    android:id="@+id/item_history"
     android:padding="5dp"
     android:orientation="horizontal"
     android:background="@drawable/bg_item_giaodich">
