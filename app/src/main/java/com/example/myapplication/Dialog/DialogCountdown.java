@@ -67,8 +67,11 @@ public class DialogCountdown extends Dialog {
 
                 while (!(phut == 0 && giay == 0)) {
 
-                    tv_minutes.setText(phut + "");
-                    tv_seconds.setText(giay + "");
+                    String textPhut = (phut<10)?("0"+phut):(phut+"");
+                    String textGiay = (giay<10)?("0"+giay):(giay+"");
+                    
+                        tv_minutes.setText(textPhut);
+                        tv_seconds.setText(textGiay);
                     if (giay == 0 && phut > 0) {
                         giay = 59;
                         phut = phut - 1;
