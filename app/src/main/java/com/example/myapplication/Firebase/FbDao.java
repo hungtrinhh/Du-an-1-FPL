@@ -207,7 +207,6 @@ public class FbDao {
     }
 
 
-
     public static void LoadAvatarFromID() {
         LoadedAvatar = false;
         StorageReference avartarRef = avatatRef.child((UserLogin.getId()));
@@ -433,7 +432,7 @@ public class FbDao {
                     for (Object idvc : u.getListUserId()
                     ) {
 
-                        if (idvc.equals(id)) {
+                        if (idvc!=null &&  idvc.toString().equals(id)) {
                             listVoucher.add(u);
                             break;
                         }
