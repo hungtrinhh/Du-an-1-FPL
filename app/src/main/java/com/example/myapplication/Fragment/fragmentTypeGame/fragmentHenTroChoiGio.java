@@ -485,7 +485,6 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                                 FbDao.AddHoaDonHenGio(hoaDonHenGio);
                                 FbDao.Thanhtoantien(total);
 
-
                                 dialog.cancel();
                                 Snackbar snackbar = Snackbar.make(getView(), "Đặt lịch thành công", 2000);
                                 View snackbar_view = snackbar.getView();

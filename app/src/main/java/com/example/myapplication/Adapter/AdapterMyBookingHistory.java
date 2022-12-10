@@ -1,5 +1,9 @@
 package com.example.myapplication.Adapter;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +63,7 @@ public class AdapterMyBookingHistory extends RecyclerView.Adapter<AdapterMyBooki
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         HoaDonHenGio donHenGio = donHenGioList.get(position);
-
+        final int index = position;
         Game game = FbDao.getGameFromID(Integer.parseInt(donHenGio.getGameid()));
         viewBinderHelper.bind(holder.swipeRevealLayout, donHenGio.getId());
         viewBinderHelper.setOpenOnlyOne(true);
@@ -70,9 +74,31 @@ public class AdapterMyBookingHistory extends RecyclerView.Adapter<AdapterMyBooki
         holder.tvNameOfGameCancel.setText("Trò chơi: " + game.getTenGame());
 
         holder.btnDeleteMyHis.setOnClickListener(v -> {
-            FbDao.HuyDatGio(donHenGio);
-            donHenGioList.remove(donHenGio);
-            notifyItemRemoved(position);
+
+            Dialog dialog = new Dialog(v.getContext());
+            dialog.setContentView(R.layout.dialog_huy_booking);
+            TextView btnYes = dialog.findViewById(R.id.tv_cancelBooking);
+            TextView btnNo = dialog.findViewById(R.id.tv_chooseCancel);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            btnYes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FbDao.HuyDatGio(donHenGio);
+                    donHenGioList.remove(donHenGio);
+                    notifyItemRemoved(index);
+                }
+            });
+            btnNo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+
 
         });
     }

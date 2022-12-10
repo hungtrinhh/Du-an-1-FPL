@@ -41,7 +41,8 @@
                 android:gravity="center"
                 android:padding="16dp"
                 android:text="Không"
-                android:textColor="@color/red"
+                android:textColor="@color/blue_900"
+
                 android:textSize="22sp" />
 
             <TextView
@@ -53,9 +54,9 @@
                 android:background="@drawable/onclick_dialog_logout"
                 android:gravity="center"
                 android:padding="16dp"
+                android:textColor="@color/red"
 
                 android:text="@string/h_y"
-                android:textColor="@color/blue_900"
                 android:textSize="22sp"
                 android:textStyle="bold" />
         </LinearLayout>
