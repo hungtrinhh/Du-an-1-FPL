@@ -304,6 +304,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                         mMonth = c.get(Calendar.MONTH);
                         mDay = c.get(Calendar.DAY_OF_MONTH);
                         DatePickerDialog d = new DatePickerDialog(getActivity(),0,dateStart,mYear,mMonth,mDay);
+                        d.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
                         d.show();
                     }
