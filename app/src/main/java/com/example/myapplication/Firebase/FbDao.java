@@ -206,6 +206,8 @@ public class FbDao {
         });
     }
 
+
+
     public static void LoadAvatarFromID() {
         LoadedAvatar = false;
         StorageReference avartarRef = avatatRef.child((UserLogin.getId()));
