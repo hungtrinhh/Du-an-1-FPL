@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/lauoutchauthai"
     app:dragEdge="right"
+    android:paddingStart="5dp"
     android:layout_marginTop="10dp"
     app:mode="same_level">
 

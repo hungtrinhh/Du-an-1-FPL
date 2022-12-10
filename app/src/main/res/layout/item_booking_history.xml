@@ -6,12 +6,13 @@
     android:id="@+id/item_history"
     android:orientation="horizontal"
     android:paddingStart="5dp"
+    android:paddingVertical="10dp"
     android:background="@drawable/bg_item_giaodich">
 
     <ImageView
         android:id="@+id/img_AvatarUser"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:src="@drawable/avatar" />
     <LinearLayout

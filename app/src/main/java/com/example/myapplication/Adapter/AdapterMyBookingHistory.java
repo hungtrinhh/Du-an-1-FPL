@@ -89,6 +89,7 @@ public class AdapterMyBookingHistory extends RecyclerView.Adapter<AdapterMyBooki
                     FbDao.HuyDatGio(donHenGio);
                     donHenGioList.remove(donHenGio);
                     notifyItemRemoved(index);
+                    dialog.dismiss();
                 }
             });
             btnNo.setOnClickListener(new View.OnClickListener() {
