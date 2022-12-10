@@ -322,7 +322,7 @@ public class fragmentHenTroChoiGio extends Fragment implements View.OnClickListe
                     if (voucherChoose != null) {
                         for (Object idUser : voucherChoose.getListUserId()
                         ) {
-                            if (idUser.equals(FbDao.UserLogin.getId())) {
+                            if (idUser!=null&& idUser.equals(FbDao.UserLogin.getId())) {
                                 voucherChoose.getListUserId().remove(idUser);
                                 FbDao.UpdateVoucher(voucherChoose);
                                 break;

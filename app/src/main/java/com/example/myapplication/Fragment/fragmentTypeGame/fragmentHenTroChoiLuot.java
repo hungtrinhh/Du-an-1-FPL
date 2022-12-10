@@ -462,7 +462,7 @@ public class fragmentHenTroChoiLuot extends Fragment implements View.OnClickList
                             if(voucherChoose!=null){
                                 for (Object idUser : voucherChoose.getListUserId()
                                 ) {
-                                    if (idUser.equals(FbDao.UserLogin.getId())) {
+                                    if (idUser!=null&& idUser.equals(FbDao.UserLogin.getId())) {
                                         voucherChoose.getListUserId().remove(idUser);
                                         FbDao.UpdateVoucher(voucherChoose);
                                         break;

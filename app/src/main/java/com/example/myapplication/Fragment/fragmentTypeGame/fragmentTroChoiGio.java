@@ -234,7 +234,7 @@ public class fragmentTroChoiGio extends Fragment implements View.OnClickListener
                     if (voucherChoose != null) {
                         for (Object idUser : voucherChoose.getListUserId()
                         ) {
-                            if (idUser.equals(FbDao.UserLogin.getId())) {
+                            if (idUser != null && idUser.toString().equals(FbDao.UserLogin.getId())) {
                                 voucherChoose.getListUserId().remove(idUser);
                                 FbDao.UpdateVoucher(voucherChoose);
                                 break;
