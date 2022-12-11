@@ -38,7 +38,7 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     private RecyclerView recyclerviewHistory;
     private HistoryAdapter historyAdapter;
     private List<Hoadon> list;
-    private static List<Hoadon> hoadonList;
+    private static List<Hoadon> hoadonListAgain;
     String TAG = "LichSugiadich";
     Comparator<Hoadon> comparator;
 
@@ -53,7 +53,13 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         anhXa(view);
         comparator = (o2, o1) -> getDate(o1).compareTo(getDate(o2));
-        if (FbDao.hoadonList == null) {
+        if (FbDao.hoadonList.size() == 0) {
+            if (hoadonListAgain.size()!=0){
+                Collections.sort(hoadonListAgain, comparator);
+            }
+            historyAdapter = new HistoryAdapter(hoadonListAgain);
+            recyclerviewHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
+            recyclerviewHistory.setAdapter(historyAdapter);
         } else {
             list = FbDao.hoadonList;
             fillRecycleView();
@@ -111,6 +117,6 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     @Override
     public void onStop() {
         super.onStop();
-        hoadonList = list;
+        hoadonListAgain = FbDao.hoadonList;
     }
 }

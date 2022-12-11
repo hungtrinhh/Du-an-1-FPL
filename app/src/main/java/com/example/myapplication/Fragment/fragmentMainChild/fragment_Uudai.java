@@ -84,7 +84,7 @@ public class fragment_Uudai extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AnhXa(view);
-        if (FbDao.getListGame().size()==0&&FbDao.getListVoucher().size()==0){
+        if (FbDao.getListGame().size()==0||FbDao.getListVoucher().size()==0){
             voucherList=voucherList2;
             listGame = listGame2;
             FillGameAgain();
@@ -97,7 +97,6 @@ public class fragment_Uudai extends Fragment {
         showAllVoucher();
         showAllGame();
         searchVoucher();
-        Log.d(TAG, "onViewCreated: " + voucherList.size());
 
 
         animation(imageSlider);
