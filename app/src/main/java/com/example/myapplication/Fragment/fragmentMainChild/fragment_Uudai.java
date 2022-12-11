@@ -173,7 +173,6 @@ public class fragment_Uudai extends Fragment {
         voucherHorizontalAdapter.setListDanhSachVoucher(voucherList);
         recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerviewVoucher.setAdapter(voucherHorizontalAdapter);
-        Toast.makeText(getContext(), "VKLLLLL "+voucherList.size(), Toast.LENGTH_SHORT).show();
     }
 
     public void FillVoucherAgain(){
