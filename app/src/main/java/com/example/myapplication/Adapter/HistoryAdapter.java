@@ -62,8 +62,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             holder.tvGiaTien.setText(df.format(hoadonchoigame.getCost()));
             holder.tvNgayGd.setText(hoadonchoigame.getDateStart());
             holder.item_history.startAnimation(AnimationUtils.loadAnimation(holder.item_history.getContext(), R.anim.anim_item_history));
-        } else {
-            return;
         }
     }
 

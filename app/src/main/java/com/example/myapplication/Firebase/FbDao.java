@@ -374,6 +374,8 @@ public class FbDao {
                 hoadonList.clear();
                 hoadonList.addAll(hoadonchoigameList);
                 hoadonList.addAll(hoadonnaptienList);
+                activity.startService(new Intent(activity, UpdateService.class));
+
             }
 
             @Override
@@ -394,7 +396,7 @@ public class FbDao {
                     if (u == null) {
                         continue;
                     }
-                    if (u.getUserId().equals(UserLogin.getId())) {
+                    if (u.getUserId().equals(UserLogin.getId()) && u.isTrangThai()) {
                         hoadonnaptienList.add(u);
                     }
 
@@ -402,6 +404,8 @@ public class FbDao {
                 hoadonList.clear();
                 hoadonList.addAll(hoadonchoigameList);
                 hoadonList.addAll(hoadonnaptienList);
+                activity.startService(new Intent(activity, UpdateService.class));
+
             }
 
             @Override
@@ -432,7 +436,7 @@ public class FbDao {
                     for (Object idvc : u.getListUserId()
                     ) {
 
-                        if (idvc!=null &&  idvc.toString().equals(id)) {
+                        if (idvc != null && idvc.toString().equals(id)) {
                             listVoucher.add(u);
                             break;
                         }

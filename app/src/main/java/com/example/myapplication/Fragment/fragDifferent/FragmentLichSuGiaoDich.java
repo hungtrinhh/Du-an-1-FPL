@@ -1,5 +1,9 @@
 package com.example.myapplication.Fragment.fragDifferent;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -7,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,7 +59,7 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
         anhXa(view);
         comparator = (o2, o1) -> getDate(o1).compareTo(getDate(o2));
         if (FbDao.hoadonList.size() == 0) {
-            if (hoadonListAgain.size()!=0){
+            if (hoadonListAgain.size() != 0) {
                 Collections.sort(hoadonListAgain, comparator);
             }
             historyAdapter = new HistoryAdapter(hoadonListAgain);
@@ -68,6 +73,20 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
         btnBackNotify.setOnClickListener(this::onClick);
     }
 
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            fillRecycleView();
+            Log.d(TAG, "onReceive: 12312313123");
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter("UpdateService"));
+
+    }
 
     private Date getDate(Hoadon hoadon) {
         Date date = null;
@@ -118,5 +137,11 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     public void onStop() {
         super.onStop();
         hoadonListAgain = FbDao.hoadonList;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
     }
 }
