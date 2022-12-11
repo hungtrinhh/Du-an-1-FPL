@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.Adapter.GameUuDaiHorizontalAdapter;
 import com.example.myapplication.Adapter.SliderAdapter;
@@ -54,6 +55,7 @@ public class fragment_Uudai extends Fragment {
     private List<Game> listGame;
     private List<Voucher> listVoucherGameName;
     private static final String TAG = "ReadVoucher";
+    private static boolean checkAgain = false;
     private GameUuDaiHorizontalAdapter gameUuDaiHorizontalAdapter;
     public static List<Game> listGame2;
     public static List<Voucher> voucherList2;
@@ -84,11 +86,12 @@ public class fragment_Uudai extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AnhXa(view);
-        if (FbDao.getListGame().size()==0||FbDao.getListVoucher().size()==0){
+        if (checkAgain&&(FbDao.getListVoucher().size()==0||FbDao.getListGame().size()==0)){
             voucherList=voucherList2;
             listGame = listGame2;
             FillGameAgain();
             FillVoucherAgain();
+            checkAgain=false;
         }else {
             FillRecycleViewVoucher();
             FillRecycleViewGame();
@@ -118,6 +121,7 @@ public class fragment_Uudai extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        checkAgain = true;
         listGame2=listGame;
         voucherList2=voucherList;
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(broadcastReceiver);
@@ -169,21 +173,24 @@ public class fragment_Uudai extends Fragment {
         voucherHorizontalAdapter.setListDanhSachVoucher(voucherList);
         recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerviewVoucher.setAdapter(voucherHorizontalAdapter);
+        Toast.makeText(getContext(), "VKLLLLL "+voucherList.size(), Toast.LENGTH_SHORT).show();
     }
 
     public void FillVoucherAgain(){
-        Collections.sort(voucherList, new Comparator<Voucher>() {
-            @Override
-            public int compare(Voucher voucher, Voucher t1) {
-                if (voucher.getGiamGia() == t1.getGiamGia()) {
-                    return 0;
+        if (voucherList.size()!=0){
+            Collections.sort(voucherList, new Comparator<Voucher>() {
+                @Override
+                public int compare(Voucher voucher, Voucher t1) {
+                    if (voucher.getGiamGia() == t1.getGiamGia()) {
+                        return 0;
+                    }
+                    if (voucher.getGiamGia() > t1.getGiamGia()) {
+                        return 1;
+                    }
+                    return -1;
                 }
-                if (voucher.getGiamGia() > t1.getGiamGia()) {
-                    return 1;
-                }
-                return -1;
-            }
-        });
+            });
+        }
         voucherHorizontalAdapter = new VoucherHorizontalAdapter(getActivity());
         voucherHorizontalAdapter.setListDanhSachVoucher(voucherList);
         recyclerviewVoucher.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));

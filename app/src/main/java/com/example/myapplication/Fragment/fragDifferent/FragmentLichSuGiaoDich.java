@@ -26,6 +26,7 @@ import com.example.myapplication.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,7 +39,8 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     private RecyclerView recyclerviewHistory;
     private HistoryAdapter historyAdapter;
     private List<Hoadon> list;
-    private static List<Hoadon> hoadonListAgain;
+    public static List<Hoadon> hoadonListAgain = new ArrayList<>();
+    private static boolean checkAgain = false;
     String TAG = "LichSugiadich";
     Comparator<Hoadon> comparator;
 
@@ -53,13 +55,14 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         anhXa(view);
         comparator = (o2, o1) -> getDate(o1).compareTo(getDate(o2));
-        if (FbDao.hoadonList.size() == 0) {
+        if (checkAgain&&FbDao.hoadonList.size()==0) {
             if (hoadonListAgain.size()!=0){
                 Collections.sort(hoadonListAgain, comparator);
             }
             historyAdapter = new HistoryAdapter(hoadonListAgain);
             recyclerviewHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerviewHistory.setAdapter(historyAdapter);
+            checkAgain=false;
         } else {
             list = FbDao.hoadonList;
             fillRecycleView();
@@ -117,6 +120,7 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     @Override
     public void onStop() {
         super.onStop();
+        checkAgain = true;
         hoadonListAgain = FbDao.hoadonList;
     }
 }

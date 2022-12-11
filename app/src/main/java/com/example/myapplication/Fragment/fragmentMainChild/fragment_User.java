@@ -30,6 +30,8 @@ import com.example.myapplication.Fragment.fragment_Login;
 import com.example.myapplication.R;
 import com.example.myapplication.Fragment.fragmentUserChild.*;
 
+import java.util.ArrayList;
+
 public class fragment_User extends Fragment implements View.OnClickListener {
     private TextView tv_Username, tv_UserPhoneNumbers;
     private RelativeLayout layout_Username;
@@ -148,6 +150,10 @@ public class fragment_User extends Fragment implements View.OnClickListener {
                     editor.clear();
                     editor.commit();
                     FbDao.Login = false;
+                    FragmentLichSuGiaoDich.hoadonListAgain = new ArrayList<>();
+//                    fragment_Uudai.listGame2 = new ArrayList<>();
+                    fragment_Uudai.voucherList2 = new ArrayList<>();
+
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_Login()).commit();
                     dialog.dismiss();
                 });
