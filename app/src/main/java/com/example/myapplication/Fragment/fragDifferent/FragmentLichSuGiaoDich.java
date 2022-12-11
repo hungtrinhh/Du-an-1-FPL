@@ -43,7 +43,7 @@ public class FragmentLichSuGiaoDich extends Fragment implements View.OnClickList
     private RecyclerView recyclerviewHistory;
     private HistoryAdapter historyAdapter;
     private List<Hoadon> list;
-    private static List<Hoadon> hoadonListAgain;
+   public static List<Hoadon> hoadonListAgain;
     String TAG = "LichSugiadich";
     Comparator<Hoadon> comparator;
 
